@@ -47,7 +47,7 @@ def card_claims(card: dict | None) -> list[tuple[str, str]]:
     return [(f, t) for f in CARD_FIELDS for t in split_field(f, card.get(f))]
 
 
-def run_cell(arch: str, model: str, species, store, embedder, settings, repeat: int) -> list[dict]:
+def run_cell(arch: str, model: str, species, store, embedder, settings, repeat: int, effort: str | None = None) -> list[dict]:
     from apps.main_api.services import orchestrator, workflow
     from evals import cost_eval
     from evals.cost_eval import RecordingLLM, make_llm
@@ -60,7 +60,8 @@ def run_cell(arch: str, model: str, species, store, embedder, settings, repeat: 
     for rep in range(repeat):
         for record in species:
             job_id = new_id()
-            llm = RecordingLLM(make_llm(settings, f"fishora-it2-{job_id}", model), model, species=record.normalized_label, path=f"{arch}:{model}")
+            llm = RecordingLLM(make_llm(settings, f"fishora-it2-{job_id}", model, timeout=180, reasoning_effort=effort), model,
+                              species=record.normalized_label, path=f"{arch}:{model}")
             jobs.create(job_id, job_id, record.id)
             with _CACHE_LOCK:
                 orchestrator.clear_card_cache()
@@ -76,7 +77,7 @@ def run_cell(arch: str, model: str, species, store, embedder, settings, repeat: 
                     rounds += 1
                 end = max(end, e)
             rows.append({
-                "arch": arch, "model": model, "repeat": rep, "species": record.normalized_label,
+                "arch": arch, "model": model + (f"@{effort}" if effort else ""), "effort": effort or "default", "repeat": rep, "species": record.normalized_label,
                 "status": job.status, "wall_s": round(wall, 2), "llm_calls": len(calls), "llm_rounds": rounds,
                 "llm_errors": sum(c.error is not None for c in calls),
                 "stages": dict(sorted(defaultdict(int, {s: sum(c.stage == s for c in calls) for s in {c.stage for c in calls}}).items())),
@@ -120,6 +121,7 @@ def judge_cards(rows: list[dict], judge_model: str, store, embedder, settings) -
             if res.llm_error is None:
                 break
         row["judge_error"] = res.llm_error
+        print(f"[judge] {row['species']:12s} {'FAILED ' + str(res.llm_error) if res.llm_error else 'ok'}", flush=True)
         # A judge that never answered scores nothing: exclude the card instead of counting 0% supported.
         row["judged"] = None if res.llm_error else [
             {"field": c.field, "text": c.text, "label": c.label, "reason": c.reason, "stage": c.stage} for c in res.claims]
@@ -176,6 +178,8 @@ def main(argv=None) -> None:
     ap.add_argument("--species", default="")
     ap.add_argument("--cells", default="")
     ap.add_argument("--critic-variants", default="e5,no_e5")
+    ap.add_argument("--no-reference", action="store_true")
+    ap.add_argument("--out", default="matrix.json")
     args = ap.parse_args(argv)
 
     from apps.main_api.config import MainSettings
@@ -189,7 +193,14 @@ def main(argv=None) -> None:
     store = build_store(embedder)
     wanted = {s for s in args.species.split(",") if s}
     species = [s for s in species_records() if not wanted or s.normalized_label in wanted]
-    cells = [c for c in CELLS if not args.cells or f"{c[0]}:{c[1]}" in args.cells.split(",")]
+    if args.cells and "@" in args.cells or args.cells.endswith("@default"):
+        cells = []
+        for spec in args.cells.split(","):
+            arch, _, rest = spec.partition(":")
+            model, _, effort = rest.partition("@")
+            cells.append((arch, model, None if effort in ("", "default") else effort))
+    else:
+        cells = [(a, m, None) for a, m in CELLS if not args.cells or f"{a}:{m}" in args.cells.split(",")]
 
     from apps.main_api.services import claim_verifier
     t0 = time.perf_counter()
@@ -198,7 +209,7 @@ def main(argv=None) -> None:
     for variant in [v for v in args.critic_variants.split(",") if v]:
         claim_verifier.USE_EMBEDDING_FILTER = variant == "e5"
         with ThreadPoolExecutor(max_workers=len(cells)) as pool:
-            futures = [pool.submit(run_cell, a, m, species, store, embedder, settings, args.repeat) for a, m in cells]
+            futures = [pool.submit(run_cell, a, m, species, store, embedder, settings, args.repeat, e) for a, m, e in cells]
             for f in futures:
                 for r in f.result():
                     r["arch"] = f"{r['arch']}+{variant}"
@@ -207,7 +218,7 @@ def main(argv=None) -> None:
     # iteration-1 reference: the shipped agent cards, scored by the same judge
     ref = json.loads((REPORTS_DIR.parent / "evals" / "results" / "iteration-1" / "cost_eval.json").read_text()) \
         if (REPORTS_DIR.parent / "evals" / "results" / "iteration-1" / "cost_eval.json").exists() else {"cards": []}
-    for c in ref["cards"]:
+    for c in ([] if args.no_reference else ref["cards"]):
         if c["path"] == "agent" and (not wanted or c["species"] in wanted):
             rows.append({"arch": "iteration-1 agent", "model": "gpt-5.6-luna", "repeat": 0, "species": c["species"],
                          "status": c["status"], "wall_s": c["wall_s"], "llm_calls": c["llm_calls"], "llm_rounds": 1,
@@ -219,7 +230,7 @@ def main(argv=None) -> None:
               "summary": summarize(rows), "cards": rows}
     out = REPORTS_DIR / args.label
     out.mkdir(parents=True, exist_ok=True)
-    (out / "matrix.json").write_text(json.dumps(report, indent=2, ensure_ascii=False, default=str))
+    (out / args.out).write_text(json.dumps(report, indent=2, ensure_ascii=False, default=str))
     for cell, s in report["summary"].items():
         print(f"{cell:32s} done {s['completion_rate']:.2f} ${s['cost_usd_per_1000_cards']:.2f}/1k p50 {s['wall_s_p50']}s "
               f"p95 {s['wall_s_p95']}s calls {s['llm_calls_mean']} claims {s['claims_per_card']} "

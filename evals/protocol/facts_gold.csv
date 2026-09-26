@@ -1,0 +1,244 @@
+fact_id,species,chunk_id,fact
+bandeng_c1_1,bandeng,chunk_bandeng_commercial_001,Milkfish is highly commercial in capture fisheries
+bandeng_c1_2,bandeng,chunk_bandeng_commercial_001,Milkfish is highly commercial in aquaculture
+bandeng_c1_3,bandeng,chunk_bandeng_commercial_001,Milkfish larvae are collected from rivers and grown in culture ponds
+bandeng_c1_4,bandeng,chunk_bandeng_commercial_001,Juvenile milkfish are marketed fresh
+bandeng_c1_5,bandeng,chunk_bandeng_commercial_001,Juvenile milkfish are marketed smoked
+bandeng_c1_6,bandeng,chunk_bandeng_commercial_001,Juvenile milkfish are marketed canned
+bandeng_c1_7,bandeng,chunk_bandeng_commercial_001,Juvenile milkfish are marketed frozen
+bandeng_c1_8,bandeng,chunk_bandeng_commercial_001,Milkfish brood stock can be raised and spawned in captivity
+bandeng_c2_1,bandeng,chunk_bandeng_commercial_002,Milkfish producers usually sell through cooperatives brokers dealers collectors or wholesalers rather than directly to consumers
+bandeng_c2_2,bandeng,chunk_bandeng_commercial_002,Most milkfish is sold via auction markets
+bandeng_c2_3,bandeng,chunk_bandeng_commercial_002,Milkfish is exported quick-frozen
+bandeng_c2_4,bandeng,chunk_bandeng_commercial_002,Milkfish is exported dried
+bandeng_c2_5,bandeng,chunk_bandeng_commercial_002,Milkfish is exported canned
+bandeng_c2_6,bandeng,chunk_bandeng_commercial_002,Milkfish is exported smoked
+bandeng_c2_7,bandeng,chunk_bandeng_commercial_002,Milkfish is exported marinated
+bandeng_c2_8,bandeng,chunk_bandeng_commercial_002,Indonesia's milkfish market includes seed production exports
+bandeng_i1_1,bandeng,chunk_bandeng_identity_001,Milkfish is the only species in family Chanidae
+bandeng_i1_2,bandeng,chunk_bandeng_identity_001,Milkfish belongs to order Gonorynchiformes
+bandeng_i1_3,bandeng,chunk_bandeng_identity_001,Milkfish lives in marine freshwater and brackish water
+bandeng_i1_4,bandeng,chunk_bandeng_identity_001,Milkfish is benthopelagic
+bandeng_i1_5,bandeng,chunk_bandeng_identity_001,Milkfish is amphidromous
+bandeng_i1_6,bandeng,chunk_bandeng_identity_001,Milkfish is found in the Indo-West Pacific
+bandeng_p1_1,bandeng,chunk_bandeng_physical_001,Milkfish has an elongate somewhat compressed body
+bandeng_p1_2,bandeng,chunk_bandeng_physical_001,Milkfish has a small toothless mouth
+bandeng_p1_3,bandeng,chunk_bandeng_physical_001,Milkfish has falcate pectoral fins
+bandeng_p1_4,bandeng,chunk_bandeng_physical_001,Milkfish has a large deeply forked caudal fin
+bandeng_p1_5,bandeng,chunk_bandeng_physical_001,Milkfish is olive green dorsally with silvery flanks
+bandeng_p1_6,bandeng,chunk_bandeng_physical_001,Adult milkfish reach 180 cm SL
+bandeng_p1_7,bandeng,chunk_bandeng_physical_001,Adult milkfish reach 14 kg
+bandeng_pr1_1,bandeng,chunk_bandeng_processing_001,Bandeng presto (pressurized milkfish) is a well-known product of Pati Regency
+bandeng_pr1_2,bandeng,chunk_bandeng_processing_001,Pati Regency is one of the largest milkfish producers in Central Java
+bandeng_pr1_3,bandeng,chunk_bandeng_processing_001,Bandeng presto is processed at small-and-medium-enterprise scale
+bandeng_pr2_1,bandeng,chunk_bandeng_processing_002,Farmed milkfish are harvested at 200-400 g
+bandeng_pr2_2,bandeng,chunk_bandeng_processing_002,Milkfish is marketed mostly fresh or chilled
+bandeng_pr2_3,bandeng,chunk_bandeng_processing_002,Milkfish is marketed whole or deboned
+bandeng_pr2_4,bandeng,chunk_bandeng_processing_002,Milkfish is marketed frozen
+bandeng_pr2_5,bandeng,chunk_bandeng_processing_002,Milkfish is processed as fresh frozen deboned
+bandeng_pr2_6,bandeng,chunk_bandeng_processing_002,Milkfish is processed deboned and descaled
+bandeng_pr2_7,bandeng,chunk_bandeng_processing_002,Milkfish is processed smoked
+bandeng_pr2_8,bandeng,chunk_bandeng_processing_002,Milkfish is processed dried
+bandeng_pr2_9,bandeng,chunk_bandeng_processing_002,Milkfish is processed marinated
+bandeng_pr2_10,bandeng,chunk_bandeng_processing_002,Milkfish is fermented with rice
+bandeng_pr2_11,bandeng,chunk_bandeng_processing_002,Milkfish is canned or bottled
+bandeng_pr2_12,bandeng,chunk_bandeng_processing_002,Some Philippine companies produce frozen prime cuts of milkfish bellies and backs
+bandeng_t1_1,bandeng,chunk_bandeng_taste_001,Pressure-steamed milkfish had the hardest texture among the cooking methods tested
+bandeng_t2_1,bandeng,chunk_bandeng_taste_002,Milkfish flesh is bony
+bandeng_t2_2,bandeng,chunk_bandeng_taste_002,The younger generation tends to avoid eating milkfish because of its bony flesh
+gelama_bunga_c1_1,gelama_bunga,chunk_gelama_bunga_commercial_001,Yellow drum is a commercially fished species
+gelama_bunga_c1_2,gelama_bunga,chunk_gelama_bunga_commercial_001,Yellow drum is found near shore on mud to sandy-mud bottoms in semi-enclosed sea areas
+gelama_bunga_c1_3,gelama_bunga,chunk_gelama_bunga_commercial_001,Yellow drum is used in Chinese medicine
+gelama_bunga_i1_1,gelama_bunga,chunk_gelama_bunga_identity_001,Yellow drum belongs to family Sciaenidae (drums or croakers)
+gelama_bunga_i1_2,gelama_bunga,chunk_gelama_bunga_identity_001,Yellow drum is a temperate benthopelagic species
+gelama_bunga_i1_3,gelama_bunga,chunk_gelama_bunga_identity_001,Yellow drum lives in the Northwest Pacific (southern Japan and East China Sea)
+gelama_bunga_i1_4,gelama_bunga,chunk_gelama_bunga_identity_001,Yellow drum reaches 43.5 cm SL
+gelama_bunga_i1_5,gelama_bunga,chunk_gelama_bunga_identity_001,Yellow drum reaches 1.5 kg
+gelama_bunga_pr1_1,gelama_bunga,chunk_gelama_bunga_processing_001,Nibea albiflora was processed into a 100% fish sausage
+gelama_bunga_pr1_2,gelama_bunga,chunk_gelama_bunga_processing_001,Nibea albiflora was processed into a sausage formulation with 30% chicken meat
+gelama_bunga_t1_1,gelama_bunga,chunk_gelama_bunga_taste_001,100% Nibea albiflora sausage received a texture score of 5.00
+gelama_bunga_t1_2,gelama_bunga,chunk_gelama_bunga_taste_001,100% Nibea albiflora sausage received a taste score of 5.40
+gulamah_c1_1,gulamah,chunk_gulamah_commercial_001,Johnius trachycephalus has been studied as potential raw material for surimi and processed fish-meat products
+gulamah_c2_1,gulamah,chunk_gulamah_commercial_002,Gelatin from Johnius trachycephalus bones has been studied for jelly-candy application
+gulamah_i1_1,gulamah,chunk_gulamah_identity_001,Leaftail croaker is a small sciaenid (drums or croakers)
+gulamah_i1_2,gulamah,chunk_gulamah_identity_001,Leaftail croaker lives in the Indo-Pacific (Thailand Sumatra Borneo)
+gulamah_i1_3,gulamah,chunk_gulamah_identity_001,Leaftail croaker reaches 13 cm SL
+gulamah_i1_4,gulamah,chunk_gulamah_identity_001,Leaftail croaker inhabits shallow coastal waters estuaries and rivers
+gulamah_i1_5,gulamah,chunk_gulamah_identity_001,Leaftail croaker is a food fish
+gulamah_p1_1,gulamah,chunk_gulamah_physical_001,Johnius trachycephalus has 9-10 dorsal spines
+gulamah_p1_2,gulamah,chunk_gulamah_physical_001,Johnius trachycephalus has 24-27 dorsal soft rays
+gulamah_p1_3,gulamah,chunk_gulamah_physical_001,Johnius trachycephalus has two anal spines
+gulamah_p1_4,gulamah,chunk_gulamah_physical_001,Johnius trachycephalus has 6-7 anal soft rays
+gulamah_pr1_1,gulamah,chunk_gulamah_processing_001,Gulamah is processed into salted fish
+gulamah_pr1_2,gulamah,chunk_gulamah_processing_001,Salted gulamah processing in Perlis Village Langkat Regency (medium- and micro-scale businesses) was analysed for feasibility
+kembung_c1_1,kembung,chunk_kembung_commercial_001,The island mackerel value chain around the Lagonoy Gulf Philippines was analysed to identify bottlenecks
+kembung_i1_1,kembung,chunk_kembung_identity_001,Island mackerel belongs to family Scombridae
+kembung_i1_2,kembung,chunk_kembung_identity_001,Island mackerel is an epipelagic neritic species
+kembung_i1_3,kembung,chunk_kembung_identity_001,Island mackerel lives in the Indo-West Pacific
+kembung_i1_4,kembung,chunk_kembung_identity_001,Island mackerel has a black blotch behind the pectoral fin base
+kembung_i1_5,kembung,chunk_kembung_identity_001,Island mackerel has a yellowish silver belly
+kembung_p1_1,kembung,chunk_kembung_physical_001,Island mackerel reach 24 cm FL
+kembung_p1_2,kembung,chunk_kembung_physical_001,Island mackerel reach 750 g
+kembung_p1_3,kembung,chunk_kembung_physical_001,Island mackerel has the head longer than the body depth
+kembung_p1_4,kembung,chunk_kembung_physical_001,Island mackerel has 2 to 6 large spots at the base of the first dorsal fin
+kembung_p1_5,kembung,chunk_kembung_physical_001,Island mackerel has a swim bladder
+kembung_p1_6,kembung,chunk_kembung_physical_001,Island mackerel forms schools of equally sized individuals
+kembung_p1_7,kembung,chunk_kembung_physical_001,Island mackerel lives where surface temperature does not fall below 17C
+kembung_p2_1,kembung,chunk_kembung_physical_002,Island mackerel has a moderately deep body
+kembung_p2_2,kembung,chunk_kembung_physical_002,Island mackerel has very long gillrakers visible when the mouth is open
+kembung_p2_3,kembung,chunk_kembung_physical_002,Island mackerel has narrow dark longitudinal bands on the upper body (golden in fresh specimens)
+kembung_p2_4,kembung,chunk_kembung_physical_002,Island mackerel has a black spot near the lower margin of the pectoral fin
+kembung_p2_5,kembung,chunk_kembung_physical_002,Island mackerel has yellowish dorsal fins with black tips
+kembung_s1_1,kembung,chunk_kembung_substitutes_001,Kembung is also a local name of the Indian mackerel Rastrelliger kanagurta
+kembung_s1_2,kembung,chunk_kembung_substitutes_001,Indian mackerel is a similar species of the same genus
+kembung_s1_3,kembung,chunk_kembung_substitutes_001,Island mackerel is caught along with the other Rastrelliger species
+kembung_s1_4,kembung,chunk_kembung_substitutes_001,Separate catch statistics are not reported for island mackerel
+kuniran_c1_1,kuniran,chunk_kuniran_commercial_001,Goldband goatfish is a commercial food fish sold fresh in markets
+kuniran_c1_2,kuniran,chunk_kuniran_commercial_001,Goldband goatfish is utilized for fish meal
+kuniran_c1_3,kuniran,chunk_kuniran_commercial_001,Goldband goatfish is valued for its roe
+kuniran_i1_1,kuniran,chunk_kuniran_identity_001,Goldband goatfish belongs to family Mullidae (goatfishes)
+kuniran_i1_2,kuniran,chunk_kuniran_identity_001,Goldband goatfish has a mid-lateral yellow or gold stripe from the eye to the upper caudal-fin base
+kuniran_i1_3,kuniran,chunk_kuniran_identity_001,Goldband goatfish has white barbels
+kuniran_i1_4,kuniran,chunk_kuniran_identity_001,Goldband goatfish has red caudal-fin bars
+kuniran_p1_1,kuniran,chunk_kuniran_physical_001,Goldband goatfish reach 22.5 cm TL
+kuniran_p1_2,kuniran,chunk_kuniran_physical_001,Goldband goatfish common length is 18 cm TL
+kuniran_p1_3,kuniran,chunk_kuniran_physical_001,Goldband goatfish form large schools in coastal waters with a muddy substrate
+kuniran_p1_4,kuniran,chunk_kuniran_physical_001,Goldband goatfish usually swim fast with short stops to feed
+kuniran_pr1_1,kuniran,chunk_kuniran_processing_001,Goldband goatfish stored in ice has a sensory acceptability limit of 8 days
+mujair_c1_1,mujair,chunk_mujair_commercial_001,Mozambique tilapia supports an important artisanal floodplain fishery in Papua New Guinea's Sepik River
+mujair_c1_2,mujair,chunk_mujair_commercial_001,Mozambique tilapia accounts for about half of estimated annual landings in the Sepik River fishery
+mujair_i1_1,mujair,chunk_mujair_identity_001,Mozambique tilapia belongs to family Cichlidae
+mujair_i1_2,mujair,chunk_mujair_identity_001,Mozambique tilapia is highly euryhaline (freshwater and brackish)
+mujair_i1_3,mujair,chunk_mujair_identity_001,Mozambique tilapia is benthopelagic
+mujair_i1_4,mujair,chunk_mujair_identity_001,Mozambique tilapia is a maternal mouthbrooder
+mujair_i1_5,mujair,chunk_mujair_identity_001,Mozambique tilapia is widely introduced for aquaculture
+mujair_i1_6,mujair,chunk_mujair_identity_001,Mozambique tilapia often outcompetes local species where it escapes to the wild
+mujair_p1_1,mujair,chunk_mujair_physical_001,The Gascoyne-Lyons Mozambique tilapia population is highly stunted maturing at about 9 cm SL versus about 18 cm in other populations
+mujair_pr1_1,mujair,chunk_mujair_processing_001,Mozambique tilapia is processed into fish mince
+mujair_pr1_2,mujair,chunk_mujair_processing_001,Mozambique tilapia is processed into fish burger
+mujair_pr1_3,mujair,chunk_mujair_processing_001,Mozambique tilapia mince and burger quality was evaluated during frozen storage at -18C up to 75 days
+mujair_s1_1,mujair,chunk_mujair_substitutes_001,Mozambique tilapia was the tilapia primarily distributed worldwide in the 1940s and 1950s
+mujair_s1_2,mujair,chunk_mujair_substitutes_001,Nile tilapia was described by FAO as more desirable and was distributed from the 1960s to the 1980s
+mujair_t1_1,mujair,chunk_mujair_taste_001,Mozambique tilapia has excellent palatability
+mujair_t1_2,mujair,chunk_mujair_taste_001,Mozambique tilapia has a small head
+mujair_t1_3,mujair,chunk_mujair_taste_001,Mozambique tilapia has a large dress-out weight
+mujair_t1_4,mujair,chunk_mujair_taste_001,Mozambique tilapia fillets have no small bones
+nila_c1_1,nila,chunk_nila_commercial_001,Tilapia is the second most important group of farmed fish after carps
+nila_c1_2,nila,chunk_nila_commercial_001,Tilapia is the most widely grown of any farmed fish
+nila_c1_3,nila,chunk_nila_commercial_001,Global tilapia production was projected to rise from 1.5 million tonnes in 2003 to 2.5 million tonnes by 2010
+nila_c1_4,nila,chunk_nila_commercial_001,Tilapia sales value was projected above USD 5 billion mostly from Nile tilapia
+nila_i1_1,nila,chunk_nila_identity_001,Nile tilapia belongs to family Cichlidae
+nila_i1_2,nila,chunk_nila_identity_001,Nile tilapia is globally the most important tilapia species in fish farming
+nila_p1_1,nila,chunk_nila_physical_001,Nile tilapia is a large deep-bodied tilapia
+nila_p1_2,nila,chunk_nila_physical_001,Nile tilapia has a relatively small head
+nila_p1_3,nila,chunk_nila_physical_001,Nile tilapia has regular vertical stripes throughout the depth of the caudal fin at all life stages
+nila_p1_4,nila,chunk_nila_physical_001,Nile tilapia reaches 60 cm SL
+nila_p1_5,nila,chunk_nila_physical_001,Nile tilapia reaches 4.3 kg
+nila_pr1_1,nila,chunk_nila_processing_001,Nile tilapia can be processed into skinless fillets
+nila_pr1_2,nila,chunk_nila_processing_001,Skinless-fillet yield is 33 percent for Nile tilapia with a condition factor of 3.11
+nila_pr2_1,nila,chunk_nila_processing_002,Tilapia are hauled live to processing plants
+nila_pr2_2,nila,chunk_nila_processing_002,Tilapia are killed in ice water
+nila_pr2_3,nila,chunk_nila_processing_002,Tilapia are processed manually or mechanically
+nila_pr2_4,nila,chunk_nila_processing_002,Tilapia fillets are sold fresh or frozen
+nila_pr2_5,nila,chunk_nila_processing_002,Tilapia fillets are sold skin-on
+nila_pr2_6,nila,chunk_nila_processing_002,Tilapia fillets are sold skin-off or deep skinned
+nila_pr2_7,nila,chunk_nila_processing_002,Tilapia fillets are sold individually quick frozen
+nila_pr2_8,nila,chunk_nila_processing_002,Tilapia fillets are sold smoked
+nila_pr2_9,nila,chunk_nila_processing_002,Tilapia fillets are sold sashimi grade
+nila_pr2_10,nila,chunk_nila_processing_002,Whole or gutted tilapia are still available
+nila_s1_1,nila,chunk_nila_substitutes_001,Several tilapia species are cultured commercially with Nile tilapia the predominant one
+nila_s1_2,nila,chunk_nila_substitutes_001,Tilapia is ideally suited to replace carp as the staple of Chinese seafood
+nila_t1_1,nila,chunk_nila_taste_001,Nile tilapia fillets have a mild delicious flavour
+nila_t1_2,nila,chunk_nila_taste_001,Nile tilapia fillets are an ideal menu addition due to reasonable price year-round supply and flexibility in preparation
+nila_t1_3,nila,chunk_nila_taste_001,Virtually all casual dining restaurant chains in the USA feature tilapia
+nila_t2_1,nila,chunk_nila_taste_002,Farmed tilapia can have an off-flavour
+nila_t2_2,nila,chunk_nila_taste_002,In developed countries a tilapia fillet is cooked unseasoned and tasted before processing
+nila_t2_3,nila,chunk_nila_taste_002,Off-flavour tilapia are purged in clean water for 3-7 days
+nila_t2_4,nila,chunk_nila_taste_002,In developing countries spicy seasonings conceal any off-flavour
+senangin_c1_1,senangin,chunk_senangin_commercial_001,Fourfinger threadfin is a highly commercial food fish
+senangin_c1_2,senangin,chunk_senangin_commercial_001,Fourfinger threadfin has commercial aquaculture
+senangin_c1_3,senangin,chunk_senangin_commercial_001,Adult fourfinger threadfin occur mainly over shallow muddy bottoms in coastal waters and enter rivers
+senangin_c1_4,senangin,chunk_senangin_commercial_001,Fourfinger threadfin is marketed fresh
+senangin_c1_5,senangin,chunk_senangin_commercial_001,Fourfinger threadfin is marketed frozen
+senangin_c1_6,senangin,chunk_senangin_commercial_001,Fourfinger threadfin is marketed dried or salted
+senangin_c2_1,senangin,chunk_senangin_commercial_002,Fourfinger threadfin is one of the most important fisheries species for Kuwait India Thailand Viet Nam Malaysia Singapore and Indonesia
+senangin_c2_2,senangin,chunk_senangin_commercial_002,Fourfinger threadfin is mainly caught by gill net
+senangin_c2_3,senangin,chunk_senangin_commercial_002,Fourfinger threadfin is sometimes caught by trawl
+senangin_c2_4,senangin,chunk_senangin_commercial_002,Fourfinger threadfin is an important sport fish in Australian waters
+senangin_i1_1,senangin,chunk_senangin_identity_001,Fourfinger threadfin belongs to family Polynemidae (threadfins)
+senangin_i1_2,senangin,chunk_senangin_identity_001,Fourfinger threadfin has four free pectoral filaments
+senangin_i1_3,senangin,chunk_senangin_identity_001,Fourfinger threadfin is an Indo-Pacific species
+senangin_i1_4,senangin,chunk_senangin_identity_001,Fourfinger threadfin lives in marine freshwater and brackish water
+senangin_i1_5,senangin,chunk_senangin_identity_001,Fourfinger threadfin is pelagic-neritic
+senangin_p1_1,senangin,chunk_senangin_physical_001,Fourfinger threadfin grow to 200 cm TL
+senangin_p1_2,senangin,chunk_senangin_physical_001,Fourfinger threadfin grow to 145 kg
+senangin_p1_3,senangin,chunk_senangin_physical_001,Fourfinger threadfin common length is 50 cm TL
+senangin_p1_4,senangin,chunk_senangin_physical_001,Fourfinger threadfin pectoral fin membranes are vivid yellow in life (dusky yellow in large specimens)
+senangin_p1_5,senangin,chunk_senangin_physical_001,Fourfinger threadfin pectoral filaments are white
+senangin_p1_6,senangin,chunk_senangin_physical_001,Fourfinger threadfin is a protandrous hermaphrodite
+senangin_pr1_1,senangin,chunk_senangin_processing_001,Eleutheronema tetradactylum is marketed fresh
+senangin_pr1_2,senangin,chunk_senangin_processing_001,Eleutheronema tetradactylum is marketed frozen
+senangin_pr1_3,senangin,chunk_senangin_processing_001,Eleutheronema tetradactylum is marketed dried
+senangin_pr1_4,senangin,chunk_senangin_processing_001,Eleutheronema tetradactylum is marketed salted
+senangin_s1_1,senangin,chunk_senangin_substitutes_001,Fourfinger threadfin is not known from East Asia
+senangin_s1_2,senangin,chunk_senangin_substitutes_001,In East Asia it is replaced by the similar endemic congener Eleutheronema rhadinum
+tenggiri_c1_1,tenggiri,chunk_tenggiri_commercial_001,S. commerson (one tenggiri candidate species) is marketed mainly fresh
+tenggiri_c1_2,tenggiri,chunk_tenggiri_commercial_001,S. commerson (one tenggiri candidate species) is marketed dried-salted
+tenggiri_c1_3,tenggiri,chunk_tenggiri_commercial_001,S. commerson (one tenggiri candidate species) is marketed frozen
+tenggiri_c1_4,tenggiri,chunk_tenggiri_commercial_001,S. commerson (one tenggiri candidate species) is marketed smoked
+tenggiri_c1_5,tenggiri,chunk_tenggiri_commercial_001,S. commerson (one tenggiri candidate species) is marketed canned
+tenggiri_i1_1,tenggiri,chunk_tenggiri_identity_001,Tenggiri is a vernacular name shared by five species
+tenggiri_i1_2,tenggiri,chunk_tenggiri_identity_001,The tenggiri species are Sarda orientalis Scomberomorus commerson S. guttatus S. koreanus and S. lineolatus
+tenggiri_i1_3,tenggiri,chunk_tenggiri_identity_001,The tenggiri label is ambiguous without a species assignment
+tenggiri_i2_1,tenggiri,chunk_tenggiri_identity_002,S. commerson is the narrow-barred Spanish mackerel a large pelagic scombrid of the Indo-West Pacific
+tenggiri_i2_2,tenggiri,chunk_tenggiri_identity_002,S. commerson reaches 240 cm FL
+tenggiri_i2_3,tenggiri,chunk_tenggiri_identity_002,S. commerson has an iridescent blue-grey back
+tenggiri_i2_4,tenggiri,chunk_tenggiri_identity_002,S. commerson has numerous thin wavy vertical bands
+tenggiri_i3_1,tenggiri,chunk_tenggiri_identity_003,S. guttatus is the Indo-Pacific king mackerel another tenggiri candidate species
+tenggiri_i3_2,tenggiri,chunk_tenggiri_identity_003,S. guttatus reaches 81.5 cm FL
+tenggiri_i3_3,tenggiri,chunk_tenggiri_identity_003,S. guttatus reaches 4 kg
+tenggiri_i3_4,tenggiri,chunk_tenggiri_identity_003,S. guttatus has silvery white sides with rows of round dark brownish spots along the lateral line
+tenggiri_p1_1,tenggiri,chunk_tenggiri_physical_001,S. commerson has 15-18 dorsal spines
+tenggiri_pr1_1,tenggiri,chunk_tenggiri_processing_001,S. commerson is commonly made into fish balls
+tenggiri_pr1_2,tenggiri,chunk_tenggiri_processing_001,A ciguatoxin-like toxin has been found in the flesh of S. commerson from the east coast of Queensland Australia
+tenggiri_pr2_1,tenggiri,chunk_tenggiri_processing_002,In the Australian market S. commerson is sold mainly as cutlets and steaks
+tenggiri_pr2_2,tenggiri,chunk_tenggiri_processing_002,In the Australian market S. commerson is usually sold skinned
+tenggiri_pr2_3,tenggiri,chunk_tenggiri_processing_002,S. commerson average yield is 40%
+tenggiri_s1_1,tenggiri,chunk_tenggiri_substitutes_001,Other mackerels are an alternative to S. commerson
+tenggiri_s1_2,tenggiri,chunk_tenggiri_substitutes_001,Bonito is an alternative to S. commerson
+tenggiri_s1_3,tenggiri,chunk_tenggiri_substitutes_001,Striped marlin is an alternative to S. commerson
+tenggiri_s1_4,tenggiri,chunk_tenggiri_substitutes_001,Swordfish is an alternative to S. commerson
+tenggiri_s1_5,tenggiri,chunk_tenggiri_substitutes_001,Tunas are an alternative to S. commerson
+tenggiri_t1_1,tenggiri,chunk_tenggiri_taste_001,S. commerson has a strong distinctly fishy flavour
+tenggiri_t1_2,tenggiri,chunk_tenggiri_taste_001,S. commerson has medium to very high oiliness
+tenggiri_t1_3,tenggiri,chunk_tenggiri_taste_001,S. commerson has medium-dry firm flesh
+tenggiri_t1_4,tenggiri,chunk_tenggiri_taste_001,S. commerson has few bones that are easily removed
+tuna_i1_1,tuna,chunk_tuna_identity_001,The tuna label is genus Thunnus in family Scombridae
+tuna_i1_2,tuna,chunk_tuna_identity_001,Thunnus has seven species (T. alalunga T. albacares T. atlanticus T. maccoyii T. obesus T. thynnus T. tonggol)
+tuna_p1_1,tuna,chunk_tuna_physical_001,Yellowfin tuna is torpedo-shaped
+tuna_p1_2,tuna,chunk_tuna_physical_001,Yellowfin tuna is metallic dark blue above and yellow-to-silver below
+tuna_p1_3,tuna,chunk_tuna_physical_001,Yellowfin tuna has bright yellow dorsal and anal fins and finlets
+tuna_pr1_1,tuna,chunk_tuna_processing_001,Albacore is marketed fresh
+tuna_pr1_2,tuna,chunk_tuna_processing_001,Albacore is marketed smoked
+tuna_pr1_3,tuna,chunk_tuna_processing_001,Albacore is marketed deep-frozen
+tuna_pr1_4,tuna,chunk_tuna_processing_001,Albacore is marketed canned
+tuna_pr2_1,tuna,chunk_tuna_processing_002,Yellowfin tuna is marketed fresh
+tuna_pr2_2,tuna,chunk_tuna_processing_002,Yellowfin tuna is marketed frozen
+tuna_pr2_3,tuna,chunk_tuna_processing_002,Yellowfin tuna is marketed canned
+tuna_pr2_4,tuna,chunk_tuna_processing_002,Yellowfin tuna is marketed smoked
+tuna_pr2_5,tuna,chunk_tuna_processing_002,Yellowfin tuna is valued for sashimi
+tuna_pr3_1,tuna,chunk_tuna_processing_003,Yellowfin tuna is usually sold as steaks or cutlets
+tuna_pr3_2,tuna,chunk_tuna_processing_003,Yellowfin tuna average yield is 70-75%
+tuna_pr3_3,tuna,chunk_tuna_processing_003,Only sashimi-grade yellowfin tuna should be served raw or rare
+tuna_s1_1,tuna,chunk_tuna_substitutes_001,Atlantic salmon is an alternative to yellowfin tuna
+tuna_s1_2,tuna,chunk_tuna_substitutes_001,Marlins are an alternative to yellowfin tuna
+tuna_s1_3,tuna,chunk_tuna_substitutes_001,Mackerels are an alternative to yellowfin tuna
+tuna_s1_4,tuna,chunk_tuna_substitutes_001,Swordfish is an alternative to yellowfin tuna
+tuna_s1_5,tuna,chunk_tuna_substitutes_001,Other tunas are an alternative to yellowfin tuna
+tuna_s1_6,tuna,chunk_tuna_substitutes_001,Yellowtail kingfish is an alternative to yellowfin tuna
+tuna_t1_1,tuna,chunk_tuna_taste_001,Yellowfin tuna has a mild meaty flavour
+tuna_t1_2,tuna,chunk_tuna_taste_001,Yellowfin tuna has firm moist meat with large flakes
+tuna_t2_1,tuna,chunk_tuna_taste_002,Yellowfin tuna has medium oiliness
+tuna_t2_2,tuna,chunk_tuna_taste_002,Yellowfin tuna flesh quickly becomes dry if overcooked
+tuna_t2_3,tuna,chunk_tuna_taste_002,Cooked yellowfin tuna flesh is creamy brown
+tuna_t2_4,tuna,chunk_tuna_taste_002,Yellowfin tuna has very few bones
