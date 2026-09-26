@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_nila_taste_002",
+  "chunk": {
+    "id": "chunk_nila_taste_002",
+    "species_label": "nila",
+    "source_id": "fao_en_niletilapia",
+    "category": "taste_texture",
+    "content": "Farmed tilapia can have an off-flavour: in developed countries a fillet is cooked unseasoned and tasted before processing, and off-flavour fish are purged in clean water for 3-7 days; in developing countries spicy seasonings in cooking conceal any off-flavour.",
+    "source_quote": "Tilapia must be tested for flavour before they will be accepted for processing and marketing in developed countries. ... If they are off-flavour, they are purged in clean water for 3-7 days in holding tanks or ponds. This procedure is generally not practised in developing countries where the use of spicy seasonings in the cooking process conceals any off-flavour.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_en_niletilapia",
+    "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+    "source_type": "species_fact_sheet",
+    "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

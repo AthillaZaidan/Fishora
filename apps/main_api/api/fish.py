@@ -113,12 +113,14 @@ async def verify(payload: VerifyRequest, request: Request, background_tasks: Bac
         # Verification has already succeeded; a scheduling failure must not undo
         # it, but it is logged instead of swallowed (W12).
         try:
-            from apps.main_api.services.orchestrator import run_graph
+            # Iteration 2: the writer-critic workflow won the 2x2 against the
+            # 4-expert graph (evals/iteration2.py); run_graph stays for comparison.
+            from apps.main_api.services.workflow import run_workflow
 
             job = job_repo.create(result.prediction_id, result.prediction_id, result.verified_species_id)
             llm = _card_llm(request, session_id=f"fishora-card-{job.id}")
             background_tasks.add_task(
-                run_graph,
+                run_workflow,
                 job.id,
                 result.verified_species_id,
                 result.prediction_id,

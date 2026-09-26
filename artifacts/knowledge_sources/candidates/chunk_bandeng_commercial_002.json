@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_bandeng_commercial_002",
+  "chunk": {
+    "id": "chunk_bandeng_commercial_002",
+    "species_label": "bandeng",
+    "source_id": "fao_en_milkfish",
+    "category": "commercial_uses",
+    "content": "Milkfish producers usually sell through cooperatives, brokers, dealers, collectors or wholesalers rather than directly to consumers, mostly via auction markets; milkfish is exported quick-frozen, dried, canned, smoked or marinated, and Indonesia's milkfish market includes seed production exports.",
+    "source_quote": "Producers of milkfish do not usually sell fish directly to consumers, but supply them through cooperatives, brokers, dealers, collectors or wholesalers, and retailers. In general, the majority of fish products are sold in auction markets ... Milkfish is exported in different product forms: quick-frozen, dried, canned, smoked or marinated. ... Indonesia with its seed production exports",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_en_milkfish",
+    "title": "FAO Cultured Aquatic Species Fact Sheet: Chanos chanos (Milkfish)",
+    "source_type": "species_fact_sheet",
+    "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_milkfish.htm",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

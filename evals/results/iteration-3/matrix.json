@@ -1,0 +1,2707 @@
+{
+  "label": "iteration-3",
+  "judge": "glm-5.3-flash",
+  "model": "gpt-6-luna",
+  "repeat": 1,
+  "facts": {
+    "v1": 163,
+    "v2": 243
+  },
+  "wall_s": 1622.1,
+  "summary": {
+    "writer_critic:gpt-6-luna+corpus_v2+atomic_writer": {
+      "cards": 11,
+      "completed": 11,
+      "cost_usd_per_1000_cards": 1.668,
+      "wall_s_p50": 20.12,
+      "claims_per_card": 21.27,
+      "supported_share": 1.0,
+      "supported_claims_per_card": 21.27,
+      "facts_covered_pooled": "122/211",
+      "fact_coverage": 0.578,
+      "fact_coverage_card_mean": 0.661,
+      "fact_coverage_ci": [
+        0.4387,
+        0.8257
+      ],
+      "fact_coverage_v1_facts": 0.683,
+      "fact_coverage_v1_ci": [
+        0.442,
+        0.8639
+      ],
+      "claims_per_covered_fact": 1.92,
+      "fields_filled_mean": 3.0,
+      "coverage_scored_cards": 9
+    }
+  },
+  "cards": [
+    {
+      "arch": "writer_critic",
+      "model": "gpt-6-luna",
+      "effort": "default",
+      "repeat": 0,
+      "species": "bandeng",
+      "status": "completed",
+      "wall_s": 20.12,
+      "llm_calls": 1,
+      "llm_rounds": 1,
+      "llm_errors": 0,
+      "stages": {
+        "writer": 1
+      },
+      "input_tokens": 926,
+      "output_tokens": 3207,
+      "reasoning_tokens": 947,
+      "cost_usd": 0.001696,
+      "card": {
+        "common_name": "Bandeng",
+        "scientific_name": "Chanos chanos",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": null,
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada klaim yang dapat diverifikasi dari bukti yang tersedia.",
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": []
+      },
+      "error": null,
+      "fields_filled": 0,
+      "cell": "writer_critic:gpt-6-luna+corpus_v2+atomic_writer",
+      "judged": [],
+      "facts_total": 47,
+      "covered": [],
+      "facts_total_v1": 25
+    },
+    {
+      "arch": "writer_critic",
+      "model": "gpt-6-luna",
+      "effort": "default",
+      "repeat": 0,
+      "species": "gelama_bunga",
+      "status": "completed",
+      "wall_s": 15.21,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1671,
+      "output_tokens": 1936,
+      "reasoning_tokens": 817,
+      "cost_usd": 0.001135,
+      "card": {
+        "common_name": "Gelama Bunga",
+        "scientific_name": "Nibea albiflora",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Gelama bunga adalah yellow drum. Nama ilmiahnya adalah Nibea albiflora. Spesies ini termasuk famili Sciaenidae, yang juga disebut drums atau croakers. Spesies ini merupakan ikan benthopelagis dari perairan beriklim sedang. Spesies ini terdapat di Pasifik barat laut. Wilayah sebarannya mencakup Laut China Timur.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Nibea albiflora diolah menjadi sosis ikan dengan komposisi 100% ikan.",
+          "Nibea albiflora diolah menjadi formulasi sosis yang mengandung 30% daging ayam untuk pengujian sensori dan proksimat."
+        ],
+        "commercial_uses": [
+          "Yellow drum merupakan spesies yang ditangkap secara komersial.",
+          "Yellow drum ditemukan dekat pantai.",
+          "Yellow drum ditemukan di dasar berlumpur hingga berlumpur-pasir.",
+          "Yellow drum ditemukan di kawasan laut semi-tertutup."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_nibea_albiflora",
+            "title": "Nibea albiflora, Yellow drum: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Nibea-albiflora.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jipsp_6_12_7801",
+            "title": "Karakteristik Nilai Gizi dan Mutu Sensori Sosis Ikan Gulamah (Nibea albiflora) dengan Penambahan Daging Ayam",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.20956/jipsp.v6i12.7801",
+            "publisher": "Jurnal IPTEKS Pemanfaatan Sumberdaya Perikanan, Universitas Hasanuddin",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 3,
+      "cell": "writer_critic:gpt-6-luna+corpus_v2+atomic_writer",
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Gelama bunga adalah yellow drum.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan langsung bahwa Gelama bunga adalah yellow drum.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nama ilmiahnya adalah Nibea albiflora.",
+          "label": "supported",
+          "reason": "Bukti menyebut nama ilmiah Nibea albiflora (Richardson, 1846).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Spesies ini termasuk famili Sciaenidae, yang juga disebut drums atau croakers.",
+          "label": "supported",
+          "reason": "Bukti menyatakan famili Sciaenidae (drums or croakers).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Spesies ini merupakan ikan benthopelagis dari perairan beriklim sedang.",
+          "label": "supported",
+          "reason": "Bukti menyatakan spesies temperate benthopelagic.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Spesies ini terdapat di Pasifik barat laut.",
+          "label": "supported",
+          "reason": "Bukti menyatakan species of the Northwest Pacific.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Wilayah sebarannya mencakup Laut China Timur.",
+          "label": "supported",
+          "reason": "Bukti menyebut East China Sea sebagai bagian sebaran.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Nibea albiflora diolah menjadi sosis ikan dengan komposisi 100% ikan.",
+          "label": "supported",
+          "reason": "Bukti menyatakan Nibea albiflora diolah menjadi sosis ikan 100% ikan.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Nibea albiflora diolah menjadi formulasi sosis yang mengandung 30% daging ayam untuk pengujian sensori dan proksimat.",
+          "label": "supported",
+          "reason": "Bukti menyatakan formulasi dengan 30% daging ayam untuk pengujian sensori dan proksimat, dalam konteks olahan sosis yang sama.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Yellow drum merupakan spesies yang ditangkap secara komersial.",
+          "label": "supported",
+          "reason": "Bukti menyatakan commercially fished species.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Yellow drum ditemukan dekat pantai.",
+          "label": "supported",
+          "reason": "Bukti menyatakan found near shore.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Yellow drum ditemukan di dasar berlumpur hingga berlumpur-pasir.",
+          "label": "supported",
+          "reason": "Bukti menyatakan dasar mud to sandy-mud bottoms.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Yellow drum ditemukan di kawasan laut semi-tertutup.",
+          "label": "supported",
+          "reason": "Bukti menyatakan semi-enclosed sea areas.",
+          "stage": "llm"
+        }
+      ],
+      "facts_total": 12,
+      "covered": [
+        "gelama_bunga_c1_1",
+        "gelama_bunga_c1_2",
+        "gelama_bunga_i1_1",
+        "gelama_bunga_i1_2",
+        "gelama_bunga_i1_3",
+        "gelama_bunga_pr1_1",
+        "gelama_bunga_pr1_2"
+      ],
+      "facts_total_v1": 12
+    },
+    {
+      "arch": "writer_critic",
+      "model": "gpt-6-luna",
+      "effort": "default",
+      "repeat": 0,
+      "species": "gembolo",
+      "status": "completed",
+      "wall_s": 6.24,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 816,
+      "output_tokens": 471,
+      "reasoning_tokens": 249,
+      "cost_usd": 0.000317,
+      "card": {
+        "common_name": "Gembolo",
+        "scientific_name": null,
+        "taxonomy_status": "TAXONOMY_REVIEW_REQUIRED",
+        "physical_characteristics": "Label “gembolo” belum terpecahkan. Pencarian nama umum “Gembolo” di FishBase tidak menemukan entri yang cocok. Identitas ilmiah gembolo belum dapat ditetapkan.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, cara pengolahan, penggunaan komersial, spesies pengganti, segmen pembeli.",
+          "Nama umum 'gembolo' ambigu: merujuk spesies berbeda menurut daerah (Rastrelliger spp., Selaroides leptolepis, Caranx spp.); nama ilmiah tidak dapat dipastikan tanpa identifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_gembolo_search",
+            "title": "FishBase Common Names search: 'Gembolo' (no results)",
+            "source_type": "common_name_search",
+            "url": "https://www.fishbase.se/ComNames/CommonNameSearchList.cfm?CommonName=gembolo",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 1,
+      "cell": "writer_critic:gpt-6-luna+corpus_v2+atomic_writer",
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Label “gembolo” belum terpecahkan.",
+          "label": "supported",
+          "reason": "Klaim langsung sesuai pernyataan bukti 'the label \"gembolo\" is unresolved'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Pencarian nama umum “Gembolo” di FishBase tidak menemukan entri yang cocok.",
+          "label": "supported",
+          "reason": "Klaim menyalin langsung fakta bukti bahwa pencarian FishBase untuk 'Gembolo' tidak mengembalikan entri yang cocok.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Identitas ilmiah gembolo belum dapat ditetapkan.",
+          "label": "supported",
+          "reason": "Klaim sesuai pernyataan bukti 'no scientific identity can be assigned'.",
+          "stage": "llm"
+        }
+      ],
+      "facts_total": 0,
+      "covered": [],
+      "facts_total_v1": 0
+    },
+    {
+      "arch": "writer_critic",
+      "model": "gpt-6-luna",
+      "effort": "default",
+      "repeat": 0,
+      "species": "gulamah",
+      "status": "completed",
+      "wall_s": 17.21,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 2323,
+      "output_tokens": 2274,
+      "reasoning_tokens": 778,
+      "cost_usd": 0.001369,
+      "card": {
+        "common_name": "Gulamah",
+        "scientific_name": "Johnius trachycephalus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Gulamah adalah leaftail croaker dengan nama ilmiah Johnius trachycephalus (Bleeker, 1851). Gulamah merupakan ikan sciaenid kecil, kelompok yang mencakup drum atau croaker. Gulamah terdapat di kawasan Indo-Pasifik. Thailand termasuk wilayah sebaran yang disebutkan untuk gulamah. Sumatra termasuk wilayah sebaran yang disebutkan untuk gulamah. Borneo termasuk wilayah sebaran yang disebutkan untuk gulamah. Gulamah dapat mencapai panjang 13 cm SL. Gulamah menghuni perairan pesisir dangkal. Gulamah menghuni estuari. Gulamah menghuni sungai. Gulamah merupakan ikan pangan. Gulamah memiliki 9–10 duri sirip punggung. Gulamah memiliki 24–27 jari-jari lunak sirip punggung. Gulamah memiliki dua duri sirip anal. Gulamah memiliki 6–7 jari-jari lunak sirip anal.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Gulamah diolah menjadi ikan asin.",
+          "Kelayakan pengolahan gulamah asin dianalisis di Desa Perlis, Kabupaten Langkat.",
+          "Analisis kelayakan pengolahan gulamah asin tersebut mencakup usaha skala menengah.",
+          "Analisis kelayakan pengolahan gulamah asin tersebut mencakup usaha skala mikro."
+        ],
+        "commercial_uses": [
+          "Gulamah telah diteliti sebagai bahan baku potensial untuk surimi; hal ini menunjukkan potensi yang diteliti, bukan adopsi industri.",
+          "Gulamah telah diteliti sebagai bahan baku potensial untuk produk olahan daging ikan; hal ini menunjukkan potensi yang diteliti, bukan adopsi industri.",
+          "Gelatin yang diisolasi dari tulang gulamah telah diteliti untuk aplikasi permen jeli sebagai penggunaan eksperimental."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_johnius_trachycephalus",
+            "title": "Johnius trachycephalus, Leaftail croaker: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Johnius-trachycephalus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "coj_5_1_1",
+            "title": "Business Analysis of Gulamah (Johnius trachycephalus) Salted Fish Small and Medium Enterprises (SMEs) in Perlis, Berandan Barat, Langkat, North Sumatera",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.29244/coj.5.1.1-8",
+            "publisher": "Coastal and Ocean Journal (COJ)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "manfish_2_3_489",
+            "title": "Studi Potensi Ikan Gulamah (Johnius trachycephalus) Sebagai Bahan Baku Surimi dan Produk Olahan Berbasis Daging Ikan",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.31573/manfish.v2i3.489",
+            "publisher": "Manfish Journal, Politeknik Negeri Pontianak",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jps_8_2_936",
+            "title": "Isolasi Gelatin dari Tulang Ikan Gulamah (Johnius trachycephalus) dan Aplikasinya Pada Permen Jelly",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.36490/journal-jps.com.v8i2.936",
+            "publisher": "Journal of Pharmaceutical and Sciences",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 3,
+      "cell": "writer_critic:gpt-6-luna+corpus_v2+atomic_writer",
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Gulamah adalah leaftail croaker dengan nama ilmiah Johnius trachycephalus (Bleeker, 1851).",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan persis bahwa gulamah adalah leaftail croaker Johnius trachycephalus (Bleeker, 1851).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Gulamah merupakan ikan sciaenid kecil, kelompok yang mencakup drum atau croaker.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan gulamah adalah sciaenid kecil (drums or croakers).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Gulamah terdapat di kawasan Indo-Pasifik.",
+          "label": "supported",
+          "reason": "Bukti identitas menyebut Indo-Pacific sebagai kawasan sebaran.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Thailand termasuk wilayah sebaran yang disebutkan untuk gulamah.",
+          "label": "supported",
+          "reason": "Thailand disebutkan eksplisit dalam daftar sebaran bukti identitas.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Sumatra termasuk wilayah sebaran yang disebutkan untuk gulamah.",
+          "label": "supported",
+          "reason": "Sumatra disebutkan eksplisit dalam daftar sebaran bukti identitas.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Borneo termasuk wilayah sebaran yang disebutkan untuk gulamah.",
+          "label": "supported",
+          "reason": "Borneo disebutkan eksplisit dalam daftar sebaran bukti identitas.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Gulamah dapat mencapai panjang 13 cm SL.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan mencapai 13 cm SL.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Gulamah menghuni perairan pesisir dangkal.",
+          "label": "supported",
+          "reason": "Bukti identitas menyebut shallow coastal waters sebagai habitat.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Gulamah menghuni estuari.",
+          "label": "supported",
+          "reason": "Bukti identitas menyebut estuaries sebagai habitat.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Gulamah menghuni sungai.",
+          "label": "supported",
+          "reason": "Bukti identitas menyebut rivers sebagai habitat.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Gulamah merupakan ikan pangan.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan gulamah adalah food fish.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Gulamah memiliki 9–10 duri sirip punggung.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan 9-10 dorsal spines.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Gulamah memiliki 24–27 jari-jari lunak sirip punggung.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan 24-27 dorsal soft rays.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Gulamah memiliki dua duri sirip anal.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan two anal spines (dua duri anal).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Gulamah memiliki 6–7 jari-jari lunak sirip anal.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan 6-7 anal soft rays.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Gulamah diolah menjadi ikan asin.",
+          "label": "supported",
+          "reason": "Bukti proses menyatakan gulamah diolah menjadi salted fish (ikan asin).",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Kelayakan pengolahan gulamah asin dianalisis di Desa Perlis, Kabupaten Langkat.",
+          "label": "supported",
+          "reason": "Bukti proses menyatakan analisis kelayakan di Perlis Village, Langkat Regency.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Analisis kelayakan pengolahan gulamah asin tersebut mencakup usaha skala menengah.",
+          "label": "supported",
+          "reason": "Bukti proses menyebut medium-scale businesses dalam analisis kelayakan.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Analisis kelayakan pengolahan gulamah asin tersebut mencakup usaha skala mikro.",
+          "label": "supported",
+          "reason": "Bukti proses menyebut micro-scale businesses dalam analisis kelayakan.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Gulamah telah diteliti sebagai bahan baku potensial untuk surimi; hal ini menunjukkan potensi yang diteliti, bukan adopsi industri.",
+          "label": "supported",
+          "reason": "Bukti komersial menyatakan diteliti sebagai bahan baku potensial surimi, potensi yang diteliti bukan adopsi industri.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Gulamah telah diteliti sebagai bahan baku potensial untuk produk olahan daging ikan; hal ini menunjukkan potensi yang diteliti, bukan adopsi industri.",
+          "label": "supported",
+          "reason": "Bukti komersial menyatakan diteliti sebagai bahan baku potensial produk olahan daging ikan, dengan kualifikasi yang sama.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Gelatin yang diisolasi dari tulang gulamah telah diteliti untuk aplikasi permen jeli sebagai penggunaan eksperimental.",
+          "label": "supported",
+          "reason": "Bukti komersial 002 menyatakan gelatin dari tulang diteliti untuk aplikasi permen jeli sebagai penggunaan eksperimental.",
+          "stage": "llm"
+        }
+      ],
+      "facts_total": 13,
+      "covered": [
+        "gulamah_c1_1",
+        "gulamah_c2_1",
+        "gulamah_i1_1",
+        "gulamah_i1_2",
+        "gulamah_i1_3",
+        "gulamah_i1_4",
+        "gulamah_i1_5",
+        "gulamah_p1_1",
+        "gulamah_p1_2",
+        "gulamah_p1_3",
+        "gulamah_p1_4",
+        "gulamah_pr1_1",
+        "gulamah_pr1_2"
+      ],
+      "facts_total_v1": 13
+    },
+    {
+      "arch": "writer_critic",
+      "model": "gpt-6-luna",
+      "effort": "default",
+      "repeat": 0,
+      "species": "kembung",
+      "status": "completed",
+      "wall_s": 22.42,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 2643,
+      "output_tokens": 2969,
+      "reasoning_tokens": 1044,
+      "cost_usd": 0.001749,
+      "card": {
+        "common_name": "Kembung",
+        "scientific_name": "Rastrelliger faughni",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Kembung merujuk pada island mackerel, Rastrelliger faughni. Nama ilmiah Rastrelliger faughni mencantumkan otoritas Matsui, 1967. Spesies ini termasuk famili Scombridae, yang mencakup makerel, tuna, dan bonito. Spesies ini hidup di zona epipelagik dan neritik. Spesies ini terdapat di kawasan Indo-Pasifik Barat. Spesies ini dikenali dari bercak hitam di belakang pangkal sirip dada. Island mackerel dapat mencapai panjang 24 cm FL. Island mackerel dapat mencapai berat 750 g. Terdapat 2 hingga 6 bintik besar di pangkal sirip punggung pertama. Spesies ini memiliki gelembung renang. Spesies ini membentuk kawanan yang terdiri atas individu-individu berukuran sama. Spesies ini hidup di perairan dengan suhu permukaan yang tidak turun di bawah 17°C. Tubuh island mackerel berukuran cukup dalam. Terdapat bercak hitam di dekat tepi bawah sirip dada.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [
+          "Rantai nilai island mackerel dianalisis.",
+          "Analisis rantai nilai dilakukan di sejumlah munisipalitas pesisir terpilih di sekitar Teluk Lagonoy, Filipina.",
+          "Analisis rantai nilai bertujuan mengidentifikasi hambatan.",
+          "Analisis rantai nilai bertujuan mengidentifikasi area yang dapat diperbaiki."
+        ],
+        "similar_or_substitute_species": [
+          "Kembung juga merupakan nama lokal untuk Indian mackerel (Rastrelliger kanagurta) di Indonesia.",
+          "Indian mackerel (Rastrelliger kanagurta) adalah spesies serupa dari genus yang sama.",
+          "Island mackerel ditangkap bersama spesies Rastrelliger lainnya.",
+          "Statistik tangkapan island mackerel tidak dilaporkan secara terpisah.",
+          "Beberapa nama lokal untuk dua spesies Rastrelliger lainnya mungkin juga digunakan untuk R. faughni."
+        ],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, cara pengolahan."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_rastrelliger_faughni",
+            "title": "Rastrelliger faughni, Island mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Rastrelliger-faughni.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_scombrids_1983",
+            "title": "FAO Species Catalogue Vol. 2. Scombrids of the World (Collette & Nauen, 1983), FAO Fisheries Synopsis No. 125",
+            "source_type": "species_catalogue",
+            "url": "https://www.vliz.be/imisdocs/publications/307984.pdf",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jma_22_2_210",
+            "title": "Value Chain Analysis of Island Mackerel (Rastrelliger faughni) in Selected Coastal Municipalities in Lagonoy Gulf, Philippines",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.17358/jma.22.2.210",
+            "publisher": "Jurnal Manajemen dan Agribisnis",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 3,
+      "cell": "writer_critic:gpt-6-luna+corpus_v2+atomic_writer",
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Kembung merujuk pada island mackerel, Rastrelliger faughni.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan Kembung = island mackerel Rastrelliger faughni.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nama ilmiah Rastrelliger faughni mencantumkan otoritas Matsui, 1967.",
+          "label": "supported",
+          "reason": "Bukti menulis 'Rastrelliger faughni Matsui, 1967'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Spesies ini termasuk famili Scombridae, yang mencakup makerel, tuna, dan bonito.",
+          "label": "supported",
+          "reason": "Bukti menyebut famili Scombridae (mackerels, tunas, bonitos).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Spesies ini hidup di zona epipelagik dan neritik.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'epipelagic neritic species'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Spesies ini terdapat di kawasan Indo-Pasifik Barat.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'Indo-West Pacific'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Spesies ini dikenali dari bercak hitam di belakang pangkal sirip dada.",
+          "label": "supported",
+          "reason": "Bukti: 'recognised by a black blotch behind the pectoral fin base'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Island mackerel dapat mencapai panjang 24 cm FL.",
+          "label": "supported",
+          "reason": "Bukti fisik menyebut 'reach 24 cm FL'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Island mackerel dapat mencapai berat 750 g.",
+          "label": "supported",
+          "reason": "Bukti fisik menyebut '750 g'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Terdapat 2 hingga 6 bintik besar di pangkal sirip punggung pertama.",
+          "label": "supported",
+          "reason": "Bukti fisik menyebut '2 to 6 large spots at the base of the first dorsal fin'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Spesies ini memiliki gelembung renang.",
+          "label": "supported",
+          "reason": "Bukti fisik menyebut 'a swim bladder present'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Spesies ini membentuk kawanan yang terdiri atas individu-individu berukuran sama.",
+          "label": "supported",
+          "reason": "Bukti fisik menyebut 'form schools of equally sized individuals'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Spesies ini hidup di perairan dengan suhu permukaan yang tidak turun di bawah 17°C.",
+          "label": "supported",
+          "reason": "Bukti fisik menyebut perairan dengan suhu permukaan tidak di bawah 17C.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Tubuh island mackerel berukuran cukup dalam.",
+          "label": "supported",
+          "reason": "Bukti fisik-002 menyebut 'moderately deep body'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Terdapat bercak hitam di dekat tepi bawah sirip dada.",
+          "label": "supported",
+          "reason": "Bukti fisik-002 menyebut 'black spot near the lower margin of the pectoral fin'.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Rantai nilai island mackerel dianalisis.",
+          "label": "supported",
+          "reason": "Bukti komersial menyatakan rantai nilai island mackerel dianalisis.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Analisis rantai nilai dilakukan di sejumlah munisipalitas pesisir terpilih di sekitar Teluk Lagonoy, Filipina.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'selected coastal municipalities around the Lagonoy Gulf, Philippines'.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Analisis rantai nilai bertujuan mengidentifikasi hambatan.",
+          "label": "supported",
+          "reason": "Bukti menyebut tujuan 'to identify bottlenecks'.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Analisis rantai nilai bertujuan mengidentifikasi area yang dapat diperbaiki.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'areas for improvement'.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Kembung juga merupakan nama lokal untuk Indian mackerel (Rastrelliger kanagurta) di Indonesia.",
+          "label": "supported",
+          "reason": "Bukti substitusi: nama Indonesia Kembung juga nama lokal R. kanagurta.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Indian mackerel (Rastrelliger kanagurta) adalah spesies serupa dari genus yang sama.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'a similar species of the same genus'.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Island mackerel ditangkap bersama spesies Rastrelliger lainnya.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'caught along with the other Rastrelliger species'.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Statistik tangkapan island mackerel tidak dilaporkan secara terpisah.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'separate statistics are not reported for it'.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Beberapa nama lokal untuk dua spesies Rastrelliger lainnya mungkin juga digunakan untuk R. faughni.",
+          "label": "supported",
+          "reason": "Bukti menyatakan beberapa nama lokal dua spesies Rastrelliger lain mungkin berlaku untuk R. faughni.",
+          "stage": "llm"
+        }
+      ],
+      "facts_total": 22,
+      "covered": [
+        "kembung_c1_1",
+        "kembung_i1_1",
+        "kembung_i1_2",
+        "kembung_i1_3",
+        "kembung_i1_4",
+        "kembung_p1_1",
+        "kembung_p1_2",
+        "kembung_p1_4",
+        "kembung_p1_5",
+        "kembung_p1_6",
+        "kembung_p1_7",
+        "kembung_p2_1",
+        "kembung_p2_4",
+        "kembung_s1_1",
+        "kembung_s1_2",
+        "kembung_s1_3",
+        "kembung_s1_4"
+      ],
+      "facts_total_v1": 13
+    },
+    {
+      "arch": "writer_critic",
+      "model": "gpt-6-luna",
+      "effort": "default",
+      "repeat": 0,
+      "species": "kuniran",
+      "status": "completed",
+      "wall_s": 12.39,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1662,
+      "output_tokens": 1641,
+      "reasoning_tokens": 667,
+      "cost_usd": 0.000987,
+      "card": {
+        "common_name": "Kuniran",
+        "scientific_name": "Upeneus moluccensis",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Kuniran adalah goldband goatfish (Upeneus moluccensis), dideskripsikan oleh Bleeker pada 1855. Kuniran termasuk famili Mullidae (goatfishes). Kuniran memiliki garis kuning atau keemasan di sisi tengah tubuh, dari mata hingga pangkal atas sirip ekor. Kuniran memiliki sungut putih. Sirip ekor kuniran memiliki garis-garis merah. Kuniran membentuk kawanan besar di perairan pesisir dengan substrat berlumpur. Kuniran biasanya berenang cepat dengan jeda singkat untuk mencari makan.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Batas penerimaan sensori kuniran yang disimpan dalam es adalah 8 hari.",
+          "Dalam penilaian yang sama, batas penerimaan sensori red mullet yang disimpan dalam es adalah 11 hari.",
+          "Penilaian kesegaran dilakukan melalui pengujian sensori, mikrobiologi, dan kimia."
+        ],
+        "commercial_uses": [
+          "Kuniran merupakan ikan pangan komersial.",
+          "Kuniran dijual segar di pasar."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_upeneus_moluccensis",
+            "title": "Upeneus moluccensis, Goldband goatfish: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Upeneus-moluccensis.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "foodchem_2008",
+            "title": "Sensory, microbiological and chemical assessment of the freshness of red mullet (Mullus barbatus) and goldband goatfish (Upeneus moluccensis) during storage in ice",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.1016/j.foodchem.2008.09.078",
+            "publisher": "Food Chemistry (Elsevier)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 3,
+      "cell": "writer_critic:gpt-6-luna+corpus_v2+atomic_writer",
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Kuniran adalah goldband goatfish (Upeneus moluccensis), dideskripsikan oleh Bleeker pada 1855.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan Kuniran adalah Upeneus moluccensis (Bleeker, 1855).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Kuniran termasuk famili Mullidae (goatfishes).",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan famili Mullidae (goatfishes).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Kuniran memiliki garis kuning atau keemasan di sisi tengah tubuh, dari mata hingga pangkal atas sirip ekor.",
+          "label": "supported",
+          "reason": "Bukti identitas menyebut garis kuning/keemasan mid-lateral dari mata ke pangkal atas sirip ekor.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Kuniran memiliki sungut putih.",
+          "label": "supported",
+          "reason": "Bukti identitas menyebut 'white barbels' (sungut putih).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Sirip ekor kuniran memiliki garis-garis merah.",
+          "label": "supported",
+          "reason": "Bukti identitas menyebut 'red caudal-fin bars' (garis merah pada sirip ekor).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Kuniran membentuk kawanan besar di perairan pesisir dengan substrat berlumpur.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan membentuk kawanan besar di perairan pesisir dengan substrat berlumpur.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Kuniran biasanya berenang cepat dengan jeda singkat untuk mencari makan.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan biasanya berenang cepat dengan jeda singkat untuk mencari makan.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Batas penerimaan sensori kuniran yang disimpan dalam es adalah 8 hari.",
+          "label": "supported",
+          "reason": "Bukti proses menyatakan batas penerimaan sensori kuniran dalam es adalah 8 hari.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Dalam penilaian yang sama, batas penerimaan sensori red mullet yang disimpan dalam es adalah 11 hari.",
+          "label": "supported",
+          "reason": "Bukti proses menyebut 11 hari untuk red mullet dalam penilaian yang sama.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Penilaian kesegaran dilakukan melalui pengujian sensori, mikrobiologi, dan kimia.",
+          "label": "supported",
+          "reason": "Bukti proses menyatakan penilaian kesegaran melalui sensori, mikrobiologi, dan kimia.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Kuniran merupakan ikan pangan komersial.",
+          "label": "supported",
+          "reason": "Bukti komersil menyatakan goldband goatfish adalah ikan pangan komersial.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Kuniran dijual segar di pasar.",
+          "label": "supported",
+          "reason": "Bukti komersil menyatakan dijual segar di pasar.",
+          "stage": "llm"
+        }
+      ],
+      "facts_total": 12,
+      "covered": [
+        "kuniran_c1_1",
+        "kuniran_i1_1",
+        "kuniran_i1_2",
+        "kuniran_i1_3",
+        "kuniran_i1_4",
+        "kuniran_p1_3",
+        "kuniran_p1_4",
+        "kuniran_pr1_1"
+      ],
+      "facts_total_v1": 12
+    },
+    {
+      "arch": "writer_critic",
+      "model": "gpt-6-luna",
+      "effort": "default",
+      "repeat": 0,
+      "species": "mujair",
+      "status": "completed",
+      "wall_s": 16.35,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 2384,
+      "output_tokens": 2194,
+      "reasoning_tokens": 604,
+      "cost_usd": 0.001335,
+      "card": {
+        "common_name": "Mujair",
+        "scientific_name": "Oreochromis mossambicus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Mujair adalah tilapia Mozambik, Oreochromis mossambicus (Peters, 1852). Mujair termasuk famili Cichlidae. Mujair termasuk subfamili Pseudocrenilabrinae. Mujair sangat euryhaline. Mujair hidup di perairan tawar dan payau. Mujair bersifat bentopelagik. Mujair mengerami telur di mulut secara maternal. Mujair banyak diperkenalkan untuk akuakultur. Mujair sering mengungguli spesies lokal ketika lolos ke alam liar. Populasi Gascoyne-Lyons dilaporkan mengalami pertumbuhan sangat terhambat. Pada populasi Gascoyne-Lyons, panjang standar rata-rata saat matang adalah 9 cm. Pada populasi lain, panjang standar saat matang sekitar 18 cm.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Tilapia Mozambik diolah menjadi daging ikan cincang.",
+          "Tilapia Mozambik diolah menjadi burger.",
+          "Mutu daging cincang dan burger tilapia Mozambik dievaluasi selama penyimpanan beku pada suhu -18 °C hingga 75 hari."
+        ],
+        "commercial_uses": [
+          "Oreochromis mossambicus mendukung perikanan dataran banjir artisanal yang penting di Sungai Sepik, Papua Nugini.",
+          "Oreochromis mossambicus menyumbang sekitar setengah dari perkiraan pendaratan tahunan di perikanan tersebut."
+        ],
+        "similar_or_substitute_species": [
+          "Oreochromis mossambicus merupakan tilapia yang terutama didistribusikan ke seluruh dunia pada 1940-an dan 1950-an.",
+          "FAO menyebut tilapia Nil (O. niloticus) lebih diinginkan daripada Oreochromis mossambicus.",
+          "Tilapia Nil (O. niloticus) didistribusikan dari 1960-an hingga 1980-an."
+        ],
+        "potential_buyer_segments": [],
+        "limitations": [],
+        "sources": [
+          {
+            "source_id": "fishbase_oreochromis_mossambicus",
+            "title": "Oreochromis mossambicus, Mozambique tilapia: fisheries, aquaculture, gamefish, aquarium",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-mossambicus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_y5728e",
+            "title": "Tilapias as Alien Aquatics in Asia and the Pacific: A Review",
+            "source_type": "fisheries_technical_paper",
+            "url": "https://www.fao.org/4/y5728e/y5728e05.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jbau_86202",
+            "title": "Quality evaluation of fish burger from tilapia (Oreochromis mossambicus) during frozen storage (-18°C)",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.5455/JBAU.86202",
+            "publisher": "Journal of Bangladesh Agricultural University",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_en_niletilapia",
+            "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+            "source_type": "species_fact_sheet",
+            "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 4,
+      "cell": "writer_critic:gpt-6-luna+corpus_v2+atomic_writer",
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Mujair adalah tilapia Mozambik, Oreochromis mossambicus (Peters, 1852).",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan persis: Mujair = tilapia Mozambik, Oreochromis mossambicus (Peters, 1852).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Mujair termasuk famili Cichlidae.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'family Cichlidae'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Mujair termasuk subfamili Pseudocrenilabrinae.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'subfamily Pseudocrenilabrinae'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Mujair sangat euryhaline.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'highly euryhaline'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Mujair hidup di perairan tawar dan payau.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'freshwater/brackish' (tawar/payau).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Mujair bersifat bentopelagik.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'benthopelagic'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Mujair mengerami telur di mulut secara maternal.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'maternal mouthbrooder'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Mujair banyak diperkenalkan untuk akuakultur.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'widely introduced for aquaculture'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Mujair sering mengungguli spesies lokal ketika lolos ke alam liar.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'often outcompeting local species where it escapes to the wild'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Populasi Gascoyne-Lyons dilaporkan mengalami pertumbuhan sangat terhambat.",
+          "label": "supported",
+          "reason": "Bukti: populasi Gascoyne-Lyons dilaporkan 'highly stunted'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Pada populasi Gascoyne-Lyons, panjang standar rata-rata saat matang adalah 9 cm.",
+          "label": "supported",
+          "reason": "Bukti: matang pada panjang standar rata-rata 9 cm di populasi Gascoyne-Lyons.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Pada populasi lain, panjang standar saat matang sekitar 18 cm.",
+          "label": "supported",
+          "reason": "Bukti: 'versus about 18 cm in other populations' pembanding 9 cm saat matang.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tilapia Mozambik diolah menjadi daging ikan cincang.",
+          "label": "supported",
+          "reason": "Bukti: diolah menjadi 'fish mince'.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tilapia Mozambik diolah menjadi burger.",
+          "label": "supported",
+          "reason": "Bukti: diolah menjadi 'burger'.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Mutu daging cincang dan burger tilapia Mozambik dievaluasi selama penyimpanan beku pada suhu -18 °C hingga 75 hari.",
+          "label": "supported",
+          "reason": "Bukti: mutu dievaluasi selama penyimpanan beku -18C hingga 75 hari; 'hingga' sesuai 'up to'.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Oreochromis mossambicus mendukung perikanan dataran banjir artisanal yang penting di Sungai Sepik, Papua Nugini.",
+          "label": "supported",
+          "reason": "Bukti: 'supports an important artisanal floodplain fishery in Papua New Guinea's Sepik River'.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Oreochromis mossambicus menyumbang sekitar setengah dari perkiraan pendaratan tahunan di perikanan tersebut.",
+          "label": "supported",
+          "reason": "Bukti: 'accounts for about half of estimated annual landings' pada perikanan Sepik tersebut.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Oreochromis mossambicus merupakan tilapia yang terutama didistribusikan ke seluruh dunia pada 1940-an dan 1950-an.",
+          "label": "supported",
+          "reason": "Bukti: 'was the tilapia primarily distributed worldwide in the 1940s and 1950s'.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "FAO menyebut tilapia Nil (O. niloticus) lebih diinginkan daripada Oreochromis mossambicus.",
+          "label": "supported",
+          "reason": "Bukti menyebut O. niloticus 'described by FAO as more desirable' dalam konteks menggantikan O. mossambicus; pembanding tersirat langsung dari konteks substitusi.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Tilapia Nil (O. niloticus) didistribusikan dari 1960-an hingga 1980-an.",
+          "label": "supported",
+          "reason": "Bukti: niloticus 'was distributed from the 1960s to the 1980s'.",
+          "stage": "llm"
+        }
+      ],
+      "facts_total": 18,
+      "covered": [
+        "mujair_c1_1",
+        "mujair_c1_2",
+        "mujair_i1_1",
+        "mujair_i1_2",
+        "mujair_i1_3",
+        "mujair_i1_4",
+        "mujair_i1_5",
+        "mujair_i1_6",
+        "mujair_p1_1",
+        "mujair_pr1_1",
+        "mujair_pr1_2",
+        "mujair_pr1_3",
+        "mujair_s1_1",
+        "mujair_s1_2"
+      ],
+      "facts_total_v1": 16
+    },
+    {
+      "arch": "writer_critic",
+      "model": "gpt-6-luna",
+      "effort": "default",
+      "repeat": 0,
+      "species": "nila",
+      "status": "completed",
+      "wall_s": 35.63,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 3535,
+      "output_tokens": 5103,
+      "reasoning_tokens": 2501,
+      "cost_usd": 0.002905,
+      "card": {
+        "common_name": "Nila",
+        "scientific_name": "Oreochromis niloticus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Nila adalah Nile tilapia, yaitu Oreochromis niloticus. Nila termasuk famili Cichlidae. Nila disebut sebagai spesies tilapia paling penting secara global dalam budidaya ikan. Nila merupakan spesies tilapia budidaya yang dominan. Nila adalah tilapia bertubuh besar dan dalam. Nila memiliki kepala yang relatif kecil. Sirip ekor nila memiliki garis-garis vertikal teratur yang membentang sepanjang kedalaman sirip pada semua tahap kehidupan. Nila dapat mencapai panjang 60 cm SL. Nila dapat mencapai berat 4,3 kg.",
+        "taste": "Fillet nila digambarkan sebagai tambahan menu yang ideal. Fillet nila memiliki harga yang wajar. Fillet nila tersedia sepanjang tahun. Fillet nila memiliki rasa yang ringan. Fillet nila digambarkan memiliki rasa yang lezat. Fillet nila fleksibel dalam cara penyiapannya. Hampir semua jaringan restoran casual dining di Amerika Serikat menyajikan tilapia. Tilapia hasil budidaya dapat memiliki cita rasa yang tidak diinginkan. Di negara maju, fillet dimasak tanpa bumbu dan dicicipi sebelum pemrosesan untuk memeriksa cita rasanya. Di negara berkembang, bumbu pedas dalam masakan digunakan untuk menyamarkan cita rasa yang tidak diinginkan.",
+        "texture": null,
+        "processing_methods": [
+          "Nila dapat diolah menjadi fillet tanpa kulit.",
+          "FAO melaporkan rendemen fillet tanpa kulit sebesar 33% untuk ikan dengan faktor kondisi 3,11.",
+          "Tilapia diangkut hidup ke pabrik pengolahan.",
+          "Tilapia dibunuh dalam air es.",
+          "Tilapia diolah secara manual atau mekanis.",
+          "Fillet tilapia dijual segar.",
+          "Fillet tilapia dijual beku.",
+          "Fillet tilapia dijual dengan kulit.",
+          "Fillet tilapia dijual tanpa kulit.",
+          "Fillet tilapia dijual dalam bentuk deep-skinned.",
+          "Fillet tilapia dijual dalam bentuk individually quick frozen.",
+          "Fillet tilapia dijual dalam bentuk diasap.",
+          "Fillet tilapia dijual dalam kualitas sashimi.",
+          "Tilapia utuh masih tersedia untuk dijual.",
+          "Tilapia yang sudah dibuang isi perutnya masih tersedia untuk dijual."
+        ],
+        "commercial_uses": [
+          "Tilapia merupakan kelompok ikan budidaya terpenting kedua setelah ikan mas.",
+          "Tilapia disebut sebagai ikan budidaya yang paling luas dibudidayakan.",
+          "Produksi tilapia global diproyeksikan naik dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010.",
+          "Nilai penjualan tilapia diproyeksikan melampaui USD 5 miliar."
+        ],
+        "similar_or_substitute_species": [
+          "FAO menggambarkan tilapia sebagai pengganti yang sangat sesuai untuk ikan mas sebagai makanan laut pokok di Tiongkok."
+        ],
+        "potential_buyer_segments": [],
+        "limitations": [],
+        "sources": [
+          {
+            "source_id": "fao_en_niletilapia",
+            "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+            "source_type": "species_fact_sheet",
+            "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_oreochromis_niloticus",
+            "title": "Oreochromis niloticus, Nile tilapia: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-niloticus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 5,
+      "cell": "writer_critic:gpt-6-luna+corpus_v2+atomic_writer",
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Nila adalah Nile tilapia, yaitu Oreochromis niloticus.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan Nila adalah Nile tilapia Oreochromis niloticus (Linnaeus, 1758).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila termasuk famili Cichlidae.",
+          "label": "supported",
+          "reason": "Bukti identitas mencantumkan [Cichlidae].",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila disebut sebagai spesies tilapia paling penting secara global dalam budidaya ikan.",
+          "label": "supported",
+          "reason": "Bukti: 'globally the most important tilapia species in fish farming'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila merupakan spesies tilapia budidaya yang dominan.",
+          "label": "supported",
+          "reason": "Bukti: 'the predominant cultured species among tilapias'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila adalah tilapia bertubuh besar dan dalam.",
+          "label": "supported",
+          "reason": "Bukti fisik: 'large deep-bodied tilapia'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila memiliki kepala yang relatif kecil.",
+          "label": "supported",
+          "reason": "Bukti fisik: 'with a relatively small head'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Sirip ekor nila memiliki garis-garis vertikal teratur yang membentang sepanjang kedalaman sirip pada semua tahap kehidupan.",
+          "label": "supported",
+          "reason": "Bukti: 'regular vertical stripes throughout the depth of the caudal fin at all life stages'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila dapat mencapai panjang 60 cm SL.",
+          "label": "supported",
+          "reason": "Bukti: 'reaches 60 cm SL'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila dapat mencapai berat 4,3 kg.",
+          "label": "supported",
+          "reason": "Bukti: '4.3 kg'.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Fillet nila digambarkan sebagai tambahan menu yang ideal.",
+          "label": "supported",
+          "reason": "Bukti: 'fillets are described as an ideal menu addition'.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Fillet nila memiliki harga yang wajar.",
+          "label": "supported",
+          "reason": "Bukti: 'reasonable price'.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Fillet nila tersedia sepanjang tahun.",
+          "label": "supported",
+          "reason": "Bukti: 'year-round supply'.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Fillet nila memiliki rasa yang ringan.",
+          "label": "supported",
+          "reason": "Bukti: 'mild ... flavour'.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Fillet nila digambarkan memiliki rasa yang lezat.",
+          "label": "supported",
+          "reason": "Bukti: 'delicious flavour'.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Fillet nila fleksibel dalam cara penyiapannya.",
+          "label": "supported",
+          "reason": "Bukti: 'flexibility in preparation'.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Hampir semua jaringan restoran casual dining di Amerika Serikat menyajikan tilapia.",
+          "label": "supported",
+          "reason": "Bukti: 'virtually all casual dining restaurant chains in the USA feature tilapia'.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Tilapia hasil budidaya dapat memiliki cita rasa yang tidak diinginkan.",
+          "label": "supported",
+          "reason": "Bukti: 'Farmed tilapia can have an off-flavour'.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Di negara maju, fillet dimasak tanpa bumbu dan dicicipi sebelum pemrosesan untuk memeriksa cita rasanya.",
+          "label": "supported",
+          "reason": "Bukti: 'cooked unseasoned and tasted before processing'; tujuan memeriksa rasa tersirat langsung dari konteks off-flavour.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Di negara berkembang, bumbu pedas dalam masakan digunakan untuk menyamarkan cita rasa yang tidak diinginkan.",
+          "label": "supported",
+          "reason": "Bukti: 'spicy seasonings in cooking conceal any off-flavour'.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Nila dapat diolah menjadi fillet tanpa kulit.",
+          "label": "supported",
+          "reason": "Bukti: 'Nile tilapia can be processed into skinless fillets'.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "FAO melaporkan rendemen fillet tanpa kulit sebesar 33% untuk ikan dengan faktor kondisi 3,11.",
+          "label": "supported",
+          "reason": "Bukti: 'FAO reports a 33 percent skinless-fillet yield for fish with a condition factor of 3.11'.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tilapia diangkut hidup ke pabrik pengolahan.",
+          "label": "supported",
+          "reason": "Bukti: 'hauled live to processing plants'.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tilapia dibunuh dalam air es.",
+          "label": "supported",
+          "reason": "Bukti: 'killed in ice water'.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tilapia diolah secara manual atau mekanis.",
+          "label": "supported",
+          "reason": "Bukti: 'processed manually or mechanically'.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Fillet tilapia dijual segar.",
+          "label": "supported",
+          "reason": "Bukti: 'fillets are sold fresh'.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Fillet tilapia dijual beku.",
+          "label": "supported",
+          "reason": "Bukti: 'fillets are sold ... frozen'.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Fillet tilapia dijual dengan kulit.",
+          "label": "supported",
+          "reason": "Bukti: 'skin-on' tercantum dalam bentuk jual fillet.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Fillet tilapia dijual tanpa kulit.",
+          "label": "supported",
+          "reason": "Bukti: 'skin-off' tercantum dalam bentuk jual fillet.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Fillet tilapia dijual dalam bentuk deep-skinned.",
+          "label": "supported",
+          "reason": "Bukti: 'deep skinned' tercantum dalam bentuk jual fillet.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Fillet tilapia dijual dalam bentuk individually quick frozen.",
+          "label": "supported",
+          "reason": "Bukti: 'individually quick frozen' tercantum dalam bentuk jual fillet.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Fillet tilapia dijual dalam bentuk diasap.",
+          "label": "supported",
+          "reason": "Bukti: 'smoked' tercantum dalam bentuk jual fillet.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Fillet tilapia dijual dalam kualitas sashimi.",
+          "label": "supported",
+          "reason": "Bukti: 'sashimi grade' tercantum dalam bentuk jual fillet.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tilapia utuh masih tersedia untuk dijual.",
+          "label": "supported",
+          "reason": "Bukti: 'whole ... tilapia are still available'.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tilapia yang sudah dibuang isi perutnya masih tersedia untuk dijual.",
+          "label": "supported",
+          "reason": "Bukti: 'gutted tilapia are still available'.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Tilapia merupakan kelompok ikan budidaya terpenting kedua setelah ikan mas.",
+          "label": "supported",
+          "reason": "Bukti: 'second most important group of farmed fish after carps'.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Tilapia disebut sebagai ikan budidaya yang paling luas dibudidayakan.",
+          "label": "supported",
+          "reason": "Bukti: 'the most widely grown of any farmed fish'.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Produksi tilapia global diproyeksikan naik dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010.",
+          "label": "supported",
+          "reason": "Bukti: proyeksi kenaikan dari 1,5 juta ton (2003) menjadi 2,5 juta ton (2010).",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Nilai penjualan tilapia diproyeksikan melampaui USD 5 miliar.",
+          "label": "supported",
+          "reason": "Bukti: 'sales value above USD 5 billion' dalam skenario proyeksi yang sama.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "FAO menggambarkan tilapia sebagai pengganti yang sangat sesuai untuk ikan mas sebagai makanan laut pokok di Tiongkok.",
+          "label": "supported",
+          "reason": "Bukti: 'ideally suited to replace carp as the staple of Chinese seafood'.",
+          "stage": "llm"
+        }
+      ],
+      "facts_total": 32,
+      "covered": null,
+      "cover_error": "OpenAITimeoutError",
+      "facts_total_v1": 16
+    },
+    {
+      "arch": "writer_critic",
+      "model": "gpt-6-luna",
+      "effort": "default",
+      "repeat": 0,
+      "species": "senangin",
+      "status": "completed",
+      "wall_s": 20.68,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 2232,
+      "output_tokens": 2828,
+      "reasoning_tokens": 1060,
+      "cost_usd": 0.001637,
+      "card": {
+        "common_name": "Senangin",
+        "scientific_name": "Eleutheronema tetradactylum",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Senangin adalah fourfinger threadfin, Eleutheronema tetradactylum (Shaw, 1804). Senangin termasuk famili Polynemidae (threadfins). Senangin dibedakan oleh empat filamen sirip dada yang bebas. Senangin merupakan spesies Indo-Pasifik. Senangin merupakan spesies pelagis-neritik. Panjang total maksimum senangin mencapai 200 cm. Bobot senangin dapat mencapai 145 kg. Membran sirip dada senangin berwarna kuning cerah saat hidup. Pada spesimen besar, membran sirip dada senangin berwarna kuning kusam. Filamen sirip dada senangin berwarna putih.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [
+          "Senangin merupakan salah satu spesies perikanan terpenting bagi Kuwait, India, Thailand, Viet Nam, Malaysia, Singapura, dan Indonesia.",
+          "Senangin juga merupakan ikan olahraga penting di perairan Australia.",
+          "Senangin adalah ikan pangan bernilai komersial tinggi.",
+          "Senangin dewasa memasuki sungai."
+        ],
+        "similar_or_substitute_species": [
+          "Senangin tidak diketahui terdapat di Asia Timur.",
+          "Di Asia Timur, senangin digantikan oleh kerabat satu genus yang endemik, Eleutheronema rhadinum.",
+          "Eleutheronema rhadinum adalah spesies threadfin yang serupa dengan senangin."
+        ],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_eleutheronema_tetradactylum",
+            "title": "Eleutheronema tetradactylum, Fourfinger threadfin: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Eleutheronema-tetradactylum.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_threadfins_2004",
+            "title": "Threadfins of the World (Family Polynemidae), FAO Species Catalogue for Fishery Purposes No. 3 (Motomura, 2004), Eleutheronema accounts",
+            "source_type": "species_catalogue",
+            "url": "https://www.fao.org/4/y5398e/y5398e03.pdf",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 3,
+      "cell": "writer_critic:gpt-6-luna+corpus_v2+atomic_writer",
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Senangin adalah fourfinger threadfin, Eleutheronema tetradactylum (Shaw, 1804).",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan langsung bahwa senangin adalah fourfinger threadfin Eleutheronema tetradactylum (Shaw, 1804).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Senangin termasuk famili Polynemidae (threadfins).",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan famili Polynemidae (Threadfins).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Senangin dibedakan oleh empat filamen sirip dada yang bebas.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan dibedakan oleh four free pectoral filaments.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Senangin merupakan spesies Indo-Pasifik.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan spesies Indo-Pasifik.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Senangin merupakan spesies pelagis-neritik.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan pelagic-neritic.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Panjang total maksimum senangin mencapai 200 cm.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan tumbuh hingga 200 cm TL.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Bobot senangin dapat mencapai 145 kg.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan hingga 145 kg.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Membran sirip dada senangin berwarna kuning cerah saat hidup.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan membran sirip dada vivid yellow in life.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Pada spesimen besar, membran sirip dada senangin berwarna kuning kusam.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan dusky yellow in large specimens.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Filamen sirip dada senangin berwarna putih.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan pectoral filaments are white.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Senangin merupakan salah satu spesies perikanan terpenting bagi Kuwait, India, Thailand, Viet Nam, Malaysia, Singapura, dan Indonesia.",
+          "label": "supported",
+          "reason": "Bukti komersial 002 menyatakan E. tetradactylum salah satu spesies perikanan terpenting bagi ketujuh negara yang disebut; senangin adalah nama lokal spesies yang sama per bukti identitas.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Senangin juga merupakan ikan olahraga penting di perairan Australia.",
+          "label": "supported",
+          "reason": "Bukti komersial 002 menyatakan important sport fish in Australian waters.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Senangin adalah ikan pangan bernilai komersial tinggi.",
+          "label": "supported",
+          "reason": "Bukti komersial 001 menyatakan highly commercial food fish.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Senangin dewasa memasuki sungai.",
+          "label": "supported",
+          "reason": "Bukti komersial 001 menyatakan dewasa terutama di perairan pesisir dan enter rivers.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Senangin tidak diketahui terdapat di Asia Timur.",
+          "label": "supported",
+          "reason": "Bukti substitusi menyatakan not known from East Asia.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Di Asia Timur, senangin digantikan oleh kerabat satu genus yang endemik, Eleutheronema rhadinum.",
+          "label": "supported",
+          "reason": "Bukti substitusi menyatakan digantikan oleh endemic congener Eleutheronema rhadinum di Asia Timur.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Eleutheronema rhadinum adalah spesies threadfin yang serupa dengan senangin.",
+          "label": "supported",
+          "reason": "Bukti substitusi menyatakan E. rhadinum adalah a similar threadfin species.",
+          "stage": "llm"
+        }
+      ],
+      "facts_total": 27,
+      "covered": [
+        "senangin_c1_1",
+        "senangin_c2_1",
+        "senangin_c2_4",
+        "senangin_i1_1",
+        "senangin_i1_2",
+        "senangin_i1_3",
+        "senangin_i1_5",
+        "senangin_p1_1",
+        "senangin_p1_2",
+        "senangin_p1_4",
+        "senangin_p1_5",
+        "senangin_s1_1",
+        "senangin_s1_2"
+      ],
+      "facts_total_v1": 21
+    },
+    {
+      "arch": "writer_critic",
+      "model": "gpt-6-luna",
+      "effort": "default",
+      "repeat": 0,
+      "species": "tenggiri",
+      "status": "completed",
+      "wall_s": 30.71,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 4089,
+      "output_tokens": 4260,
+      "reasoning_tokens": 1125,
+      "cost_usd": 0.002443,
+      "card": {
+        "common_name": "Tenggiri",
+        "scientific_name": "Scomberomorus commerson",
+        "taxonomy_status": "MEDIUM_CONFIDENCE_LABEL_AMBIGUITY",
+        "physical_characteristics": "Nama vernacular “tenggiri” digunakan bersama oleh lima spesies. Nama “tenggiri” digunakan dalam bahasa Indonesia dan bahasa Melayu. Nama “tenggiri” digunakan di Indonesia dan Malaysia. Sarda orientalis merupakan salah satu spesies yang disebut “tenggiri”. Scomberomorus commerson merupakan salah satu spesies yang disebut “tenggiri”. Scomberomorus guttatus merupakan salah satu spesies yang disebut “tenggiri”. Scomberomorus koreanus merupakan salah satu spesies yang disebut “tenggiri”. Scomberomorus lineolatus merupakan salah satu spesies yang disebut “tenggiri”. Label “tenggiri” ambigu jika tidak disertai penetapan spesies. Scomberomorus commerson dideskripsikan oleh Lacepede pada 1800. Scomberomorus commerson dikenal sebagai narrow-barred Spanish mackerel. Scomberomorus commerson adalah ikan pelagis besar dari famili Scombridae. Scomberomorus commerson ditemukan di Indo-Pasifik Barat. Scomberomorus commerson dapat mencapai panjang cagak 240 cm. Punggung Scomberomorus commerson berwarna biru keabu-abuan berkilau. Scomberomorus commerson memiliki banyak pita vertikal tipis bergelombang. Scomberomorus commerson memiliki 15–18 duri sirip punggung. Scomberomorus guttatus dideskripsikan oleh Bloch dan Schneider pada 1801. Scomberomorus guttatus dikenal sebagai Indo-Pacific king mackerel. Scomberomorus guttatus dapat mencapai panjang cagak 81,5 cm. Scomberomorus guttatus dapat mencapai berat 4 kg. Sisi tubuh Scomberomorus guttatus berwarna putih keperakan. Scomberomorus guttatus memiliki beberapa baris bintik bulat berwarna cokelat gelap di sepanjang garis lateral.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Scomberomorus commerson terutama dipasarkan dalam keadaan segar.",
+          "Scomberomorus commerson juga diolah dengan penggaraman dan pengeringan.",
+          "Scomberomorus commerson umum dibuat menjadi bola ikan.",
+          "Scomberomorus commerson juga dipasarkan dalam keadaan diasap.",
+          "Scomberomorus commerson juga dipasarkan dalam bentuk kalengan.",
+          "Toksin mirip ciguatoksin yang larut dalam lipid ditemukan pada daging spesimen Scomberomorus commerson dari pantai timur Queensland, Australia.",
+          "Di pasar Australia, Scomberomorus commerson terutama dijual sebagai potongan cutlet.",
+          "Di pasar Australia, Scomberomorus commerson juga dijual sebagai steak.",
+          "Produk Scomberomorus commerson di pasar Australia biasanya dijual tanpa kulit.",
+          "Rendemen rata-rata Scomberomorus commerson adalah 40%."
+        ],
+        "commercial_uses": [
+          "Scomberomorus commerson terutama dipasarkan dalam keadaan segar.",
+          "Scomberomorus commerson juga dipasarkan dalam bentuk kering-asin.",
+          "Scomberomorus commerson juga dipasarkan dalam keadaan beku.",
+          "Scomberomorus commerson juga dipasarkan dalam keadaan diasap.",
+          "Scomberomorus commerson juga dipasarkan dalam bentuk kalengan."
+        ],
+        "similar_or_substitute_species": [
+          "Sydney Fish Market mencantumkan makarel lain sebagai alternatif untuk Scomberomorus commerson.",
+          "Sydney Fish Market mencantumkan bonito sebagai alternatif untuk Scomberomorus commerson.",
+          "Sydney Fish Market mencantumkan striped marlin sebagai alternatif untuk Scomberomorus commerson.",
+          "Sydney Fish Market mencantumkan swordfish sebagai alternatif untuk Scomberomorus commerson.",
+          "Sydney Fish Market mencantumkan tuna sebagai alternatif untuk Scomberomorus commerson."
+        ],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Label 'tenggiri' juga dipakai untuk Scomberomorus guttatus (tenggiri papan); kartu ini mengikuti nama vernakular utama Scomberomorus commerson."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_tenggiri_common_name",
+            "title": "FishBase Common Names search: 'Tenggiri'",
+            "source_type": "common_name_page",
+            "url": "https://www.fishbase.se/ComNames/CommonNameSearchList.cfm?CommonName=tenggiri",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_scomberomorus_commerson",
+            "title": "Scomberomorus commerson, Narrow-barred Spanish mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-commerson.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_scomberomorus_guttatus",
+            "title": "Scomberomorus guttatus, Indo-Pacific king mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-guttatus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "sfm_spanish_mackerel",
+            "title": "Spanish Mackerel (Scomberomorus commerson): species information",
+            "source_type": "seafood_market_guide",
+            "url": "https://www.sydneyfishmarket.com.au/species/spanish-mackerel/",
+            "publisher": "Sydney Fish Market",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 4,
+      "cell": "writer_critic:gpt-6-luna+corpus_v2+atomic_writer",
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Nama vernacular “tenggiri” digunakan bersama oleh lima spesies.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan nama tenggiri digunakan bersama oleh lima spesies.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nama “tenggiri” digunakan dalam bahasa Indonesia dan bahasa Melayu.",
+          "label": "supported",
+          "reason": "Bukti menyatakan tenggiri adalah nama dalam Bahasa Indonesia dan Malay.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nama “tenggiri” digunakan di Indonesia dan Malaysia.",
+          "label": "supported",
+          "reason": "Bukti menyatakan nama digunakan di Indonesia dan Malaysia.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Sarda orientalis merupakan salah satu spesies yang disebut “tenggiri”.",
+          "label": "supported",
+          "reason": "Sarda orientalis tercantum dalam daftar lima spesies berlabel tenggiri.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson merupakan salah satu spesies yang disebut “tenggiri”.",
+          "label": "supported",
+          "reason": "Scomberomorus commerson tercantum dalam daftar lima spesies berlabel tenggiri.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus guttatus merupakan salah satu spesies yang disebut “tenggiri”.",
+          "label": "supported",
+          "reason": "Scomberomorus guttatus tercantum dalam daftar lima spesies berlabel tenggiri.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus koreanus merupakan salah satu spesies yang disebut “tenggiri”.",
+          "label": "supported",
+          "reason": "Scomberomorus koreanus tercantum dalam daftar lima spesies berlabel tenggiri.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus lineolatus merupakan salah satu spesies yang disebut “tenggiri”.",
+          "label": "supported",
+          "reason": "Scomberomorus lineolatus tercantum dalam daftar lima spesies berlabel tenggiri.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Label “tenggiri” ambigu jika tidak disertai penetapan spesies.",
+          "label": "supported",
+          "reason": "Bukti secara eksplisit menyatakan label ambigu tanpa penetapan spesies.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson dideskripsikan oleh Lacepede pada 1800.",
+          "label": "supported",
+          "reason": "Bukti identitas menyebut S. commerson (Lacepede, 1800).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson dikenal sebagai narrow-barred Spanish mackerel.",
+          "label": "supported",
+          "reason": "Bukti menyebut nama umum narrow-barred Spanish mackerel.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson adalah ikan pelagis besar dari famili Scombridae.",
+          "label": "supported",
+          "reason": "Bukti menyebut 'large pelagic scombrid'; scombrid berarti famili Scombridae, langsung tersirat.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson ditemukan di Indo-Pasifik Barat.",
+          "label": "supported",
+          "reason": "Bukti menyatakan spesies dari Indo-West Pacific.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson dapat mencapai panjang cagak 240 cm.",
+          "label": "supported",
+          "reason": "Bukti menyatakan mencapai 240 cm FL (fork length = panjang cagak).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Punggung Scomberomorus commerson berwarna biru keabu-abuan berkilau.",
+          "label": "supported",
+          "reason": "Bukti menyebut iridescent blue-grey back (biru keabu-abuan berkilau).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson memiliki banyak pita vertikal tipis bergelombang.",
+          "label": "supported",
+          "reason": "Bukti menyebut numerous thin wavy vertical bands.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson memiliki 15–18 duri sirip punggung.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan 15-18 dorsal spines.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus guttatus dideskripsikan oleh Bloch dan Schneider pada 1801.",
+          "label": "supported",
+          "reason": "Bukti identitas menyebut S. guttatus (Bloch & Schneider, 1801).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus guttatus dikenal sebagai Indo-Pacific king mackerel.",
+          "label": "supported",
+          "reason": "Bukti menyebut nama umum Indo-Pacific king mackerel.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus guttatus dapat mencapai panjang cagak 81,5 cm.",
+          "label": "supported",
+          "reason": "Bukti menyatakan mencapai 81.5 cm FL (panjang cagak).",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus guttatus dapat mencapai berat 4 kg.",
+          "label": "supported",
+          "reason": "Bukti menyatakan berat maksimal 4 kg.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Sisi tubuh Scomberomorus guttatus berwarna putih keperakan.",
+          "label": "supported",
+          "reason": "Bukti menyebut sides silvery white.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus guttatus memiliki beberapa baris bintik bulat berwarna cokelat gelap di sepanjang garis lateral.",
+          "label": "supported",
+          "reason": "Bukti menyebut several rows of round dark brownish spots along the lateral line.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Scomberomorus commerson terutama dipasarkan dalam keadaan segar.",
+          "label": "supported",
+          "reason": "Bukti pengolahan menyatakan marketed mainly fresh.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Scomberomorus commerson juga diolah dengan penggaraman dan pengeringan.",
+          "label": "supported",
+          "reason": "Bukti menyatakan juga dried-salted (dikeringkan dan digarami).",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Scomberomorus commerson umum dibuat menjadi bola ikan.",
+          "label": "supported",
+          "reason": "Bukti menyatakan commonly made into fish balls.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Scomberomorus commerson juga dipasarkan dalam keadaan diasap.",
+          "label": "supported",
+          "reason": "Bukti menyatakan juga dipasarkan smoked.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Scomberomorus commerson juga dipasarkan dalam bentuk kalengan.",
+          "label": "supported",
+          "reason": "Bukti menyatakan juga dipasarkan canned.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Toksin mirip ciguatoksin yang larut dalam lipid ditemukan pada daging spesimen Scomberomorus commerson dari pantai timur Queensland, Australia.",
+          "label": "supported",
+          "reason": "Bukti menyatakan lipid-soluble ciguatoxin-like toxin ditemukan di daging spesimen dari pantai timur Queensland, Australia.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Di pasar Australia, Scomberomorus commerson terutama dijual sebagai potongan cutlet.",
+          "label": "supported",
+          "reason": "Bukti menyatakan di pasar Australia terutama dijual sebagai cutlets (bersama steaks).",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Di pasar Australia, Scomberomorus commerson juga dijual sebagai steak.",
+          "label": "supported",
+          "reason": "Bukti menyatakan dijual sebagai cutlets and steaks; steak termasuk bentuk utama.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Produk Scomberomorus commerson di pasar Australia biasanya dijual tanpa kulit.",
+          "label": "supported",
+          "reason": "Bukti menyatakan usually skinned (biasanya tanpa kulit).",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Rendemen rata-rata Scomberomorus commerson adalah 40%.",
+          "label": "supported",
+          "reason": "Bukti menyatakan average yield 40% untuk S. commerson.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Scomberomorus commerson terutama dipasarkan dalam keadaan segar.",
+          "label": "supported",
+          "reason": "Bukti komersial menyatakan marketed mainly fresh.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Scomberomorus commerson juga dipasarkan dalam bentuk kering-asin.",
+          "label": "supported",
+          "reason": "Bukti menyatakan juga dried-salted (kering-asin).",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Scomberomorus commerson juga dipasarkan dalam keadaan beku.",
+          "label": "supported",
+          "reason": "Bukti menyatakan juga frozen.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Scomberomorus commerson juga dipasarkan dalam keadaan diasap.",
+          "label": "supported",
+          "reason": "Bukti menyatakan juga smoked.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Scomberomorus commerson juga dipasarkan dalam bentuk kalengan.",
+          "label": "supported",
+          "reason": "Bukti menyatakan juga canned.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Sydney Fish Market mencantumkan makarel lain sebagai alternatif untuk Scomberomorus commerson.",
+          "label": "supported",
+          "reason": "Bukti menyatakan Sydney Fish Market mencantumkan other mackerels sebagai alternatif Spanish mackerel.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Sydney Fish Market mencantumkan bonito sebagai alternatif untuk Scomberomorus commerson.",
+          "label": "supported",
+          "reason": "Bonito tercantum dalam daftar alternatif pada bukti.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Sydney Fish Market mencantumkan striped marlin sebagai alternatif untuk Scomberomorus commerson.",
+          "label": "supported",
+          "reason": "Striped marlin tercantum dalam daftar alternatif pada bukti.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Sydney Fish Market mencantumkan swordfish sebagai alternatif untuk Scomberomorus commerson.",
+          "label": "supported",
+          "reason": "Swordfish tercantum dalam daftar alternatif pada bukti.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Sydney Fish Market mencantumkan tuna sebagai alternatif untuk Scomberomorus commerson.",
+          "label": "supported",
+          "reason": "Tunas tercantum dalam daftar alternatif pada bukti.",
+          "stage": "llm"
+        }
+      ],
+      "facts_total": 31,
+      "covered": [
+        "tenggiri_c1_1",
+        "tenggiri_c1_2",
+        "tenggiri_c1_3",
+        "tenggiri_c1_4",
+        "tenggiri_c1_5",
+        "tenggiri_i1_1",
+        "tenggiri_i1_2",
+        "tenggiri_i1_3",
+        "tenggiri_i2_1",
+        "tenggiri_i2_2",
+        "tenggiri_i2_3",
+        "tenggiri_i2_4",
+        "tenggiri_i3_1",
+        "tenggiri_i3_2",
+        "tenggiri_i3_3",
+        "tenggiri_i3_4",
+        "tenggiri_p1_1",
+        "tenggiri_pr1_1",
+        "tenggiri_pr1_2",
+        "tenggiri_pr2_1",
+        "tenggiri_pr2_2",
+        "tenggiri_pr2_3",
+        "tenggiri_s1_1",
+        "tenggiri_s1_2",
+        "tenggiri_s1_3",
+        "tenggiri_s1_4",
+        "tenggiri_s1_5"
+      ],
+      "facts_total_v1": 19
+    },
+    {
+      "arch": "writer_critic",
+      "model": "gpt-6-luna",
+      "effort": "default",
+      "repeat": 0,
+      "species": "tuna",
+      "status": "completed",
+      "wall_s": 39.26,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 4413,
+      "output_tokens": 4854,
+      "reasoning_tokens": 990,
+      "cost_usd": 0.002771,
+      "card": {
+        "common_name": "Tuna",
+        "scientific_name": "Thunnus spp.",
+        "taxonomy_status": "MIXED_TAXONOMY",
+        "physical_characteristics": "Label “tuna” ditempatkan pada tingkat genus Thunnus. Thunnus termasuk dalam famili Scombridae. Katalog Scombrids of the World dari FAO memperlakukan Thunnus sebagai genus yang mencakup tujuh spesies. Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus alalunga. Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus albacares. Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus atlanticus. Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus maccoyii. Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus obesus. Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus thynnus. Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus tonggol. Bab Thunnus dalam katalog FAO Scombrids memuat kunci bergambar untuk genus dan spesies Scombridae. Bab Thunnus dalam katalog FAO Scombrids memuat uraian per spesies untuk ketujuh spesies Thunnus. Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berbentuk seperti torpedo. Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berwarna biru tua metalik pada bagian atas. Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berwarna kuning hingga perak pada bagian bawah. Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki sirip punggung berwarna kuning cerah. Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki sirip dubur berwarna kuning cerah. Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki finlet berwarna kuning cerah.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam keadaan segar.",
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam keadaan beku.",
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk kalengan.",
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk asap.",
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dihargai untuk sashimi.",
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, biasanya dijual sebagai steak.",
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, biasanya dijual sebagai cutlet.",
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, biasanya dijual dalam irisan untuk sashimi.",
+          "Hasil rata-rata tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, adalah 70–75%.",
+          "Hanya tuna sirip kuning (Thunnus albacares) dengan kualitas sashimi yang sebaiknya disajikan mentah atau setengah matang.",
+          "Albacore (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam keadaan segar.",
+          "Albacore (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk asap.",
+          "Albacore (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam keadaan beku mendalam.",
+          "Albacore (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk kalengan."
+        ],
+        "commercial_uses": [
+          "Katalog Scombrids FAO merupakan inventaris rujukan untuk perikanan tuna dan makarel.",
+          "Katalog Scombrids FAO mencakup seluruh 49 spesies Scombridae yang diketahui.",
+          "Katalog Scombrids FAO memuat informasi luas tentang habitat spesies Scombridae.",
+          "Katalog Scombrids FAO memuat informasi luas tentang biologi spesies Scombridae.",
+          "Katalog Scombrids FAO memuat informasi luas tentang perikanan spesies Scombridae."
+        ],
+        "similar_or_substitute_species": [
+          "Salmon Atlantik tercantum sebagai alternatif untuk tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna.",
+          "Ikan marlin tercantum sebagai alternatif untuk tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna.",
+          "Ikan makarel tercantum sebagai alternatif untuk tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna.",
+          "Ikan todak tercantum sebagai alternatif untuk tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna.",
+          "Tuna jenis lain tercantum sebagai alternatif untuk tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna.",
+          "Kingfish ekor kuning tercantum sebagai alternatif untuk tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna."
+        ],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Nama umum 'tuna' mencakup beberapa spesies (mungkin juga cakalang/bonito, Katsuwonus/Euthynnus); taksonomi dikunci pada tingkat genus Thunnus spp. sampai verifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_ac478e00",
+            "title": "FAO Species Catalogue Vol. 2: Scombrids of the World (tunas, mackerels, bonitos)",
+            "source_type": "species_catalogue",
+            "url": "https://www.fao.org/4/ac478e/ac478e00.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_ac478e11",
+            "title": "FAO Species Catalogue Vol. 2, chapter 11: Thunnus (genus account and keys)",
+            "source_type": "species_catalogue_pdf",
+            "url": "https://www.fao.org/docrep/pdf/009/ac478e/ac478e11.pdf",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "noaa_pacific_yellowfin",
+            "title": "Pacific Yellowfin Tuna",
+            "source_type": "government_species_profile",
+            "url": "https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna",
+            "publisher": "NOAA Fisheries",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_albacares",
+            "title": "Thunnus albacares, Yellowfin tuna",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-albacares.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "sfm_yellowfin_tuna",
+            "title": "Yellowfin Tuna (Thunnus albacares): species information",
+            "source_type": "seafood_market_guide",
+            "url": "https://www.sydneyfishmarket.com.au/species/yellowfin-tuna/",
+            "publisher": "Sydney Fish Market",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_alalunga",
+            "title": "Thunnus alalunga, Albacore",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-alalunga.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 4,
+      "cell": "writer_critic:gpt-6-luna+corpus_v2+atomic_writer",
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Label “tuna” ditempatkan pada tingkat genus Thunnus.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan label tuna ditempel pada tingkat genus Thunnus.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Thunnus termasuk dalam famili Scombridae.",
+          "label": "supported",
+          "reason": "Bukti identitas menyebut Thunnus dalam famili Scombridae.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Katalog Scombrids of the World dari FAO memperlakukan Thunnus sebagai genus yang mencakup tujuh spesies.",
+          "label": "supported",
+          "reason": "Bukti menyatakan katalog FAO Scombrids of the World memperlakukan Thunnus sebagai tujuh spesies.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus alalunga.",
+          "label": "supported",
+          "reason": "T. alalunga tercantum dalam daftar tujuh spesies Thunnus di bukti.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus albacares.",
+          "label": "supported",
+          "reason": "T. albacares tercantum dalam daftar di bukti.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus atlanticus.",
+          "label": "supported",
+          "reason": "T. atlanticus tercantum dalam daftar di bukti.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus maccoyii.",
+          "label": "supported",
+          "reason": "T. maccoyii tercantum dalam daftar di bukti.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus obesus.",
+          "label": "supported",
+          "reason": "T. obesus tercantum dalam daftar di bukti.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus thynnus.",
+          "label": "supported",
+          "reason": "T. thynnus tercantum dalam daftar di bukti.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Salah satu spesies Thunnus yang disebut dalam katalog FAO adalah Thunnus tonggol.",
+          "label": "supported",
+          "reason": "T. tonggol tercantum dalam daftar di bukti.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Bab Thunnus dalam katalog FAO Scombrids memuat kunci bergambar untuk genus dan spesies Scombridae.",
+          "label": "supported",
+          "reason": "Bukti menyebut bab Thunnus memuat kunci bergambar genus dan spesies Scombridae.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Bab Thunnus dalam katalog FAO Scombrids memuat uraian per spesies untuk ketujuh spesies Thunnus.",
+          "label": "supported",
+          "reason": "Bukti menyebut uraian per spesies untuk ketujuh spesies Thunnus.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berbentuk seperti torpedo.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan torpedo-shaped.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berwarna biru tua metalik pada bagian atas.",
+          "label": "supported",
+          "reason": "Bukti menyatakan metallic dark blue above.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berwarna kuning hingga perak pada bagian bawah.",
+          "label": "supported",
+          "reason": "Bukti menyatakan yellow-to-silver below.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki sirip punggung berwarna kuning cerah.",
+          "label": "supported",
+          "reason": "Bukti menyatakan bright yellow dorsal fin.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki sirip dubur berwarna kuning cerah.",
+          "label": "supported",
+          "reason": "Bukti menyatakan bright yellow anal fin.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki finlet berwarna kuning cerah.",
+          "label": "supported",
+          "reason": "Bukti menyatakan bright yellow finlets.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam keadaan segar.",
+          "label": "supported",
+          "reason": "Bukti pemrosesan menyebut marketed fresh untuk T. albacares.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam keadaan beku.",
+          "label": "supported",
+          "reason": "Bukti menyebut marketed frozen.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk kalengan.",
+          "label": "supported",
+          "reason": "Bukti menyebut marketed canned.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk asap.",
+          "label": "supported",
+          "reason": "Bukti menyebut marketed smoked.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dihargai untuk sashimi.",
+          "label": "supported",
+          "reason": "Bukti menyebut valued for sashimi.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, biasanya dijual sebagai steak.",
+          "label": "supported",
+          "reason": "Bukti menyebut biasanya dijual sebagai steak.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, biasanya dijual sebagai cutlet.",
+          "label": "supported",
+          "reason": "Bukti menyebut biasanya dijual sebagai cutlet.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, biasanya dijual dalam irisan untuk sashimi.",
+          "label": "supported",
+          "reason": "Bukti menyebut sliced as sashimi.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Hasil rata-rata tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, adalah 70–75%.",
+          "label": "supported",
+          "reason": "Bukti menyebut rata-rata hasil 70–75%.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Hanya tuna sirip kuning (Thunnus albacares) dengan kualitas sashimi yang sebaiknya disajikan mentah atau setengah matang.",
+          "label": "supported",
+          "reason": "Bukti menyebut hanya ikan kualitas sashimi yang sebaiknya disajikan mentah atau setengah matang.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Albacore (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam keadaan segar.",
+          "label": "supported",
+          "reason": "Bukti menyebut albacore dipasarkan segar.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Albacore (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk asap.",
+          "label": "supported",
+          "reason": "Bukti menyebut albacore dipasarkan asap.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Albacore (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam keadaan beku mendalam.",
+          "label": "supported",
+          "reason": "Bukti menyebut deep-frozen (beku mendalam).",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Albacore (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk kalengan.",
+          "label": "supported",
+          "reason": "Bukti menyebut albacore dipasarkan kalengan.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Katalog Scombrids FAO merupakan inventaris rujukan untuk perikanan tuna dan makarel.",
+          "label": "supported",
+          "reason": "Bukti menyatakan katalog FAO sebagai inventaris rujukan perikanan tuna dan makarel.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Katalog Scombrids FAO mencakup seluruh 49 spesies Scombridae yang diketahui.",
+          "label": "supported",
+          "reason": "Bukti menyatakan cakupan seluruh 49 spesies Scombridae yang diketahui.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Katalog Scombrids FAO memuat informasi luas tentang habitat spesies Scombridae.",
+          "label": "supported",
+          "reason": "Bukti menyebut informasi luas tentang habitat.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Katalog Scombrids FAO memuat informasi luas tentang biologi spesies Scombridae.",
+          "label": "supported",
+          "reason": "Bukti menyebut informasi luas tentang biologi.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Katalog Scombrids FAO memuat informasi luas tentang perikanan spesies Scombridae.",
+          "label": "supported",
+          "reason": "Bukti menyebut informasi luas tentang perikanan.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Salmon Atlantik tercantum sebagai alternatif untuk tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna.",
+          "label": "supported",
+          "reason": "Bukti substitusi menyebut Atlantic salmon sebagai alternatif tuna sirip kuning.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Ikan marlin tercantum sebagai alternatif untuk tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna.",
+          "label": "supported",
+          "reason": "Bukti risks in help here; substitute list menyebut marlins.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Ikan makarel tercantum sebagai alternatif untuk tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna.",
+          "label": "supported",
+          "reason": "Bukti menyebut mackerels sebagai alternatif.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Ikan todak tercantum sebagai alternatif untuk tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna.",
+          "label": "supported",
+          "reason": "Bukti menyebut swordfish, yang diterjemahkan tepat sebagai ikan todak.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Tuna jenis lain tercantum sebagai alternatif untuk tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna.",
+          "label": "supported",
+          "reason": "Bukti menyebut other tunas.",
+          "stage": "llm"
+        },
+        {
+          "field": "similar_or_substitute_species",
+          "text": "Kingfish ekor kuning tercantum sebagai alternatif untuk tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna.",
+          "label": "supported",
+          "reason": "Bukti menyebut yellowtail kingfish.",
+          "stage": "llm"
+        }
+      ],
+      "facts_total": 29,
+      "covered": [
+        "tuna_i1_1",
+        "tuna_i1_2",
+        "tuna_p1_1",
+        "tuna_p1_2",
+        "tuna_p1_3",
+        "tuna_pr1_1",
+        "tuna_pr1_2",
+        "tuna_pr1_3",
+        "tuna_pr1_4",
+        "tuna_pr2_1",
+        "tuna_pr2_2",
+        "tuna_pr2_3",
+        "tuna_pr2_4",
+        "tuna_pr2_5",
+        "tuna_pr3_1",
+        "tuna_pr3_2",
+        "tuna_pr3_3",
+        "tuna_s1_1",
+        "tuna_s1_2",
+        "tuna_s1_3",
+        "tuna_s1_4",
+        "tuna_s1_5",
+        "tuna_s1_6"
+      ],
+      "facts_total_v1": 16
+    }
+  ]
+}

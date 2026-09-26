@@ -1,0 +1,2401 @@
+{
+  "label": "iteration-2",
+  "judge": "glm-5.3-flash",
+  "repeat": 1,
+  "wall_s": 374.6,
+  "summary": {
+    "writer_critic+e5:gpt-6-luna@none": {
+      "cards": 3,
+      "completed": 3,
+      "completion_rate": 1.0,
+      "cost_usd_per_card": 0.000545,
+      "cost_usd_per_1000_cards": 0.545,
+      "wall_s_p50": 8.72,
+      "wall_s_p95": 11.34,
+      "llm_calls_mean": 2.67,
+      "llm_rounds_mean": 2.67,
+      "claims_per_card": 5.0,
+      "supported_share": 1.0,
+      "supported_share_ci": [
+        1.0,
+        1.0
+      ],
+      "unsupported_share": 0.0,
+      "unsupported_share_ci": [
+        0.0,
+        0.0
+      ],
+      "supported_claims_per_card": 5.0,
+      "supported_claims_per_card_ci": [
+        3.0,
+        9.0
+      ],
+      "judged_cards": 3,
+      "judge_failed_cards": 0,
+      "fields_filled_mean": 2.33
+    },
+    "writer_critic+e5:gpt-6-luna@low": {
+      "cards": 3,
+      "completed": 3,
+      "completion_rate": 1.0,
+      "cost_usd_per_card": 0.000672,
+      "cost_usd_per_1000_cards": 0.672,
+      "wall_s_p50": 9.31,
+      "wall_s_p95": 12.31,
+      "llm_calls_mean": 2.67,
+      "llm_rounds_mean": 2.67,
+      "claims_per_card": 6.0,
+      "supported_share": 0.667,
+      "supported_share_ci": [
+        0.0,
+        1.0
+      ],
+      "unsupported_share": 0.333,
+      "unsupported_share_ci": [
+        0.0,
+        1.0
+      ],
+      "supported_claims_per_card": 5.33,
+      "supported_claims_per_card_ci": [
+        0.0,
+        11.0
+      ],
+      "judged_cards": 3,
+      "judge_failed_cards": 0,
+      "fields_filled_mean": 3.0
+    },
+    "writer_critic+e5:gpt-6-luna@medium": {
+      "cards": 3,
+      "completed": 3,
+      "completion_rate": 1.0,
+      "cost_usd_per_card": 0.000888,
+      "cost_usd_per_1000_cards": 0.888,
+      "wall_s_p50": 11.19,
+      "wall_s_p95": 15.86,
+      "llm_calls_mean": 2.0,
+      "llm_rounds_mean": 2.0,
+      "claims_per_card": 7.0,
+      "supported_share": 1.0,
+      "supported_share_ci": [
+        1.0,
+        1.0
+      ],
+      "unsupported_share": 0.0,
+      "unsupported_share_ci": [
+        0.0,
+        0.0
+      ],
+      "supported_claims_per_card": 7.0,
+      "supported_claims_per_card_ci": [
+        5.6667,
+        9.0
+      ],
+      "judged_cards": 3,
+      "judge_failed_cards": 0,
+      "fields_filled_mean": 2.67
+    },
+    "writer_critic+e5:gpt-6-luna@high": {
+      "cards": 3,
+      "completed": 3,
+      "completion_rate": 1.0,
+      "cost_usd_per_card": 0.001211,
+      "cost_usd_per_1000_cards": 1.211,
+      "wall_s_p50": 18.26,
+      "wall_s_p95": 24.62,
+      "llm_calls_mean": 2.0,
+      "llm_rounds_mean": 2.0,
+      "claims_per_card": 6.67,
+      "supported_share": 1.0,
+      "supported_share_ci": [
+        1.0,
+        1.0
+      ],
+      "unsupported_share": 0.0,
+      "unsupported_share_ci": [
+        0.0,
+        0.0
+      ],
+      "supported_claims_per_card": 6.67,
+      "supported_claims_per_card_ci": [
+        4.6667,
+        10.0
+      ],
+      "judged_cards": 3,
+      "judge_failed_cards": 0,
+      "fields_filled_mean": 3.33
+    },
+    "writer_critic+e5:gpt-6-luna@xhigh": {
+      "cards": 3,
+      "completed": 3,
+      "completion_rate": 1.0,
+      "cost_usd_per_card": 0.004152,
+      "cost_usd_per_1000_cards": 4.152,
+      "wall_s_p50": 49.17,
+      "wall_s_p95": 111.69,
+      "llm_calls_mean": 2.67,
+      "llm_rounds_mean": 2.67,
+      "claims_per_card": 10.33,
+      "supported_share": 1.0,
+      "supported_share_ci": [
+        1.0,
+        1.0
+      ],
+      "unsupported_share": 0.0,
+      "unsupported_share_ci": [
+        0.0,
+        0.0
+      ],
+      "supported_claims_per_card": 10.33,
+      "supported_claims_per_card_ci": [
+        8.3333,
+        13.0
+      ],
+      "judged_cards": 3,
+      "judge_failed_cards": 0,
+      "fields_filled_mean": 3.0
+    },
+    "writer_critic+e5:gpt-6-luna@max": {
+      "cards": 3,
+      "completed": 3,
+      "completion_rate": 1.0,
+      "cost_usd_per_card": 0.008125,
+      "cost_usd_per_1000_cards": 8.125,
+      "wall_s_p50": 92.02,
+      "wall_s_p95": 161.3,
+      "llm_calls_mean": 2.0,
+      "llm_rounds_mean": 2.0,
+      "claims_per_card": 10.33,
+      "supported_share": 1.0,
+      "supported_share_ci": [
+        1.0,
+        1.0
+      ],
+      "unsupported_share": 0.0,
+      "unsupported_share_ci": [
+        0.0,
+        0.0
+      ],
+      "supported_claims_per_card": 10.33,
+      "supported_claims_per_card_ci": [
+        8.0,
+        12.0
+      ],
+      "judged_cards": 3,
+      "judge_failed_cards": 0,
+      "fields_filled_mean": 3.33
+    }
+  },
+  "cards": [
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@none",
+      "effort": "none",
+      "repeat": 0,
+      "species": "nila",
+      "status": "completed",
+      "wall_s": 8.72,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1655,
+      "output_tokens": 752,
+      "reasoning_tokens": 0,
+      "cost_usd": 0.000541,
+      "card": {
+        "common_name": "Nila",
+        "scientific_name": "Oreochromis niloticus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Nila Nil memiliki tubuh besar dan dalam dengan kepala relatif kecil. Ciri paling khasnya adalah garis-garis vertikal teratur yang membentang sepanjang kedalaman sirip ekor pada semua tahap kehidupan. Nila Nil dapat mencapai panjang standar 60 cm dan berat 4,3 kg.",
+        "taste": "Fillet nila Nil digambarkan memiliki rasa yang ringan dan lezat, tersedia sepanjang tahun, berharga wajar, serta fleksibel dalam pengolahan. Hampir semua jaringan restoran kasual di Amerika Serikat menyajikan nila.",
+        "texture": null,
+        "processing_methods": [
+          "Nila Nil dapat diolah menjadi fillet tanpa kulit.",
+          "FAO melaporkan rendemen fillet tanpa kulit sebesar 33% untuk ikan dengan faktor kondisi 3,11."
+        ],
+        "commercial_uses": [
+          "Kelompok nila merupakan kelompok ikan budidaya terpenting kedua setelah ikan mas dan kelompok ikan budidaya yang paling luas dibudidayakan.",
+          "Produksi nila global diproyeksikan meningkat dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010, dengan nilai penjualan di atas USD 5 miliar; sebagian besar nilai tersebut dikaitkan dengan nila Nil."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_oreochromis_niloticus",
+            "title": "Oreochromis niloticus, Nile tilapia: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-niloticus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_en_niletilapia",
+            "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+            "source_type": "species_fact_sheet",
+            "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 4,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Nila Nil memiliki tubuh besar dan dalam dengan kepala relatif kecil.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan Nile tilapia berbadan besar dan dalam dengan kepala relatif kecil; identity mengonfirmasi nila = Nile tilapia.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Ciri paling khasnya adalah garis-garis vertikal teratur yang membentang sepanjang kedalaman sirip ekor pada semua tahap kehidupan.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan persis: ciri paling khas adalah garis vertikal teratur sepanjang kedalaman sirip ekor pada semua tahap kehidupan.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila Nil dapat mencapai panjang standar 60 cm dan berat 4,3 kg.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan mencapai 60 cm SL dan 4,3 kg.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Fillet nila Nil digambarkan memiliki rasa yang ringan dan lezat, tersedia sepanjang tahun, berharga wajar, serta fleksibel dalam pengolahan.",
+          "label": "supported",
+          "reason": "Bukti rasa menyebut harga wajar, pasokan sepanjang tahun, rasa mild dan lezat, serta fleksibilitas pengolahan; semua ada di klaim.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Hampir semua jaringan restoran kasual di Amerika Serikat menyajikan nila.",
+          "label": "supported",
+          "reason": "Bukti menyatakan hampir semua jaringan restoran kasual di AS menyajikan tilapia.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Nila Nil dapat diolah menjadi fillet tanpa kulit.",
+          "label": "supported",
+          "reason": "Bukti pengolahan menyatakan Nile tilapia dapat diolah menjadi fillet tanpa kulit.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "FAO melaporkan rendemen fillet tanpa kulit sebesar 33% untuk ikan dengan faktor kondisi 3,11.",
+          "label": "supported",
+          "reason": "Bukti menyatakan FAO melaporkan rendemen fillet tanpa kulit 33% untuk faktor kondisi 3,11.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Kelompok nila merupakan kelompok ikan budidaya terpenting kedua setelah ikan mas dan kelompok ikan budidaya yang paling luas dibudidayakan.",
+          "label": "supported",
+          "reason": "Bukti komersial menyatakan tilapia kelompok terpenting kedua setelah carps dan paling luas dibudidayakan.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Produksi nila global diproyeksikan meningkat dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010, dengan nilai penjualan di atas USD 5 miliar; sebagian besar nilai tersebut dikaitkan dengan nila Nil.",
+          "label": "supported",
+          "reason": "Bukti menyatakan proyeksi 1,5 juta ton (2003) ke 2,5 juta ton (2010), nilai penjualan di atas USD 5 miliar, sebagian besar dikaitkan dengan Nile tilapia; status proyeksi dan atribusi dikutip dengan benar.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@none",
+      "effort": "none",
+      "repeat": 0,
+      "species": "tenggiri",
+      "status": "completed",
+      "wall_s": 11.34,
+      "llm_calls": 4,
+      "llm_rounds": 4,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 2,
+        "writer": 2
+      },
+      "input_tokens": 3024,
+      "output_tokens": 856,
+      "reasoning_tokens": 0,
+      "cost_usd": 0.00073,
+      "card": {
+        "common_name": "Tenggiri",
+        "scientific_name": "Scomberomorus commerson",
+        "taxonomy_status": "MEDIUM_CONFIDENCE_LABEL_AMBIGUITY",
+        "physical_characteristics": "Nama “tenggiri” digunakan bersama untuk lima spesies: Sarda orientalis, Scomberomorus commerson, Scomberomorus guttatus, Scomberomorus koreanus, dan Scomberomorus lineolatus; karena itu, label tersebut ambigu tanpa penetapan spesies. Scomberomorus guttatus adalah salah satu spesies kandidat untuk nama “tenggiri”; panjang cagaknya dapat mencapai 81,5 cm dan beratnya 4 kg, dengan sisi putih keperakan serta beberapa baris bintik bulat cokelat gelap di sepanjang garis rusuk. Scomberomorus commerson, salah satu spesies kandidat dalam label “tenggiri” yang ambigu, memiliki 15–18 duri sirip punggung.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti.",
+          "Label 'tenggiri' juga dipakai untuk Scomberomorus guttatus (tenggiri papan); kartu ini mengikuti nama vernakular utama Scomberomorus commerson."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_tenggiri_common_name",
+            "title": "FishBase Common Names search: 'Tenggiri'",
+            "source_type": "common_name_page",
+            "url": "https://www.fishbase.se/ComNames/CommonNameSearchList.cfm?CommonName=tenggiri",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_scomberomorus_guttatus",
+            "title": "Scomberomorus guttatus, Indo-Pacific king mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-guttatus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_scomberomorus_commerson",
+            "title": "Scomberomorus commerson, Narrow-barred Spanish mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-commerson.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 1,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Nama “tenggiri” digunakan bersama untuk lima spesies: Sarda orientalis, Scomberomorus commerson, Scomberomorus guttatus, Scomberomorus koreanus, dan Scomberomorus lineolatus; karena itu, label tersebut ambigu tanpa penetapan spesies.",
+          "label": "supported",
+          "reason": "Klaim persis mengulang bukti identity_001: nama vernakular 'tenggiri' dipakai bersama oleh lima spesies yang disebutkan, dan label ambigu tanpa penetapan spesies.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus guttatus adalah salah satu spesies kandidat untuk nama “tenggiri”; panjang cagaknya dapat mencapai 81,5 cm dan beratnya 4 kg, dengan sisi putih keperakan serta beberapa baris bintik bulat cokelat gelap di sepanjang garis rusuk.",
+          "label": "supported",
+          "reason": "Bukti identity_003 menyatakan S. guttatus kandidat 'tenggiri', mencapai 81,5 cm FL (panjang cagak) dan 4 kg, sisi putih keperakan dengan beberapa baris bintik bulat cokelat gelap sepanjang garis lateral; semua fakta cocok secara makna.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson, salah satu spesies kandidat dalam label “tenggiri” yang ambigu, memiliki 15–18 duri sirip punggung.",
+          "label": "supported",
+          "reason": "Bukti physical_001 secara eksplisit menyatakan S. commerson sebagai kandidat dalam label tenggiri yang ambigu memiliki 15–18 duri sirip punggung; identik dengan klaim.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@none",
+      "effort": "none",
+      "repeat": 0,
+      "species": "tuna",
+      "status": "completed",
+      "wall_s": 6.25,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1430,
+      "output_tokens": 442,
+      "reasoning_tokens": 0,
+      "cost_usd": 0.000364,
+      "card": {
+        "common_name": "Tuna",
+        "scientific_name": "Thunnus spp.",
+        "taxonomy_status": "MIXED_TAXONOMY",
+        "physical_characteristics": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus ini, berbentuk seperti torpedo, berwarna biru metalik gelap di bagian atas dan kuning hingga perak di bagian bawah, dengan sirip punggung, sirip dubur, dan finlet berwarna kuning cerah.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus ini, dipasarkan dalam keadaan segar, beku, kalengan, dan diasap, serta dihargai untuk sashimi.",
+          "Albakora (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus ini, dipasarkan dalam keadaan segar, diasap, dibekukan dalam-dalam, atau dikalengkan."
+        ],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti.",
+          "Nama umum 'tuna' mencakup beberapa spesies (mungkin juga cakalang/bonito, Katsuwonus/Euthynnus); taksonomi dikunci pada tingkat genus Thunnus spp. sampai verifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "noaa_pacific_yellowfin",
+            "title": "Pacific Yellowfin Tuna",
+            "source_type": "government_species_profile",
+            "url": "https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna",
+            "publisher": "NOAA Fisheries",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_albacares",
+            "title": "Thunnus albacares, Yellowfin tuna",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-albacares.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_alalunga",
+            "title": "Thunnus alalunga, Albacore",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-alalunga.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 2,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus ini, berbentuk seperti torpedo, berwarna biru metalik gelap di bagian atas dan kuning hingga perak di bagian bawah, dengan sirip punggung, sirip dubur, dan finlet berwarna kuning cerah.",
+          "label": "supported",
+          "reason": "Semua ciri fisik sesuai persis dengan chunk_tuna_physical_001; klaim juga membatasi pada satu spesies, bukan generalisasi ke seluruh genus.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus ini, dipasarkan dalam keadaan segar, beku, kalengan, dan diasap, serta dihargai untuk sashimi.",
+          "label": "supported",
+          "reason": "Metode pemasaran (segar, beku, kalengan, diasap) dan nilai sashimi sesuai dengan chunk_tuna_processing_002 untuk Thunnus albacares.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Albakora (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus ini, dipasarkan dalam keadaan segar, diasap, dibekukan dalam-dalam, atau dikalengkan.",
+          "label": "supported",
+          "reason": "Daftar metode pemasaran (segar, diasap, dibekukan dalam-dalam, kalengan) sesuai dengan chunk_tuna_processing_001 untuk Thunnus alalunga.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@low",
+      "effort": "low",
+      "repeat": 0,
+      "species": "nila",
+      "status": "completed",
+      "wall_s": 9.31,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1837,
+      "output_tokens": 1057,
+      "reasoning_tokens": 129,
+      "cost_usd": 0.000712,
+      "card": {
+        "common_name": "Nila",
+        "scientific_name": "Oreochromis niloticus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Nila adalah Nile tilapia, Oreochromis niloticus (Linnaeus, 1758), dari famili Cichlidae. Nila merupakan spesies tilapia paling penting secara global dalam budidaya ikan dan spesies budidaya yang dominan di antara tilapia. Nila bertubuh besar dan dalam, dengan kepala relatif kecil. Ciri paling khas nila adalah garis-garis vertikal teratur yang melintasi seluruh kedalaman sirip ekor pada semua tahap kehidupan. Nila dapat mencapai panjang standar 60 cm dan berat 4,3 kg.",
+        "taste": "Fillet nila digambarkan memiliki cita rasa ringan dan lezat serta fleksibel untuk diolah; harganya wajar dan tersedia sepanjang tahun. Hampir semua jaringan restoran kasual di Amerika Serikat menyajikan tilapia.",
+        "texture": null,
+        "processing_methods": [
+          "Nila dapat diolah menjadi fillet tanpa kulit.",
+          "FAO melaporkan rendemen fillet tanpa kulit sebesar 33 persen untuk ikan dengan faktor kondisi 3,11."
+        ],
+        "commercial_uses": [
+          "Tilapia merupakan kelompok ikan budidaya terpenting kedua setelah ikan mas dan kelompok ikan budidaya yang paling luas dibudidayakan.",
+          "Produksi tilapia global diproyeksikan meningkat dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010, dengan nilai penjualan di atas USD 5 miliar; sebagian besar nilai tersebut dikaitkan dengan nila."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_en_niletilapia",
+            "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+            "source_type": "species_fact_sheet",
+            "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_oreochromis_niloticus",
+            "title": "Oreochromis niloticus, Nile tilapia: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-niloticus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 4,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Nila adalah Nile tilapia, Oreochromis niloticus (Linnaeus, 1758), dari famili Cichlidae.",
+          "label": "supported",
+          "reason": "Identitas nila sebagai Oreochromis niloticus (Linnaeus, 1758) famili Cichlidae tertulis langsung di bukti identitas.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila merupakan spesies tilapia paling penting secara global dalam budidaya ikan dan spesies budidaya yang dominan di antara tilapia.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan nila spesies tilapia terpenting secara global dalam budidaya dan spesies budidaya dominan di antara tilapia.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila bertubuh besar dan dalam, dengan kepala relatif kecil.",
+          "label": "supported",
+          "reason": "Bukti menyatakan Nile tilapia bertubuh besar dan dalam (deep-bodied) dengan kepala relatif kecil.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Ciri paling khas nila adalah garis-garis vertikal teratur yang melintasi seluruh kedalaman sirip ekor pada semua tahap kehidupan.",
+          "label": "supported",
+          "reason": "Ciri pembeda berupa garis vertikal teratur sepanjang kedalaman sirip ekor pada semua tahap kehidupan tertulis langsung di bukti fisik.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila dapat mencapai panjang standar 60 cm dan berat 4,3 kg.",
+          "label": "supported",
+          "reason": "Bukti menyatakan mencapai 60 cm SL (panjang standar) dan 4,3 kg, sesuai klaim.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Fillet nila digambarkan memiliki cita rasa ringan dan lezat serta fleksibel untuk diolah; harganya wajar dan tersedia sepanjang tahun.",
+          "label": "supported",
+          "reason": "Bukti menyebut cita rasa mild lezat, fleksibilitas pengolahan, harga wajar, dan pasokan sepanjang tahun.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Hampir semua jaringan restoran kasual di Amerika Serikat menyajikan tilapia.",
+          "label": "supported",
+          "reason": "Bukti menyatakan virtually all casual dining restaurant chains di AS menyajikan tilapia.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Nila dapat diolah menjadi fillet tanpa kulit.",
+          "label": "supported",
+          "reason": "Bukti pengolahan menyatakan Nile tilapia dapat diolah menjadi skinless fillets.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "FAO melaporkan rendemen fillet tanpa kulit sebesar 33 persen untuk ikan dengan faktor kondisi 3,11.",
+          "label": "supported",
+          "reason": "Bukti menyatakan FAO melaporkan rendemen skinless-fillet 33 persen untuk ikan dengan faktor kondisi 3,11.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Tilapia merupakan kelompok ikan budidaya terpenting kedua setelah ikan mas dan kelompok ikan budidaya yang paling luas dibudidayakan.",
+          "label": "supported",
+          "reason": "Bukti menyatakan tilapia kelompok ikan budidaya terpenting kedua setelah carps (ikan mas) dan paling luas dibudidayakan.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Produksi tilapia global diproyeksikan meningkat dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010, dengan nilai penjualan di atas USD 5 miliar; sebagian besar nilai tersebut dikaitkan dengan nila.",
+          "label": "supported",
+          "reason": "Klaim menyatakan proyeksi dari 1,5 juta ton (2003) ke 2,5 juta ton (2010), nilai penjualan di atas USD 5 miliar, sebagian besar dari nila; semuanya ada di bukti dan status proyeksi dinyatakan dengan benar.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@low",
+      "effort": "low",
+      "repeat": 0,
+      "species": "tenggiri",
+      "status": "completed",
+      "wall_s": 12.31,
+      "llm_calls": 4,
+      "llm_rounds": 4,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 2,
+        "writer": 2
+      },
+      "input_tokens": 2716,
+      "output_tokens": 974,
+      "reasoning_tokens": 215,
+      "cost_usd": 0.000759,
+      "card": {
+        "common_name": "Tenggiri",
+        "scientific_name": "Scomberomorus commerson",
+        "taxonomy_status": "MEDIUM_CONFIDENCE_LABEL_AMBIGUITY",
+        "physical_characteristics": "Scomberomorus commerson, salah satu spesies dalam label “tenggiri” yang ambigu, memiliki 15–18 duri sirip punggung.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [
+          "Scomberomorus commerson, salah satu spesies dalam label “tenggiri” yang ambigu, dipasarkan terutama dalam keadaan segar dan juga dalam bentuk asin-kering, beku, asap, serta kalengan."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti.",
+          "Label 'tenggiri' juga dipakai untuk Scomberomorus guttatus (tenggiri papan); kartu ini mengikuti nama vernakular utama Scomberomorus commerson."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_scomberomorus_commerson",
+            "title": "Scomberomorus commerson, Narrow-barred Spanish mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-commerson.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 2,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson, salah satu spesies dalam label “tenggiri” yang ambigu, memiliki 15–18 duri sirip punggung.",
+          "label": "unsupported",
+          "reason": "verifier tidak memberi label",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Scomberomorus commerson, salah satu spesies dalam label “tenggiri” yang ambigu, dipasarkan terutama dalam keadaan segar dan juga dalam bentuk asin-kering, beku, asap, serta kalengan.",
+          "label": "unsupported",
+          "reason": "verifier tidak memberi label",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@low",
+      "effort": "low",
+      "repeat": 0,
+      "species": "tuna",
+      "status": "completed",
+      "wall_s": 7.31,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1750,
+      "output_tokens": 739,
+      "reasoning_tokens": 129,
+      "cost_usd": 0.000545,
+      "card": {
+        "common_name": "Tuna",
+        "scientific_name": "Thunnus spp.",
+        "taxonomy_status": "MIXED_TAXONOMY",
+        "physical_characteristics": "Label “tuna” merujuk pada genus Thunnus dalam famili Scombridae; katalog FAO mencatat tujuh spesies: T. alalunga, T. albacares, T. atlanticus, T. maccoyii, T. obesus, T. thynnus, dan T. tonggol. Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berbentuk seperti torpedo, berwarna biru metalik gelap di bagian atas dan kuning hingga perak di bagian bawah, serta memiliki sirip punggung, sirip anal, dan finlet berwarna kuning cerah.",
+        "taste": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki rasa ringan dan berdaging; dagingnya padat, lembap, dan berserpihan besar.",
+        "texture": null,
+        "processing_methods": [
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan segar, beku, kalengan, dan diasap, serta dihargai untuk sashimi.",
+          "Albakora (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan segar, diasap, dibekukan dalam suhu sangat rendah, atau dikalengkan."
+        ],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti.",
+          "Nama umum 'tuna' mencakup beberapa spesies (mungkin juga cakalang/bonito, Katsuwonus/Euthynnus); taksonomi dikunci pada tingkat genus Thunnus spp. sampai verifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_ac478e00",
+            "title": "FAO Species Catalogue Vol. 2: Scombrids of the World (tunas, mackerels, bonitos)",
+            "source_type": "species_catalogue",
+            "url": "https://www.fao.org/4/ac478e/ac478e00.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "noaa_pacific_yellowfin",
+            "title": "Pacific Yellowfin Tuna",
+            "source_type": "government_species_profile",
+            "url": "https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna",
+            "publisher": "NOAA Fisheries",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_albacares",
+            "title": "Thunnus albacares, Yellowfin tuna",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-albacares.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_alalunga",
+            "title": "Thunnus alalunga, Albacore",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-alalunga.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 3,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Label “tuna” merujuk pada genus Thunnus dalam famili Scombridae; katalog FAO mencatat tujuh spesies: T. alalunga, T. albacares, T. atlanticus, T. maccoyii, T. obesus, T. thynnus, dan T. tonggol.",
+          "label": "supported",
+          "reason": "Klaim identitas genus Thunnus, famili Scombridae, dan daftar tujuh spesies FAO tersalin langsung dari chunk_tuna_identity_001.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berbentuk seperti torpedo, berwarna biru metalik gelap di bagian atas dan kuning hingga perak di bagian bawah, serta memiliki sirip punggung, sirip anal, dan finlet berwarna kuning cerah.",
+          "label": "supported",
+          "reason": "Bentuk torpedo, warna biru metalik gelap di atas, kuning-perak di bawah, serta sirip punggung, anal, dan finlet kuning cerah semuanya ada di chunk_tuna_physical_001.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki rasa ringan dan berdaging; dagingnya padat, lembap, dan berserpihan besar.",
+          "label": "supported",
+          "reason": "Rasa ringan dan berdaging serta daging padat, lembap, berserpihan besar persis sesuai chunk_tuna_taste_001.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan segar, beku, kalengan, dan diasap, serta dihargai untuk sashimi.",
+          "label": "supported",
+          "reason": "Dipasarkan segar, beku, kalengan, diasap, dan dihargai untuk sashimi dinyatakan langsung di chunk_tuna_processing_002.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Albakora (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan segar, diasap, dibekukan dalam suhu sangat rendah, atau dikalengkan.",
+          "label": "supported",
+          "reason": "Metode segar, diasap, deep-frozen (beku suhu sangat rendah), dan kalengan untuk albakora dinyatakan langsung di chunk_tuna_processing_001.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@medium",
+      "effort": "medium",
+      "repeat": 0,
+      "species": "nila",
+      "status": "completed",
+      "wall_s": 11.19,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1686,
+      "output_tokens": 1342,
+      "reasoning_tokens": 472,
+      "cost_usd": 0.00084,
+      "card": {
+        "common_name": "Nila",
+        "scientific_name": "Oreochromis niloticus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Nila adalah Nile tilapia, Oreochromis niloticus (Linnaeus, 1758), dari famili Cichlidae. Secara global, Nila merupakan spesies tilapia terpenting dalam budidaya ikan dan spesies yang dominan dibudidayakan di antara tilapia. Nile tilapia bertubuh besar dan dalam, dengan kepala yang relatif kecil. Ciri pembeda utamanya adalah garis-garis vertikal teratur yang menutupi kedalaman sirip ekor pada semua tahap kehidupan. Nile tilapia dapat mencapai panjang standar 60 cm dan berat 4,3 kg.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Nile tilapia dapat diolah menjadi fillet tanpa kulit.",
+          "FAO melaporkan rendemen fillet tanpa kulit sebesar 33 persen untuk ikan dengan faktor kondisi 3,11."
+        ],
+        "commercial_uses": [
+          "Kelompok tilapia merupakan kelompok ikan budidaya terpenting kedua setelah ikan mas dan merupakan kelompok ikan budidaya yang paling luas dibudidayakan.",
+          "Produksi tilapia global diproyeksikan meningkat dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010, dengan nilai penjualan di atas USD 5 miliar; sebagian besar nilai tersebut dikaitkan dengan Nile tilapia."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_en_niletilapia",
+            "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+            "source_type": "species_fact_sheet",
+            "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_oreochromis_niloticus",
+            "title": "Oreochromis niloticus, Nile tilapia: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-niloticus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 3,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Nila adalah Nile tilapia, Oreochromis niloticus (Linnaeus, 1758), dari famili Cichlidae.",
+          "label": "supported",
+          "reason": "Bukti identity menyatakan Nila adalah Nile tilapia Oreochromis niloticus (Linnaeus, 1758) [Cichlidae].",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Secara global, Nila merupakan spesies tilapia terpenting dalam budidaya ikan dan spesies yang dominan dibudidayakan di antara tilapia.",
+          "label": "supported",
+          "reason": "Bukti identity menyatakan Nila spesies tilapia terpenting secara global dan spesies budidaya dominan di antara tilapia.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nile tilapia bertubuh besar dan dalam, dengan kepala yang relatif kecil.",
+          "label": "supported",
+          "reason": "Bukti physical menyatakan Nile tilapia large deep-bodied dengan kepala relatif kecil.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Ciri pembeda utamanya adalah garis-garis vertikal teratur yang menutupi kedalaman sirip ekor pada semua tahap kehidupan.",
+          "label": "supported",
+          "reason": "Bukti physical menyatakan ciri pembeda utama: garis vertikal teratur sepanjang kedalaman sirip ekor pada semua tahap kehidupan.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nile tilapia dapat mencapai panjang standar 60 cm dan berat 4,3 kg.",
+          "label": "supported",
+          "reason": "Bukti physical menyatakan mencapai 60 cm SL dan 4,3 kg.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Nile tilapia dapat diolah menjadi fillet tanpa kulit.",
+          "label": "supported",
+          "reason": "Bukti processing menyatakan Nile tilapia dapat diolah menjadi skinless fillets.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "FAO melaporkan rendemen fillet tanpa kulit sebesar 33 persen untuk ikan dengan faktor kondisi 3,11.",
+          "label": "supported",
+          "reason": "Bukti processing menyatakan FAO melaporkan rendemen skinless-fillet 33 persen untuk faktor kondisi 3,11.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Kelompok tilapia merupakan kelompok ikan budidaya terpenting kedua setelah ikan mas dan merupakan kelompok ikan budidaya yang paling luas dibudidayakan.",
+          "label": "supported",
+          "reason": "Bukti commercial menyatakan tilapia kelompok ikan budidaya terpenting kedua setelah carps (ikan mas) dan paling luas dibudidayakan.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Produksi tilapia global diproyeksikan meningkat dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010, dengan nilai penjualan di atas USD 5 miliar; sebagian besar nilai tersebut dikaitkan dengan Nile tilapia.",
+          "label": "supported",
+          "reason": "Klaim menyebut ini sebagai proyeksi, sesuai bukti: 1,5 juta ton (2003) ke 2,5 juta ton (2010), nilai penjualan di atas USD 5 miliar, sebagian besar dikaitkan dengan Nile tilapia.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@medium",
+      "effort": "medium",
+      "repeat": 0,
+      "species": "tenggiri",
+      "status": "completed",
+      "wall_s": 15.86,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1868,
+      "output_tokens": 1779,
+      "reasoning_tokens": 1049,
+      "cost_usd": 0.001076,
+      "card": {
+        "common_name": "Tenggiri",
+        "scientific_name": "Scomberomorus commerson",
+        "taxonomy_status": "MEDIUM_CONFIDENCE_LABEL_AMBIGUITY",
+        "physical_characteristics": "Nama vernacular “tenggiri” digunakan bersama untuk lima spesies—Sarda orientalis, Scomberomorus commerson, Scomberomorus guttatus, Scomberomorus koreanus, dan Scomberomorus lineolatus—sehingga label tersebut ambigu tanpa penetapan spesies. Scomberomorus commerson adalah salah satu kandidat spesies untuk label “tenggiri” dan merupakan ikan pelagis besar dari Indo-Pasifik Barat. Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri”, dapat mencapai panjang 240 cm FL. Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri”, memiliki punggung biru keabu-abuan berkilau dan banyak pita vertikal tipis bergelombang. Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri”, memiliki 15–18 duri sirip punggung.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "S. commerson terutama dipasarkan segar; produk lainnya meliputi ikan asin-kering, bakso ikan, ikan beku, ikan asap, dan ikan kaleng."
+        ],
+        "commercial_uses": [
+          "Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri”, dipasarkan terutama dalam keadaan segar, serta juga dalam bentuk asin-kering, beku, asap, dan kaleng."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti.",
+          "Label 'tenggiri' juga dipakai untuk Scomberomorus guttatus (tenggiri papan); kartu ini mengikuti nama vernakular utama Scomberomorus commerson."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_tenggiri_common_name",
+            "title": "FishBase Common Names search: 'Tenggiri'",
+            "source_type": "common_name_page",
+            "url": "https://www.fishbase.se/ComNames/CommonNameSearchList.cfm?CommonName=tenggiri",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_scomberomorus_commerson",
+            "title": "Scomberomorus commerson, Narrow-barred Spanish mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-commerson.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 3,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Nama vernacular “tenggiri” digunakan bersama untuk lima spesies—Sarda orientalis, Scomberomorus commerson, Scomberomorus guttatus, Scomberomorus koreanus, dan Scomberomorus lineolatus—sehingga label tersebut ambigu tanpa penetapan spesies.",
+          "label": "supported",
+          "reason": "Klaim persis mengulang bukti identity_001: lima spesies pembedah yang sama dan ambigu tanpa penetapan spesies.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson adalah salah satu kandidat spesies untuk label “tenggiri” dan merupakan ikan pelagis besar dari Indo-Pasifik Barat.",
+          "label": "supported",
+          "reason": "Bukti identity_002 menyatakan S. commerson kandidat spesies 'tenggiri' dan ikan pelagis besar Indo-Pasifik Barat.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri”, dapat mencapai panjang 240 cm FL.",
+          "label": "supported",
+          "reason": "Bukti identity_002 menyatakan mencapai 240 cm FL.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri”, memiliki punggung biru keabu-abuan berkilau dan banyak pita vertikal tipis bergelombang.",
+          "label": "supported",
+          "reason": "Bukti identity_002 menyebut punggung biru keabu-abuan berkilau (iridescent) dan banyak pita vertikal tipis bergelombang.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri”, memiliki 15–18 duri sirip punggung.",
+          "label": "supported",
+          "reason": "Bukti physical_001 menyatakan S. commerson memiliki 15-18 duri punggung.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "S. commerson terutama dipasarkan segar; produk lainnya meliputi ikan asin-kering, bakso ikan, ikan beku, ikan asap, dan ikan kaleng.",
+          "label": "supported",
+          "reason": "Bukti processing_001: terutama segar, serta asin-kering, ikan asin-kering, umum dibuat bakso ikan, beku, asap, kaleng — semua tercantum.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri”, dipasarkan terutama dalam keadaan segar, serta juga dalam bentuk asin-kering, beku, asap, dan kaleng.",
+          "label": "supported",
+          "reason": "Bukti commercial_001 persis menyatakan dipasarkan terutama segar serta asin-kering, beku, asap, dan kaleng.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@medium",
+      "effort": "medium",
+      "repeat": 0,
+      "species": "tuna",
+      "status": "completed",
+      "wall_s": 10.39,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1663,
+      "output_tokens": 1166,
+      "reasoning_tokens": 552,
+      "cost_usd": 0.000749,
+      "card": {
+        "common_name": "Tuna",
+        "scientific_name": "Thunnus spp.",
+        "taxonomy_status": "MIXED_TAXONOMY",
+        "physical_characteristics": "Label “tuna” merujuk pada genus Thunnus dalam famili Scombridae. Katalog FAO Scombrids of the World menggolongkan Thunnus menjadi tujuh spesies: T. alalunga, T. albacares, T. atlanticus, T. maccoyii, T. obesus, T. thynnus, dan T. tonggol. Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berbentuk seperti torpedo, berwarna biru metalik gelap di bagian atas dan kuning hingga keperakan di bagian bawah, serta memiliki sirip punggung, sirip dubur, dan finlet berwarna kuning cerah.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk segar, beku, kalengan, dan asap, serta dihargai untuk sashimi.",
+          "Albakora (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk segar, asap, beku dalam, atau kalengan."
+        ],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti.",
+          "Nama umum 'tuna' mencakup beberapa spesies (mungkin juga cakalang/bonito, Katsuwonus/Euthynnus); taksonomi dikunci pada tingkat genus Thunnus spp. sampai verifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_ac478e00",
+            "title": "FAO Species Catalogue Vol. 2: Scombrids of the World (tunas, mackerels, bonitos)",
+            "source_type": "species_catalogue",
+            "url": "https://www.fao.org/4/ac478e/ac478e00.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "noaa_pacific_yellowfin",
+            "title": "Pacific Yellowfin Tuna",
+            "source_type": "government_species_profile",
+            "url": "https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna",
+            "publisher": "NOAA Fisheries",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_albacares",
+            "title": "Thunnus albacares, Yellowfin tuna",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-albacares.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_alalunga",
+            "title": "Thunnus alalunga, Albacore",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-alalunga.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 2,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Label “tuna” merujuk pada genus Thunnus dalam famili Scombridae.",
+          "label": "supported",
+          "reason": "chunk_tuna_identity_001 secara langsung menyatakan label tuna terkunci pada genus Thunnus dalam famili Scombridae.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Katalog FAO Scombrids of the World menggolongkan Thunnus menjadi tujuh spesies: T. alalunga, T. albacares, T. atlanticus, T. maccoyii, T. obesus, T. thynnus, dan T. tonggol.",
+          "label": "supported",
+          "reason": "chunk_tuna_identity_001 menyatakan katalog FAO Scombrids of the World menggolongkan Thunnus menjadi tujuh spesies dengan daftar nama yang identik dengan klaim.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berbentuk seperti torpedo, berwarna biru metalik gelap di bagian atas dan kuning hingga keperakan di bagian bawah, serta memiliki sirip punggung, sirip dubur, dan finlet berwarna kuning cerah.",
+          "label": "supported",
+          "reason": "chunk_tuna_physical_001 menyatakan semua ciri yang diklaim (bentuk torpedo, biru metalik gelap di atas, kuning hingga keperakan di bawah, sirip punggung, dubur, dan finlet kuning cerah) untuk T. albacares; klaim menyebutnya sebagai salah satu spesies dalam label genus sehingga cakupan tepat.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk segar, beku, kalengan, dan asap, serta dihargai untuk sashimi.",
+          "label": "supported",
+          "reason": "chunk_tuna_processing_002 menyatakan persis bahwa T. albacares dipasarkan segar, beku, kalengan, asap, dan bernilai untuk sashimi; cakupan spesies dinyatakan dengan benar.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Albakora (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk segar, asap, beku dalam, atau kalengan.",
+          "label": "supported",
+          "reason": "chunk_tuna_processing_001 menyatakan albakora dipasarkan segar, asap, deep-frozen (beku dalam), atau kalengan; cakupan spesies dinyatakan dengan benar.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@high",
+      "effort": "high",
+      "repeat": 0,
+      "species": "nila",
+      "status": "completed",
+      "wall_s": 24.62,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1789,
+      "output_tokens": 2894,
+      "reasoning_tokens": 1992,
+      "cost_usd": 0.001626,
+      "card": {
+        "common_name": "Nila",
+        "scientific_name": "Oreochromis niloticus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Nila adalah Nile tilapia, Oreochromis niloticus (Linnaeus, 1758), dari famili Cichlidae. Secara global, Nila merupakan spesies tilapia terpenting dalam budidaya ikan dan spesies yang paling dominan dibudidayakan di antara tilapia. Nila bertubuh besar dan dalam, dengan kepala yang relatif kecil. Ciri paling khas Nila adalah garis-garis vertikal teratur yang memenuhi kedalaman sirip ekor pada semua tahap hidup. Nila dapat mencapai panjang standar (SL) 60 cm dan berat 4,3 kg.",
+        "taste": "Fillet Nila digambarkan memiliki rasa ringan dan lezat, harga yang wajar, pasokan sepanjang tahun, serta fleksibel dalam penyiapan.",
+        "texture": null,
+        "processing_methods": [
+          "Nila dapat diolah menjadi fillet tanpa kulit.",
+          "FAO melaporkan rendemen fillet tanpa kulit sebesar 33% untuk ikan dengan condition factor 3,11."
+        ],
+        "commercial_uses": [
+          "Kelompok tilapia secara umum—bukan khusus Nila—merupakan kelompok ikan budidaya terpenting kedua setelah karper dan kelompok yang paling luas dibudidayakan di antara ikan budidaya.",
+          "Produksi tilapia global diproyeksikan meningkat dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_en_niletilapia",
+            "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+            "source_type": "species_fact_sheet",
+            "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_oreochromis_niloticus",
+            "title": "Oreochromis niloticus, Nile tilapia: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-niloticus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 4,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Nila adalah Nile tilapia, Oreochromis niloticus (Linnaeus, 1758), dari famili Cichlidae.",
+          "label": "supported",
+          "reason": "Identitas, nama latin, tahun, dan famili Cichlidae sesuai persis dengan bukti identity.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Secara global, Nila merupakan spesies tilapia terpenting dalam budidaya ikan dan spesies yang paling dominan dibudidayakan di antara tilapia.",
+          "label": "supported",
+          "reason": "Bukti identity menyatakan Nila spesies tilapia terpenting secara global dan spesies budidaya yang dominan di antara tilapia.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila bertubuh besar dan dalam, dengan kepala yang relatif kecil.",
+          "label": "supported",
+          "reason": "Bukti physical menyatakan 'large deep-bodied tilapia with a relatively small head'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Ciri paling khas Nila adalah garis-garis vertikal teratur yang memenuhi kedalaman sirip ekor pada semua tahap hidup.",
+          "label": "supported",
+          "reason": "Bukti physical menyatakan ciri pembeda utama: garis vertikal teratur di seluruh kedalaman sirip ekor pada semua tahap hidup.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila dapat mencapai panjang standar (SL) 60 cm dan berat 4,3 kg.",
+          "label": "supported",
+          "reason": "Bukti physical menyatakan mencapai 60 cm SL dan 4,3 kg.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Fillet Nila digambarkan memiliki rasa ringan dan lezat, harga yang wajar, pasokan sepanjang tahun, serta fleksibel dalam penyiapan.",
+          "label": "supported",
+          "reason": "Bukti taste menyebut harga wajar, pasokan sepanjang tahun, rasa mild dan delicious, serta fleksibilitas penyiapan.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Nila dapat diolah menjadi fillet tanpa kulit.",
+          "label": "supported",
+          "reason": "Bukti processing menyatakan Nile tilapia dapat diolah menjadi skinless fillets.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "FAO melaporkan rendemen fillet tanpa kulit sebesar 33% untuk ikan dengan condition factor 3,11.",
+          "label": "supported",
+          "reason": "Bukti processing menyebut FAO melaporkan rendemen skinless-fillet 33% untuk ikan dengan condition factor 3,11.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Kelompok tilapia secara umum—bukan khusus Nila—merupakan kelompok ikan budidaya terpenting kedua setelah karper dan kelompok yang paling luas dibudidayakan di antara ikan budidaya.",
+          "label": "supported",
+          "reason": "Bukti commercial menyatakan tilapia (kelompok) terpenting kedua setelah karper dan paling luas dibudidayakan; klaim dengan benar merujuk kelompok, bukan khusus Nila.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Produksi tilapia global diproyeksikan meningkat dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010.",
+          "label": "supported",
+          "reason": "Bukti commercial menyatakan proyeksi kenaikan produksi dari 1,5 juta ton (2003) menjadi 2,5 juta ton (2010); klaim menyajikannya sebagai proyeksi, sesuai bukti.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@high",
+      "effort": "high",
+      "repeat": 0,
+      "species": "tenggiri",
+      "status": "completed",
+      "wall_s": 18.26,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1775,
+      "output_tokens": 2057,
+      "reasoning_tokens": 1372,
+      "cost_usd": 0.001206,
+      "card": {
+        "common_name": "Tenggiri",
+        "scientific_name": "Scomberomorus commerson",
+        "taxonomy_status": "MEDIUM_CONFIDENCE_LABEL_AMBIGUITY",
+        "physical_characteristics": "Nama vernakular “tenggiri” digunakan bersama untuk lima spesies—Sarda orientalis, Scomberomorus commerson, Scomberomorus guttatus, Scomberomorus koreanus, dan Scomberomorus lineolatus—sehingga label tersebut ambigu tanpa penetapan spesies. Scomberomorus commerson (narrow-barred Spanish mackerel) adalah salah satu spesies kandidat untuk label “tenggiri”. S. commerson, salah satu kandidat untuk label “tenggiri”, memiliki punggung biru keabu-abuan berkilau dengan banyak pita vertikal tipis bergelombang. S. commerson, salah satu kandidat untuk label “tenggiri”, memiliki 15–18 duri sirip punggung.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "S. commerson, salah satu kandidat untuk label “tenggiri”, umum diolah menjadi bakso ikan."
+        ],
+        "commercial_uses": [
+          "S. commerson, salah satu kandidat untuk label “tenggiri”, terutama dipasarkan segar dan juga dipasarkan dalam bentuk asin-kering, beku, asap, serta kalengan."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti.",
+          "Label 'tenggiri' juga dipakai untuk Scomberomorus guttatus (tenggiri papan); kartu ini mengikuti nama vernakular utama Scomberomorus commerson."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_tenggiri_common_name",
+            "title": "FishBase Common Names search: 'Tenggiri'",
+            "source_type": "common_name_page",
+            "url": "https://www.fishbase.se/ComNames/CommonNameSearchList.cfm?CommonName=tenggiri",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_scomberomorus_commerson",
+            "title": "Scomberomorus commerson, Narrow-barred Spanish mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-commerson.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 3,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Nama vernakular “tenggiri” digunakan bersama untuk lima spesies—Sarda orientalis, Scomberomorus commerson, Scomberomorus guttatus, Scomberomorus koreanus, dan Scomberomorus lineolatus—sehingga label tersebut ambigu tanpa penetapan spesies.",
+          "label": "supported",
+          "reason": "Identity_001 menyatakan persis: 'tenggiri' adalah nama vernakular bersama lima spesies yang disebut, sehingga ambigu tanpa penetapan spesies.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson (narrow-barred Spanish mackerel) adalah salah satu spesies kandidat untuk label “tenggiri”.",
+          "label": "supported",
+          "reason": "Identity_002 menyatakan Scomberomorus commerson (narrow-barred Spanish mackerel) adalah salah satu spesies kandidat untuk 'tenggiri'; identity_001 juga mencantumkannya.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "S. commerson, salah satu kandidat untuk label “tenggiri”, memiliki punggung biru keabu-abuan berkilau dengan banyak pita vertikal tipis bergelombang.",
+          "label": "supported",
+          "reason": "Identity_002 menyebut 'iridescent blue-grey back and numerous thin wavy vertical bands' untuk S. commerson, sesuai klaim tentang punggung biru keabu-abuan berkilau dan pita vertikal tipis bergelombang.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "S. commerson, salah satu kandidat untuk label “tenggiri”, memiliki 15–18 duri sirip punggung.",
+          "label": "supported",
+          "reason": "Physical_001 menyatakan S. commerson, salah satu kandidat dalam label tenggiri, memiliki 15-18 dorsal spines; klaim cocok persis.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "S. commerson, salah satu kandidat untuk label “tenggiri”, umum diolah menjadi bakso ikan.",
+          "label": "supported",
+          "reason": "Processing_001 menyatakan S. commerson 'commonly made into fish balls' (= bakso ikan), sesuai klaim tanpa generalisasi karena klausul 'salah satu kandidat' dipertahankan.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "S. commerson, salah satu kandidat untuk label “tenggiri”, terutama dipasarkan segar dan juga dipasarkan dalam bentuk asin-kering, beku, asap, serta kalengan.",
+          "label": "supported",
+          "reason": "Commercial_001 menyatakan S. commerson dipasarkan mainly fresh dan juga dried-salted, frozen, smoked, dan canned; semua bentuk pemasaran dalam klaim disebut bukti.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@high",
+      "effort": "high",
+      "repeat": 0,
+      "species": "tuna",
+      "status": "completed",
+      "wall_s": 11.22,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1565,
+      "output_tokens": 1289,
+      "reasoning_tokens": 723,
+      "cost_usd": 0.000801,
+      "card": {
+        "common_name": "Tuna",
+        "scientific_name": "Thunnus spp.",
+        "taxonomy_status": "MIXED_TAXONOMY",
+        "physical_characteristics": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berbentuk seperti torpedo, berwarna biru gelap metalik di bagian atas dan kuning hingga keperakan di bagian bawah, serta memiliki sirip punggung, sirip dubur, dan finlet berwarna kuning cerah.",
+        "taste": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki cita rasa ringan dan seperti daging, dengan daging yang padat, lembap, dan berserpih besar.",
+        "texture": null,
+        "processing_methods": [
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam keadaan segar, beku, dikalengkan, dan diasap, serta dihargai untuk sashimi.",
+          "Albacore (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam keadaan segar, diasap, dibekukan secara mendalam, atau dikalengkan."
+        ],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti.",
+          "Nama umum 'tuna' mencakup beberapa spesies (mungkin juga cakalang/bonito, Katsuwonus/Euthynnus); taksonomi dikunci pada tingkat genus Thunnus spp. sampai verifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "noaa_pacific_yellowfin",
+            "title": "Pacific Yellowfin Tuna",
+            "source_type": "government_species_profile",
+            "url": "https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna",
+            "publisher": "NOAA Fisheries",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_albacares",
+            "title": "Thunnus albacares, Yellowfin tuna",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-albacares.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_alalunga",
+            "title": "Thunnus alalunga, Albacore",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-alalunga.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 3,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berbentuk seperti torpedo, berwarna biru gelap metalik di bagian atas dan kuning hingga keperakan di bagian bawah, serta memiliki sirip punggung, sirip dubur, dan finlet berwarna kuning cerah.",
+          "label": "supported",
+          "reason": "Semua fakta fisik (bentuk torpedo, biru gelap metalik di atas, kuning hingga keperakan di bawah, sirip punggung/dubur dan finlet kuning cerah) langsung dinyatakan di chunk_tuna_physical_001; sitasi identitas hanya konteks.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki cita rasa ringan dan seperti daging, dengan daging yang padat, lembap, dan berserpih besar.",
+          "label": "supported",
+          "reason": "Cita rasa ringan dan seperti daging serta daging padat, lembap, berserpih besar persis sesuai chunk_tuna_taste_001.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam keadaan segar, beku, dikalengkan, dan diasap, serta dihargai untuk sashimi.",
+          "label": "supported",
+          "reason": "Pemasaran segar, beku, kaleng, asap, dan dihargai untuk sashimi untuk T. albacares dinyatakan langsung di chunk_tuna_processing_002; chunk_tuna_processing_001 tidak bertentangan.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Albacore (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam keadaan segar, diasap, dibekukan secara mendalam, atau dikalengkan.",
+          "label": "supported",
+          "reason": "Pemasaran albacore segar, diasap, dibekukan mendalam (deep-frozen), atau dikalengkan persis sesuai chunk_tuna_processing_001.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@xhigh",
+      "effort": "xhigh",
+      "repeat": 0,
+      "species": "nila",
+      "status": "completed",
+      "wall_s": 49.17,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1876,
+      "output_tokens": 6258,
+      "reasoning_tokens": 5249,
+      "cost_usd": 0.003317,
+      "card": {
+        "common_name": "Nila",
+        "scientific_name": "Oreochromis niloticus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Nila adalah Nile tilapia, Oreochromis niloticus (Linnaeus, 1758), dari famili Cichlidae. Nila disebut sebagai spesies tilapia paling penting secara global dalam budidaya ikan. Nila disebut sebagai spesies tilapia yang dominan dibudidayakan. Nila bertubuh besar dan dalam, dengan kepala yang relatif kecil. Ciri pembeda utama nila adalah garis-garis vertikal teratur di sepanjang kedalaman sirip ekornya, yang terlihat pada semua tahap hidup. Nila dapat mencapai panjang standar (SL) 60 cm. Nila dapat mencapai bobot 4,3 kg.",
+        "taste": "Rasa fillet nila digambarkan ringan dan lezat.",
+        "texture": null,
+        "processing_methods": [
+          "Nila dapat diolah menjadi fillet tanpa kulit.",
+          "FAO melaporkan rendemen fillet tanpa kulit sebesar 33% untuk ikan dengan faktor kondisi 3,11."
+        ],
+        "commercial_uses": [
+          "Secara umum, kelompok tilapia disebut sebagai kelompok ikan budidaya terpenting kedua setelah karper.",
+          "Secara umum, tilapia disebut sebagai kelompok ikan budidaya yang paling luas dibudidayakan.",
+          "Produksi tilapia global diproyeksikan meningkat dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_en_niletilapia",
+            "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+            "source_type": "species_fact_sheet",
+            "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_oreochromis_niloticus",
+            "title": "Oreochromis niloticus, Nile tilapia: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-niloticus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 4,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Nila adalah Nile tilapia, Oreochromis niloticus (Linnaeus, 1758), dari famili Cichlidae.",
+          "label": "supported",
+          "reason": "Bukti identity menyatakan langsung: Nila adalah Nile tilapia Oreochromis niloticus (Linnaeus, 1758) [Cichlidae].",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila disebut sebagai spesies tilapia paling penting secara global dalam budidaya ikan.",
+          "label": "supported",
+          "reason": "Bukti identity menyatakan 'globally the most important tilapia species in fish farming'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila disebut sebagai spesies tilapia yang dominan dibudidayakan.",
+          "label": "supported",
+          "reason": "Bukti identity menyatakan 'the predominant cultured species among tilapias'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila bertubuh besar dan dalam, dengan kepala yang relatif kecil.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan 'large deep-bodied tilapia with a relatively small head'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Ciri pembeda utama nila adalah garis-garis vertikal teratur di sepanjang kedalaman sirip ekornya, yang terlihat pada semua tahap hidup.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan ciri pembeda utama: garis vertikal teratur di sepanjang kedalaman sirip ekor pada semua tahap hidup.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila dapat mencapai panjang standar (SL) 60 cm.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan 'reaches 60 cm SL'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila dapat mencapai bobot 4,3 kg.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan bobot 4,3 kg.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Rasa fillet nila digambarkan ringan dan lezat.",
+          "label": "supported",
+          "reason": "Bukti rasa menyatakan fillet nila berasa 'mild, delicious flavour' = ringan dan lezat.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Nila dapat diolah menjadi fillet tanpa kulit.",
+          "label": "supported",
+          "reason": "Bukti olahan menyatakan nila dapat diproses menjadi skinless fillets.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "FAO melaporkan rendemen fillet tanpa kulit sebesar 33% untuk ikan dengan faktor kondisi 3,11.",
+          "label": "supported",
+          "reason": "Bukti olahan menyatakan FAO melaporkan rendemen fillet tanpa kulit 33% untuk faktor kondisi 3,11.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Secara umum, kelompok tilapia disebut sebagai kelompok ikan budidaya terpenting kedua setelah karper.",
+          "label": "supported",
+          "reason": "Bukti komersial menyatakan tilapia (kelompok) adalah ikan budidaya terpenting kedua setelah karper; cakupan kelompok sesuai.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Secara umum, tilapia disebut sebagai kelompok ikan budidaya yang paling luas dibudidayakan.",
+          "label": "supported",
+          "reason": "Bukti komersial menyatakan tilapia 'the most widely grown of any farmed fish'.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Produksi tilapia global diproyeksikan meningkat dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010.",
+          "label": "supported",
+          "reason": "Bukti komersial menyatakan proyeksi produksi global dari 1,5 juta ton (2003) menjadi 2,5 juta ton (2010); klaim menyebutnya sebagai proyeksi, sesuai bukti.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@xhigh",
+      "effort": "xhigh",
+      "repeat": 0,
+      "species": "tenggiri",
+      "status": "completed",
+      "wall_s": 111.69,
+      "llm_calls": 4,
+      "llm_rounds": 4,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 2,
+        "writer": 2
+      },
+      "input_tokens": 3906,
+      "output_tokens": 15132,
+      "reasoning_tokens": 13087,
+      "cost_usd": 0.007957,
+      "card": {
+        "common_name": "Tenggiri",
+        "scientific_name": "Scomberomorus commerson",
+        "taxonomy_status": "MEDIUM_CONFIDENCE_LABEL_AMBIGUITY",
+        "physical_characteristics": "Nama vernacular “tenggiri” dipakai bersama untuk lima spesies—Sarda orientalis, Scomberomorus commerson, Scomberomorus guttatus, Scomberomorus koreanus, dan Scomberomorus lineolatus—sehingga labelnya ambigu tanpa penetapan spesies. Scomberomorus commerson merupakan salah satu kandidat spesies untuk label “tenggiri” yang ambigu. Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri” yang ambigu, dapat mencapai panjang 240 cm FL. Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri” yang ambigu, memiliki punggung biru-keabu-abuan dengan kilau iridesen. Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri” yang ambigu, memiliki banyak pita vertikal tipis bergelombang. Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri” yang ambigu, memiliki 15–18 duri sirip punggung.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [
+          "Scomberomorus commerson, salah satu spesies kandidat dalam label “tenggiri” yang ambigu, dipasarkan terutama dalam keadaan segar.",
+          "Scomberomorus commerson, salah satu spesies kandidat dalam label “tenggiri” yang ambigu, juga dipasarkan dalam bentuk kering-asin.",
+          "Scomberomorus commerson, salah satu spesies kandidat dalam label “tenggiri” yang ambigu, juga dipasarkan dalam bentuk beku.",
+          "Scomberomorus commerson, salah satu spesies kandidat dalam label “tenggiri” yang ambigu, juga dipasarkan dalam bentuk asap.",
+          "Scomberomorus commerson, salah satu spesies kandidat dalam label “tenggiri” yang ambigu, juga dipasarkan dalam bentuk kalengan."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti.",
+          "Label 'tenggiri' juga dipakai untuk Scomberomorus guttatus (tenggiri papan); kartu ini mengikuti nama vernakular utama Scomberomorus commerson."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_tenggiri_common_name",
+            "title": "FishBase Common Names search: 'Tenggiri'",
+            "source_type": "common_name_page",
+            "url": "https://www.fishbase.se/ComNames/CommonNameSearchList.cfm?CommonName=tenggiri",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_scomberomorus_commerson",
+            "title": "Scomberomorus commerson, Narrow-barred Spanish mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-commerson.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 2,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Nama vernacular “tenggiri” dipakai bersama untuk lima spesies—Sarda orientalis, Scomberomorus commerson, Scomberomorus guttatus, Scomberomorus koreanus, dan Scomberomorus lineolatus—sehingga labelnya ambigu tanpa penetapan spesies.",
+          "label": "supported",
+          "reason": "chunk_tenggiri_identity_001 menyebutkan persis lima spesies yang berbagi nama 'tenggiri' dan ambiguitas label tanpa penetapan spesies.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson merupakan salah satu kandidat spesies untuk label “tenggiri” yang ambigu.",
+          "label": "supported",
+          "reason": "chunk_tenggiri_identity_001 dan identity_002 menyatakan S. commerson sebagai salah satu spesies kandidat untuk label 'tenggiri' yang ambigu.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri” yang ambigu, dapat mencapai panjang 240 cm FL.",
+          "label": "supported",
+          "reason": "chunk_tenggiri_identity_002 menyatakan S. commerson mencapai 240 cm FL.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri” yang ambigu, memiliki punggung biru-keabu-abuan dengan kilau iridesen.",
+          "label": "supported",
+          "reason": "chunk_tenggiri_identity_002 menyebut 'iridescent blue-grey back' (punggung biru-keabu-abuan berkilau iridesen) untuk S. commerson.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri” yang ambigu, memiliki banyak pita vertikal tipis bergelombang.",
+          "label": "supported",
+          "reason": "chunk_tenggiri_identity_002 menyebut 'numerous thin wavy vertical bands' untuk S. commerson.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson, salah satu kandidat spesies untuk label “tenggiri” yang ambigu, memiliki 15–18 duri sirip punggung.",
+          "label": "supported",
+          "reason": "chunk_tenggiri_physical_001 menyatakan S. commerson memiliki 15-18 dorsal spines (duri sirip punggung).",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Scomberomorus commerson, salah satu spesies kandidat dalam label “tenggiri” yang ambigu, dipasarkan terutama dalam keadaan segar.",
+          "label": "supported",
+          "reason": "chunk_tenggiri_commercial_001 menyatakan dipasarkan 'mainly fresh' (terutama segar) untuk S. commerson.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Scomberomorus commerson, salah satu spesies kandidat dalam label “tenggiri” yang ambigu, juga dipasarkan dalam bentuk kering-asin.",
+          "label": "supported",
+          "reason": "chunk_tenggiri_commercial_001 menyebut 'dried-salted' (kering-asin) untuk S. commerson.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Scomberomorus commerson, salah satu spesies kandidat dalam label “tenggiri” yang ambigu, juga dipasarkan dalam bentuk beku.",
+          "label": "supported",
+          "reason": "chunk_tenggiri_commercial_001 menyebut 'frozen' (beku) untuk S. commerson.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Scomberomorus commerson, salah satu spesies kandidat dalam label “tenggiri” yang ambigu, juga dipasarkan dalam bentuk asap.",
+          "label": "supported",
+          "reason": "chunk_tenggiri_commercial_001 menyebut 'smoked' (asap) untuk S. commerson.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Scomberomorus commerson, salah satu spesies kandidat dalam label “tenggiri” yang ambigu, juga dipasarkan dalam bentuk kalengan.",
+          "label": "supported",
+          "reason": "chunk_tenggiri_commercial_001 menyebut 'canned' (kalengan) untuk S. commerson.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@xhigh",
+      "effort": "xhigh",
+      "repeat": 0,
+      "species": "tuna",
+      "status": "completed",
+      "wall_s": 15.51,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1854,
+      "output_tokens": 1991,
+      "reasoning_tokens": 1266,
+      "cost_usd": 0.001181,
+      "card": {
+        "common_name": "Tuna",
+        "scientific_name": "Thunnus spp.",
+        "taxonomy_status": "MIXED_TAXONOMY",
+        "physical_characteristics": "Label “tuna” dibatasi pada tingkat genus Thunnus, yang termasuk famili Scombridae. Katalog FAO Scombrids of the World mencakup tujuh spesies Thunnus: T. alalunga, T. albacares, T. atlanticus, T. maccoyii, T. obesus, T. thynnus, dan T. tonggol. Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berbentuk seperti torpedo; bagian atas tubuhnya biru tua metalik, bagian bawahnya kuning hingga keperakan, dan sirip punggung, sirip dubur, serta finlet-nya berwarna kuning cerah.",
+        "taste": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki rasa ringan dan berdaging; dagingnya padat, lembap, dan berserpih besar.",
+        "texture": null,
+        "processing_methods": [
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk segar, beku, kalengan, dan diasap.",
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dihargai untuk sashimi.",
+          "Albakor (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk segar, diasap, dibekukan secara mendalam, atau dikalengkan."
+        ],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti.",
+          "Nama umum 'tuna' mencakup beberapa spesies (mungkin juga cakalang/bonito, Katsuwonus/Euthynnus); taksonomi dikunci pada tingkat genus Thunnus spp. sampai verifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_ac478e00",
+            "title": "FAO Species Catalogue Vol. 2: Scombrids of the World (tunas, mackerels, bonitos)",
+            "source_type": "species_catalogue",
+            "url": "https://www.fao.org/4/ac478e/ac478e00.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "noaa_pacific_yellowfin",
+            "title": "Pacific Yellowfin Tuna",
+            "source_type": "government_species_profile",
+            "url": "https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna",
+            "publisher": "NOAA Fisheries",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_albacares",
+            "title": "Thunnus albacares, Yellowfin tuna",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-albacares.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_alalunga",
+            "title": "Thunnus alalunga, Albacore",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-alalunga.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 3,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Label “tuna” dibatasi pada tingkat genus Thunnus, yang termasuk famili Scombridae.",
+          "label": "supported",
+          "reason": "identity_001 secara langsung menyatakan label tuna dipatok pada level genus Thunnus dalam famili Scombridae.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Katalog FAO Scombrids of the World mencakup tujuh spesies Thunnus: T. alalunga, T. albacares, T. atlanticus, T. maccoyii, T. obesus, T. thynnus, dan T. tonggol.",
+          "label": "supported",
+          "reason": "identity_001 menyebutkan katalog FAO memperlakukan tujuh spesies Thunnus dengan daftar nama Latin yang persis sama.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berbentuk seperti torpedo; bagian atas tubuhnya biru tua metalik, bagian bawahnya kuning hingga keperakan, dan sirip punggung, sirip dubur, serta finlet-nya berwarna kuning cerah.",
+          "label": "supported",
+          "reason": "physical_001 menyatakan semua ciri: bentuk torpedo, biru tua metalik di atas, kuning-keperakan di bawah, sirip punggung, dubur, dan finlet kuning cerah.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki rasa ringan dan berdaging; dagingnya padat, lembap, dan berserpih besar.",
+          "label": "supported",
+          "reason": "taste_001 menyatakan rasa mild (ringan) dan meaty (berdaging), daging firm (padat), moist (lembap), large flakes (serpih besar).",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk segar, beku, kalengan, dan diasap.",
+          "label": "supported",
+          "reason": "processing_002 menyatakan yellowfin dipasarkan segar, beku, kalengan, dan diasap.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dihargai untuk sashimi.",
+          "label": "supported",
+          "reason": "processing_002 menyatakan yellowfin 'valued for sashimi' (dihargai untuk sashimi).",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Albakor (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk segar, diasap, dibekukan secara mendalam, atau dikalengkan.",
+          "label": "supported",
+          "reason": "processing_001 menyatakan albacore dipasarkan segar, diasap, deep-frozen (beku mendalam), atau kalengan, dengan 'or' yang cocok dengan 'atau'.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@max",
+      "effort": "max",
+      "repeat": 0,
+      "species": "nila",
+      "status": "completed",
+      "wall_s": 161.3,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1892,
+      "output_tokens": 23903,
+      "reasoning_tokens": 22941,
+      "cost_usd": 0.012141,
+      "card": {
+        "common_name": "Nila",
+        "scientific_name": "Oreochromis niloticus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Nila adalah Nile tilapia, Oreochromis niloticus (Linnaeus, 1758), dari famili Cichlidae. Secara global, Nila disebut sebagai spesies tilapia terpenting dalam budidaya ikan dan spesies tilapia yang dominan dibudidayakan. Nila merupakan tilapia berukuran besar, bertubuh tinggi, dan berkepala relatif kecil. Ciri paling membedakan Nila adalah garis-garis vertikal teratur yang melintasi seluruh tinggi sirip ekor pada semua tahap kehidupannya. Nila dapat mencapai panjang standar (SL) 60 cm dan bobot 4,3 kg.",
+        "taste": "Fillet Nila dideskripsikan bercita rasa ringan dan lezat.",
+        "texture": null,
+        "processing_methods": [
+          "Nila dapat diolah menjadi fillet tanpa kulit.",
+          "FAO melaporkan rendemen fillet tanpa kulit sebesar 33% untuk ikan dengan faktor kondisi 3,11."
+        ],
+        "commercial_uses": [
+          "Kelompok tilapia disebut sebagai kelompok ikan budidaya terpenting kedua setelah karper.",
+          "Kelompok tilapia disebut sebagai kelompok yang paling luas dibudidayakan di antara semua ikan budidaya.",
+          "Produksi global kelompok tilapia diproyeksikan meningkat dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010.",
+          "Dalam proyeksi tersebut, nilai penjualan tilapia diperkirakan di atas USD 5 miliar, dan sebagian besar nilai itu diatribusikan kepada Nila (Nile tilapia)."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_en_niletilapia",
+            "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+            "source_type": "species_fact_sheet",
+            "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_oreochromis_niloticus",
+            "title": "Oreochromis niloticus, Nile tilapia: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-niloticus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 4,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Nila adalah Nile tilapia, Oreochromis niloticus (Linnaeus, 1758), dari famili Cichlidae.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan langsung: Nila adalah Nile tilapia Oreochromis niloticus (Linnaeus, 1758) [Cichlidae].",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Secara global, Nila disebut sebagai spesies tilapia terpenting dalam budidaya ikan dan spesies tilapia yang dominan dibudidayakan.",
+          "label": "supported",
+          "reason": "Bukti identitas menyatakan Nila 'globally the most important tilapia species in fish farming' dan 'predominant cultured species among tilapias'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila merupakan tilapia berukuran besar, bertubuh tinggi, dan berkepala relatif kecil.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan 'large deep-bodied tilapia with a relatively small head', sesuai dengan besar, tubuh tinggi, kepala relatif kecil.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Ciri paling membedakan Nila adalah garis-garis vertikal teratur yang melintasi seluruh tinggi sirip ekor pada semua tahap kehidupannya.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan ciri paling membedakan adalah garis vertikal teratur 'throughout the depth of the caudal fin at all life stages'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Nila dapat mencapai panjang standar (SL) 60 cm dan bobot 4,3 kg.",
+          "label": "supported",
+          "reason": "Bukti fisik menyatakan 'reaches 60 cm SL and 4.3 kg', angka persis sama.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Fillet Nila dideskripsikan bercita rasa ringan dan lezat.",
+          "label": "supported",
+          "reason": "Bukti rasa menyebut fillet Nila berasa 'mild, delicious flavour', sesuai ringan dan lezat.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Nila dapat diolah menjadi fillet tanpa kulit.",
+          "label": "supported",
+          "reason": "Bukti pengolahan menyatakan 'can be processed into skinless fillets'.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "FAO melaporkan rendemen fillet tanpa kulit sebesar 33% untuk ikan dengan faktor kondisi 3,11.",
+          "label": "supported",
+          "reason": "Bukti pengolahan menyebut FAO melaporkan rendemen fillet tanpa kulit 33 persen untuk ikan dengan faktor kondisi 3,11.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Kelompok tilapia disebut sebagai kelompok ikan budidaya terpenting kedua setelah karper.",
+          "label": "supported",
+          "reason": "Bukti komersial menyatakan 'second most important group of farmed fish after carps'.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Kelompok tilapia disebut sebagai kelompok yang paling luas dibudidayakan di antara semua ikan budidaya.",
+          "label": "supported",
+          "reason": "Bukti komersial menyatakan 'the most widely grown of any farmed fish'.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Produksi global kelompok tilapia diproyeksikan meningkat dari 1,5 juta ton pada 2003 menjadi 2,5 juta ton pada 2010.",
+          "label": "supported",
+          "reason": "Bukti komersial menyatakan proyeksi produksi global meningkat dari 1,5 juta ton (2003) menjadi 2,5 juta ton (2010), dan klaim menycantumkannya sebagai proyeksi.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Dalam proyeksi tersebut, nilai penjualan tilapia diperkirakan di atas USD 5 miliar, dan sebagian besar nilai itu diatribusikan kepada Nila (Nile tilapia).",
+          "label": "supported",
+          "reason": "Bukti komersial menyatakan nilai penjualan di atas USD 5 miliar dan 'most of it attributed to Nile tilapia', sesuai klaim.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@max",
+      "effort": "max",
+      "repeat": 0,
+      "species": "tenggiri",
+      "status": "completed",
+      "wall_s": 50.56,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 1773,
+      "output_tokens": 7730,
+      "reasoning_tokens": 6991,
+      "cost_usd": 0.004042,
+      "card": {
+        "common_name": "Tenggiri",
+        "scientific_name": "Scomberomorus commerson",
+        "taxonomy_status": "MEDIUM_CONFIDENCE_LABEL_AMBIGUITY",
+        "physical_characteristics": "Nama vernacular “tenggiri” digunakan bersama untuk lima spesies—Sarda orientalis, Scomberomorus commerson, Scomberomorus guttatus, Scomberomorus koreanus, dan Scomberomorus lineolatus—sehingga label tersebut ambigu jika spesiesnya tidak ditetapkan. Scomberomorus commerson adalah salah satu spesies kandidat untuk nama “tenggiri”. Scomberomorus commerson merupakan ikan scombrid pelagis besar dari kawasan Indo-Pasifik Barat. Scomberomorus commerson dapat mencapai panjang 240 cm FL. Punggung Scomberomorus commerson berwarna biru keabu-abuan dan berkilau iridesen. Scomberomorus commerson memiliki banyak pita vertikal tipis yang bergelombang. Scomberomorus commerson memiliki 15–18 duri sirip punggung.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [
+          "Scomberomorus commerson dipasarkan terutama dalam keadaan segar, dan juga dalam bentuk asin-kering, beku, diasap, atau dikalengkan."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti.",
+          "Label 'tenggiri' juga dipakai untuk Scomberomorus guttatus (tenggiri papan); kartu ini mengikuti nama vernakular utama Scomberomorus commerson."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_tenggiri_common_name",
+            "title": "FishBase Common Names search: 'Tenggiri'",
+            "source_type": "common_name_page",
+            "url": "https://www.fishbase.se/ComNames/CommonNameSearchList.cfm?CommonName=tenggiri",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_scomberomorus_commerson",
+            "title": "Scomberomorus commerson, Narrow-barred Spanish mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-commerson.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 2,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Nama vernacular “tenggiri” digunakan bersama untuk lima spesies—Sarda orientalis, Scomberomorus commerson, Scomberomorus guttatus, Scomberomorus koreanus, dan Scomberomorus lineolatus—sehingga label tersebut ambigu jika spesiesnya tidak ditetapkan.",
+          "label": "supported",
+          "reason": "Identity_001 secara eksplisit menyatakan lima spesies tersebut berbagi nama vernacular 'tenggiri' dan label ambigu tanpa penetapan spesies.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson adalah salah satu spesies kandidat untuk nama “tenggiri”.",
+          "label": "supported",
+          "reason": "Identity_002 (dan identity_001) menyatakan S. commerson adalah salah satu spesies kandidat untuk 'tenggiri'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson merupakan ikan scombrid pelagis besar dari kawasan Indo-Pasifik Barat.",
+          "label": "supported",
+          "reason": "Identity_002 menyatakan S. commerson ikan scombrid pelagis besar dari Indo-West Pacific.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson dapat mencapai panjang 240 cm FL.",
+          "label": "supported",
+          "reason": "Identity_002 menyatakan mencapai 240 cm FL.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Punggung Scomberomorus commerson berwarna biru keabu-abuan dan berkilau iridesen.",
+          "label": "supported",
+          "reason": "Identity_002 menyatakan punggung 'iridescent blue-grey'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson memiliki banyak pita vertikal tipis yang bergelombang.",
+          "label": "supported",
+          "reason": "Identity_002 menyatakan 'numerous thin wavy vertical bands'.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Scomberomorus commerson memiliki 15–18 duri sirip punggung.",
+          "label": "supported",
+          "reason": "Physical_001 menyatakan S. commerson memiliki 15-18 dorsal spines.",
+          "stage": "llm"
+        },
+        {
+          "field": "commercial_uses",
+          "text": "Scomberomorus commerson dipasarkan terutama dalam keadaan segar, dan juga dalam bentuk asin-kering, beku, diasap, atau dikalengkan.",
+          "label": "supported",
+          "reason": "Commercial_001 menyatakan dipasarkan mainly fresh serta dried-salted, frozen, smoked, dan canned untuk S. commerson.",
+          "stage": "llm"
+        }
+      ]
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@max",
+      "effort": "max",
+      "repeat": 0,
+      "species": "tuna",
+      "status": "completed",
+      "wall_s": 92.02,
+      "llm_calls": 2,
+      "llm_rounds": 2,
+      "llm_errors": 0,
+      "stages": {
+        "verifier": 1,
+        "writer": 1
+      },
+      "input_tokens": 2088,
+      "output_tokens": 15965,
+      "reasoning_tokens": 14944,
+      "cost_usd": 0.008191,
+      "card": {
+        "common_name": "Tuna",
+        "scientific_name": "Thunnus spp.",
+        "taxonomy_status": "MIXED_TAXONOMY",
+        "physical_characteristics": "Label “tuna” merujuk pada genus Thunnus dalam famili Scombridae. Menurut katalog FAO Scombrids of the World, Thunnus mencakup tujuh spesies: Thunnus alalunga, Thunnus albacares, Thunnus atlanticus, Thunnus maccoyii, Thunnus obesus, Thunnus thynnus, dan Thunnus tonggol. Tubuh tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berbentuk seperti torpedo. Pada tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, bagian atas tubuh berwarna biru tua metalik. Pada tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, bagian bawah tubuh berwarna kuning hingga perak. Sirip punggung, sirip anal, dan finlet tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berwarna kuning cerah.",
+        "taste": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki cita rasa ringan dengan karakter daging.",
+        "texture": "Daging tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, padat dan lembap dengan serpihan besar.",
+        "processing_methods": [
+          "Albacore (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk segar, asap, beku-dalam (deep-frozen), atau kalengan.",
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk segar, beku, kalengan, dan asap.",
+          "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dihargai untuk sashimi."
+        ],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti.",
+          "Nama umum 'tuna' mencakup beberapa spesies (mungkin juga cakalang/bonito, Katsuwonus/Euthynnus); taksonomi dikunci pada tingkat genus Thunnus spp. sampai verifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_ac478e00",
+            "title": "FAO Species Catalogue Vol. 2: Scombrids of the World (tunas, mackerels, bonitos)",
+            "source_type": "species_catalogue",
+            "url": "https://www.fao.org/4/ac478e/ac478e00.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "noaa_pacific_yellowfin",
+            "title": "Pacific Yellowfin Tuna",
+            "source_type": "government_species_profile",
+            "url": "https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna",
+            "publisher": "NOAA Fisheries",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_alalunga",
+            "title": "Thunnus alalunga, Albacore",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-alalunga.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_albacares",
+            "title": "Thunnus albacares, Yellowfin tuna",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-albacares.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "error": null,
+      "fields_filled": 4,
+      "judge_error": null,
+      "judged": [
+        {
+          "field": "physical_characteristics",
+          "text": "Label “tuna” merujuk pada genus Thunnus dalam famili Scombridae.",
+          "label": "supported",
+          "reason": "chunk_tuna_identity_001 menyatakan langsung bahwa label tuna melekat pada genus Thunnus dalam famili Scombridae.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Menurut katalog FAO Scombrids of the World, Thunnus mencakup tujuh spesies: Thunnus alalunga, Thunnus albacares, Thunnus atlanticus, Thunnus maccoyii, Thunnus obesus, Thunnus thynnus, dan Thunnus tonggol.",
+          "label": "supported",
+          "reason": "chunk_tuna_identity_001 menyebut katalog FAO Scombrids of the World dan men degrade daftar persis tujuh spesies Thunnus yang sama.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Tubuh tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berbentuk seperti torpedo.",
+          "label": "supported",
+          "reason": "chunk_tuna_physical_001 menyatakan yellowfin Pasifik torpedo-shaped, dengan atribusi benar ke satu spesies.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Pada tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, bagian atas tubuh berwarna biru tua metalik.",
+          "label": "supported",
+          "reason": "chunk_tuna_physical_001: metallic dark blue above, sesuai bagian atas tubuh.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Pada tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, bagian bawah tubuh berwarna kuning hingga perak.",
+          "label": "supported",
+          "reason": "chunk_tuna_physical_001: yellow-to-silver below, sesuai bagian bawah tubuh.",
+          "stage": "llm"
+        },
+        {
+          "field": "physical_characteristics",
+          "text": "Sirip punggung, sirip anal, dan finlet tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, berwarna kuning cerah.",
+          "label": "supported",
+          "reason": "chunk_tuna_physical_001: bright yellow dorsal and anal fins and finlets, sama persis dengan klaim.",
+          "stage": "llm"
+        },
+        {
+          "field": "taste",
+          "text": "Tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, memiliki cita rasa ringan dengan karakter daging.",
+          "label": "supported",
+          "reason": "chunk_tuna_taste_001: mild, meaty flavor untuk T. albacares; atribusi spesies tepat.",
+          "stage": "llm"
+        },
+        {
+          "field": "texture",
+          "text": "Daging tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, padat dan lembap dengan serpihan besar.",
+          "label": "supported",
+          "reason": "chunk_tuna_taste_001: firm, moist meat with large flakes; terjemahan padat/lembap/serpihan besar akurat.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Albacore (Thunnus alalunga), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk segar, asap, beku-dalam (deep-frozen), atau kalengan.",
+          "label": "supported",
+          "reason": "chunk_tuna_processing_001: albacore dipasarkan fresh, smoked, deep-frozen, or canned; daftar identik (kalengan, bukan chunk_tuna_processing_002 yang dikutip juga memuat frozen untuk yellowfin sahaja).",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dipasarkan dalam bentuk segar, beku, kalengan, dan asap.",
+          "label": "supported",
+          "reason": "chunk_tuna_processing_002: yellowfin dipasarkan fresh, frozen, canned, dan smoked; daftar persis sama.",
+          "stage": "llm"
+        },
+        {
+          "field": "processing_methods",
+          "text": "Tuna sirip kuning (Thunnus albacares), salah satu spesies dalam label tuna tingkat genus, dihargai untuk sashimi.",
+          "label": "supported",
+          "reason": "chunk_tuna_processing_002 menyatakan yellowfin valued for sashimi secara langsung.",
+          "stage": "llm"
+        }
+      ]
+    }
+  ]
+}

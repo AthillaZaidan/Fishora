@@ -1,0 +1,5 @@
+claims_gold.csv sha256=b808882f4676ef787fb157d054688a0d3c5590e2b349aa2af12dfce887231ec3
+locked_at=2026-09-26T07:36:27Z
+annotation=AI-assisted annotation, reviewed by the team; all 221 labels accepted without change
+source=221 unique claims from the 44 real-LLM cards of evals/results/iteration-1/cost_eval.json (gpt-5.6-luna)
+note=locked before the iteration-2 verifier was written; do not edit after results exist

@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_bandeng_taste_002",
+  "chunk": {
+    "id": "chunk_bandeng_taste_002",
+    "species_label": "bandeng",
+    "source_id": "fao_en_milkfish",
+    "category": "taste_texture",
+    "content": "Milkfish flesh is bony; FAO notes that the younger generation tends to avoid eating milkfish because of their bony flesh.",
+    "source_quote": "the younger generation tends to avoid eating milkfish because of their bony flesh",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_en_milkfish",
+    "title": "FAO Cultured Aquatic Species Fact Sheet: Chanos chanos (Milkfish)",
+    "source_type": "species_fact_sheet",
+    "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_milkfish.htm",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

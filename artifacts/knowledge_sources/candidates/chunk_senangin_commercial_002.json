@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_senangin_commercial_002",
+  "chunk": {
+    "id": "chunk_senangin_commercial_002",
+    "species_label": "senangin",
+    "source_id": "fao_threadfins_2004",
+    "category": "commercial_uses",
+    "content": "Eleutheronema tetradactylum is one of the most important fisheries species for Kuwait, India, Thailand, Viet Nam, Malaysia, Singapore and Indonesia; it is mainly caught by gill net, sometimes by trawl, and is also an important sport fish in Australian waters.",
+    "source_quote": "One of the most important fisheries species for Kuwait, India, Thailand, Viet Nam, Malaysia, Singapore and Indonesia ... The species is mainly caught by gill net, sometimes by trawl ... The species is also an important sport fish in Australian waters",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_threadfins_2004",
+    "title": "Threadfins of the World (Family Polynemidae), FAO Species Catalogue for Fishery Purposes No. 3 (Motomura, 2004), Eleutheronema accounts",
+    "source_type": "species_catalogue",
+    "url": "https://www.fao.org/4/y5398e/y5398e03.pdf",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

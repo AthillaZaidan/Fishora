@@ -177,13 +177,20 @@ class InMemoryKnowledgeRepository:
         )
 
 
-def build_store(embedder) -> InMemoryKnowledgeRepository:
+def corpus_v1_ids() -> frozenset[str]:
+    """The 49 chunks the iteration-1/2 experiments and gold labels were built on."""
+    path = Path(__file__).resolve().parent / "protocol" / "corpus_v1_chunks.txt"
+    return frozenset(line.strip() for line in path.read_text().splitlines() if line.strip())
+
+
+def build_store(embedder, only: frozenset[str] | None = None) -> InMemoryKnowledgeRepository:
     """Embed the candidate corpus as passages and load it as verified rows.
 
     Candidates are treated as verified for evaluation only; production
-    ingestion still requires the signed human approval manifest.
+    ingestion still requires the signed human approval manifest. ``only``
+    pins the store to a chunk subset (e.g. ``corpus_v1_ids()``).
     """
-    corpus = load_corpus()
+    corpus = tuple(c for c in load_corpus() if only is None or c.id in only)
     vectors = embedder.embed_passages([chunk.content for chunk in corpus])
     sources = {
         chunk.source["id"]: KnowledgeSourceWrite(

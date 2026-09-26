@@ -1,0 +1,438 @@
+{
+  "judge": "glm-5.3-flash",
+  "facts": "corpus_v1",
+  "summary": {
+    "writer_critic+e5:gpt-6-luna@none": {
+      "fact_coverage": 0.647,
+      "fact_coverage_card_mean": 0.664,
+      "fact_coverage_ci": [
+        0.3684,
+        0.875
+      ],
+      "facts_covered_pooled": "33/51",
+      "coverage_scored_cards": 3
+    },
+    "writer_critic+e5:gpt-6-luna@low": {
+      "fact_coverage": 0.627,
+      "fact_coverage_card_mean": 0.667,
+      "fact_coverage_ci": [
+        0.0,
+        1.0
+      ],
+      "facts_covered_pooled": "32/51",
+      "coverage_scored_cards": 3
+    },
+    "writer_critic+e5:gpt-6-luna@medium": {
+      "fact_coverage": 0.784,
+      "fact_coverage_card_mean": 0.791,
+      "fact_coverage_ci": [
+        0.6842,
+        0.8542
+      ],
+      "facts_covered_pooled": "40/51",
+      "coverage_scored_cards": 3
+    },
+    "writer_critic+e5:gpt-6-luna@high": {
+      "fact_coverage": 0.784,
+      "fact_coverage_card_mean": 0.794,
+      "fact_coverage_ci": [
+        0.6316,
+        0.875
+      ],
+      "facts_covered_pooled": "40/51",
+      "coverage_scored_cards": 3
+    },
+    "writer_critic+e5:gpt-6-luna@xhigh": {
+      "fact_coverage": 0.804,
+      "fact_coverage_card_mean": 0.815,
+      "fact_coverage_ci": [
+        0.6316,
+        0.9375
+      ],
+      "facts_covered_pooled": "41/51",
+      "coverage_scored_cards": 3
+    },
+    "writer_critic+e5:gpt-6-luna@max": {
+      "fact_coverage": 0.804,
+      "fact_coverage_card_mean": 0.815,
+      "fact_coverage_ci": [
+        0.6316,
+        0.9167
+      ],
+      "facts_covered_pooled": "41/51",
+      "coverage_scored_cards": 3
+    }
+  },
+  "cards": [
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@none",
+      "species": "nila",
+      "covered": [
+        "nila_c1_1",
+        "nila_c1_2",
+        "nila_c1_3",
+        "nila_c1_4",
+        "nila_p1_1",
+        "nila_p1_2",
+        "nila_p1_3",
+        "nila_p1_4",
+        "nila_p1_5",
+        "nila_pr1_1",
+        "nila_pr1_2",
+        "nila_t1_1",
+        "nila_t1_2",
+        "nila_t1_3"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@none",
+      "species": "tenggiri",
+      "covered": [
+        "tenggiri_i1_1",
+        "tenggiri_i1_2",
+        "tenggiri_i1_3",
+        "tenggiri_i3_2",
+        "tenggiri_i3_3",
+        "tenggiri_i3_4",
+        "tenggiri_p1_1"
+      ],
+      "facts_total": 19
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@none",
+      "species": "tuna",
+      "covered": [
+        "tuna_p1_1",
+        "tuna_p1_2",
+        "tuna_p1_3",
+        "tuna_pr1_1",
+        "tuna_pr1_2",
+        "tuna_pr1_3",
+        "tuna_pr1_4",
+        "tuna_pr2_1",
+        "tuna_pr2_2",
+        "tuna_pr2_3",
+        "tuna_pr2_4",
+        "tuna_pr2_5"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@low",
+      "species": "nila",
+      "covered": [
+        "nila_c1_1",
+        "nila_c1_2",
+        "nila_c1_3",
+        "nila_c1_4",
+        "nila_i1_1",
+        "nila_i1_2",
+        "nila_p1_1",
+        "nila_p1_2",
+        "nila_p1_3",
+        "nila_p1_4",
+        "nila_p1_5",
+        "nila_pr1_1",
+        "nila_pr1_2",
+        "nila_t1_1",
+        "nila_t1_2",
+        "nila_t1_3"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@low",
+      "species": "tenggiri",
+      "covered": [],
+      "facts_total": 19
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@low",
+      "species": "tuna",
+      "covered": [
+        "tuna_i1_1",
+        "tuna_i1_2",
+        "tuna_p1_1",
+        "tuna_p1_2",
+        "tuna_p1_3",
+        "tuna_pr1_1",
+        "tuna_pr1_2",
+        "tuna_pr1_3",
+        "tuna_pr1_4",
+        "tuna_pr2_1",
+        "tuna_pr2_2",
+        "tuna_pr2_3",
+        "tuna_pr2_4",
+        "tuna_pr2_5",
+        "tuna_t1_1",
+        "tuna_t1_2"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@medium",
+      "species": "nila",
+      "covered": [
+        "nila_c1_1",
+        "nila_c1_2",
+        "nila_c1_3",
+        "nila_c1_4",
+        "nila_i1_1",
+        "nila_i1_2",
+        "nila_p1_1",
+        "nila_p1_2",
+        "nila_p1_3",
+        "nila_p1_4",
+        "nila_p1_5",
+        "nila_pr1_1",
+        "nila_pr1_2"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@medium",
+      "species": "tenggiri",
+      "covered": [
+        "tenggiri_c1_1",
+        "tenggiri_c1_2",
+        "tenggiri_c1_3",
+        "tenggiri_c1_4",
+        "tenggiri_c1_5",
+        "tenggiri_i1_1",
+        "tenggiri_i1_2",
+        "tenggiri_i1_3",
+        "tenggiri_i2_2",
+        "tenggiri_i2_3",
+        "tenggiri_i2_4",
+        "tenggiri_p1_1",
+        "tenggiri_pr1_1"
+      ],
+      "facts_total": 19
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@medium",
+      "species": "tuna",
+      "covered": [
+        "tuna_i1_1",
+        "tuna_i1_2",
+        "tuna_p1_1",
+        "tuna_p1_2",
+        "tuna_p1_3",
+        "tuna_pr1_1",
+        "tuna_pr1_2",
+        "tuna_pr1_3",
+        "tuna_pr1_4",
+        "tuna_pr2_1",
+        "tuna_pr2_2",
+        "tuna_pr2_3",
+        "tuna_pr2_4",
+        "tuna_pr2_5"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@high",
+      "species": "nila",
+      "covered": [
+        "nila_c1_1",
+        "nila_c1_2",
+        "nila_c1_3",
+        "nila_i1_1",
+        "nila_i1_2",
+        "nila_p1_1",
+        "nila_p1_2",
+        "nila_p1_3",
+        "nila_p1_4",
+        "nila_p1_5",
+        "nila_pr1_1",
+        "nila_pr1_2",
+        "nila_t1_1",
+        "nila_t1_2"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@high",
+      "species": "tenggiri",
+      "covered": [
+        "tenggiri_c1_1",
+        "tenggiri_c1_2",
+        "tenggiri_c1_3",
+        "tenggiri_c1_4",
+        "tenggiri_c1_5",
+        "tenggiri_i1_1",
+        "tenggiri_i1_2",
+        "tenggiri_i1_3",
+        "tenggiri_i2_3",
+        "tenggiri_i2_4",
+        "tenggiri_p1_1",
+        "tenggiri_pr1_1"
+      ],
+      "facts_total": 19
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@high",
+      "species": "tuna",
+      "covered": [
+        "tuna_p1_1",
+        "tuna_p1_2",
+        "tuna_p1_3",
+        "tuna_pr1_1",
+        "tuna_pr1_2",
+        "tuna_pr1_3",
+        "tuna_pr1_4",
+        "tuna_pr2_1",
+        "tuna_pr2_2",
+        "tuna_pr2_3",
+        "tuna_pr2_4",
+        "tuna_pr2_5",
+        "tuna_t1_1",
+        "tuna_t1_2"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@xhigh",
+      "species": "nila",
+      "covered": [
+        "nila_c1_1",
+        "nila_c1_2",
+        "nila_c1_3",
+        "nila_i1_1",
+        "nila_i1_2",
+        "nila_p1_1",
+        "nila_p1_2",
+        "nila_p1_3",
+        "nila_p1_4",
+        "nila_p1_5",
+        "nila_pr1_1",
+        "nila_pr1_2",
+        "nila_t1_1"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@xhigh",
+      "species": "tenggiri",
+      "covered": [
+        "tenggiri_c1_1",
+        "tenggiri_c1_2",
+        "tenggiri_c1_3",
+        "tenggiri_c1_4",
+        "tenggiri_c1_5",
+        "tenggiri_i1_1",
+        "tenggiri_i1_2",
+        "tenggiri_i1_3",
+        "tenggiri_i2_2",
+        "tenggiri_i2_3",
+        "tenggiri_i2_4",
+        "tenggiri_p1_1"
+      ],
+      "facts_total": 19
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@xhigh",
+      "species": "tuna",
+      "covered": [
+        "tuna_i1_1",
+        "tuna_i1_2",
+        "tuna_p1_1",
+        "tuna_p1_2",
+        "tuna_p1_3",
+        "tuna_pr1_1",
+        "tuna_pr1_2",
+        "tuna_pr1_3",
+        "tuna_pr1_4",
+        "tuna_pr2_1",
+        "tuna_pr2_2",
+        "tuna_pr2_3",
+        "tuna_pr2_4",
+        "tuna_pr2_5",
+        "tuna_t1_1",
+        "tuna_t1_2"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@max",
+      "species": "nila",
+      "covered": [
+        "nila_c1_1",
+        "nila_c1_2",
+        "nila_c1_3",
+        "nila_c1_4",
+        "nila_i1_1",
+        "nila_i1_2",
+        "nila_p1_1",
+        "nila_p1_2",
+        "nila_p1_3",
+        "nila_p1_4",
+        "nila_p1_5",
+        "nila_pr1_1",
+        "nila_pr1_2",
+        "nila_t1_1"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@max",
+      "species": "tenggiri",
+      "covered": [
+        "tenggiri_c1_1",
+        "tenggiri_c1_2",
+        "tenggiri_c1_3",
+        "tenggiri_c1_4",
+        "tenggiri_c1_5",
+        "tenggiri_i1_1",
+        "tenggiri_i1_2",
+        "tenggiri_i1_3",
+        "tenggiri_i2_2",
+        "tenggiri_i2_3",
+        "tenggiri_i2_4",
+        "tenggiri_p1_1"
+      ],
+      "facts_total": 19
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna@max",
+      "species": "tuna",
+      "covered": [
+        "tuna_i1_1",
+        "tuna_i1_2",
+        "tuna_p1_1",
+        "tuna_p1_3",
+        "tuna_pr1_1",
+        "tuna_pr1_2",
+        "tuna_pr1_3",
+        "tuna_pr1_4",
+        "tuna_pr2_1",
+        "tuna_pr2_2",
+        "tuna_pr2_3",
+        "tuna_pr2_4",
+        "tuna_pr2_5",
+        "tuna_t1_1",
+        "tuna_t1_2"
+      ],
+      "facts_total": 16
+    }
+  ]
+}

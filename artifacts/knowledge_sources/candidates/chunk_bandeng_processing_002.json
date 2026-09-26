@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_bandeng_processing_002",
+  "chunk": {
+    "id": "chunk_bandeng_processing_002",
+    "species_label": "bandeng",
+    "source_id": "fao_en_milkfish",
+    "category": "processing_methods",
+    "content": "Farmed milkfish of 200-400 g are marketed mostly fresh or chilled, whole or deboned, frozen, or processed (fresh frozen deboned, deboned and descaled, smoked deboned); value-added forms include smoked, dried, marinated, rice-fermented, and canned or bottled milkfish, and some Philippine companies produce frozen prime cuts of bellies and backs.",
+    "source_quote": "200-400 g milkfish are harvested and marketed mostly fresh or chilled, whole or deboned, frozen, or processed (e.g. fresh frozen deboned, fresh frozen deboned descaled, and smoked fish deboned). ... Increasingly, more of the milkfish harvest is processed into value-added forms: smoked, dried, marinated (brined, sweetened), fermented with rice, and canned or bottled in various styles ... Some companies in the Philippines now produce frozen prime cuts of milkfish bellies and backs",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_en_milkfish",
+    "title": "FAO Cultured Aquatic Species Fact Sheet: Chanos chanos (Milkfish)",
+    "source_type": "species_fact_sheet",
+    "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_milkfish.htm",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

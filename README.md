@@ -284,8 +284,11 @@ API key for generated knowledge cards:
 cp .env.example .env
 ```
 
-Set `OPENCODE_GO_API_KEY` in `.env`. The researcher, four domain experts, critic and writer share
-one OpenCode Go client configured with `FISHORA_OPENCODE_GO_MODEL=gpt-5.6-luna`. Without the key
+Set `OPENCODE_GO_API_KEY` in `.env`. A verified species gets its card from the writer-critic
+workflow (`apps/main_api/services/workflow.py`): one writer call, then a claim verifier that checks
+every claim against the chunk it cites. Both share one OpenCode Go client configured with
+`FISHORA_OPENCODE_GO_MODEL=gpt-6-luna`. The earlier four-expert graph is kept for comparison in
+`evals/iteration2.py`. Without the key
 everything still starts, and identification and verification work normally; only knowledge card
 generation fails, with a `502`.
 
@@ -519,7 +522,7 @@ HF_HUB_OFFLINE=1 "$PY" -m pytest evals/tests -q                # all layers, abo
 
 ### Real-LLM cost and model comparison
 
-These call OpenCode Go and spend from its per-model allowance ($3 per 5 hours for `gpt-5.6-luna`).
+These call OpenCode Go and spend from its per-model allowance ($3 per 5 hours for each Luna model).
 A full cost run costs about $0.07; the comparison runs 11 cards on each of six models.
 
 ```bash
@@ -559,6 +562,18 @@ One model can also be run on its own:
 "$PY" -m evaluation.cv.cv_suite --run lp_vit_l --export <export_dir>
 "$PY" -m evaluation.cv.report lp_vit_l
 ```
+
+### Iteration 2: architecture x model experiment
+
+```bash
+HF_HUB_OFFLINE=1 "$PY" -m evals.iteration2_gold --label iteration-2
+HF_HUB_OFFLINE=1 "$PY" -m evals.iteration2 --label iteration-2 --judge glm-5.3-flash --repeat 1 --critic-variants e5
+```
+
+The first grades the 221 locked gold claims (`evals/protocol/claims_gold.csv`, AI-assisted
+annotation reviewed by the team) with every candidate critic and judge. The second generates cards
+for {four-expert graph, writer-critic} x {gpt-5.6-luna, gpt-6-luna} and scores their claims with the
+judge. Results are recorded in `evals/results/iteration-2/`.
 
 ### Compare a change against the baseline
 

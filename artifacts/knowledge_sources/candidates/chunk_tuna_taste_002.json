@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_tuna_taste_002",
+  "chunk": {
+    "id": "chunk_tuna_taste_002",
+    "species_label": "tuna",
+    "source_id": "sfm_yellowfin_tuna",
+    "category": "taste_texture",
+    "content": "Yellowfin tuna (Thunnus albacares), one species within Fishora's genus-level tuna label, has a medium flavour, medium oiliness and moist flesh that quickly becomes dry if overcooked; the cooked flesh is creamy brown, breaks into large flakes and has very few bones.",
+    "source_quote": "Has a medium flavour, medium oiliness and moist flesh, which quickly becomes dry if overcooked. The cooked flesh is creamy brown in colour and breaks into large flakes; there are very few bones to worry about.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "sfm_yellowfin_tuna",
+    "title": "Yellowfin Tuna (Thunnus albacares): species information",
+    "source_type": "seafood_market_guide",
+    "url": "https://www.sydneyfishmarket.com.au/species/yellowfin-tuna/",
+    "publisher": "Sydney Fish Market",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

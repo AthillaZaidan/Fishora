@@ -1,15 +1,15 @@
 {
   "total_cells": 66,
-  "supported_cells": 44,
-  "unresolved_cells": 22,
-  "candidate_chunks": 49,
+  "supported_cells": 51,
+  "unresolved_cells": 15,
+  "candidate_chunks": 66,
   "category_coverage": {
     "identity": 11,
     "physical_characteristics": 9,
-    "taste_texture": 5,
+    "taste_texture": 6,
     "processing_methods": 9,
     "commercial_uses": 10,
-    "substitutes": 0
+    "substitutes": 6
   },
   "unresolved": [
     {
@@ -73,11 +73,6 @@
       "reason": "source_quote_not_direct"
     },
     {
-      "species_label": "kembung",
-      "category": "substitutes",
-      "reason": "no_direct_evidence_found"
-    },
-    {
       "species_label": "kuniran",
       "category": "taste_texture",
       "reason": "accepted_source_text_not_accessible"
@@ -88,39 +83,9 @@
       "reason": "only_market_misidentification_evidence_found"
     },
     {
-      "species_label": "mujair",
-      "category": "substitutes",
-      "reason": "only_fisheries_replacement_evidence_found"
-    },
-    {
-      "species_label": "nila",
-      "category": "substitutes",
-      "reason": "no_direct_evidence_found"
-    },
-    {
       "species_label": "senangin",
       "category": "taste_texture",
       "reason": "no_direct_evidence_found"
-    },
-    {
-      "species_label": "senangin",
-      "category": "substitutes",
-      "reason": "no_direct_evidence_found"
-    },
-    {
-      "species_label": "tenggiri",
-      "category": "taste_texture",
-      "reason": "vernacular_scope_not_supported"
-    },
-    {
-      "species_label": "tenggiri",
-      "category": "substitutes",
-      "reason": "vernacular_scope_not_supported"
-    },
-    {
-      "species_label": "tuna",
-      "category": "substitutes",
-      "reason": "only_non_fish_recipe_alternative_found"
     }
   ]
 }
