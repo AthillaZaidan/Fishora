@@ -1,5 +1,5 @@
 facts_gold.csv sha256=b6810b675c0b77d8ab7840f77032f8be2f17a7d8623fbd587adb7e576ef4ecbb
 locked_at=2026-09-26T09:30:29Z
-annotation=AI-assisted annotation; team review pending
+annotation=AI-assisted annotation, reviewed by the team; all 243 facts accepted without change
 source=243 atomic facts from 63 of the 66 candidate chunks (163 from the 49 corpus-v1 chunks); excluded: chunk_gembolo_identity_001 (limitation), chunk_tuna_commercial_001 and chunk_tuna_identity_002 (catalogue descriptions)
 note=locked before the iteration-3 cards were generated; do not edit after results exist
