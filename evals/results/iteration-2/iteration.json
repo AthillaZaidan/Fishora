@@ -1,0 +1,2604 @@
+{
+  "name": "iteration-2",
+  "baseline": "iteration-1",
+  "current": "current",
+  "baseline_note": "iteration 1, archived in `evals/results/iteration-1`",
+  "generated_at": "2026-09-26T09:27:01+00:00",
+  "tests": {
+    "baseline": {
+      "passed": 71,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "total": 71
+    },
+    "current": {
+      "passed": 84,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "total": 84
+    },
+    "coverage_rag": [
+      83.4,
+      86.5
+    ]
+  },
+  "findings_status": {
+    "baseline": {
+      "open": 9,
+      "partial": 3,
+      "resolved": 16,
+      "not_measured": 2,
+      "not_observed": 1,
+      "info": 2
+    },
+    "current": {
+      "open": 9,
+      "partial": 2,
+      "resolved": 18,
+      "not_measured": 1,
+      "not_observed": 1,
+      "info": 2
+    }
+  },
+  "fixes": [
+    {
+      "id": "F19",
+      "track": "product",
+      "title": "The synchronous card path runs the graded graph",
+      "sources": [
+        "W19",
+        "W3"
+      ],
+      "change": "KnowledgeService (a manually declared catch, the publication fallback) calls orchestrator.grade_card, the same researcher-experts-critic-writer graph as the background job, so no card reaches a buyer without the per-claim critic. A blank key stays a mapped provider outage. The one-call generator wiring (deps.retriever, deps.generator) is removed from the app.",
+      "files": [
+        "apps/main_api/services/knowledge.py",
+        "apps/main_api/services/orchestrator.py",
+        "apps/main_api/services/card_llm.py",
+        "apps/main_api/api/fish.py",
+        "apps/main_api/api/lots.py",
+        "apps/main_api/main.py",
+        "apps/main_api/ports.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W19",
+          "before": "partial",
+          "after": "resolved"
+        },
+        {
+          "id": "W3",
+          "before": "resolved",
+          "after": "resolved"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_knowledge_api::test_manual_catch_card_is_graded_by_the_critic",
+          "before": "absent",
+          "after": "passed"
+        },
+        {
+          "test": "test_knowledge_api::test_manual_catch_without_a_key_is_a_provider_outage",
+          "before": "absent",
+          "after": "passed"
+        },
+        {
+          "test": "test_lot_publication::test_published_snapshot_is_the_graded_job_card",
+          "before": "passed",
+          "after": "passed"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "Sync path grades claims (probe)",
+          "path": "probes.publication_path.sync_path_has_claim_critic",
+          "before": false,
+          "after": true
+        },
+        {
+          "metric": "Blank key on the sync path (HTTP status)",
+          "path": "probes.sync_path_blank_key.status_code",
+          "before": 502,
+          "after": 502
+        }
+      ]
+    },
+    {
+      "id": "F20",
+      "track": "product",
+      "title": "Every card run leaves a stage trace; no handler fails silently",
+      "sources": [
+        "W12"
+      ],
+      "change": "grade_card records evidence ids and distances, each expert's chunk ids, prompt hash, latency and tokens, the claim verdicts and per-stage timings; run_graph stores it on the job (knowledge_jobs.trace). The silent broad handlers log; the langgraph branch, never installed and never run, is deleted.",
+      "files": [
+        "apps/main_api/services/orchestrator.py",
+        "apps/main_api/api/fish.py",
+        "apps/main_api/services/lots.py",
+        "apps/main_api/db/sql_repositories.py",
+        "apps/main_api/db/models.py",
+        "apps/main_api/contracts.py",
+        "alembic/versions/0007_knowledge_job_trace.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W12",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_knowledge_api::test_card_job_records_a_stage_trace",
+          "before": "absent",
+          "after": "passed"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "Silent broad exception handlers",
+          "path": "probes.silent_excepts.count",
+          "before": 5,
+          "after": 0
+        }
+      ]
+    },
+    {
+      "id": "E8",
+      "track": "evaluation",
+      "title": "The W19 probe reads the syntax tree",
+      "sources": [
+        "W19"
+      ],
+      "change": "sync_path_has_claim_critic is true only when knowledge.py's code calls grade_card or critic_node; the former token check would have passed on a comment.",
+      "files": [
+        "evals/probes.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W19",
+          "before": "partial",
+          "after": "resolved"
+        }
+      ],
+      "tests": [],
+      "metrics": []
+    },
+    {
+      "id": "E9",
+      "track": "evaluation",
+      "title": "W12 requires a stage trace",
+      "sources": [
+        "W12"
+      ],
+      "change": "Resolved needs no silent handler and the stage-trace test passing (judge methodology 6.1).",
+      "files": [
+        "evals/findings.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W12",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [],
+      "metrics": []
+    },
+    {
+      "id": "E10",
+      "track": "evaluation",
+      "title": "Cost runs measure the card the product publishes",
+      "sources": [
+        "W19",
+        "W25",
+        "W26"
+      ],
+      "change": "The one-call generator becomes an eval-only reference path (one_call); 'published' metrics resolve to the path the product publishes; agent cards keep their trace and expert outputs.",
+      "files": [
+        "evals/cost_eval.py",
+        "evals/findings.py",
+        "evals/dashboard.py",
+        "evals/model_compare.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W19",
+          "before": "partial",
+          "after": "resolved"
+        },
+        {
+          "id": "W25",
+          "before": "resolved",
+          "after": "resolved"
+        },
+        {
+          "id": "W26",
+          "before": "open",
+          "after": "open"
+        }
+      ],
+      "tests": [],
+      "metrics": [
+        {
+          "metric": "Published card success, real LLM",
+          "path": "cost_eval.published.success_rate",
+          "before": 1.0,
+          "after": 1.0
+        },
+        {
+          "metric": "Cost per published card (USD)",
+          "path": "cost_eval.published.cost_usd_per_card.mean",
+          "before": 0.0007,
+          "after": 0.0009
+        }
+      ]
+    },
+    {
+      "id": "E11",
+      "track": "evaluation",
+      "title": "W26 counts only cells with evidence",
+      "sources": [
+        "W26"
+      ],
+      "change": "An empty field with no evidence is the abstention R4 requires; the graded card is compared with the one-call card only where the species has evidence for the field. The rule is otherwise unchanged and the unrestricted rates stay in the evidence.",
+      "files": [
+        "evals/findings.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W26",
+          "before": "open",
+          "after": "open"
+        }
+      ],
+      "tests": [],
+      "metrics": []
+    },
+    {
+      "id": "E12",
+      "track": "evaluation",
+      "title": "Real-claims grounding set and fresh traps",
+      "sources": [
+        "W26",
+        "R2",
+        "W29"
+      ],
+      "change": "345 atom-level (claim, cited chunk) pairs from three real-LLM agent runs, labelled with a written rubric by an AI assistant and pending human review, split by species; 23 fresh negation, antonym and scope traps used only as a test set.",
+      "files": [
+        "evals/datasets/grounding_real_claims.json",
+        "evals/claim_atoms.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W26",
+          "before": "open",
+          "after": "open"
+        },
+        {
+          "id": "R2",
+          "before": "partial",
+          "after": "partial"
+        },
+        {
+          "id": "W29",
+          "before": "not_measured",
+          "after": "open"
+        }
+      ],
+      "tests": [],
+      "metrics": []
+    },
+    {
+      "id": "E13",
+      "track": "evaluation",
+      "title": "Verifier experiment on real claims",
+      "sources": [
+        "W26",
+        "R2",
+        "W29",
+        "W13"
+      ],
+      "change": "E5, E5 re-tuned, and NLI (mDeBERTa and two compact multilingual models) as verifier, veto and E5-or-NLI, under a pre-registered rule with a CPU budget per card. The rule's winner was not confirmed on the held-out test, so the shipped verifier stays. Grading atom by atom was measured and rejected.",
+      "files": [
+        "evals/experiment_verifier.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W26",
+          "before": "open",
+          "after": "open"
+        },
+        {
+          "id": "R2",
+          "before": "partial",
+          "after": "partial"
+        },
+        {
+          "id": "W29",
+          "before": "not_measured",
+          "after": "open"
+        },
+        {
+          "id": "W13",
+          "before": "partial",
+          "after": "partial"
+        }
+      ],
+      "tests": [],
+      "metrics": [
+        {
+          "metric": "Real-claims recall, verifier in use",
+          "path": "experiment_verifier.variants.A_e5_exact.test_real.recall",
+          "before": null,
+          "after": 0.6792
+        },
+        {
+          "metric": "Real-claims false support, verifier in use",
+          "path": "experiment_verifier.variants.A_e5_exact.test_real.false_support_rate",
+          "before": null,
+          "after": 0.2295
+        },
+        {
+          "metric": "Fresh traps accepted, verifier in use",
+          "path": "experiment_verifier.variants.A_e5_exact.test_traps_accepted",
+          "before": null,
+          "after": 11
+        }
+      ]
+    }
+  ],
+  "cycles": [
+    {
+      "id": "C1",
+      "title": "Every card that reaches a buyer has passed the claim critic",
+      "problem": "Publication froze the graded job card when one existed, but a manually declared catch has no job, and for it the card, the lot snapshot and the QR page came from a one-call generator with no per-claim critic. The finding was partial: the path buyers see most could still publish ungraded claims.",
+      "note": "The published card is now the graded card, so its cost and time are the agent path's (several parallel LLM calls instead of one); the baseline column is the one-call card it replaces. The evaluation fixes matter as much: the probe now reads code rather than words, and the cost run no longer calls an ungraded path 'published'.",
+      "findings": [
+        {
+          "id": "W19",
+          "title": "The published card (QR page, buyer matching) bypasses the per-claim critic",
+          "severity": "high",
+          "before": "partial",
+          "after": "resolved",
+          "evidence_before": [
+            "publication freezes the graded job card when one exists: True",
+            "lot publication uses the sync KnowledgeService: True",
+            "sync path has a per-claim critic: False",
+            "buyer matching reads snapshot fields: commercial_uses, physical_characteristics, processing_methods, taste, texture"
+          ],
+          "evidence_after": [
+            "publication freezes the graded job card when one exists: True",
+            "lot publication uses the sync KnowledgeService: True",
+            "sync path has a per-claim critic: True",
+            "buyer matching reads snapshot fields: commercial_uses, physical_characteristics, processing_methods, taste, texture"
+          ]
+        },
+        {
+          "id": "W3",
+          "title": "Sync knowledge fallback returns an unhandled 500 when the key is blank",
+          "severity": "high",
+          "before": "resolved",
+          "after": "resolved",
+          "evidence_before": [
+            "GET /predictions/{id}/knowledge, no job, blank key -> HTTP 502"
+          ],
+          "evidence_after": [
+            "GET /predictions/{id}/knowledge, no job, blank key -> HTTP 502"
+          ]
+        }
+      ],
+      "fixes": [
+        {
+          "id": "F19",
+          "track": "product",
+          "title": "The synchronous card path runs the graded graph",
+          "sources": [
+            "W19",
+            "W3"
+          ],
+          "change": "KnowledgeService (a manually declared catch, the publication fallback) calls orchestrator.grade_card, the same researcher-experts-critic-writer graph as the background job, so no card reaches a buyer without the per-claim critic. A blank key stays a mapped provider outage. The one-call generator wiring (deps.retriever, deps.generator) is removed from the app.",
+          "files": [
+            "apps/main_api/services/knowledge.py",
+            "apps/main_api/services/orchestrator.py",
+            "apps/main_api/services/card_llm.py",
+            "apps/main_api/api/fish.py",
+            "apps/main_api/api/lots.py",
+            "apps/main_api/main.py",
+            "apps/main_api/ports.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W19",
+              "before": "partial",
+              "after": "resolved"
+            },
+            {
+              "id": "W3",
+              "before": "resolved",
+              "after": "resolved"
+            }
+          ],
+          "tests": [
+            {
+              "test": "test_knowledge_api::test_manual_catch_card_is_graded_by_the_critic",
+              "before": "absent",
+              "after": "passed"
+            },
+            {
+              "test": "test_knowledge_api::test_manual_catch_without_a_key_is_a_provider_outage",
+              "before": "absent",
+              "after": "passed"
+            },
+            {
+              "test": "test_lot_publication::test_published_snapshot_is_the_graded_job_card",
+              "before": "passed",
+              "after": "passed"
+            }
+          ],
+          "metrics": [
+            {
+              "metric": "Sync path grades claims (probe)",
+              "path": "probes.publication_path.sync_path_has_claim_critic",
+              "before": false,
+              "after": true
+            },
+            {
+              "metric": "Blank key on the sync path (HTTP status)",
+              "path": "probes.sync_path_blank_key.status_code",
+              "before": 502,
+              "after": 502
+            }
+          ]
+        },
+        {
+          "id": "E8",
+          "track": "evaluation",
+          "title": "The W19 probe reads the syntax tree",
+          "sources": [
+            "W19"
+          ],
+          "change": "sync_path_has_claim_critic is true only when knowledge.py's code calls grade_card or critic_node; the former token check would have passed on a comment.",
+          "files": [
+            "evals/probes.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W19",
+              "before": "partial",
+              "after": "resolved"
+            }
+          ],
+          "tests": [],
+          "metrics": []
+        },
+        {
+          "id": "E10",
+          "track": "evaluation",
+          "title": "Cost runs measure the card the product publishes",
+          "sources": [
+            "W19",
+            "W25",
+            "W26"
+          ],
+          "change": "The one-call generator becomes an eval-only reference path (one_call); 'published' metrics resolve to the path the product publishes; agent cards keep their trace and expert outputs.",
+          "files": [
+            "evals/cost_eval.py",
+            "evals/findings.py",
+            "evals/dashboard.py",
+            "evals/model_compare.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W19",
+              "before": "partial",
+              "after": "resolved"
+            },
+            {
+              "id": "W25",
+              "before": "resolved",
+              "after": "resolved"
+            },
+            {
+              "id": "W26",
+              "before": "open",
+              "after": "open"
+            }
+          ],
+          "tests": [],
+          "metrics": [
+            {
+              "metric": "Published card success, real LLM",
+              "path": "cost_eval.published.success_rate",
+              "before": 1.0,
+              "after": 1.0
+            },
+            {
+              "metric": "Cost per published card (USD)",
+              "path": "cost_eval.published.cost_usd_per_card.mean",
+              "before": 0.0007,
+              "after": 0.0009
+            }
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "Sync path grades claims (probe)",
+          "path": "probes.publication_path.sync_path_has_claim_critic",
+          "before": false,
+          "after": true
+        },
+        {
+          "metric": "Blank key on the sync path (HTTP status)",
+          "path": "probes.sync_path_blank_key.status_code",
+          "before": 502,
+          "after": 502
+        },
+        {
+          "metric": "Published card success, real LLM",
+          "path": "cost_eval.published.success_rate",
+          "before": 1.0,
+          "after": 1.0
+        },
+        {
+          "metric": "Cost per published card (USD)",
+          "path": "cost_eval.published.cost_usd_per_card.mean",
+          "before": 0.0007,
+          "after": 0.0009
+        },
+        {
+          "metric": "Published card p50 wall time, real LLM (s)",
+          "path": "cost_eval.published.wall_s_per_card.p50",
+          "before": 8.86,
+          "after": 4.45
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "title": "A card run can be inspected after the fact",
+      "problem": "Handlers on the card path caught everything and returned quietly, and a completed job kept only the card: nothing recorded which evidence each expert saw, what the critic decided, or where the time went.",
+      "note": "W12 now needs both halves: no silent handler, and a stage trace on every job, checked by a test.",
+      "findings": [
+        {
+          "id": "W12",
+          "title": "Broad exception handlers swallow errors silently",
+          "severity": "medium",
+          "before": "open",
+          "after": "resolved",
+          "evidence_before": [
+            "5 broad except handlers that neither log nor re-raise: {'fish.py': 2, 'orchestrator.py': 1, 'lots.py': 2}",
+            "stage trace kept per card job: test absent"
+          ],
+          "evidence_after": [
+            "0 broad except handlers that neither log nor re-raise: none",
+            "stage trace kept per card job: test passed"
+          ]
+        }
+      ],
+      "fixes": [
+        {
+          "id": "F20",
+          "track": "product",
+          "title": "Every card run leaves a stage trace; no handler fails silently",
+          "sources": [
+            "W12"
+          ],
+          "change": "grade_card records evidence ids and distances, each expert's chunk ids, prompt hash, latency and tokens, the claim verdicts and per-stage timings; run_graph stores it on the job (knowledge_jobs.trace). The silent broad handlers log; the langgraph branch, never installed and never run, is deleted.",
+          "files": [
+            "apps/main_api/services/orchestrator.py",
+            "apps/main_api/api/fish.py",
+            "apps/main_api/services/lots.py",
+            "apps/main_api/db/sql_repositories.py",
+            "apps/main_api/db/models.py",
+            "apps/main_api/contracts.py",
+            "alembic/versions/0007_knowledge_job_trace.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W12",
+              "before": "open",
+              "after": "resolved"
+            }
+          ],
+          "tests": [
+            {
+              "test": "test_knowledge_api::test_card_job_records_a_stage_trace",
+              "before": "absent",
+              "after": "passed"
+            }
+          ],
+          "metrics": [
+            {
+              "metric": "Silent broad exception handlers",
+              "path": "probes.silent_excepts.count",
+              "before": 5,
+              "after": 0
+            }
+          ]
+        },
+        {
+          "id": "E9",
+          "track": "evaluation",
+          "title": "W12 requires a stage trace",
+          "sources": [
+            "W12"
+          ],
+          "change": "Resolved needs no silent handler and the stage-trace test passing (judge methodology 6.1).",
+          "files": [
+            "evals/findings.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W12",
+              "before": "open",
+              "after": "resolved"
+            }
+          ],
+          "tests": [],
+          "metrics": []
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "Silent broad exception handlers",
+          "path": "probes.silent_excepts.count",
+          "before": 5,
+          "after": 0
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "title": "The claim verifier, re-tested on real claims",
+      "problem": "W26 said graded cards are emptier than ungraded ones. Measured fairly, only where evidence exists, it held. Reading the real claims showed why: the verifier had been chosen on synthetic claims, and real expert claims are short translations that it misses, while it keeps facts from a sibling chunk.",
+      "note": "This cycle changed what we know, not the verifier. No variant within the CPU budget improved the held-out test without keeping more false claims, so E5 stays and the owner declined the trade. W29 is the new, measured statement of the problem. The labels are an AI assistant's and need a human pass before these numbers are cited outside the team. Next: NLI on a GPU, or a verifier trained on real claim atoms.",
+      "findings": [
+        {
+          "id": "W26",
+          "title": "Critic-guarded agent cards are emptier than published cards",
+          "severity": "medium",
+          "before": "open",
+          "after": "open",
+          "evidence_before": [
+            "fields where the graded card is emptier than the one-call card on cells with evidence: 4/6",
+            "physical_characteristics: graded 73% (n=22) vs one-call 91% (n=22)",
+            "taste: graded 20% (n=10) vs one-call 80% (n=10)",
+            "texture: graded 40% (n=10) vs one-call 70% (n=10)",
+            "processing_methods: graded 89% (n=18) vs one-call 100% (n=18)",
+            "commercial_uses: graded 90% (n=20) vs one-call 80% (n=20)",
+            "similar_or_substitute_species: no species has evidence for it",
+            "potential_buyer_segments: graded 80% (n=20) vs one-call 15% (n=20)",
+            "unrestricted fill, graded/one-call: physical_characteristics 73%/91%, taste 9%/36%, texture 18%/32%, processing_methods 73%/82%, commercial_uses 82%/73%, similar_or_substitute_species 0%/9%, potential_buyer_segments 73%/14%"
+          ],
+          "evidence_after": [
+            "fields where the graded card is emptier than the one-call card on cells with evidence: 4/6",
+            "physical_characteristics: graded 73% (n=22) vs one-call 91% (n=22)",
+            "taste: graded 20% (n=10) vs one-call 80% (n=10)",
+            "texture: graded 20% (n=10) vs one-call 70% (n=10)",
+            "processing_methods: graded 78% (n=18) vs one-call 100% (n=18)",
+            "commercial_uses: graded 90% (n=20) vs one-call 90% (n=20)",
+            "similar_or_substitute_species: no species has evidence for it",
+            "potential_buyer_segments: graded 90% (n=20) vs one-call 15% (n=20)",
+            "unrestricted fill, graded/one-call: physical_characteristics 73%/91%, taste 9%/36%, texture 9%/32%, processing_methods 64%/82%, commercial_uses 82%/82%, similar_or_substitute_species 0%/4%, potential_buyer_segments 82%/14%"
+          ]
+        },
+        {
+          "id": "W29",
+          "title": "The claim verifier was validated on synthetic claims only; on real expert claims it drops true ones and keeps false ones",
+          "severity": "high",
+          "before": "not_measured",
+          "after": "open",
+          "evidence_before": [],
+          "evidence_after": [
+            "real expert claim atoms, held-out species (n=167): recall 0.6792, false support 0.2295 (14 of 61 unsupported atoms kept)",
+            "synthetic test claims (n=48): recall 1.0, false support 0.0",
+            "labels: evals/datasets/grounding_real_claims.json, by an AI assistant, pending human review"
+          ]
+        },
+        {
+          "id": "R2",
+          "title": "Grounding must catch negated and inverted claims, not only borrowed ones",
+          "severity": "high",
+          "before": "partial",
+          "after": "partial",
+          "evidence_before": [
+            "shipped verifier (E5 + exact checks): held-out F1 1.0, false support 0.0, traps accepted 7/14",
+            "with the LLM judge (removed): held-out F1 0.6667, traps accepted 3/14",
+            "NLI + exact (candidate): held-out F1 0.9362, traps accepted 0/14"
+          ],
+          "evidence_after": [
+            "verifier in use (A_e5_exact): fresh traps accepted 11/23, iteration-1 traps 7/14",
+            "fewest fresh traps: C_mdeberta_exact 2/23, +25.04 s per card on CPU (over budget)"
+          ]
+        },
+        {
+          "id": "W13",
+          "title": "Embedding similarity alone separates supported from borrowed claims poorly",
+          "severity": "medium",
+          "before": "partial",
+          "after": "partial",
+          "evidence_before": [
+            "E5 claim-evidence cosine: supported mean 0.8562, borrowed mean 0.7931",
+            "supported min 0.8111 vs borrowed max 0.8299 (overlap: True)"
+          ],
+          "evidence_after": [
+            "E5 claim-evidence cosine: supported mean 0.8562, borrowed mean 0.7931",
+            "supported min 0.8111 vs borrowed max 0.8299 (overlap: True)"
+          ]
+        }
+      ],
+      "fixes": [
+        {
+          "id": "E11",
+          "track": "evaluation",
+          "title": "W26 counts only cells with evidence",
+          "sources": [
+            "W26"
+          ],
+          "change": "An empty field with no evidence is the abstention R4 requires; the graded card is compared with the one-call card only where the species has evidence for the field. The rule is otherwise unchanged and the unrestricted rates stay in the evidence.",
+          "files": [
+            "evals/findings.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W26",
+              "before": "open",
+              "after": "open"
+            }
+          ],
+          "tests": [],
+          "metrics": []
+        },
+        {
+          "id": "E12",
+          "track": "evaluation",
+          "title": "Real-claims grounding set and fresh traps",
+          "sources": [
+            "W26",
+            "R2",
+            "W29"
+          ],
+          "change": "345 atom-level (claim, cited chunk) pairs from three real-LLM agent runs, labelled with a written rubric by an AI assistant and pending human review, split by species; 23 fresh negation, antonym and scope traps used only as a test set.",
+          "files": [
+            "evals/datasets/grounding_real_claims.json",
+            "evals/claim_atoms.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W26",
+              "before": "open",
+              "after": "open"
+            },
+            {
+              "id": "R2",
+              "before": "partial",
+              "after": "partial"
+            },
+            {
+              "id": "W29",
+              "before": "not_measured",
+              "after": "open"
+            }
+          ],
+          "tests": [],
+          "metrics": []
+        },
+        {
+          "id": "E13",
+          "track": "evaluation",
+          "title": "Verifier experiment on real claims",
+          "sources": [
+            "W26",
+            "R2",
+            "W29",
+            "W13"
+          ],
+          "change": "E5, E5 re-tuned, and NLI (mDeBERTa and two compact multilingual models) as verifier, veto and E5-or-NLI, under a pre-registered rule with a CPU budget per card. The rule's winner was not confirmed on the held-out test, so the shipped verifier stays. Grading atom by atom was measured and rejected.",
+          "files": [
+            "evals/experiment_verifier.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W26",
+              "before": "open",
+              "after": "open"
+            },
+            {
+              "id": "R2",
+              "before": "partial",
+              "after": "partial"
+            },
+            {
+              "id": "W29",
+              "before": "not_measured",
+              "after": "open"
+            },
+            {
+              "id": "W13",
+              "before": "partial",
+              "after": "partial"
+            }
+          ],
+          "tests": [],
+          "metrics": [
+            {
+              "metric": "Real-claims recall, verifier in use",
+              "path": "experiment_verifier.variants.A_e5_exact.test_real.recall",
+              "before": null,
+              "after": 0.6792
+            },
+            {
+              "metric": "Real-claims false support, verifier in use",
+              "path": "experiment_verifier.variants.A_e5_exact.test_real.false_support_rate",
+              "before": null,
+              "after": 0.2295
+            },
+            {
+              "metric": "Fresh traps accepted, verifier in use",
+              "path": "experiment_verifier.variants.A_e5_exact.test_traps_accepted",
+              "before": null,
+              "after": 11
+            }
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "Real-claims recall, verifier in use",
+          "path": "experiment_verifier.variants.A_e5_exact.test_real.recall",
+          "before": null,
+          "after": 0.6792
+        },
+        {
+          "metric": "Real-claims false support, verifier in use",
+          "path": "experiment_verifier.variants.A_e5_exact.test_real.false_support_rate",
+          "before": null,
+          "after": 0.2295
+        },
+        {
+          "metric": "Fresh traps accepted, verifier in use",
+          "path": "experiment_verifier.variants.A_e5_exact.test_traps_accepted",
+          "before": null,
+          "after": 11
+        },
+        {
+          "metric": "Fresh traps accepted, mDeBERTa NLI",
+          "path": "experiment_verifier.variants.C_mdeberta_exact.test_traps_accepted",
+          "before": null,
+          "after": 2
+        },
+        {
+          "metric": "mDeBERTa NLI added CPU time per card (s)",
+          "path": "experiment_verifier.variants.C_mdeberta_exact.cpu_added_s_per_card_p95",
+          "before": null,
+          "after": 25.04
+        },
+        {
+          "metric": "Card recall, whole-claim grading",
+          "path": "experiment_verifier.card_grading_policy.whole_recall",
+          "before": null,
+          "after": 0.8686
+        },
+        {
+          "metric": "Card recall, atomic grading",
+          "path": "experiment_verifier.card_grading_policy.atomic_recall",
+          "before": null,
+          "after": 0.5705
+        },
+        {
+          "metric": "Grounding F1, synthetic test split",
+          "path": "rag_eval.grounding.test.f1",
+          "before": 1.0,
+          "after": 1.0
+        }
+      ]
+    }
+  ],
+  "improvements": [
+    {
+      "metric": "Test suite pass rate",
+      "path": "tests.totals",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 1.0,
+      "higher_is_better": true,
+      "baseline_meets_target": true,
+      "findings": [
+        "W1",
+        "W2",
+        "W4"
+      ]
+    },
+    {
+      "metric": "Grounding F1 (test split)",
+      "path": "rag_eval.grounding.test.f1",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 0.85,
+      "higher_is_better": true,
+      "baseline_meets_target": true,
+      "findings": [
+        "W1",
+        "W13"
+      ]
+    },
+    {
+      "metric": "Grounding false support",
+      "path": "rag_eval.grounding.all.false_support_rate",
+      "baseline": 0.0204,
+      "current": 0.0204,
+      "target": 0.1,
+      "higher_is_better": false,
+      "baseline_meets_target": true,
+      "findings": [
+        "W1"
+      ]
+    },
+    {
+      "metric": "True-claim retention (scripted)",
+      "path": "rag_eval.pipeline.plain.claim_retention",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 0.8,
+      "higher_is_better": true,
+      "baseline_meets_target": true,
+      "findings": [
+        "W1"
+      ]
+    },
+    {
+      "metric": "Fenced-JSON job success",
+      "path": "rag_eval.pipeline.fenced.job_success_rate",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 1.0,
+      "higher_is_better": true,
+      "baseline_meets_target": true,
+      "findings": [
+        "W4"
+      ]
+    },
+    {
+      "metric": "LLM rounds / card",
+      "path": "rag_eval.pipeline.plain.llm_rounds",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 2.5,
+      "higher_is_better": false,
+      "baseline_meets_target": true,
+      "findings": [
+        "W5"
+      ]
+    },
+    {
+      "metric": "Repeat card latency (ms)",
+      "path": "rag_eval.pipeline.plain.repeat_latency_ms_mean",
+      "baseline": 11.3,
+      "current": 10.8,
+      "target": 50,
+      "higher_is_better": false,
+      "baseline_meets_target": true,
+      "findings": [
+        "W6"
+      ]
+    },
+    {
+      "metric": "Embedder cold load (s)",
+      "path": "rag_eval.environment.embedder_cold_load_s",
+      "baseline": 15.38,
+      "current": 14.72,
+      "target": null,
+      "higher_is_better": false,
+      "baseline_meets_target": null,
+      "findings": [
+        "W7"
+      ]
+    },
+    {
+      "metric": "Scoped retrieval MRR",
+      "path": "rag_eval.retrieval.scoped.mrr",
+      "baseline": 0.5087,
+      "current": 0.5087,
+      "target": 0.7,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "W8"
+      ]
+    },
+    {
+      "metric": "Scoped recall@6",
+      "path": "rag_eval.retrieval.scoped.recall@6",
+      "baseline": 0.9886,
+      "current": 0.9886,
+      "target": 1.0,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "W9"
+      ]
+    },
+    {
+      "metric": "Agent card success, real LLM",
+      "path": "cost_eval.summary.by_path.agent.success_rate",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 0.9,
+      "higher_is_better": true,
+      "baseline_meets_target": true,
+      "findings": [
+        "W20",
+        "W21"
+      ]
+    },
+    {
+      "metric": "Published card success, real LLM",
+      "path": "cost_eval.published.success_rate",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 1.0,
+      "higher_is_better": true,
+      "baseline_meets_target": true,
+      "findings": [
+        "W25"
+      ]
+    },
+    {
+      "metric": "Agent card p50 wall time (s)",
+      "path": "cost_eval.agent.wall_s_per_card.p50",
+      "baseline": 4.03,
+      "current": 4.45,
+      "target": 6.0,
+      "higher_is_better": false,
+      "baseline_meets_target": true,
+      "findings": [
+        "W5"
+      ]
+    },
+    {
+      "metric": "Cost per published card (USD)",
+      "path": "cost_eval.published.cost_usd_per_card.mean",
+      "baseline": 0.0007,
+      "current": 0.0009,
+      "target": null,
+      "higher_is_better": false,
+      "baseline_meets_target": null,
+      "findings": [
+        "W27"
+      ]
+    },
+    {
+      "metric": "Cost per agent card (USD)",
+      "path": "cost_eval.agent.cost_usd_per_card.mean",
+      "baseline": 0.0009,
+      "current": 0.0009,
+      "target": null,
+      "higher_is_better": false,
+      "baseline_meets_target": null,
+      "findings": [
+        "W5",
+        "W27"
+      ]
+    },
+    {
+      "metric": "Species ID: field accuracy",
+      "path": "cv_eval.prod.field_accuracy",
+      "baseline": 0.8178294573643411,
+      "current": 0.8178294573643411,
+      "target": 0.9,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "CV1"
+      ]
+    },
+    {
+      "metric": "Species ID: wrong and confident (field)",
+      "path": "cv_eval.prod.field_wrong_confident",
+      "baseline": 0.1511627906976744,
+      "current": 0.1511627906976744,
+      "target": 0.05,
+      "higher_is_better": false,
+      "baseline_meets_target": false,
+      "findings": [
+        "CV2"
+      ]
+    },
+    {
+      "metric": "Species ID: OOD images accepted",
+      "path": "cv_eval.prod.ood_accepted_at_threshold",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 0.1,
+      "higher_is_better": false,
+      "baseline_meets_target": false,
+      "findings": [
+        "CV3"
+      ]
+    },
+    {
+      "metric": "Species ID: background shortcut rate",
+      "path": "cv_eval.prod.shortcut_rate",
+      "baseline": 0.42452830188679247,
+      "current": 0.42452830188679247,
+      "target": 0.18,
+      "higher_is_better": false,
+      "baseline_meets_target": false,
+      "findings": [
+        "CV4"
+      ]
+    }
+  ],
+  "experiments": {
+    "passage_prefix": {
+      "label": "current",
+      "generated_at": "2026-09-26T09:18:19+00:00",
+      "hypothesis": "canonical-name passage prefix lifts within-species per-category MRR (W8)",
+      "arms": {
+        "control": {
+          "scoped": {
+            "recall@1": 0.2235,
+            "recall@3": 0.678,
+            "recall@6": 0.9886,
+            "mrr": 0.5087,
+            "ndcg@6": 0.6201,
+            "precision@6": 0.25,
+            "species_purity": 1.0
+          },
+          "global_species_hit@1": 0.9318,
+          "card_query_coverage": 1.0,
+          "mrr_by_category": {
+            "identity": 1.0,
+            "physical_characteristics": 0.5,
+            "taste_texture": 0.3667,
+            "processing_methods": 0.2963,
+            "commercial_uses": 0.2383
+          }
+        },
+        "prefix": {
+          "scoped": {
+            "recall@1": 0.2235,
+            "recall@3": 0.678,
+            "recall@6": 0.9943,
+            "mrr": 0.5087,
+            "ndcg@6": 0.6226,
+            "precision@6": 0.2519,
+            "species_purity": 1.0
+          },
+          "global_species_hit@1": 0.9773,
+          "card_query_coverage": 1.0,
+          "mrr_by_category": {
+            "identity": 1.0,
+            "physical_characteristics": 0.5,
+            "taste_texture": 0.3667,
+            "processing_methods": 0.2963,
+            "commercial_uses": 0.2383
+          }
+        }
+      },
+      "mrr_delta_by_category": {
+        "identity": 0.0,
+        "physical_characteristics": 0.0,
+        "taste_texture": 0.0,
+        "processing_methods": 0.0,
+        "commercial_uses": 0.0
+      },
+      "supported": false
+    },
+    "verifier_comparison": {
+      "label": "current",
+      "generated_at": "2026-09-26T09:17:52+00:00",
+      "nli_model": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+      "nli_ms_per_pair_cpu": 1165.8,
+      "rule": "highest dev F1 at dev FSR <= 0.10; within 0.02, fewer traps accepted",
+      "variants": {
+        "A_e5_exact": {
+          "threshold": 0.805,
+          "dev": {
+            "n": 50,
+            "precision": 0.9615,
+            "recall": 1.0,
+            "f1": 0.9804,
+            "accuracy": 0.98,
+            "false_support_rate": 0.04,
+            "tp": 25,
+            "fp": 1,
+            "fn": 0,
+            "tn": 24
+          },
+          "test": {
+            "n": 48,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "accuracy": 1.0,
+            "false_support_rate": 0.0,
+            "tp": 24,
+            "fp": 0,
+            "fn": 0,
+            "tn": 24
+          },
+          "traps_accepted": 7,
+          "traps_total": 14,
+          "traps_accepted_ids": [
+            "chunk_bandeng_taste_001:antonym",
+            "chunk_bandeng_taste_001:scope",
+            "chunk_mujair_taste_001:negation",
+            "chunk_nila_taste_001:antonym",
+            "chunk_gulamah_commercial_002:scope",
+            "chunk_senangin_physical_001:antonym",
+            "chunk_nila_identity_001:antonym"
+          ]
+        },
+        "B_nli": {
+          "threshold": 0.3,
+          "dev": {
+            "n": 50,
+            "precision": 0.9583,
+            "recall": 0.92,
+            "f1": 0.9388,
+            "accuracy": 0.94,
+            "false_support_rate": 0.04,
+            "tp": 23,
+            "fp": 1,
+            "fn": 2,
+            "tn": 24
+          },
+          "test": {
+            "n": 48,
+            "precision": 0.9167,
+            "recall": 0.9167,
+            "f1": 0.9167,
+            "accuracy": 0.9167,
+            "false_support_rate": 0.0833,
+            "tp": 22,
+            "fp": 2,
+            "fn": 2,
+            "tn": 22
+          },
+          "traps_accepted": 0,
+          "traps_total": 14,
+          "traps_accepted_ids": []
+        },
+        "C_nli_exact": {
+          "threshold": 0.25,
+          "dev": {
+            "n": 50,
+            "precision": 0.9583,
+            "recall": 0.92,
+            "f1": 0.9388,
+            "accuracy": 0.94,
+            "false_support_rate": 0.04,
+            "tp": 23,
+            "fp": 1,
+            "fn": 2,
+            "tn": 24
+          },
+          "test": {
+            "n": 48,
+            "precision": 0.9565,
+            "recall": 0.9167,
+            "f1": 0.9362,
+            "accuracy": 0.9375,
+            "false_support_rate": 0.0417,
+            "tp": 22,
+            "fp": 1,
+            "fn": 2,
+            "tn": 23
+          },
+          "traps_accepted": 0,
+          "traps_total": 14,
+          "traps_accepted_ids": []
+        }
+      },
+      "winner": "A_e5_exact"
+    },
+    "calibration": {
+      "label": "current",
+      "generated_at": "2026-09-26T09:15:16+00:00",
+      "rule": "E5 symmetric cosine >= tau AND numbers(claim) subset of numbers(chunk)",
+      "max_dev_false_support": 0.1,
+      "chosen": {
+        "tau": 0.805,
+        "dev": {
+          "n": 50,
+          "precision": 0.9615,
+          "recall": 1.0,
+          "f1": 0.9804,
+          "accuracy": 0.98,
+          "false_support_rate": 0.04,
+          "tp": 25,
+          "fp": 1,
+          "fn": 0,
+          "tn": 24
+        },
+        "test": {
+          "n": 48,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "accuracy": 1.0,
+          "false_support_rate": 0.0,
+          "tp": 24,
+          "fp": 0,
+          "fn": 0,
+          "tn": 24
+        }
+      },
+      "shipped": {
+        "tau": 0.805,
+        "dev": {
+          "n": 50,
+          "precision": 0.9615,
+          "recall": 1.0,
+          "f1": 0.9804,
+          "accuracy": 0.98,
+          "false_support_rate": 0.04,
+          "tp": 25,
+          "fp": 1,
+          "fn": 0,
+          "tn": 24
+        },
+        "test": {
+          "n": 48,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "accuracy": 1.0,
+          "false_support_rate": 0.0,
+          "tp": 24,
+          "fp": 0,
+          "fn": 0,
+          "tn": 24
+        }
+      },
+      "shipped_matches_choice": true,
+      "sweep": [
+        {
+          "tau": 0.75,
+          "dev_f1": 0.7937,
+          "dev_false_support": 0.52
+        },
+        {
+          "tau": 0.755,
+          "dev_f1": 0.8065,
+          "dev_false_support": 0.48
+        },
+        {
+          "tau": 0.76,
+          "dev_f1": 0.8065,
+          "dev_false_support": 0.48
+        },
+        {
+          "tau": 0.765,
+          "dev_f1": 0.8333,
+          "dev_false_support": 0.4
+        },
+        {
+          "tau": 0.77,
+          "dev_f1": 0.8333,
+          "dev_false_support": 0.4
+        },
+        {
+          "tau": 0.775,
+          "dev_f1": 0.8475,
+          "dev_false_support": 0.36
+        },
+        {
+          "tau": 0.78,
+          "dev_f1": 0.8621,
+          "dev_false_support": 0.32
+        },
+        {
+          "tau": 0.785,
+          "dev_f1": 0.9091,
+          "dev_false_support": 0.2
+        },
+        {
+          "tau": 0.79,
+          "dev_f1": 0.9259,
+          "dev_false_support": 0.16
+        },
+        {
+          "tau": 0.795,
+          "dev_f1": 0.9434,
+          "dev_false_support": 0.12
+        },
+        {
+          "tau": 0.8,
+          "dev_f1": 0.9615,
+          "dev_false_support": 0.08
+        },
+        {
+          "tau": 0.805,
+          "dev_f1": 0.9804,
+          "dev_false_support": 0.04
+        },
+        {
+          "tau": 0.81,
+          "dev_f1": 0.9804,
+          "dev_false_support": 0.04
+        },
+        {
+          "tau": 0.815,
+          "dev_f1": 0.9362,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.82,
+          "dev_f1": 0.913,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.825,
+          "dev_f1": 0.8889,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.83,
+          "dev_f1": 0.8095,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.835,
+          "dev_f1": 0.8095,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.84,
+          "dev_f1": 0.7805,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.845,
+          "dev_f1": 0.6842,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.85,
+          "dev_f1": 0.6842,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.855,
+          "dev_f1": 0.6486,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.86,
+          "dev_f1": 0.5714,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.865,
+          "dev_f1": 0.5294,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.87,
+          "dev_f1": 0.5294,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.875,
+          "dev_f1": 0.5294,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.88,
+          "dev_f1": 0.4375,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.885,
+          "dev_f1": 0.2143,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.89,
+          "dev_f1": 0.2143,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.895,
+          "dev_f1": 0.1481,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.9,
+          "dev_f1": 0.1481,
+          "dev_false_support": 0.0
+        }
+      ]
+    },
+    "verifier_real_claims": {
+      "label": "current",
+      "generated_at": "2026-09-26T09:19:33+00:00",
+      "nli_models": {
+        "mdeberta": {
+          "name": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+          "cpu_ms_per_pair": 1043.3,
+          "cuda_s_all_pairs": 7.3
+        },
+        "minilm_l6": {
+          "name": "MoritzLaurer/multilingual-MiniLMv2-L6-mnli-xnli",
+          "cpu_ms_per_pair": 10.1,
+          "cuda_s_all_pairs": 4.7
+        },
+        "minilm_l12": {
+          "name": "MoritzLaurer/multilingual-MiniLMv2-L12-mnli-xnli",
+          "cpu_ms_per_pair": 19.6,
+          "cuda_s_all_pairs": 5.4
+        }
+      },
+      "nli_device": "cuda",
+      "pairs_per_card": {
+        "n": 33,
+        "mean": 13.2,
+        "p95": 24
+      },
+      "cpu_budget_s_per_card": 5.0,
+      "counts": {
+        "dev": 228,
+        "test": 215,
+        "dev_traps": 14,
+        "test_traps": 23,
+        "real_pairs": 345
+      },
+      "rule": "eligible (CPU <= 5 s/card p95); highest dev F1 at dev FSR <= 0.10; within 0.02, fewer dev traps accepted, then no NLI",
+      "variants": {
+        "A_e5_exact": {
+          "params": [],
+          "uses_nli": false,
+          "nli_model": null,
+          "dev": {
+            "n": 228,
+            "precision": 0.9487,
+            "recall": 0.6607,
+            "f1": 0.7789,
+            "accuracy": 0.7237,
+            "false_support_rate": 0.1,
+            "tp": 111,
+            "fp": 6,
+            "fn": 57,
+            "tn": 54
+          },
+          "test": {
+            "n": 215,
+            "precision": 0.8727,
+            "recall": 0.7385,
+            "f1": 0.8,
+            "accuracy": 0.7767,
+            "false_support_rate": 0.1647,
+            "tp": 96,
+            "fp": 14,
+            "fn": 34,
+            "tn": 71
+          },
+          "test_real": {
+            "n": 167,
+            "precision": 0.8372,
+            "recall": 0.6792,
+            "f1": 0.75,
+            "accuracy": 0.7126,
+            "false_support_rate": 0.2295,
+            "tp": 72,
+            "fp": 14,
+            "fn": 34,
+            "tn": 47
+          },
+          "test_synthetic": {
+            "n": 48,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "accuracy": 1.0,
+            "false_support_rate": 0.0,
+            "tp": 24,
+            "fp": 0,
+            "fn": 0,
+            "tn": 24
+          },
+          "dev_traps_accepted": 7,
+          "dev_traps_total": 14,
+          "test_traps_accepted": 11,
+          "test_traps_total": 23,
+          "test_traps_accepted_ids": [
+            "t02:antonym",
+            "t05:antonym",
+            "t06:attribute_swap",
+            "t08:antonym",
+            "t09:antonym",
+            "t10:antonym",
+            "t11:scope",
+            "t13:scope",
+            "t16:negation",
+            "t19:scope",
+            "t21:negation"
+          ],
+          "cpu_added_s_per_card_p95": 0.0,
+          "eligible": true
+        },
+        "A2_e5_exact_retuned": {
+          "params": [
+            0.805
+          ],
+          "uses_nli": false,
+          "nli_model": null,
+          "dev": {
+            "n": 228,
+            "precision": 0.9487,
+            "recall": 0.6607,
+            "f1": 0.7789,
+            "accuracy": 0.7237,
+            "false_support_rate": 0.1,
+            "tp": 111,
+            "fp": 6,
+            "fn": 57,
+            "tn": 54
+          },
+          "test": {
+            "n": 215,
+            "precision": 0.8727,
+            "recall": 0.7385,
+            "f1": 0.8,
+            "accuracy": 0.7767,
+            "false_support_rate": 0.1647,
+            "tp": 96,
+            "fp": 14,
+            "fn": 34,
+            "tn": 71
+          },
+          "test_real": {
+            "n": 167,
+            "precision": 0.8372,
+            "recall": 0.6792,
+            "f1": 0.75,
+            "accuracy": 0.7126,
+            "false_support_rate": 0.2295,
+            "tp": 72,
+            "fp": 14,
+            "fn": 34,
+            "tn": 47
+          },
+          "test_synthetic": {
+            "n": 48,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "accuracy": 1.0,
+            "false_support_rate": 0.0,
+            "tp": 24,
+            "fp": 0,
+            "fn": 0,
+            "tn": 24
+          },
+          "dev_traps_accepted": 7,
+          "dev_traps_total": 14,
+          "test_traps_accepted": 11,
+          "test_traps_total": 23,
+          "test_traps_accepted_ids": [
+            "t02:antonym",
+            "t05:antonym",
+            "t06:attribute_swap",
+            "t08:antonym",
+            "t09:antonym",
+            "t10:antonym",
+            "t11:scope",
+            "t13:scope",
+            "t16:negation",
+            "t19:scope",
+            "t21:negation"
+          ],
+          "cpu_added_s_per_card_p95": 0.0,
+          "eligible": true
+        },
+        "C_mdeberta_exact": {
+          "params": [
+            0.5
+          ],
+          "uses_nli": true,
+          "nli_model": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+          "dev": {
+            "n": 228,
+            "precision": 0.9552,
+            "recall": 0.7619,
+            "f1": 0.8477,
+            "accuracy": 0.7982,
+            "false_support_rate": 0.1,
+            "tp": 128,
+            "fp": 6,
+            "fn": 40,
+            "tn": 54
+          },
+          "test": {
+            "n": 215,
+            "precision": 0.88,
+            "recall": 0.8462,
+            "f1": 0.8627,
+            "accuracy": 0.8372,
+            "false_support_rate": 0.1765,
+            "tp": 110,
+            "fp": 15,
+            "fn": 20,
+            "tn": 70
+          },
+          "test_real": {
+            "n": 167,
+            "precision": 0.8641,
+            "recall": 0.8396,
+            "f1": 0.8517,
+            "accuracy": 0.8144,
+            "false_support_rate": 0.2295,
+            "tp": 89,
+            "fp": 14,
+            "fn": 17,
+            "tn": 47
+          },
+          "test_synthetic": {
+            "n": 48,
+            "precision": 0.9545,
+            "recall": 0.875,
+            "f1": 0.913,
+            "accuracy": 0.9167,
+            "false_support_rate": 0.0417,
+            "tp": 21,
+            "fp": 1,
+            "fn": 3,
+            "tn": 23
+          },
+          "dev_traps_accepted": 0,
+          "dev_traps_total": 14,
+          "test_traps_accepted": 2,
+          "test_traps_total": 23,
+          "test_traps_accepted_ids": [
+            "t09:antonym",
+            "t13:scope"
+          ],
+          "cpu_added_s_per_card_p95": 25.04,
+          "eligible": false
+        },
+        "V_mdeberta_veto": {
+          "params": [
+            0.7
+          ],
+          "uses_nli": true,
+          "nli_model": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+          "dev": {
+            "n": 228,
+            "precision": 0.9561,
+            "recall": 0.6488,
+            "f1": 0.773,
+            "accuracy": 0.7193,
+            "false_support_rate": 0.0833,
+            "tp": 109,
+            "fp": 5,
+            "fn": 59,
+            "tn": 55
+          },
+          "test": {
+            "n": 215,
+            "precision": 0.8692,
+            "recall": 0.7154,
+            "f1": 0.7848,
+            "accuracy": 0.7628,
+            "false_support_rate": 0.1647,
+            "tp": 93,
+            "fp": 14,
+            "fn": 37,
+            "tn": 71
+          },
+          "test_real": {
+            "n": 167,
+            "precision": 0.8313,
+            "recall": 0.6509,
+            "f1": 0.7302,
+            "accuracy": 0.6946,
+            "false_support_rate": 0.2295,
+            "tp": 69,
+            "fp": 14,
+            "fn": 37,
+            "tn": 47
+          },
+          "test_synthetic": {
+            "n": 48,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "accuracy": 1.0,
+            "false_support_rate": 0.0,
+            "tp": 24,
+            "fp": 0,
+            "fn": 0,
+            "tn": 24
+          },
+          "dev_traps_accepted": 0,
+          "dev_traps_total": 14,
+          "test_traps_accepted": 3,
+          "test_traps_total": 23,
+          "test_traps_accepted_ids": [
+            "t06:attribute_swap",
+            "t09:antonym",
+            "t13:scope"
+          ],
+          "cpu_added_s_per_card_p95": 25.04,
+          "eligible": false
+        },
+        "H_mdeberta_e5_or_nli_veto": {
+          "params": [
+            0.5,
+            0.5
+          ],
+          "uses_nli": true,
+          "nli_model": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+          "dev": {
+            "n": 228,
+            "precision": 0.9603,
+            "recall": 0.8631,
+            "f1": 0.9091,
+            "accuracy": 0.8728,
+            "false_support_rate": 0.1,
+            "tp": 145,
+            "fp": 6,
+            "fn": 23,
+            "tn": 54
+          },
+          "test": {
+            "n": 215,
+            "precision": 0.8414,
+            "recall": 0.9385,
+            "f1": 0.8873,
+            "accuracy": 0.8558,
+            "false_support_rate": 0.2706,
+            "tp": 122,
+            "fp": 23,
+            "fn": 8,
+            "tn": 62
+          },
+          "test_real": {
+            "n": 167,
+            "precision": 0.8167,
+            "recall": 0.9245,
+            "f1": 0.8673,
+            "accuracy": 0.8204,
+            "false_support_rate": 0.3607,
+            "tp": 98,
+            "fp": 22,
+            "fn": 8,
+            "tn": 39
+          },
+          "test_synthetic": {
+            "n": 48,
+            "precision": 0.96,
+            "recall": 1.0,
+            "f1": 0.9796,
+            "accuracy": 0.9792,
+            "false_support_rate": 0.0417,
+            "tp": 24,
+            "fp": 1,
+            "fn": 0,
+            "tn": 23
+          },
+          "dev_traps_accepted": 0,
+          "dev_traps_total": 14,
+          "test_traps_accepted": 2,
+          "test_traps_total": 23,
+          "test_traps_accepted_ids": [
+            "t09:antonym",
+            "t13:scope"
+          ],
+          "cpu_added_s_per_card_p95": 25.04,
+          "eligible": false
+        },
+        "C_minilm_l6_exact": {
+          "params": [
+            0.2
+          ],
+          "uses_nli": true,
+          "nli_model": "MoritzLaurer/multilingual-MiniLMv2-L6-mnli-xnli",
+          "dev": {
+            "n": 228,
+            "precision": 0.9254,
+            "recall": 0.369,
+            "f1": 0.5277,
+            "accuracy": 0.5132,
+            "false_support_rate": 0.0833,
+            "tp": 62,
+            "fp": 5,
+            "fn": 106,
+            "tn": 55
+          },
+          "test": {
+            "n": 215,
+            "precision": 0.8493,
+            "recall": 0.4769,
+            "f1": 0.6108,
+            "accuracy": 0.6326,
+            "false_support_rate": 0.1294,
+            "tp": 62,
+            "fp": 11,
+            "fn": 68,
+            "tn": 74
+          },
+          "test_real": {
+            "n": 167,
+            "precision": 0.807,
+            "recall": 0.434,
+            "f1": 0.5644,
+            "accuracy": 0.5749,
+            "false_support_rate": 0.1803,
+            "tp": 46,
+            "fp": 11,
+            "fn": 60,
+            "tn": 50
+          },
+          "test_synthetic": {
+            "n": 48,
+            "precision": 1.0,
+            "recall": 0.6667,
+            "f1": 0.8,
+            "accuracy": 0.8333,
+            "false_support_rate": 0.0,
+            "tp": 16,
+            "fp": 0,
+            "fn": 8,
+            "tn": 24
+          },
+          "dev_traps_accepted": 0,
+          "dev_traps_total": 14,
+          "test_traps_accepted": 6,
+          "test_traps_total": 23,
+          "test_traps_accepted_ids": [
+            "t05:antonym",
+            "t06:attribute_swap",
+            "t08:antonym",
+            "t09:antonym",
+            "t13:scope",
+            "t14:antonym"
+          ],
+          "cpu_added_s_per_card_p95": 0.24,
+          "eligible": true
+        },
+        "V_minilm_l6_veto": {
+          "params": [
+            0.7
+          ],
+          "uses_nli": true,
+          "nli_model": "MoritzLaurer/multilingual-MiniLMv2-L6-mnli-xnli",
+          "dev": {
+            "n": 228,
+            "precision": 0.9674,
+            "recall": 0.5298,
+            "f1": 0.6846,
+            "accuracy": 0.6404,
+            "false_support_rate": 0.05,
+            "tp": 89,
+            "fp": 3,
+            "fn": 79,
+            "tn": 57
+          },
+          "test": {
+            "n": 215,
+            "precision": 0.8478,
+            "recall": 0.6,
+            "f1": 0.7027,
+            "accuracy": 0.693,
+            "false_support_rate": 0.1647,
+            "tp": 78,
+            "fp": 14,
+            "fn": 52,
+            "tn": 71
+          },
+          "test_real": {
+            "n": 167,
+            "precision": 0.8056,
+            "recall": 0.5472,
+            "f1": 0.6517,
+            "accuracy": 0.6287,
+            "false_support_rate": 0.2295,
+            "tp": 58,
+            "fp": 14,
+            "fn": 48,
+            "tn": 47
+          },
+          "test_synthetic": {
+            "n": 48,
+            "precision": 1.0,
+            "recall": 0.8333,
+            "f1": 0.9091,
+            "accuracy": 0.9167,
+            "false_support_rate": 0.0,
+            "tp": 20,
+            "fp": 0,
+            "fn": 4,
+            "tn": 24
+          },
+          "dev_traps_accepted": 3,
+          "dev_traps_total": 14,
+          "test_traps_accepted": 9,
+          "test_traps_total": 23,
+          "test_traps_accepted_ids": [
+            "t02:antonym",
+            "t05:antonym",
+            "t06:attribute_swap",
+            "t08:antonym",
+            "t09:antonym",
+            "t10:antonym",
+            "t11:scope",
+            "t13:scope",
+            "t19:scope"
+          ],
+          "cpu_added_s_per_card_p95": 0.24,
+          "eligible": true
+        },
+        "H_minilm_l6_e5_or_nli_veto": {
+          "params": [
+            0.15,
+            0.7
+          ],
+          "uses_nli": true,
+          "nli_model": "MoritzLaurer/multilingual-MiniLMv2-L6-mnli-xnli",
+          "dev": {
+            "n": 228,
+            "precision": 0.9474,
+            "recall": 0.6429,
+            "f1": 0.766,
+            "accuracy": 0.7105,
+            "false_support_rate": 0.1,
+            "tp": 108,
+            "fp": 6,
+            "fn": 60,
+            "tn": 54
+          },
+          "test": {
+            "n": 215,
+            "precision": 0.7946,
+            "recall": 0.6846,
+            "f1": 0.7355,
+            "accuracy": 0.7023,
+            "false_support_rate": 0.2706,
+            "tp": 89,
+            "fp": 23,
+            "fn": 41,
+            "tn": 62
+          },
+          "test_real": {
+            "n": 167,
+            "precision": 0.75,
+            "recall": 0.6509,
+            "f1": 0.697,
+            "accuracy": 0.6407,
+            "false_support_rate": 0.377,
+            "tp": 69,
+            "fp": 23,
+            "fn": 37,
+            "tn": 38
+          },
+          "test_synthetic": {
+            "n": 48,
+            "precision": 1.0,
+            "recall": 0.8333,
+            "f1": 0.9091,
+            "accuracy": 0.9167,
+            "false_support_rate": 0.0,
+            "tp": 20,
+            "fp": 0,
+            "fn": 4,
+            "tn": 24
+          },
+          "dev_traps_accepted": 3,
+          "dev_traps_total": 14,
+          "test_traps_accepted": 10,
+          "test_traps_total": 23,
+          "test_traps_accepted_ids": [
+            "t02:antonym",
+            "t05:antonym",
+            "t06:attribute_swap",
+            "t08:antonym",
+            "t09:antonym",
+            "t10:antonym",
+            "t11:scope",
+            "t13:scope",
+            "t14:antonym",
+            "t19:scope"
+          ],
+          "cpu_added_s_per_card_p95": 0.24,
+          "eligible": true
+        },
+        "C_minilm_l12_exact": {
+          "params": [
+            0.2
+          ],
+          "uses_nli": true,
+          "nli_model": "MoritzLaurer/multilingual-MiniLMv2-L12-mnli-xnli",
+          "dev": {
+            "n": 228,
+            "precision": 0.94,
+            "recall": 0.5595,
+            "f1": 0.7015,
+            "accuracy": 0.6491,
+            "false_support_rate": 0.1,
+            "tp": 94,
+            "fp": 6,
+            "fn": 74,
+            "tn": 54
+          },
+          "test": {
+            "n": 215,
+            "precision": 0.8972,
+            "recall": 0.7385,
+            "f1": 0.8101,
+            "accuracy": 0.7907,
+            "false_support_rate": 0.1294,
+            "tp": 96,
+            "fp": 11,
+            "fn": 34,
+            "tn": 74
+          },
+          "test_real": {
+            "n": 167,
+            "precision": 0.8795,
+            "recall": 0.6887,
+            "f1": 0.7725,
+            "accuracy": 0.7425,
+            "false_support_rate": 0.1639,
+            "tp": 73,
+            "fp": 10,
+            "fn": 33,
+            "tn": 51
+          },
+          "test_synthetic": {
+            "n": 48,
+            "precision": 0.9583,
+            "recall": 0.9583,
+            "f1": 0.9583,
+            "accuracy": 0.9583,
+            "false_support_rate": 0.0417,
+            "tp": 23,
+            "fp": 1,
+            "fn": 1,
+            "tn": 23
+          },
+          "dev_traps_accepted": 7,
+          "dev_traps_total": 14,
+          "test_traps_accepted": 6,
+          "test_traps_total": 23,
+          "test_traps_accepted_ids": [
+            "t05:antonym",
+            "t06:attribute_swap",
+            "t08:antonym",
+            "t09:antonym",
+            "t13:scope",
+            "t19:scope"
+          ],
+          "cpu_added_s_per_card_p95": 0.47,
+          "eligible": true
+        },
+        "V_minilm_l12_veto": {
+          "params": [
+            0.7
+          ],
+          "uses_nli": true,
+          "nli_model": "MoritzLaurer/multilingual-MiniLMv2-L12-mnli-xnli",
+          "dev": {
+            "n": 228,
+            "precision": 0.9596,
+            "recall": 0.5655,
+            "f1": 0.7116,
+            "accuracy": 0.6623,
+            "false_support_rate": 0.0667,
+            "tp": 95,
+            "fp": 4,
+            "fn": 73,
+            "tn": 56
+          },
+          "test": {
+            "n": 215,
+            "precision": 0.8641,
+            "recall": 0.6846,
+            "f1": 0.7639,
+            "accuracy": 0.7442,
+            "false_support_rate": 0.1647,
+            "tp": 89,
+            "fp": 14,
+            "fn": 41,
+            "tn": 71
+          },
+          "test_real": {
+            "n": 167,
+            "precision": 0.825,
+            "recall": 0.6226,
+            "f1": 0.7097,
+            "accuracy": 0.6766,
+            "false_support_rate": 0.2295,
+            "tp": 66,
+            "fp": 14,
+            "fn": 40,
+            "tn": 47
+          },
+          "test_synthetic": {
+            "n": 48,
+            "precision": 1.0,
+            "recall": 0.9583,
+            "f1": 0.9787,
+            "accuracy": 0.9792,
+            "false_support_rate": 0.0,
+            "tp": 23,
+            "fp": 0,
+            "fn": 1,
+            "tn": 24
+          },
+          "dev_traps_accepted": 5,
+          "dev_traps_total": 14,
+          "test_traps_accepted": 8,
+          "test_traps_total": 23,
+          "test_traps_accepted_ids": [
+            "t05:antonym",
+            "t06:attribute_swap",
+            "t08:antonym",
+            "t09:antonym",
+            "t10:antonym",
+            "t11:scope",
+            "t13:scope",
+            "t19:scope"
+          ],
+          "cpu_added_s_per_card_p95": 0.47,
+          "eligible": true
+        },
+        "H_minilm_l12_e5_or_nli_veto": {
+          "params": [
+            0.25,
+            0.7
+          ],
+          "uses_nli": true,
+          "nli_model": "MoritzLaurer/multilingual-MiniLMv2-L12-mnli-xnli",
+          "dev": {
+            "n": 228,
+            "precision": 0.9516,
+            "recall": 0.7024,
+            "f1": 0.8082,
+            "accuracy": 0.7544,
+            "false_support_rate": 0.1,
+            "tp": 118,
+            "fp": 6,
+            "fn": 50,
+            "tn": 54
+          },
+          "test": {
+            "n": 215,
+            "precision": 0.8361,
+            "recall": 0.7846,
+            "f1": 0.8095,
+            "accuracy": 0.7767,
+            "false_support_rate": 0.2353,
+            "tp": 102,
+            "fp": 20,
+            "fn": 28,
+            "tn": 65
+          },
+          "test_real": {
+            "n": 167,
+            "precision": 0.8061,
+            "recall": 0.7453,
+            "f1": 0.7745,
+            "accuracy": 0.7246,
+            "false_support_rate": 0.3115,
+            "tp": 79,
+            "fp": 19,
+            "fn": 27,
+            "tn": 42
+          },
+          "test_synthetic": {
+            "n": 48,
+            "precision": 0.9583,
+            "recall": 0.9583,
+            "f1": 0.9583,
+            "accuracy": 0.9583,
+            "false_support_rate": 0.0417,
+            "tp": 23,
+            "fp": 1,
+            "fn": 1,
+            "tn": 23
+          },
+          "dev_traps_accepted": 6,
+          "dev_traps_total": 14,
+          "test_traps_accepted": 8,
+          "test_traps_total": 23,
+          "test_traps_accepted_ids": [
+            "t05:antonym",
+            "t06:attribute_swap",
+            "t08:antonym",
+            "t09:antonym",
+            "t10:antonym",
+            "t11:scope",
+            "t13:scope",
+            "t19:scope"
+          ],
+          "cpu_added_s_per_card_p95": 0.47,
+          "eligible": true
+        }
+      },
+      "card_grading_policy": {
+        "true": 312,
+        "whole_kept": 291,
+        "whole_kept_true": 271,
+        "atomic_kept": 190,
+        "atomic_kept_true": 178,
+        "whole_precision": 0.9313,
+        "whole_recall": 0.8686,
+        "atomic_precision": 0.9368,
+        "atomic_recall": 0.5705
+      },
+      "winner": "H_minilm_l12_e5_or_nli_veto",
+      "confirmation": "test F1 >= A's and test false support <= A's (added after the first run)",
+      "confirmed": false,
+      "verifier_in_use": "A_e5_exact"
+    }
+  },
+  "corpus_gaps": {
+    "label": "current",
+    "generated_at": "2026-09-26T09:14:56+00:00",
+    "cells": 66,
+    "missing_cells": 22,
+    "missing_by_category": {
+      "substitutes": 11,
+      "taste_texture": 6,
+      "physical_characteristics": 2,
+      "processing_methods": 2,
+      "commercial_uses": 1
+    },
+    "gaps": [
+      {
+        "species": "bandeng",
+        "category": "substitutes",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "gelama_bunga",
+        "category": "physical_characteristics",
+        "reason": "accepted_source_not_accessible"
+      },
+      {
+        "species": "gelama_bunga",
+        "category": "substitutes",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "gembolo",
+        "category": "physical_characteristics",
+        "reason": "taxonomy_unresolved"
+      },
+      {
+        "species": "gembolo",
+        "category": "taste_texture",
+        "reason": "taxonomy_unresolved"
+      },
+      {
+        "species": "gembolo",
+        "category": "processing_methods",
+        "reason": "taxonomy_unresolved"
+      },
+      {
+        "species": "gembolo",
+        "category": "commercial_uses",
+        "reason": "taxonomy_unresolved"
+      },
+      {
+        "species": "gembolo",
+        "category": "substitutes",
+        "reason": "taxonomy_unresolved"
+      },
+      {
+        "species": "gulamah",
+        "category": "taste_texture",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "gulamah",
+        "category": "substitutes",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "kembung",
+        "category": "taste_texture",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "kembung",
+        "category": "processing_methods",
+        "reason": "source_quote_not_direct"
+      },
+      {
+        "species": "kembung",
+        "category": "substitutes",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "kuniran",
+        "category": "taste_texture",
+        "reason": "accepted_source_text_not_accessible"
+      },
+      {
+        "species": "kuniran",
+        "category": "substitutes",
+        "reason": "only_market_misidentification_evidence_found"
+      },
+      {
+        "species": "mujair",
+        "category": "substitutes",
+        "reason": "only_fisheries_replacement_evidence_found"
+      },
+      {
+        "species": "nila",
+        "category": "substitutes",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "senangin",
+        "category": "taste_texture",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "senangin",
+        "category": "substitutes",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "tenggiri",
+        "category": "taste_texture",
+        "reason": "vernacular_scope_not_supported"
+      },
+      {
+        "species": "tenggiri",
+        "category": "substitutes",
+        "reason": "vernacular_scope_not_supported"
+      },
+      {
+        "species": "tuna",
+        "category": "substitutes",
+        "reason": "only_non_fish_recipe_alternative_found"
+      }
+    ],
+    "how_to_fill": "research agents -> candidate chunk with a verbatim source quote -> scripts.corpus_pipeline collect -> human review -> approve (signed) -> ingest"
+  },
+  "still_open": [
+    {
+      "id": "CV1",
+      "severity": "high",
+      "status": "open",
+      "title": "Field photos are misidentified far more often than clean photos",
+      "addressed_this_iteration": false,
+      "evidence": [
+        "lp_vit_l: clean photos 100.0%, field photos 81.8% (95% CI 76.7% to 86.0%, n = 258)",
+        "field macro-F1 0.667"
+      ]
+    },
+    {
+      "id": "CV2",
+      "severity": "high",
+      "status": "open",
+      "title": "Confidently wrong on field photos (confidence >= 0.9)",
+      "addressed_this_iteration": false,
+      "evidence": [
+        "lp_vit_l: field photos wrong at confidence >= 0.9: 15.1%; ECE 0.166"
+      ]
+    },
+    {
+      "id": "CV3",
+      "severity": "high",
+      "status": "open",
+      "title": "Abstain threshold 0.0 accepts every unknown fish and non-fish image",
+      "addressed_this_iteration": false,
+      "evidence": [
+        "production abstain threshold 0.0: accepts 100% of out-of-distribution images as a species",
+        "unknown_fish: AUROC 0.778, FPR at 95% TPR 56% (n = 89)"
+      ]
+    },
+    {
+      "id": "R2",
+      "severity": "high",
+      "status": "partial",
+      "title": "Grounding must catch negated and inverted claims, not only borrowed ones",
+      "addressed_this_iteration": true,
+      "evidence": [
+        "verifier in use (A_e5_exact): fresh traps accepted 11/23, iteration-1 traps 7/14",
+        "fewest fresh traps: C_mdeberta_exact 2/23, +25.04 s per card on CPU (over budget)"
+      ]
+    },
+    {
+      "id": "W29",
+      "severity": "high",
+      "status": "open",
+      "title": "The claim verifier was validated on synthetic claims only; on real expert claims it drops true ones and keeps false ones",
+      "addressed_this_iteration": true,
+      "evidence": [
+        "real expert claim atoms, held-out species (n=167): recall 0.6792, false support 0.2295 (14 of 61 unsupported atoms kept)",
+        "synthetic test claims (n=48): recall 1.0, false support 0.0"
+      ]
+    },
+    {
+      "id": "CV4",
+      "severity": "medium",
+      "status": "open",
+      "title": "Background shortcut: species predicted with the fish erased",
+      "addressed_this_iteration": false,
+      "evidence": [
+        "lp_vit_l: with the fish erased, the true species is still predicted 42.5% of the time (chance 9.1%)"
+      ]
+    },
+    {
+      "id": "CV5",
+      "severity": "medium",
+      "status": "open",
+      "title": "Accuracy drop under image corruption",
+      "addressed_this_iteration": false,
+      "evidence": [
+        "lp_vit_l: worst corruption blur 95.3%; mean over 7 corruptions 98.4%"
+      ]
+    },
+    {
+      "id": "W8",
+      "severity": "medium",
+      "status": "open",
+      "title": "Ranking follows the species name, not the requested category",
+      "addressed_this_iteration": false,
+      "evidence": [
+        "scoped MRR by category: identity 1.00, physical_characteristics 0.50, taste_texture 0.37, processing_methods 0.30, commercial_uses 0.24",
+        "overall scoped MRR 0.509; unfiltered recall@6 0.693"
+      ]
+    },
+    {
+      "id": "W11",
+      "severity": "medium",
+      "status": "open",
+      "title": "Categories with no evidence at all",
+      "addressed_this_iteration": false,
+      "evidence": [
+        "categories with no chunks: ['substitutes']",
+        "published-card field fill rate: physical_characteristics 73%, taste 9%, texture 9%, processing_methods 64%, commercial_uses 82%, similar_or_substitute_species 0%, potential_buyer_segments 82%"
+      ]
+    },
+    {
+      "id": "W13",
+      "severity": "medium",
+      "status": "partial",
+      "title": "Embedding similarity alone separates supported from borrowed claims poorly",
+      "addressed_this_iteration": true,
+      "evidence": [
+        "E5 claim-evidence cosine: supported mean 0.8562, borrowed mean 0.7931",
+        "supported min 0.8111 vs borrowed max 0.8299 (overlap: True)"
+      ]
+    },
+    {
+      "id": "W26",
+      "severity": "medium",
+      "status": "open",
+      "title": "Critic-guarded agent cards are emptier than published cards",
+      "addressed_this_iteration": true,
+      "evidence": [
+        "fields where the graded card is emptier than the one-call card on cells with evidence: 4/6",
+        "physical_characteristics: graded 73% (n=22) vs one-call 91% (n=22)"
+      ]
+    }
+  ]
+}

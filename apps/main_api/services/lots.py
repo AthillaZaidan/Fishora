@@ -5,6 +5,7 @@ Callers never supply a species id, mirroring KnowledgeService.
 Bid races are serialised inside the lot repository (row lock).
 """
 
+import logging
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from uuid import uuid4
@@ -26,6 +27,8 @@ DEFAULT_AUCTION_MINUTES = 60
 # How many lots one catch can be split into.
 MAX_LOT_COUNT = 50
 _POSITIVE_SIZES = {"S", "M", "L"}
+
+logger = logging.getLogger(__name__)
 
 
 class LotService:
@@ -55,6 +58,7 @@ class LotService:
         try:
             jobs = self._job_repo.list_by_prediction(prediction_id)
         except Exception:
+            logger.exception("could not read knowledge jobs for prediction %s", prediction_id)
             return None
         for job in reversed(jobs):
             if job.status == "completed" and job.final_card and job.species_id == species_id:
@@ -111,6 +115,7 @@ class LotService:
                     prediction_id
                 ).card.model_dump(mode="json")
             except Exception:
+                logger.warning("lot for prediction %s published without a card", prediction_id, exc_info=True)
                 snapshot = None
         lots = []
         for index in range(1, lot_count + 1):

@@ -1,0 +1,218 @@
+{
+  "label": "current",
+  "generated_at": "2026-09-26T09:15:16+00:00",
+  "rule": "E5 symmetric cosine >= tau AND numbers(claim) subset of numbers(chunk)",
+  "max_dev_false_support": 0.1,
+  "chosen": {
+    "tau": 0.805,
+    "dev": {
+      "n": 50,
+      "precision": 0.9615,
+      "recall": 1.0,
+      "f1": 0.9804,
+      "accuracy": 0.98,
+      "false_support_rate": 0.04,
+      "tp": 25,
+      "fp": 1,
+      "fn": 0,
+      "tn": 24
+    },
+    "test": {
+      "n": 48,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "false_support_rate": 0.0,
+      "tp": 24,
+      "fp": 0,
+      "fn": 0,
+      "tn": 24
+    }
+  },
+  "shipped": {
+    "tau": 0.805,
+    "dev": {
+      "n": 50,
+      "precision": 0.9615,
+      "recall": 1.0,
+      "f1": 0.9804,
+      "accuracy": 0.98,
+      "false_support_rate": 0.04,
+      "tp": 25,
+      "fp": 1,
+      "fn": 0,
+      "tn": 24
+    },
+    "test": {
+      "n": 48,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "false_support_rate": 0.0,
+      "tp": 24,
+      "fp": 0,
+      "fn": 0,
+      "tn": 24
+    }
+  },
+  "shipped_matches_choice": true,
+  "sweep": [
+    {
+      "tau": 0.75,
+      "dev_f1": 0.7937,
+      "dev_false_support": 0.52
+    },
+    {
+      "tau": 0.755,
+      "dev_f1": 0.8065,
+      "dev_false_support": 0.48
+    },
+    {
+      "tau": 0.76,
+      "dev_f1": 0.8065,
+      "dev_false_support": 0.48
+    },
+    {
+      "tau": 0.765,
+      "dev_f1": 0.8333,
+      "dev_false_support": 0.4
+    },
+    {
+      "tau": 0.77,
+      "dev_f1": 0.8333,
+      "dev_false_support": 0.4
+    },
+    {
+      "tau": 0.775,
+      "dev_f1": 0.8475,
+      "dev_false_support": 0.36
+    },
+    {
+      "tau": 0.78,
+      "dev_f1": 0.8621,
+      "dev_false_support": 0.32
+    },
+    {
+      "tau": 0.785,
+      "dev_f1": 0.9091,
+      "dev_false_support": 0.2
+    },
+    {
+      "tau": 0.79,
+      "dev_f1": 0.9259,
+      "dev_false_support": 0.16
+    },
+    {
+      "tau": 0.795,
+      "dev_f1": 0.9434,
+      "dev_false_support": 0.12
+    },
+    {
+      "tau": 0.8,
+      "dev_f1": 0.9615,
+      "dev_false_support": 0.08
+    },
+    {
+      "tau": 0.805,
+      "dev_f1": 0.9804,
+      "dev_false_support": 0.04
+    },
+    {
+      "tau": 0.81,
+      "dev_f1": 0.9804,
+      "dev_false_support": 0.04
+    },
+    {
+      "tau": 0.815,
+      "dev_f1": 0.9362,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.82,
+      "dev_f1": 0.913,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.825,
+      "dev_f1": 0.8889,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.83,
+      "dev_f1": 0.8095,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.835,
+      "dev_f1": 0.8095,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.84,
+      "dev_f1": 0.7805,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.845,
+      "dev_f1": 0.6842,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.85,
+      "dev_f1": 0.6842,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.855,
+      "dev_f1": 0.6486,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.86,
+      "dev_f1": 0.5714,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.865,
+      "dev_f1": 0.5294,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.87,
+      "dev_f1": 0.5294,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.875,
+      "dev_f1": 0.5294,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.88,
+      "dev_f1": 0.4375,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.885,
+      "dev_f1": 0.2143,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.89,
+      "dev_f1": 0.2143,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.895,
+      "dev_f1": 0.1481,
+      "dev_false_support": 0.0
+    },
+    {
+      "tau": 0.9,
+      "dev_f1": 0.1481,
+      "dev_false_support": 0.0
+    }
+  ]
+}

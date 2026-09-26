@@ -75,17 +75,22 @@ class AllocateResponse(BaseModel):
     current_highest_per_kg: Decimal | None = None
 
 
-def _service(request: Request) -> LotService:
+def _service(request: Request, *, publishing: bool = False) -> LotService:
     deps = request.app.state.deps
     knowledge_service = None
-    if deps.retriever is not None and deps.generator is not None:
+    # Only publication can need a card made on the spot (no completed job), and
+    # only then is an LLM client built. The card goes through the same graded
+    # graph as the job (W19).
+    if publishing and deps.knowledge_repo is not None and deps.embedder is not None:
+        from apps.main_api.services.card_llm import card_llm
         from apps.main_api.services.knowledge import KnowledgeService
 
         knowledge_service = KnowledgeService(
             prediction_repo=deps.prediction_repo,
             species_repo=deps.species_repo,
-            retriever=deps.retriever,
-            generator=deps.generator,
+            knowledge_repo=deps.knowledge_repo,
+            embedder=deps.embedder,
+            llm=card_llm(deps, getattr(request.app.state, "settings", None), session_id=None),
         )
     return LotService(
         prediction_repo=deps.prediction_repo,
@@ -135,7 +140,7 @@ def publish_lot(payload: PublishLotRequest, request: Request):
     user = require_role(request, "operator")
     if payload.operator_id and payload.operator_id != user.id:
         raise Forbidden("operator token cannot publish as another operator")
-    service = _service(request)
+    service = _service(request, publishing=True)
     lots = service.publish(
         prediction_id=payload.prediction_id,
         operator_id=user.id,

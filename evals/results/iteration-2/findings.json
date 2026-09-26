@@ -1,0 +1,647 @@
+{
+  "label": "current",
+  "generated_at": "2026-09-26T09:26:31+00:00",
+  "findings": [
+    {
+      "id": "CV1",
+      "severity": "high",
+      "stage": "species ID",
+      "title": "Field photos are misidentified far more often than clean photos",
+      "target": "field accuracy >= 90%",
+      "status": "open",
+      "evidence": [
+        "lp_vit_l: clean photos 100.0%, field photos 81.8% (95% CI 76.7% to 86.0%, n = 258)",
+        "field macro-F1 0.667"
+      ]
+    },
+    {
+      "id": "CV2",
+      "severity": "high",
+      "stage": "species ID",
+      "title": "Confidently wrong on field photos (confidence >= 0.9)",
+      "target": "<= 5% wrong-and-confident",
+      "status": "open",
+      "evidence": [
+        "lp_vit_l: field photos wrong at confidence >= 0.9: 15.1%; ECE 0.166"
+      ]
+    },
+    {
+      "id": "CV3",
+      "severity": "high",
+      "stage": "species ID",
+      "title": "Abstain threshold 0.0 accepts every unknown fish and non-fish image",
+      "target": "<= 10% of OOD images accepted",
+      "status": "open",
+      "evidence": [
+        "production abstain threshold 0.0: accepts 100% of out-of-distribution images as a species",
+        "unknown_fish: AUROC 0.778, FPR at 95% TPR 56% (n = 89)",
+        "nonfish: AUROC 0.983, FPR at 95% TPR 8% (n = 83)",
+        "synthetic: AUROC 0.988, FPR at 95% TPR 0% (n = 22)"
+      ]
+    },
+    {
+      "id": "R2",
+      "severity": "high",
+      "stage": "guardrail (critic)",
+      "title": "Grounding must catch negated and inverted claims, not only borrowed ones",
+      "target": "0 of 14 traps accepted",
+      "status": "partial",
+      "evidence": [
+        "verifier in use (A_e5_exact): fresh traps accepted 11/23, iteration-1 traps 7/14",
+        "fewest fresh traps: C_mdeberta_exact 2/23, +25.04 s per card on CPU (over budget)"
+      ]
+    },
+    {
+      "id": "W29",
+      "severity": "high",
+      "stage": "guardrail (critic)",
+      "title": "The claim verifier was validated on synthetic claims only; on real expert claims it drops true ones and keeps false ones",
+      "target": "held-out real claim atoms: false support ≤ 0.10 and recall ≥ 0.80",
+      "status": "open",
+      "evidence": [
+        "real expert claim atoms, held-out species (n=167): recall 0.6792, false support 0.2295 (14 of 61 unsupported atoms kept)",
+        "synthetic test claims (n=48): recall 1.0, false support 0.0",
+        "labels: evals/datasets/grounding_real_claims.json, by an AI assistant, pending human review"
+      ]
+    },
+    {
+      "id": "CV4",
+      "severity": "medium",
+      "stage": "species ID",
+      "title": "Background shortcut: species predicted with the fish erased",
+      "target": "shortcut rate <= 2x chance",
+      "status": "open",
+      "evidence": [
+        "lp_vit_l: with the fish erased, the true species is still predicted 42.5% of the time (chance 9.1%)"
+      ]
+    },
+    {
+      "id": "CV5",
+      "severity": "medium",
+      "stage": "species ID",
+      "title": "Accuracy drop under image corruption",
+      "target": "worst corruption >= 97%",
+      "status": "open",
+      "evidence": [
+        "lp_vit_l: worst corruption blur 95.3%; mean over 7 corruptions 98.4%"
+      ]
+    },
+    {
+      "id": "W8",
+      "severity": "medium",
+      "stage": "retrieval",
+      "title": "Ranking follows the species name, not the requested category",
+      "target": "worst per-category scoped MRR ≥ 0.5",
+      "status": "open",
+      "evidence": [
+        "scoped MRR by category: identity 1.00, physical_characteristics 0.50, taste_texture 0.37, processing_methods 0.30, commercial_uses 0.24",
+        "overall scoped MRR 0.509; unfiltered recall@6 0.693"
+      ]
+    },
+    {
+      "id": "W11",
+      "severity": "medium",
+      "stage": "corpus",
+      "title": "Categories with no evidence at all",
+      "target": "every category has evidence",
+      "status": "open",
+      "evidence": [
+        "categories with no chunks: ['substitutes']",
+        "published-card field fill rate: physical_characteristics 73%, taste 9%, texture 9%, processing_methods 64%, commercial_uses 82%, similar_or_substitute_species 0%, potential_buyer_segments 82%"
+      ]
+    },
+    {
+      "id": "W13",
+      "severity": "medium",
+      "stage": "guardrail (critic)",
+      "title": "Embedding similarity alone separates supported from borrowed claims poorly",
+      "target": "no score overlap (or add numeric checks)",
+      "status": "partial",
+      "evidence": [
+        "E5 claim-evidence cosine: supported mean 0.8562, borrowed mean 0.7931",
+        "supported min 0.8111 vs borrowed max 0.8299 (overlap: True)"
+      ]
+    },
+    {
+      "id": "W26",
+      "severity": "medium",
+      "stage": "guardrail (critic)",
+      "title": "Critic-guarded agent cards are emptier than published cards",
+      "target": "graded fill rate ≥ one-call on ≥ 5/7 fields, on cells with evidence",
+      "status": "open",
+      "evidence": [
+        "fields where the graded card is emptier than the one-call card on cells with evidence: 4/6",
+        "physical_characteristics: graded 73% (n=22) vs one-call 91% (n=22)",
+        "taste: graded 20% (n=10) vs one-call 80% (n=10)",
+        "texture: graded 20% (n=10) vs one-call 70% (n=10)",
+        "processing_methods: graded 78% (n=18) vs one-call 100% (n=18)",
+        "commercial_uses: graded 90% (n=20) vs one-call 90% (n=20)",
+        "similar_or_substitute_species: no species has evidence for it",
+        "potential_buyer_segments: graded 90% (n=20) vs one-call 15% (n=20)",
+        "unrestricted fill, graded/one-call: physical_characteristics 73%/91%, taste 9%/36%, texture 9%/32%, processing_methods 64%/82%, commercial_uses 82%/82%, similar_or_substitute_species 0%/4%, potential_buyer_segments 82%/14%"
+      ]
+    },
+    {
+      "id": "W1",
+      "severity": "high",
+      "stage": "guardrail (critic)",
+      "title": "Lexical grounding across languages: Indonesian claims vs English evidence",
+      "target": "grounding test F1 ≥ 0.85, false support ≤ 0.15",
+      "status": "resolved",
+      "evidence": [
+        "grader: E5 cosine + numbers",
+        "test-split F1 1.000, recall 1.000",
+        "all 98 pairs: recall 1.000, false support 0.020",
+        "scripted pipeline claim retention 100%",
+        "test_indonesian_claim_is_grounded_in_english_evidence: passed",
+        "test_shared_token_does_not_ground_a_borrowed_claim: passed"
+      ]
+    },
+    {
+      "id": "W2",
+      "severity": "high",
+      "stage": "orchestration",
+      "title": "Card jobs cannot complete without a production LLM; the LLM is not an injectable port",
+      "target": "verify → job completes; e2e photo → card passes",
+      "status": "resolved",
+      "evidence": [
+        "verify -> job completes: passed",
+        "photo -> grounded card (e2e): passed"
+      ]
+    },
+    {
+      "id": "W3",
+      "severity": "high",
+      "stage": "API",
+      "title": "Sync knowledge fallback returns an unhandled 500 when the key is blank",
+      "target": "a mapped 502/503, never an unhandled 500",
+      "status": "resolved",
+      "evidence": [
+        "GET /predictions/{id}/knowledge, no job, blank key -> HTTP 502"
+      ]
+    },
+    {
+      "id": "W4",
+      "severity": "high",
+      "stage": "generation parsing",
+      "title": "Markdown-fenced LLM JSON fails every expert",
+      "target": "fenced-JSON job success = 100%",
+      "status": "resolved",
+      "evidence": [
+        "cards completed when the LLM wraps JSON in ``` fences: 100%",
+        "unit test: passed"
+      ]
+    },
+    {
+      "id": "W19",
+      "severity": "high",
+      "stage": "publication",
+      "title": "The published card (QR page, buyer matching) bypasses the per-claim critic",
+      "target": "published card passes the same claim grounding",
+      "status": "resolved",
+      "evidence": [
+        "publication freezes the graded job card when one exists: True",
+        "lot publication uses the sync KnowledgeService: True",
+        "sync path has a per-claim critic: True",
+        "buyer matching reads snapshot fields: commercial_uses, physical_characteristics, processing_methods, taste, texture"
+      ]
+    },
+    {
+      "id": "W20",
+      "severity": "high",
+      "stage": "LLM client",
+      "title": "OpenCode Go rejects every call: no x-opencode-session header",
+      "target": "client sends the session header",
+      "status": "resolved",
+      "evidence": [
+        "client sends x-opencode-session: True; sets a user agent: True",
+        "without it the gateway answers 400 MissingSessionID"
+      ]
+    },
+    {
+      "id": "W21",
+      "severity": "high",
+      "stage": "generation parsing",
+      "title": "Agent path cannot parse Responses-API content blocks",
+      "target": "agent card success ≥ 90% with the real LLM",
+      "status": "resolved",
+      "evidence": [
+        "agent path as shipped, real LLM: 100% cards completed of 11",
+        "spend: $0.00090 per completed card"
+      ]
+    },
+    {
+      "id": "R1",
+      "severity": "medium",
+      "stage": "retrieval",
+      "title": "Retrieval is unnecessary at this corpus size and loses evidence",
+      "target": "every species' full evidence reaches its card",
+      "status": "resolved",
+      "evidence": [
+        "cards receive the whole species slice: completeness mean 100%, min 100%",
+        "semantic ranking applies only above 20 chunks per species"
+      ]
+    },
+    {
+      "id": "W5",
+      "severity": "medium",
+      "stage": "orchestration",
+      "title": "Too many sequential LLM rounds per card",
+      "target": "≤ 2.5 rounds per card",
+      "status": "resolved",
+      "evidence": [
+        "LLM rounds per card (scripted): 1.0; wall time / call delay 1.39",
+        "real LLM: agent card p50 4.5s with 3.2727 calls vs one-call card p50 9.1s with 1 call"
+      ]
+    },
+    {
+      "id": "W6",
+      "severity": "medium",
+      "stage": "orchestration",
+      "title": "No card cache for identical evidence",
+      "target": "repeat card < 50 ms",
+      "status": "resolved",
+      "evidence": [
+        "repeat card 11 ms vs first card 278 ms (served from the card cache)"
+      ]
+    },
+    {
+      "id": "W7",
+      "severity": "medium",
+      "stage": "retrieval",
+      "title": "Embedding model loads on the first request",
+      "target": "warm at startup",
+      "status": "resolved",
+      "evidence": [
+        "E5 cold load 14.7s on the first knowledge request; warm query p50 7.81 ms",
+        "startup warmup test: passed"
+      ]
+    },
+    {
+      "id": "W9",
+      "severity": "medium",
+      "stage": "retrieval",
+      "title": "Fixed 6-chunk cap drops evidence",
+      "target": "no species above the cap",
+      "status": "resolved",
+      "evidence": [
+        "share of each species' verified chunks that reach its card: mean 100%, min 100%",
+        "largest species slice 7 chunks"
+      ]
+    },
+    {
+      "id": "W10",
+      "severity": "medium",
+      "stage": "ingestion",
+      "title": "Chunker limit exceeds the E5 512-token window",
+      "target": "max_tokens + 4 ≤ 512",
+      "status": "resolved",
+      "evidence": [
+        "chunker max_tokens 480 vs E5 window 512",
+        "corpus chunks over the limit today: 0"
+      ]
+    },
+    {
+      "id": "W12",
+      "severity": "medium",
+      "stage": "observability",
+      "title": "Broad exception handlers swallow errors silently",
+      "target": "0 silent handlers",
+      "status": "resolved",
+      "evidence": [
+        "0 broad except handlers that neither log nor re-raise: none",
+        "stage trace kept per card job: test passed"
+      ]
+    },
+    {
+      "id": "W18",
+      "severity": "medium",
+      "stage": "taxonomy",
+      "title": "Seeded scientific names disagree with the corpus identity chunks",
+      "target": "0 mismatches",
+      "status": "resolved",
+      "evidence": [
+        "all seeded names agree"
+      ]
+    },
+    {
+      "id": "W24",
+      "severity": "medium",
+      "stage": "orchestration",
+      "title": "Agent path fails instead of returning a limitation card",
+      "target": "no species fails on the agent path",
+      "status": "resolved",
+      "evidence": [
+        "agent failures by species: none",
+        "gembolo published card: completed (only a LIMITATION chunk exists)"
+      ]
+    },
+    {
+      "id": "W25",
+      "severity": "medium",
+      "stage": "generation",
+      "title": "Published path intermittently fails its own citation gate",
+      "target": "100% published cards valid",
+      "status": "resolved",
+      "evidence": [
+        "published cards passing the citation gate: 100% of 11"
+      ]
+    },
+    {
+      "id": "W28",
+      "severity": "medium",
+      "stage": "LLM provider",
+      "title": "Not every OpenCode Go model is a drop-in replacement",
+      "target": "all candidate models ≥ 90% valid",
+      "status": "not_measured",
+      "evidence": []
+    },
+    {
+      "id": "W14",
+      "severity": "low",
+      "stage": "context construction",
+      "title": "Expert evidence truncated at 300 characters",
+      "target": "experts see whole chunks",
+      "status": "resolved",
+      "evidence": [
+        "experts receive whole chunks; unit test: passed"
+      ]
+    },
+    {
+      "id": "W22",
+      "severity": "low",
+      "stage": "prompting",
+      "title": "Expert prompts do not require Indonesian output",
+      "target": "0% English cards",
+      "status": "not_observed",
+      "evidence": [
+        "cards whose prose is mostly English: one_call 0%, agent 0%",
+        "expert prompts do not state the output language; not seen in final cards in this run"
+      ]
+    },
+    {
+      "id": "CV6",
+      "severity": "info",
+      "stage": "species ID",
+      "title": "Backbone accuracy vs CPU cost",
+      "target": "n/a",
+      "status": "info",
+      "evidence": [
+        "production lp_vit_l is on the accuracy/latency frontier: True",
+        "lp_vit_l: field 81.8%, CPU p50 896 ms, weights 1156 MB",
+        "lp_vit_b: field 67.1%, CPU p50 267 ms, weights 327 MB",
+        "lp_convnext_t: field 53.1%, CPU p50 103 ms, weights 106 MB",
+        "lp_vit_s: field 51.9%, CPU p50 97 ms, weights 82 MB",
+        "lp_mobilenetv3_l: field 29.8%, CPU p50 36 ms, weights 16 MB",
+        "lp_efficientnet_b0: field 25.6%, CPU p50 53 ms, weights 16 MB"
+      ]
+    },
+    {
+      "id": "W27",
+      "severity": "info",
+      "stage": "cost",
+      "title": "Where the LLM money goes",
+      "target": "n/a",
+      "status": "info",
+      "evidence": [
+        "one_call: output tokens 80% of cost; reasoning 35% of output; cached input 38%",
+        "agent: output tokens 86% of cost; reasoning 42% of output; cached input 0%"
+      ]
+    }
+  ],
+  "improvements": [
+    {
+      "metric": "Test suite pass rate",
+      "path": "tests.totals",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 1.0,
+      "higher_is_better": true,
+      "baseline_meets_target": true,
+      "findings": [
+        "W1",
+        "W2",
+        "W4"
+      ]
+    },
+    {
+      "metric": "Grounding F1 (test split)",
+      "path": "rag_eval.grounding.test.f1",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 0.85,
+      "higher_is_better": true,
+      "baseline_meets_target": true,
+      "findings": [
+        "W1",
+        "W13"
+      ]
+    },
+    {
+      "metric": "Grounding false support",
+      "path": "rag_eval.grounding.all.false_support_rate",
+      "baseline": 0.0204,
+      "current": 0.0204,
+      "target": 0.1,
+      "higher_is_better": false,
+      "baseline_meets_target": true,
+      "findings": [
+        "W1"
+      ]
+    },
+    {
+      "metric": "True-claim retention (scripted)",
+      "path": "rag_eval.pipeline.plain.claim_retention",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 0.8,
+      "higher_is_better": true,
+      "baseline_meets_target": true,
+      "findings": [
+        "W1"
+      ]
+    },
+    {
+      "metric": "Fenced-JSON job success",
+      "path": "rag_eval.pipeline.fenced.job_success_rate",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 1.0,
+      "higher_is_better": true,
+      "baseline_meets_target": true,
+      "findings": [
+        "W4"
+      ]
+    },
+    {
+      "metric": "LLM rounds / card",
+      "path": "rag_eval.pipeline.plain.llm_rounds",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 2.5,
+      "higher_is_better": false,
+      "baseline_meets_target": true,
+      "findings": [
+        "W5"
+      ]
+    },
+    {
+      "metric": "Repeat card latency (ms)",
+      "path": "rag_eval.pipeline.plain.repeat_latency_ms_mean",
+      "baseline": 10.8,
+      "current": 10.8,
+      "target": 50,
+      "higher_is_better": false,
+      "baseline_meets_target": true,
+      "findings": [
+        "W6"
+      ]
+    },
+    {
+      "metric": "Embedder cold load (s)",
+      "path": "rag_eval.environment.embedder_cold_load_s",
+      "baseline": 14.72,
+      "current": 14.72,
+      "target": null,
+      "higher_is_better": false,
+      "baseline_meets_target": null,
+      "findings": [
+        "W7"
+      ]
+    },
+    {
+      "metric": "Scoped retrieval MRR",
+      "path": "rag_eval.retrieval.scoped.mrr",
+      "baseline": 0.5087,
+      "current": 0.5087,
+      "target": 0.7,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "W8"
+      ]
+    },
+    {
+      "metric": "Scoped recall@6",
+      "path": "rag_eval.retrieval.scoped.recall@6",
+      "baseline": 0.9886,
+      "current": 0.9886,
+      "target": 1.0,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "W9"
+      ]
+    },
+    {
+      "metric": "Agent card success, real LLM",
+      "path": "cost_eval.summary.by_path.agent.success_rate",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 0.9,
+      "higher_is_better": true,
+      "baseline_meets_target": true,
+      "findings": [
+        "W20",
+        "W21"
+      ]
+    },
+    {
+      "metric": "Published card success, real LLM",
+      "path": "cost_eval.published.success_rate",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 1.0,
+      "higher_is_better": true,
+      "baseline_meets_target": true,
+      "findings": [
+        "W25"
+      ]
+    },
+    {
+      "metric": "Agent card p50 wall time (s)",
+      "path": "cost_eval.agent.wall_s_per_card.p50",
+      "baseline": 4.45,
+      "current": 4.45,
+      "target": 6.0,
+      "higher_is_better": false,
+      "baseline_meets_target": true,
+      "findings": [
+        "W5"
+      ]
+    },
+    {
+      "metric": "Cost per published card (USD)",
+      "path": "cost_eval.published.cost_usd_per_card.mean",
+      "baseline": 0.0009,
+      "current": 0.0009,
+      "target": null,
+      "higher_is_better": false,
+      "baseline_meets_target": null,
+      "findings": [
+        "W27"
+      ]
+    },
+    {
+      "metric": "Cost per agent card (USD)",
+      "path": "cost_eval.agent.cost_usd_per_card.mean",
+      "baseline": 0.0009,
+      "current": 0.0009,
+      "target": null,
+      "higher_is_better": false,
+      "baseline_meets_target": null,
+      "findings": [
+        "W5",
+        "W27"
+      ]
+    },
+    {
+      "metric": "Species ID: field accuracy",
+      "path": "cv_eval.prod.field_accuracy",
+      "baseline": 0.8178294573643411,
+      "current": 0.8178294573643411,
+      "target": 0.9,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "CV1"
+      ]
+    },
+    {
+      "metric": "Species ID: wrong and confident (field)",
+      "path": "cv_eval.prod.field_wrong_confident",
+      "baseline": 0.1511627906976744,
+      "current": 0.1511627906976744,
+      "target": 0.05,
+      "higher_is_better": false,
+      "baseline_meets_target": false,
+      "findings": [
+        "CV2"
+      ]
+    },
+    {
+      "metric": "Species ID: OOD images accepted",
+      "path": "cv_eval.prod.ood_accepted_at_threshold",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 0.1,
+      "higher_is_better": false,
+      "baseline_meets_target": false,
+      "findings": [
+        "CV3"
+      ]
+    },
+    {
+      "metric": "Species ID: background shortcut rate",
+      "path": "cv_eval.prod.shortcut_rate",
+      "baseline": 0.42452830188679247,
+      "current": 0.42452830188679247,
+      "target": 0.18,
+      "higher_is_better": false,
+      "baseline_meets_target": false,
+      "findings": [
+        "CV4"
+      ]
+    }
+  ]
+}

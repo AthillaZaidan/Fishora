@@ -88,6 +88,9 @@ class KnowledgeJobRecord:
     critic_feedback: str | None = None
     final_card: dict | None = None
     error: str | None = None
+    # Stage trace of the run that produced the card (W12): evidence, expert
+    # subsets, prompt hashes, verdicts, timings, tokens.
+    trace: dict | None = None
 
 
 @dataclass(frozen=True)

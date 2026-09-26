@@ -3,9 +3,11 @@ from dataclasses import asdict
 from typing import Literal
 
 from fastapi import APIRouter, BackgroundTasks, File, Form, Request, UploadFile
-from pydantic import BaseModel, Field
+from fastapi.concurrency import run_in_threadpool
+from pydantic import BaseModel, Field, ValidationError
 
 from apps.main_api.config import MainSettings
+from apps.main_api.services.card_llm import card_llm
 from apps.main_api.services.generation import KnowledgeResponse
 from apps.main_api.services.identification import IdentificationService
 from apps.main_api.services.manual_entry import ManualEntryService
@@ -23,19 +25,10 @@ DEFAULT_MAX_IMAGE_BYTES = MainSettings.model_fields["cv_max_image_bytes"].defaul
 
 
 def _card_llm(request: Request, session_id: str):
-    """The LLM for one card's agent graph: the injected port when present
-    (tests, alternative providers; W2), else the OpenCode Go client built from
-    settings with this card's session id. None when no key is configured, in
-    which case the experts claim nothing and the writer returns an empty card."""
-    deps = request.app.state.deps
-    if getattr(deps, "llm", None) is not None:
-        return deps.llm
-    settings = getattr(request.app.state, "settings", None)
-    if settings is None or not settings.opencode_go_api_key.get_secret_value().strip():
-        return None
-    from apps.main_api.services.generation import make_opencode_go_llm
-
-    return make_opencode_go_llm(settings, session_id=session_id)
+    """The LLM for one card (see services/card_llm.py). None when no key is
+    configured, in which case the job's experts claim nothing and the writer
+    returns an empty card."""
+    return card_llm(request.app.state.deps, getattr(request.app.state, "settings", None), session_id)
 
 
 class VerifyRequest(BaseModel):
@@ -185,6 +178,8 @@ async def knowledge_card(prediction_id: str, request: Request):
                     # pick latest by created_at if available, else last
                     job = sorted(jobs, key=lambda j: getattr(j, "created_at", ""), reverse=True)[0] if hasattr(jobs[0], "created_at") else jobs[-1]
             except Exception:
+                # Falls through to the synchronous path, which grades its own card.
+                logger.exception("could not read knowledge jobs for prediction %s", prediction_id)
                 job = None
         if job is not None:
             if job.status == "processing":
@@ -196,14 +191,19 @@ async def knowledge_card(prediction_id: str, request: Request):
                     try:
                         card = KnowledgeCard.model_validate(job.final_card)
                         return KnowledgeResponse(prediction_id=job.prediction_id, species_id=job.species_id, card=card)
-                    except Exception:
+                    except ValidationError:
+                        logger.exception("knowledge job %s stored a card that fails validation", job.id)
                         return JSONResponse(status_code=502, content={"detail": "knowledge generation failed", "job_id": job.id, "status": "failed"})
                 return JSONResponse(status_code=502, content={"detail": "knowledge generation failed", "job_id": job.id, "status": "failed"})
             if job.status == "failed":
                 return JSONResponse(status_code=502, content={"detail": job.error or "knowledge generation failed", "job_id": job.id, "status": "failed"})
-    return KnowledgeService(
+    # No job (a manually declared catch): grade the card now, through the same
+    # graph as the job (W19). It blocks on the LLM, so it runs off the event loop.
+    service = KnowledgeService(
         prediction_repo=deps.prediction_repo,
         species_repo=deps.species_repo,
-        retriever=deps.retriever,
-        generator=deps.generator,
-    ).get_for_prediction(prediction_id)
+        knowledge_repo=deps.knowledge_repo,
+        embedder=deps.embedder,
+        llm=_card_llm(request, session_id=f"fishora-card-sync-{prediction_id}"),
+    )
+    return await run_in_threadpool(service.get_for_prediction, prediction_id)

@@ -1,5 +1,5 @@
-"""Cost, latency and card validity of the published (sync) card path across
-OpenCode Go models reachable with the configured key.
+"""Cost, latency and card validity of the one-call card path (the published
+path until iteration 1) across OpenCode Go models reachable with the configured key.
 
     python -m evals.model_compare --label baseline [--models gpt-6-luna,glm-5.3-flash]
 
@@ -18,7 +18,7 @@ import time
 from datetime import datetime, timezone
 
 from evals.corpus import build_store, species_records
-from evals.cost_eval import ALLOWANCE, PRICES, _dist, run_published
+from evals.cost_eval import ALLOWANCE, PRICES, _dist, run_one_call
 from evals.run import REPORTS_DIR, _jsonable, git_revision
 
 DEFAULT_MODELS = ("gpt-5.6-luna", "gpt-6-luna", "deepseek-v4.1-flash", "glm-5.3-flash", "kimi-k2.6", "glm-5.2")
@@ -48,7 +48,7 @@ def main(argv: list[str] | None = None):
             print(f"[compare] skip {model}: no list price recorded")
             continue
         started = time.perf_counter()
-        cards, calls = run_published(species, store, embedder, settings, repeat=1, model=model,
+        cards, calls = run_one_call(species, store, embedder, settings, repeat=1, model=model,
                                      timeout=args.timeout, max_retries=args.retries)
         ok = [c for c in cards if c["status"] == "completed"]
         errors: dict[str, int] = {}
@@ -90,7 +90,7 @@ def write(out, args, per_model, all_cards) -> None:
         "label": args.label,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "git": git_revision(),
-        "path": "published (KnowledgeService sync path)",
+        "path": "one-call generation (the published path until iteration 1)",
         "call_timeout_s": args.timeout,
         "client_retries": args.retries,
         "models": per_model,

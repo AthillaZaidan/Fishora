@@ -43,9 +43,7 @@ from apps.main_api.errors import (
 from apps.main_api.ports import AppDependencies
 from apps.main_api.services.cv_client import HttpCVClient
 from apps.main_api.services.embeddings import LocalE5Embedder
-from apps.main_api.services.generation import KnowledgeGenerator, OpenCodeGoClient
 from apps.main_api.services.image_store import FilesystemImageStore
-from apps.main_api.services.retrieval import VerifiedRetriever
 
 
 def create_main_app(settings: MainSettings | None = None, deps: AppDependencies | None = None) -> FastAPI:
@@ -162,16 +160,12 @@ def _ensure_production_deps(app: FastAPI) -> None:
         seed_demo_landing_points(deps.landing_point_repo)
     if deps.preference_repo is None:
         deps.preference_repo = SqlPreferenceRepository(deps.session_factory)
-    if deps.retriever is None:
-        deps.retriever = VerifiedRetriever(deps.knowledge_repo, deps.embedder)
-    if deps.generator is None:
-        # Lazy: a blank OPENCODE_GO_API_KEY must not break startup.
-        deps.generator = KnowledgeGenerator(lambda: OpenCodeGoClient(settings))
     if getattr(deps, "job_repo", None) is None:
         try:
             deps.job_repo = SqlKnowledgeJobRepository(deps.session_factory)
         except Exception:
-            pass
+            # Without it cards are made synchronously on request; say so.
+            logging.getLogger(__name__).exception("knowledge job repository unavailable")
 
 
 def _register_health(app: FastAPI) -> None:

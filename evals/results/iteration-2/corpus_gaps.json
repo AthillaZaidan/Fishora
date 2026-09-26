@@ -1,0 +1,126 @@
+{
+  "label": "current",
+  "generated_at": "2026-09-26T09:14:56+00:00",
+  "cells": 66,
+  "missing_cells": 22,
+  "missing_by_category": {
+    "substitutes": 11,
+    "taste_texture": 6,
+    "physical_characteristics": 2,
+    "processing_methods": 2,
+    "commercial_uses": 1
+  },
+  "gaps": [
+    {
+      "species": "bandeng",
+      "category": "substitutes",
+      "reason": "no_direct_evidence_found"
+    },
+    {
+      "species": "gelama_bunga",
+      "category": "physical_characteristics",
+      "reason": "accepted_source_not_accessible"
+    },
+    {
+      "species": "gelama_bunga",
+      "category": "substitutes",
+      "reason": "no_direct_evidence_found"
+    },
+    {
+      "species": "gembolo",
+      "category": "physical_characteristics",
+      "reason": "taxonomy_unresolved"
+    },
+    {
+      "species": "gembolo",
+      "category": "taste_texture",
+      "reason": "taxonomy_unresolved"
+    },
+    {
+      "species": "gembolo",
+      "category": "processing_methods",
+      "reason": "taxonomy_unresolved"
+    },
+    {
+      "species": "gembolo",
+      "category": "commercial_uses",
+      "reason": "taxonomy_unresolved"
+    },
+    {
+      "species": "gembolo",
+      "category": "substitutes",
+      "reason": "taxonomy_unresolved"
+    },
+    {
+      "species": "gulamah",
+      "category": "taste_texture",
+      "reason": "no_direct_evidence_found"
+    },
+    {
+      "species": "gulamah",
+      "category": "substitutes",
+      "reason": "no_direct_evidence_found"
+    },
+    {
+      "species": "kembung",
+      "category": "taste_texture",
+      "reason": "no_direct_evidence_found"
+    },
+    {
+      "species": "kembung",
+      "category": "processing_methods",
+      "reason": "source_quote_not_direct"
+    },
+    {
+      "species": "kembung",
+      "category": "substitutes",
+      "reason": "no_direct_evidence_found"
+    },
+    {
+      "species": "kuniran",
+      "category": "taste_texture",
+      "reason": "accepted_source_text_not_accessible"
+    },
+    {
+      "species": "kuniran",
+      "category": "substitutes",
+      "reason": "only_market_misidentification_evidence_found"
+    },
+    {
+      "species": "mujair",
+      "category": "substitutes",
+      "reason": "only_fisheries_replacement_evidence_found"
+    },
+    {
+      "species": "nila",
+      "category": "substitutes",
+      "reason": "no_direct_evidence_found"
+    },
+    {
+      "species": "senangin",
+      "category": "taste_texture",
+      "reason": "no_direct_evidence_found"
+    },
+    {
+      "species": "senangin",
+      "category": "substitutes",
+      "reason": "no_direct_evidence_found"
+    },
+    {
+      "species": "tenggiri",
+      "category": "taste_texture",
+      "reason": "vernacular_scope_not_supported"
+    },
+    {
+      "species": "tenggiri",
+      "category": "substitutes",
+      "reason": "vernacular_scope_not_supported"
+    },
+    {
+      "species": "tuna",
+      "category": "substitutes",
+      "reason": "only_non_fish_recipe_alternative_found"
+    }
+  ],
+  "how_to_fill": "research agents -> candidate chunk with a verbatim source quote -> scripts.corpus_pipeline collect -> human review -> approve (signed) -> ingest"
+}

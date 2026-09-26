@@ -105,9 +105,10 @@ class AppDependencies:
 
     Production wiring happens lazily in the app lifespan; tests inject fakes
     through the bundle instead of a nine-argument factory signature. The five
-    original concrete ports stay the completeness criterion; knowledge_repo,
-    retriever, and generator are additionally built in the production path
-    and injected by tests that exercise the knowledge endpoint.
+    original concrete ports stay the completeness criterion; knowledge_repo is
+    additionally built in the production path and injected by tests that
+    exercise the knowledge endpoint. Cards are made only by the graded graph
+    (orchestrator.grade_card, W19), which needs knowledge_repo, embedder and llm.
     """
 
     session_factory: Callable[[], Session] | None = None
@@ -117,8 +118,6 @@ class AppDependencies:
     image_store: ImageStore | None = None
     embedder: Embedder | None = None
     knowledge_repo: KnowledgeRepository | None = None
-    retriever: object | None = None  # VerifiedRetriever
-    generator: object | None = None  # KnowledgeGenerator
     lot_repo: object | None = None  # LotRepository
     preference_repo: object | None = None  # PreferenceRepository
     landing_point_repo: object | None = None
@@ -126,5 +125,5 @@ class AppDependencies:
     review_repo: object | None = None  # ReviewRepository
     job_repo: KnowledgeJobRepository | None = None
     # Chat model for the agent graph (LangChain-style ``invoke``). None builds
-    # the OpenCode Go client from settings per card (api/fish.py::_card_llm).
+    # the OpenCode Go client from settings per card (services/card_llm.py).
     llm: object | None = None

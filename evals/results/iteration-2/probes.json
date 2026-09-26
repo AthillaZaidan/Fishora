@@ -1,0 +1,137 @@
+{
+  "label": "current",
+  "generated_at": "2026-09-26T09:13:05+00:00",
+  "git": {
+    "commit": "6112d6e",
+    "dirty": true
+  },
+  "silent_excepts": {
+    "count": 0,
+    "handlers": []
+  },
+  "opencode_headers": {
+    "sends_session_header": true,
+    "sets_user_agent": true
+  },
+  "publication_path": {
+    "publish_uses_sync_knowledge_service": true,
+    "publish_prefers_graded_card": true,
+    "sync_path_has_claim_critic": true,
+    "matching_reads_snapshot_fields": [
+      "commercial_uses",
+      "physical_characteristics",
+      "processing_methods",
+      "taste",
+      "texture"
+    ]
+  },
+  "taxonomy_vs_corpus": {
+    "available": true,
+    "source": "artifacts/Dataset/fishora_dataset/metadata/taxonomy.csv",
+    "mismatches": [],
+    "rows": [
+      {
+        "species": "bandeng",
+        "seeded": "Chanos chanos",
+        "corpus": [
+          "Chanos chanos"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "gelama_bunga",
+        "seeded": "Nibea albiflora",
+        "corpus": [
+          "Nibea albiflora"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "gembolo",
+        "seeded": null,
+        "corpus": [],
+        "agrees": true
+      },
+      {
+        "species": "gulamah",
+        "seeded": "Johnius trachycephalus",
+        "corpus": [
+          "Johnius trachycephalus"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "kembung",
+        "seeded": "Rastrelliger faughni",
+        "corpus": [
+          "Rastrelliger faughni"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "kuniran",
+        "seeded": "Upeneus moluccensis",
+        "corpus": [
+          "Upeneus moluccensis"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "mujair",
+        "seeded": "Oreochromis mossambicus",
+        "corpus": [
+          "Mozambique tilapia",
+          "Oreochromis mossambicus"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "nila",
+        "seeded": "Oreochromis niloticus",
+        "corpus": [
+          "Nile tilapia",
+          "Oreochromis niloticus"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "senangin",
+        "seeded": "Eleutheronema tetradactylum",
+        "corpus": [
+          "Eleutheronema tetradactylum",
+          "Pacific marine"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "tenggiri",
+        "seeded": "Scomberomorus commerson",
+        "corpus": [
+          "Pacific king",
+          "Sarda orientalis",
+          "Scomberomorus commerson",
+          "Scomberomorus guttatus",
+          "Scomberomorus koreanus",
+          "Scomberomorus lineolatus",
+          "Spanish mackerel"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "tuna",
+        "seeded": "Thunnus spp.",
+        "corpus": [
+          "Scombrids catalogue",
+          "Thunnus chapter",
+          "Thunnus species",
+          "World catalogue"
+        ],
+        "agrees": true
+      }
+    ]
+  },
+  "sync_path_blank_key": {
+    "status_code": 502,
+    "body": "{\"detail\":\"knowledge generation is temporarily unavailable\",\"retrieved_chunk_ids\":[]}"
+  }
+}

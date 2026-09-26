@@ -1,10 +1,11 @@
-"""Background LangGraph-style orchestration for Fishora.
+"""Card orchestration for Fishora: researcher, four experts, critic, writer.
 
-Ponytail: no hard dependency on langgraph library. The graph is plain
-Python + asyncio fan-out, but exposes a LangGraph-compatible `make_graph`
-that falls back to a dict-based executor if langgraph is absent. Either way
-the four experts really overlap (asyncio.gather over worker threads, since
-the LLM calls block on I/O).
+The graph is plain Python with an asyncio fan-out, so the four experts really
+overlap (asyncio.gather over worker threads, since the LLM calls block on I/O).
+``grade_card`` is the only way a card is made: the background job and the
+synchronous path (manual entry, publication fallback) both run it (W19).
+Every run records a stage trace (evidence, what each expert saw, prompt
+hashes, verdicts, timings, tokens) that the job row keeps (W12).
 
 Grounding is fail-closed and centralised: the critic grades every claim
 against the specific chunk it cites, the writer keeps only ``supported``
@@ -30,6 +31,7 @@ import logging
 import math
 import re
 import threading
+import time
 from typing import Annotated, Literal, TypedDict
 
 from pydantic import BaseModel, ValidationError
@@ -45,16 +47,6 @@ from apps.main_api.services.llm_output import reply_json
 from apps.main_api.services.retrieval import CATEGORY_ORDER, VerifiedRetriever
 
 logger = logging.getLogger(__name__)
-
-# ponytail: try langgraph, fallback to simple executor if not installed
-try:
-    from langgraph.graph import StateGraph, START, END  # type: ignore
-    _HAS_LANGGRAPH = True
-except Exception:
-    StateGraph = None  # type: ignore
-    START = "START"  # type: ignore
-    END = "END"  # type: ignore
-    _HAS_LANGGRAPH = False
 
 EXPERT_NAMES = ("physical", "taste", "commercial", "substitute")
 
@@ -122,6 +114,7 @@ class FishoraState(TypedDict, total=False):
     error: str | None
     cache_hit: bool
     known_binomials: tuple
+    trace: dict
 
 
 # ---- Researcher -----------------------------------------------------------
@@ -241,13 +234,35 @@ def _expert_node(category: str, state: FishoraState, llm_luna) -> dict:
         for c in subset
     )
     prompt = _EXPERT_PROMPTS[category] + f"\nBukti:\n{payload}"
+    trace = {"chunk_ids": [c.chunk_id for c in subset],
+             "prompt_sha256": hashlib.sha256(_EXPERT_PROMPTS[category].encode("utf-8")).hexdigest()[:16]}
+    started = time.perf_counter()
     try:
-        data = reply_json(llm_luna.invoke(prompt))
+        reply = llm_luna.invoke(prompt)
+        trace["tokens"] = _usage(reply)
+        data = reply_json(reply)
         data["sources"] = _bind_citations(data.get("sources"), subset)
     except Exception as exc:
-        logger.warning("expert %s failed: %s: %s", category, type(exc).__name__, exc)
+        logger.warning("job %s: expert %s failed: %s: %s", state.get("job_id"), category, type(exc).__name__, exc)
         data = {**_EMPTY_EXPERT_CLAIMS[category], "error": "expert generation failed", "sources": []}
+    trace["latency_ms"] = round((time.perf_counter() - started) * 1000, 1)
+    # Carried out under a private key; the executor moves it into the stage
+    # trace, so it never reaches the stored expert outputs.
+    data[_TRACE_KEY] = trace
     return data
+
+
+_TRACE_KEY = "_trace"
+
+
+def _usage(reply) -> dict:
+    """Token counts from a LangChain reply's usage_metadata, when the provider sends them."""
+    usage = getattr(reply, "usage_metadata", None) or {}
+    out = {key: usage[key] for key in ("input_tokens", "output_tokens", "total_tokens") if isinstance(usage.get(key), int)}
+    reasoning = (usage.get("output_token_details") or {}).get("reasoning")
+    if isinstance(reasoning, int):
+        out["reasoning_tokens"] = reasoning
+    return out
 
 
 def physical_expert(state: FishoraState, llm_luna) -> dict:
@@ -528,50 +543,71 @@ def clear_card_cache() -> None:
 # ---- Graph factory -----------------------------------------------------
 
 def make_graph(knowledge_repo=None, embedder=None, llm_luna=None, llm_medium=None):
-    """Return a graph-like object with .invoke(state) and .ainvoke(state).
+    """Return the card graph: an object with .invoke(state) and .ainvoke(state).
 
-    If langgraph is installed, build a real StateGraph; otherwise return an
-    executor that mirrors the same node order and the same expert fan-out.
+    Researcher, then the four experts in parallel, then the critic and the
+    writer. The result carries ``trace``, the stage trace of this run (W12).
+    The former optional LangGraph build is gone: langgraph was never installed,
+    so that branch never ran and was never tested.
     """
-    if _HAS_LANGGRAPH and knowledge_repo is not None:
-        graph = StateGraph(FishoraState)
-        graph.add_node("researcher", lambda s: hybrid_researcher(s, knowledge_repo, embedder, llm_medium))
-        graph.add_node("physical", lambda s: physical_expert(s, llm_luna))
-        graph.add_node("taste", lambda s: taste_expert(s, llm_luna))
-        graph.add_node("commercial", lambda s: commercial_expert(s, llm_luna))
-        graph.add_node("substitute", lambda s: substitute_expert(s, llm_luna))
-        graph.add_node("critic", lambda s: critic_node(s, llm_medium, embedder))
-        graph.add_node("writer", lambda s: writer_node(s, llm_luna, s.get("species")))
-        graph.add_edge(START, "researcher")
-        for n in EXPERT_NAMES:
-            graph.add_edge("researcher", n)
-            graph.add_edge(n, "critic")
-        graph.add_edge("critic", "writer")
-        graph.add_edge("writer", END)
-        return graph.compile()
 
-    # Fallback simple executor (ponytail: no langgraph dependency)
     class SimpleGraph:
         async def ainvoke(self, state: FishoraState) -> FishoraState:
             s = dict(state)
+            timings: dict[str, float] = {}
+            started = time.perf_counter()
+
+            def lap(stage: str, since: float) -> float:
+                now = time.perf_counter()
+                timings[stage] = round((now - since) * 1000, 1)
+                return now
+
             s.update(hybrid_researcher(s, knowledge_repo, embedder, llm_medium))
-            key = card_cache_key(s["species_id"], s.get("refined_evidence", []), llm_luna)
+            mark = lap("research", started)
+            evidence = s.get("refined_evidence", [])
+            trace: dict = {
+                "pipeline_version": PIPELINE_VERSION,
+                "model": _model_name(llm_luna),
+                "evidence": [{"chunk_id": c.chunk_id, "category": c.category,
+                              "distance": None if c.distance is None else round(float(c.distance), 4)}
+                             for c in evidence],
+            }
+            key = card_cache_key(s["species_id"], evidence, llm_luna)
             with _CARD_CACHE_LOCK:
                 cached = _CARD_CACHE.get(key)
             if cached is not None:
+                lap("total", started)
                 s.update({"final_card": copy.deepcopy(cached), "cache_hit": True,
-                          "critic_feedback": "cache hit"})
+                          "critic_feedback": "cache hit",
+                          "trace": {**trace, "cache_hit": True, "timings_ms": timings}})
                 return s
             # Expert LLM calls block on network I/O, so real overlap needs
             # threads; gather also keeps the single merge point for the reducer.
             results = await asyncio.gather(
                 *(asyncio.to_thread(_expert_node, name, s, llm_luna) for name in EXPERT_NAMES)
             )
+            experts = {}
+            for name, result in zip(EXPERT_NAMES, results):
+                expert_trace = result.pop(_TRACE_KEY, {})
+                experts[name] = {**expert_trace, "skipped": bool(result.get("skipped")),
+                                 "error": bool(result.get("error"))}
             s["expert_outputs"] = merge_expert_outputs(
                 s.get("expert_outputs"), dict(zip(EXPERT_NAMES, results))
             )
+            mark = lap("experts", mark)
             s.update(critic_node(s, llm_medium, embedder))
+            mark = lap("critic", mark)
             s.update(writer_node(s, llm_luna, s.get("species")))
+            lap("writer", mark)
+            lap("total", started)
+            s["trace"] = {
+                **trace,
+                "cache_hit": False,
+                "experts": experts,
+                "claims": [status.model_dump() for status in s.get("claim_statuses") or []],
+                "error": s.get("error"),
+                "timings_ms": timings,
+            }
             final = s.get("final_card")
             if final is not None and not s.get("error") and llm_luna is not None:
                 with _CARD_CACHE_LOCK:
@@ -579,32 +615,69 @@ def make_graph(knowledge_repo=None, embedder=None, llm_luna=None, llm_medium=Non
             return s
 
         def invoke(self, state: FishoraState) -> FishoraState:
-            # run_graph is sync (BackgroundTasks worker thread), so there is no
-            # loop to reuse here.
+            # Callers are sync (a BackgroundTasks worker thread, or a threadpool
+            # request handler), so there is no loop to reuse here.
             return asyncio.run(self.ainvoke(state))
 
     return SimpleGraph()
 
 
+def _model_name(llm) -> str | None:
+    if llm is None:
+        return None
+    return getattr(llm, "model_name", None) or getattr(llm, "model", None) or type(llm).__name__
+
+
+def known_binomials(species_repo) -> tuple[str, ...]:
+    """Scientific names the critic's taxon check accepts in a claim."""
+    if species_repo is None or not hasattr(species_repo, "list_all"):
+        return ()
+    return tuple(s.scientific_name for s in species_repo.list_all() if s.scientific_name)
+
+
+def grade_card(species_id: str, *, prediction_id: str, knowledge_repo, embedder, llm,
+               species_repo, job_id: str | None = None) -> FishoraState:
+    """One card through researcher, experts, critic and writer.
+
+    The only way a card is made (W19): the background job and the synchronous
+    path both call this, so every published claim has passed the per-claim
+    critic. Returns the final state; ``final_card`` and ``error`` say how it went
+    and ``trace`` records the run.
+    """
+    species = species_repo.get_by_id(species_id) if species_repo else None
+    graph = make_graph(knowledge_repo, embedder, llm, llm)
+    state: FishoraState = {"job_id": job_id or f"sync-{prediction_id}", "prediction_id": prediction_id,
+                           "species_id": species_id, "species": species, "expert_outputs": {},
+                           "known_binomials": known_binomials(species_repo)}
+    result = graph.invoke(state)
+    trace = result.get("trace") or {}
+    logger.info("card %s species=%s cache_hit=%s error=%s timings_ms=%s", state["job_id"], species_id,
+                trace.get("cache_hit"), result.get("error"), trace.get("timings_ms"))
+    return result
+
+
 def run_graph(job_id: str, species_id: str, prediction_id: str, knowledge_repo, embedder, llm_luna, llm_medium, species_repo, job_repo):
-    """Background entry: loads species, runs graph, persists result. Sync for BackgroundTasks."""
+    """Background entry: grades the card and persists it with its trace. Sync for BackgroundTasks.
+
+    ``llm_medium`` is accepted for the existing call signature; the critic's LLM
+    judge pass is off (USE_LLM_JUDGE), so one LLM serves the whole graph.
+    """
     try:
-        species = species_repo.get_by_id(species_id) if species_repo else None
-        graph = make_graph(knowledge_repo, embedder, llm_luna, llm_medium)
-        known = tuple(s.scientific_name for s in species_repo.list_all() if s.scientific_name) if species_repo is not None and hasattr(species_repo, "list_all") else ()
-        state: FishoraState = {"job_id": job_id, "prediction_id": prediction_id, "species_id": species_id,
-                               "species": species, "expert_outputs": {}, "known_binomials": known}
-        result = graph.invoke(state)
+        result = grade_card(species_id, prediction_id=prediction_id, knowledge_repo=knowledge_repo,
+                            embedder=embedder, llm=llm_luna, species_repo=species_repo, job_id=job_id)
         final = result.get("final_card")
         err = result.get("error")
+        trace = result.get("trace")
         if final is not None and err is None:
             data = final.model_dump(mode="json") if hasattr(final, "model_dump") else final
-            job_repo.update(job_id, status="completed", final_card=data, expert_outputs=result.get("expert_outputs"), critic_feedback=result.get("critic_feedback"))
+            job_repo.update(job_id, status="completed", final_card=data, expert_outputs=result.get("expert_outputs"),
+                            critic_feedback=result.get("critic_feedback"), trace=trace)
         else:
             logger.warning("knowledge job %s failed: %s", job_id, err)
-            # generic error in the response; expert outputs and critic verdicts kept for debugging
+            # generic error in the response; expert outputs, verdicts and trace kept for debugging
             job_repo.update(job_id, status="failed", error="knowledge generation failed",
-                            expert_outputs=result.get("expert_outputs"), critic_feedback=result.get("critic_feedback"))
+                            expert_outputs=result.get("expert_outputs"), critic_feedback=result.get("critic_feedback"),
+                            trace=trace)
     except Exception:
         logger.exception("knowledge job %s crashed", job_id)
         try:
