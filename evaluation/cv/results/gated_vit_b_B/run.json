@@ -1,0 +1,47 @@
+{
+  "run": "gated_vit_b_B",
+  "export": "/kaggle/input/datasets/athillazaidan/fishora-gated-output/fishora_gated/vit_b_gated_xfB/export",
+  "model_name": "vit_base_patch16_dinov3.lvd1689m",
+  "temperature": 0.4110267758369446,
+  "abstain_threshold": 0.0,
+  "device": "cuda",
+  "items": 3716,
+  "slice_counts": {
+    "clean": 849,
+    "bg_removed": 848,
+    "fish_erased": 848,
+    "bg_swap": 848,
+    "field": 129,
+    "ood_unknown_fish": 89,
+    "ood_nonfish": 83,
+    "ood_synthetic": 22
+  },
+  "plates": {
+    "ROBOFLOW": 24,
+    "FISH_GRES": 24
+  },
+  "load_seconds": 6.43,
+  "inference_seconds": 116.8,
+  "screening_sha256": "9a072b7a739c81800afb1861b0284b0caa463610d45e653297873842b6d8ed28",
+  "heldout_fold": "B",
+  "field_training": null,
+  "gate": {
+    "fish_head_file": "fish_head.pt",
+    "fish_threshold": 0.1464644685603931,
+    "fish_target_tpr": 0.99,
+    "knn_bank_file": "knn_bank.npy",
+    "knn_k": 1,
+    "knn_threshold": 0.45787715911865234,
+    "knn_target_tpr": 0.95,
+    "bank_size": 4061,
+    "embedding": "L2-normalised CLS pre-logits of the frozen backbone"
+  },
+  "field_folds_sha256": "4a76358dd906185e8dd985eff866cd54c1d7112bd27368eeef4b1af1518c7a53",
+  "masks_used": true,
+  "corruptions": false,
+  "out_of_scope": {
+    "field_live": "out of operational scope: Fishora classifies fish after landing, not live fish under water"
+  },
+  "limit": 0,
+  "seed": 1234
+}

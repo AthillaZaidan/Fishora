@@ -1,0 +1,424 @@
+{
+  "run": "final_vit_b",
+  "model_name": "vit_base_patch16_dinov3.lvd1689m",
+  "slices": {
+    "clean": {
+      "n": 849,
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "mean_conf": 0.9999041531213192,
+      "wrong_confident": 0.0,
+      "ece": 9.584687868080533e-05,
+      "accuracy_ci": [
+        1.0,
+        1.0
+      ],
+      "macro_f1_ci": [
+        1.0,
+        1.0
+      ]
+    },
+    "dark": {
+      "n": 2547,
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "mean_conf": 0.9998394895956028,
+      "wrong_confident": 0.0,
+      "ece": 0.00016051040439724051
+    },
+    "bright": {
+      "n": 2547,
+      "accuracy": 0.9992147624656459,
+      "macro_f1": 0.9988485135077042,
+      "mean_conf": 0.998273794267766,
+      "wrong_confident": 0.0,
+      "ece": 0.0016110333725951132
+    },
+    "blur": {
+      "n": 2547,
+      "accuracy": 0.8971338829996074,
+      "macro_f1": 0.8840675573611129,
+      "mean_conf": 0.9363957671770711,
+      "wrong_confident": 0.023557126030624265,
+      "ece": 0.0395532182960346
+    },
+    "jpeg": {
+      "n": 2547,
+      "accuracy": 0.8936003140950137,
+      "macro_f1": 0.9012656406877245,
+      "mean_conf": 0.9384327565763644,
+      "wrong_confident": 0.03219473890851983,
+      "ece": 0.04496573812328235
+    },
+    "lowres": {
+      "n": 2547,
+      "accuracy": 0.9434628975265018,
+      "macro_f1": 0.9335610870439097,
+      "mean_conf": 0.9659851185708676,
+      "wrong_confident": 0.020023557126030624,
+      "ece": 0.024397858264625
+    },
+    "rotate": {
+      "n": 2547,
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "mean_conf": 0.9996243274440518,
+      "wrong_confident": 0.0,
+      "ece": 0.0003756725559482159
+    },
+    "occlusion": {
+      "n": 2547,
+      "accuracy": 0.9713388299960738,
+      "macro_f1": 0.9705093989618376,
+      "mean_conf": 0.9727253211621516,
+      "wrong_confident": 0.005104043973301924,
+      "ece": 0.008397036906164206
+    },
+    "bg_removed": {
+      "n": 848,
+      "accuracy": 0.9964622641509434,
+      "macro_f1": 0.9956119204078205,
+      "mean_conf": 0.9971436863207548,
+      "wrong_confident": 0.0011792452830188679,
+      "ece": 0.0020243160377358587,
+      "accuracy_ci": [
+        0.9917452830188679,
+        1.0
+      ],
+      "macro_f1_ci": [
+        0.9898983048060639,
+        1.0
+      ]
+    },
+    "bg_swap": {
+      "n": 848,
+      "accuracy": 0.9976415094339622,
+      "macro_f1": 0.9970876299779955,
+      "mean_conf": 0.9926641533018867,
+      "wrong_confident": 0.0011792452830188679,
+      "ece": 0.005591216981132021,
+      "accuracy_ci": [
+        0.9941037735849056,
+        1.0
+      ],
+      "macro_f1_ci": [
+        0.9924178364745915,
+        1.0
+      ]
+    }
+  },
+  "per_class": {
+    "clean": {
+      "bandeng": {
+        "n": 75,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "gelama_bunga": {
+        "n": 38,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "gembolo": {
+        "n": 148,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "gulamah": {
+        "n": 37,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "kembung": {
+        "n": 82,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "kuniran": {
+        "n": 87,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "mujair": {
+        "n": 50,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "nila": {
+        "n": 85,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "senangin": {
+        "n": 36,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "tenggiri": {
+        "n": 105,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "tuna": {
+        "n": 106,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      }
+    }
+  },
+  "corruption_curves": {
+    "dark": {
+      "0.6": {
+        "accuracy": 1.0,
+        "mean_conf": 0.9998871931684334
+      },
+      "0.4": {
+        "accuracy": 1.0,
+        "mean_conf": 0.9998570965842166
+      },
+      "0.25": {
+        "accuracy": 1.0,
+        "mean_conf": 0.9997741790341578
+      }
+    },
+    "bright": {
+      "1.4": {
+        "accuracy": 1.0,
+        "mean_conf": 0.9998520164899882
+      },
+      "1.8": {
+        "accuracy": 1.0,
+        "mean_conf": 0.9991986042402825
+      },
+      "2.2": {
+        "accuracy": 0.9976442873969376,
+        "mean_conf": 0.9957707620730271
+      }
+    },
+    "blur": {
+      "1.0": {
+        "accuracy": 1.0,
+        "mean_conf": 0.9997278021201413
+      },
+      "2.0": {
+        "accuracy": 0.944640753828033,
+        "mean_conf": 0.9772104746760895
+      },
+      "4.0": {
+        "accuracy": 0.7467608951707891,
+        "mean_conf": 0.8322490247349824
+      }
+    },
+    "jpeg": {
+      "50": {
+        "accuracy": 1.0,
+        "mean_conf": 0.9973997868080094
+      },
+      "20": {
+        "accuracy": 0.983510011778563,
+        "mean_conf": 0.9738993804475855
+      },
+      "8": {
+        "accuracy": 0.6972909305064782,
+        "mean_conf": 0.8439991024734983
+      }
+    },
+    "lowres": {
+      "128": {
+        "accuracy": 0.9929328621908127,
+        "mean_conf": 0.9942480306242639
+      },
+      "96": {
+        "accuracy": 0.9422850412249706,
+        "mean_conf": 0.9743381071849234
+      },
+      "64": {
+        "accuracy": 0.8951707891637221,
+        "mean_conf": 0.9293692179034159
+      }
+    },
+    "rotate": {
+      "90": {
+        "accuracy": 1.0,
+        "mean_conf": 0.9994645524146055
+      },
+      "180": {
+        "accuracy": 1.0,
+        "mean_conf": 0.9998866501766785
+      },
+      "270": {
+        "accuracy": 1.0,
+        "mean_conf": 0.9995217797408718
+      }
+    },
+    "occlusion": {
+      "0.15": {
+        "accuracy": 1.0,
+        "mean_conf": 0.998113753828033
+      },
+      "0.3": {
+        "accuracy": 0.9917550058892816,
+        "mean_conf": 0.9891210365135454
+      },
+      "0.5": {
+        "accuracy": 0.9222614840989399,
+        "mean_conf": 0.9309411731448763
+      }
+    }
+  },
+  "background": {
+    "fish_erased": {
+      "n": 848,
+      "shortcut_rate": 0.43278301886792453,
+      "chance": 0.09090909090909091,
+      "mean_conf": 0.6719863749999999,
+      "confident_share": 0.2099056603773585,
+      "by_family": {
+        "FISH_GRES": {
+          "n": 489,
+          "shortcut_rate": 0.41513292433537835,
+          "mean_conf": 0.6755574355828221
+        },
+        "ROBOFLOW": {
+          "n": 359,
+          "shortcut_rate": 0.4568245125348189,
+          "mean_conf": 0.6671221727019498
+        }
+      },
+      "by_class": {
+        "bandeng": 0.21621621621621623,
+        "gelama_bunga": 0.15789473684210525,
+        "gembolo": 0.9932432432432432,
+        "gulamah": 0.7837837837837838,
+        "kembung": 0.6829268292682927,
+        "kuniran": 0.7126436781609196,
+        "mujair": 0.12,
+        "nila": 0.058823529411764705,
+        "senangin": 0.6388888888888888,
+        "tenggiri": 0.05714285714285714,
+        "tuna": 0.10377358490566038
+      }
+    },
+    "bg_swap": {
+      "n": 848,
+      "accuracy": 0.9976415094339622,
+      "flip_rate": 0.0,
+      "by_source_family": {
+        "FISH_GRES": {
+          "n": 489,
+          "accuracy": 0.9959100204498977,
+          "flip_rate": 0.0,
+          "top_predictions": {
+            "kuniran": 87,
+            "nila": 87,
+            "kembung": 82
+          }
+        },
+        "ROBOFLOW": {
+          "n": 359,
+          "accuracy": 1.0,
+          "flip_rate": 0.0,
+          "top_predictions": {
+            "gembolo": 148,
+            "tuna": 106,
+            "tenggiri": 105
+          }
+        }
+      },
+      "by_class": {
+        "bandeng": 1.0,
+        "gelama_bunga": 1.0,
+        "gembolo": 1.0,
+        "gulamah": 1.0,
+        "kembung": 1.0,
+        "kuniran": 1.0,
+        "mujair": 0.96,
+        "nila": 1.0,
+        "senangin": 1.0,
+        "tenggiri": 1.0,
+        "tuna": 1.0
+      }
+    }
+  },
+  "ood": {
+    "ood_unknown_fish": {
+      "n": 89,
+      "mean_conf": 0.8465948764044943,
+      "confident_share": 0.5168539325842697,
+      "accepted_at_production_threshold": 1.0,
+      "auroc": 0.9963274705205066,
+      "fpr_at_95_tpr": 0.02247191011235955,
+      "threshold_at_95_tpr": 0.9997558,
+      "top_predictions": {
+        "mujair": 18,
+        "tuna": 18,
+        "senangin": 16
+      },
+      "by_group": {
+        "bawal": 0.8826047999999999,
+        "cakalang": 0.9432443333333335,
+        "gurame": 0.7198427272727274,
+        "kakap": 0.870120857142857,
+        "kerapu": 0.849745076923077,
+        "lele": 0.726891875,
+        "patin": 0.8459556923076923
+      }
+    },
+    "ood_nonfish": {
+      "n": 83,
+      "mean_conf": 0.5989148915662651,
+      "confident_share": 0.12048192771084337,
+      "accepted_at_production_threshold": 1.0,
+      "auroc": 0.9999432358408901,
+      "fpr_at_95_tpr": 0.0,
+      "threshold_at_95_tpr": 0.9997558,
+      "top_predictions": {
+        "bandeng": 18,
+        "nila": 10,
+        "gelama_bunga": 10
+      },
+      "by_group": {
+        "crab": 0.6371259,
+        "human_hand": 0.6685690000000001,
+        "market_floor": 0.6269375,
+        "plastic_bucket": 0.6000637,
+        "shrimp": 0.645462,
+        "squid": 0.7004466,
+        "tarpaulin": 0.5524229,
+        "wooden_table": 0.4890011,
+        "woven_basket": 0.5189632
+      }
+    },
+    "ood_synthetic": {
+      "n": 22,
+      "mean_conf": 0.4904703181818182,
+      "confident_share": 0.0,
+      "accepted_at_production_threshold": 1.0,
+      "auroc": 1.0,
+      "fpr_at_95_tpr": 0.0,
+      "threshold_at_95_tpr": 0.9997558,
+      "top_predictions": {
+        "mujair": 6,
+        "gembolo": 5,
+        "tenggiri": 4
+      },
+      "by_group": {
+        "gradient": 0.39114787500000003,
+        "noise": 0.51913575,
+        "solid": 0.5846796666666666
+      }
+    }
+  },
+  "production_threshold": 0.0
+}

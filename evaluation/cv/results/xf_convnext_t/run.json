@@ -1,0 +1,24 @@
+{
+  "model_name": "convnext_tiny.dinov3_lvd1689m",
+  "abstain_threshold": 0.0,
+  "device": "cuda",
+  "screening_sha256": "9a072b7a739c81800afb1861b0284b0caa463610d45e653297873842b6d8ed28",
+  "field_folds_sha256": "4a76358dd906185e8dd985eff866cd54c1d7112bd27368eeef4b1af1518c7a53",
+  "out_of_scope": {
+    "field_live": "out of operational scope: Fishora classifies fish after landing, not live fish under water"
+  },
+  "seed": 1234,
+  "run": "xf_convnext_t",
+  "export": [
+    "/kaggle/input/datasets/athillazaidan/fishora-models-2/fishora_xf_convnext_t_dinov3_xfA/convnext_t_dinov3_xfA/export",
+    "/kaggle/input/datasets/athillazaidan/fishora-models-2/fishora_field_xfit/convnext_t_dinov3_xfB/export"
+  ],
+  "temperature": 0.43106628954410553,
+  "temperatures": {
+    "A": 0.4095354676246643,
+    "B": 0.45259711146354675
+  },
+  "cross_fit": "field = union of held-out folds (each photo scored by the model that did not train on it); other slices = both fold models pooled",
+  "field_items": 258,
+  "corruptions": false
+}
