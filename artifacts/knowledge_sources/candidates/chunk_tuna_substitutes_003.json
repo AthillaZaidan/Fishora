@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_tuna_substitutes_003",
+  "chunk": {
+    "id": "chunk_tuna_substitutes_003",
+    "species_label": "tuna",
+    "source_id": "fao_species_catalogue_scombrids",
+    "category": "substitutes",
+    "content": "The name 'albacore', normally used for Thunnus alalunga, is used by French speakers in the eastern Atlantic for yellowfin tuna (T. albacares).",
+    "source_quote": "while in the eastern Atlantic \"albacore\" is used by francophones for the yellowfin tuna (T. albacares).",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_species_catalogue_scombrids",
+    "title": "FAO Species Catalogue Vol. 2 Scombrids of the World (FAO Fisheries Synopsis No. 125)",
+    "source_type": "catalogue",
+    "url": "https://www.vliz.be/imisdocs/publications/307984.pdf",
+    "publisher": "FAO",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

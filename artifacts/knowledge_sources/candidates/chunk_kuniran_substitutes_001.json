@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_kuniran_substitutes_001",
+  "chunk": {
+    "id": "chunk_kuniran_substitutes_001",
+    "species_label": "kuniran",
+    "source_id": "fao_sheets_mullidae_upeneus_moluccensis",
+    "category": "substitutes",
+    "content": "The yellowfin goatfish (Mulloidichthys vanicolensis) is often confused with the goldband goatfish (Upeneus moluccensis) because it also has a single golden band along its sides.",
+    "source_quote": "Mulloidichthys vanicolensis: often confused with U. moluccensis because it also has a single golden band along sides",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_sheets_mullidae_upeneus_moluccensis",
+    "title": "FAO Species Identification Sheets, Fishing Areas 57 and 71: Mullidae, Upeneus moluccensis (MULL Upen 1)",
+    "source_type": "catalogue",
+    "url": "https://www.fao.org/4/e9163e/E9163e3e.pdf",
+    "publisher": "FAO",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

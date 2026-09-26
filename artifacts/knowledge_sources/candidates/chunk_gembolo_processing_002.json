@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_gembolo_processing_002",
+  "chunk": {
+    "id": "chunk_gembolo_processing_002",
+    "species_label": "gembolo",
+    "source_id": "minwiki_gambolo",
+    "category": "processing_methods",
+    "content": "Gambolo (Rastrelliger spp.) is usually sold fresh or processed into preserved products including salted fish (ikan asin).",
+    "source_quote": "biasonyo dijuwa baru atau diproses manjadi ikan tangguang jo ikan asin",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "minwiki_gambolo",
+    "title": "Gambolo - Wikipedia baso Minang",
+    "source_type": "encyclopedia",
+    "url": "https://min.wikipedia.org/wiki/Gambolo",
+    "publisher": "Wikipedia",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_senangin_taste_003",
+  "chunk": {
+    "id": "chunk_senangin_taste_003",
+    "species_label": "senangin",
+    "source_id": "wa_fact_sheet_blue_threadfin",
+    "category": "taste_texture",
+    "content": "The Western Australian fisheries fact sheet says the blue threadfin (Eleutheronema tetradactylum) is considered excellent eating.",
+    "source_quote": "Considered to be excellent eating.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "wa_fact_sheet_blue_threadfin",
+    "title": "Fact Sheet: Blue Threadfin",
+    "source_type": "fact_sheet",
+    "url": "https://marinewaters.fish.wa.gov.au/resource/fact-sheet-blue-threadfin/?pdf_export=1",
+    "publisher": "Government of Western Australia, Department of Primary Industries and Regional Development",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

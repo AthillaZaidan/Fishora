@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_gelama_bunga_substitutes_003",
+  "chunk": {
+    "id": "chunk_gelama_bunga_substitutes_003",
+    "species_label": "gelama_bunga",
+    "source_id": "scidata_yellow_drum_genome_2021",
+    "category": "substitutes",
+    "content": "In Chinese fish markets, the yellow drum sells at a price similar to that of the large yellow croaker (Larimichthys crocea).",
+    "source_quote": "The market price of the yellow drum is similar to that of the large yellow croaker (Larimichthys crocea), which is another popular fish sold in local Chinese fish markets.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "scidata_yellow_drum_genome_2021",
+    "title": "Chromosome-scale assembly and high-density genetic map of the yellow drum, Nibea albiflora (Scientific Data; doi:10.1038/s41597-021-01045-z)",
+    "source_type": "paper",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8521588/",
+    "publisher": "Scientific Data (Nature), via PubMed Central",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

@@ -138,8 +138,9 @@ Even with all three, cards come back empty with the limitation `No information a
 approved corpus is ingested: generation is fail-closed and will not assert anything it cannot cite.
 That approval requires a human attestation and is deliberately not automated.
 
-To load the corpus into a database (the 49 candidate chunks in `artifacts/knowledge_sources/`,
-reviewed and approved by Jason Edward Salim on 2026-09-26):
+To load the corpus into a database (the 116 candidate chunks in `artifacts/knowledge_sources/`,
+reviewed and approved by Jason Edward Salim on 2026-09-26; the attestation is in
+`artifacts/knowledge_sources/review/approval.json`):
 
 ```bash
 export FISHORA_CORPUS_APPROVAL_KEY=$("$PY" -c "import secrets; print(secrets.token_hex(32))")
@@ -154,8 +155,10 @@ export FISHORA_CORPUS_APPROVAL_KEY=$("$PY" -c "import secrets; print(secrets.tok
 
 ### Knowledge sources
 
-Every card claim cites one of 28 sources behind the 49 approved chunks, covering all 11 species.
-Most come from three reference databases; the rest are peer-reviewed papers, each linked by DOI.
+Every card claim cites one of 56 sources behind the 116 approved chunks. Every species has evidence
+for all six card categories (identity, physical traits, taste and texture, processing, commercial
+uses, substitutes). Most come from reference databases; the rest are peer-reviewed papers, each
+linked by DOI, plus a few trade and government fact sheets. The main groups:
 
 | Source | Used for | Where |
 |---|---|---|
@@ -168,9 +171,18 @@ Protein per 100 g on the card comes from published food-composition tables, cite
 itself and listed in `apps/frontend/lib/nutrition.ts` (TKPI 2017 by Kemenkes RI, the Malaysian
 Food Composition Database, the Thai FCD, and the ASEAN tables via FAO/INFOODS).
 
-Gaps: no source covers substitute species for any fish, and taste/texture sources are missing for
-six species, so those card fields stay empty rather than guessed
-(`python -m evals.corpus_gaps` lists every empty cell).
+Added after the first 49 chunks: FAO species sheets and catalogues for croakers, goatfishes, threadfins
+and scombrids; the Sydney Fish Market seafood guide and the FRDC Fish Files (taste, texture and
+substitutes); a Western Australian government fact sheet; Indonesian, Minangkabau and English
+Wikipedia (only for what the market name *gembolo* refers to and for local names); and further papers
+in Scientific Reports, Scientific Data, Ecology and Evolution, Heliyon, the Italian Journal of Food
+Safety and Asian Fisheries Science. Each source's title and URL are in its chunk files under
+`artifacts/knowledge_sources/candidates/`.
+
+Weaker evidence is scoped in the claim itself (genus-level taste for *Johnius* and *Upeneus*; gembolo's
+facts scoped to the *Rastrelliger* mackerels). The verifier still drops a claim its evidence does not
+carry, so a card field can stay empty even though its cell has a chunk (for example gembolo's taste).
+`python -m evals.corpus_gaps` lists any cell without evidence.
 
 ## System at a Glance
 

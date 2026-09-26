@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_senangin_taste_002",
+  "chunk": {
+    "id": "chunk_senangin_taste_002",
+    "species_label": "senangin",
+    "source_id": "frdc_fishfiles_blue_threadfin",
+    "category": "taste_texture",
+    "content": "Threadfin salmons, including the blue threadfin, are good-eating tropical fish that readily absorb the flavours of other ingredients.",
+    "source_quote": "Threadfin salmons are good eating tropical finfish that readily absorb the flavours of other ingredients.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "frdc_fishfiles_blue_threadfin",
+    "title": "Blue Threadfin (Fish Files, Choosing Species)",
+    "source_type": "fact_sheet",
+    "url": "https://www.fishfiles.com.au/Consuming/Buying/Choosing-Species/Blue-Threadfin-143",
+    "publisher": "Fisheries Research and Development Corporation (FRDC)",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

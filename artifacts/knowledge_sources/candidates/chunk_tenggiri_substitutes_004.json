@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_tenggiri_substitutes_004",
+  "chunk": {
+    "id": "chunk_tenggiri_substitutes_004",
+    "species_label": "tenggiri",
+    "source_id": "fao_species_catalogue_scombrids",
+    "category": "substitutes",
+    "content": "Before it was formally described, the Queensland school mackerel (Scomberomorus queenslandicus) was confused with the spotted Spanish mackerel S. guttatus.",
+    "source_quote": "Prior to its description, this species was confused with S. guttatus.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_species_catalogue_scombrids",
+    "title": "FAO Species Catalogue Vol. 2 Scombrids of the World (FAO Fisheries Synopsis No. 125)",
+    "source_type": "catalogue",
+    "url": "https://www.vliz.be/imisdocs/publications/307984.pdf",
+    "publisher": "FAO",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

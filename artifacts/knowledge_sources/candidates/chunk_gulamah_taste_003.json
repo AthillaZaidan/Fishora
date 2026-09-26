@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_gulamah_taste_003",
+  "chunk": {
+    "id": "chunk_gulamah_taste_003",
+    "species_label": "gulamah",
+    "source_id": "manfish_gulamah_surimi_2022",
+    "category": "taste_texture",
+    "content": "Croakers of the genera Pennahia and Johnius are among the marine fish most often used as surimi raw material in the surimi industry, alongside threadfin bream, bigeye snapper, lizardfish and goatfish.",
+    "source_quote": "Jenis ikan laut sebagai bahan baku surimi yang paling sering digunakan pada industri surimi adalah ikan threadfin bream (Nemipterus spp.), bigeye snapper (Priacanthus spp.), croakers (Pennahia and Johnius spp.), lizardfish (Saurida spp.), dan goat fish/red mullet (Upeneus spp, Parupeneus spp.).",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "manfish_gulamah_surimi_2022",
+    "title": "Studi Potensi Ikan Gulamah (Johnius trachycephalus) Sebagai Bahan Baku Surimi dan Produk Olahan Berbasis Daging Ikan (Manfish Journal 2(3), 2022; doi:10.31573/manfish.v2i3.489)",
+    "source_type": "paper",
+    "url": "https://ejurnal.polnep.ac.id/index.php/manfish/article/download/489/320",
+    "publisher": "Politeknik Negeri Pontianak (Manfish Journal)",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

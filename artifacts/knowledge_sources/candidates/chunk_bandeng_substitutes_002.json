@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_bandeng_substitutes_002",
+  "chunk": {
+    "id": "chunk_bandeng_substitutes_002",
+    "species_label": "bandeng",
+    "source_id": "heliyon_taiwan_surimi_metabarcoding",
+    "category": "substitutes",
+    "content": "In Taiwanese fish surimi products, milkfish was one of the main fish species identified, alongside dolphinfish, pomfret, swordfish and cartilaginous fishes.",
+    "source_quote": "The main fish species identified included milkfish (Chanos chanos), dolphinfish (Coryphaena hippurus), Pomfret (Taractes rubescens), swordfish (Istiophorus spp.) and cartilaginous.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "heliyon_taiwan_surimi_metabarcoding",
+    "title": "DNA metabarcoding unveils the hidden species composition in fish surimi: Implications for the management of unlabeled and mixed seafood products (doi:10.1016/j.heliyon.2024.e36287)",
+    "source_type": "paper",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11378893/",
+    "publisher": "Heliyon",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

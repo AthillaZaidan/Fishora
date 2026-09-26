@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_tenggiri_substitutes_003",
+  "chunk": {
+    "id": "chunk_tenggiri_substitutes_003",
+    "species_label": "tenggiri",
+    "source_id": "sfm_spanish_mackerel",
+    "category": "substitutes",
+    "content": "Spanish mackerel looks similar to grey mackerel, especially when young, because of the dark vertical bars along its sides.",
+    "source_quote": "It looks similar to Grey Mackerel, especially when young, due to the dark vertical bars along the sides.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "sfm_spanish_mackerel",
+    "title": "Spanish Mackerel (Scomberomorus commerson): species information",
+    "source_type": "seafood_market_guide",
+    "url": "https://www.sydneyfishmarket.com.au/species/spanish-mackerel/",
+    "publisher": "Sydney Fish Market",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

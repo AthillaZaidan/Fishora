@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_gelama_bunga_physical_002",
+  "chunk": {
+    "id": "chunk_gelama_bunga_physical_002",
+    "species_label": "gelama_bunga",
+    "source_id": "ece_yellow_drum_genome_2019",
+    "category": "physical_characteristics",
+    "content": "The yellow drum (Nibea albiflora) can grow to about 44 cm in length and about 1.5 kg in weight.",
+    "source_quote": "The yellow drum can grow to ~44 cm in length and ~1.5 kg in weight",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "ece_yellow_drum_genome_2019",
+    "title": "Near-complete genome assembly and annotation of the yellow drum (Nibea albiflora) provide insights into population and evolutionary characteristics of this species (Ecology and Evolution; doi:10.1002/ece3.4778)",
+    "source_type": "paper",
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6342179/fullTextXML",
+    "publisher": "Ecology and Evolution (Wiley), via Europe PMC",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}
