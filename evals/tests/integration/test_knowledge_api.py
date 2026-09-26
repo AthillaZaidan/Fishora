@@ -73,23 +73,20 @@ def _declare(client, species_id="species_nila") -> str:
 def test_manual_catch_card_is_graded_by_the_critic(app_factory, e5):
     """W19: a catch with no background job gets its card from the same pipeline
     as the job, so every claim the scripted writer borrowed from another species is dropped."""
-    from evals.corpus import load_corpus
+    from evals.corpus import build_store, load_corpus
     from evals.pipeline_eval import _claim_in_card
 
     from apps.main_api.services.orchestrator import clear_card_cache
 
     clear_card_cache()  # a cached card would skip the writer this test watches
-    app, deps = app_factory("kembung")
-    # Corpus v1, where kembung still has no taste/texture evidence: the scripted
-    # writer only borrows a claim for a category the species lacks, and the full
-    # corpus now covers every category for every species.
-    from evals.corpus import build_store, corpus_v1_ids
-
-    deps.knowledge_repo = build_store(e5, only=corpus_v1_ids())
+    # The corpus now covers every cell, so remove kembung's taste evidence to
+    # recreate the empty field that tempts the scripted writer to borrow.
+    no_taste = frozenset(c.id for c in load_corpus() if not (c.species_label == "kembung" and c.category == "taste_texture"))
+    app, deps = app_factory("kembung", knowledge_repo=build_store(e5, only=no_taste))
     own_sources = {c.source["id"] for c in load_corpus() if c.species_label == "kembung"}
     with TestClient(app) as client:
         sign_in(client)
-        # Kembung has no taste/texture evidence, so the scripted writer borrows a claim for it.
+        # Kembung has no taste/texture evidence here, so the scripted writer borrows a claim for it.
         prediction_id = _declare(client, "species_kembung")
         assert deps.job_repo.list_by_prediction(prediction_id) == []
         emitted_before = len(deps.llm.emitted)

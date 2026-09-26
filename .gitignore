@@ -45,3 +45,6 @@ __pycache__/
 # outputs with model weights (~9 GB). Code, protocol locks and results are tracked.
 /evaluation/cv/data/
 /evaluation/cv/kaggle_outputs/
+
+# macOS
+.DS_Store
