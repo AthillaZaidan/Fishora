@@ -1,16 +1,16 @@
-import Image from 'next/image'
 import { Star } from '@phosphor-icons/react/dist/ssr'
 import { Countdown } from '@/components/lot/countdown'
 import { kilograms, rupiahPerKg } from '@/lib/format'
 import { resolveSpecies } from '@/lib/species'
 import { SpeciesArt } from '@/components/fish/species-art'
+import { lotPhotoUrl } from '@/lib/api/commerce'
 import type { components } from '@/lib/api/schema'
 
 export type Lot = components['schemas']['LotResponse']
 
 export interface LotCardProps {
   lot: Lot
-  /** A real photograph when one exists. Falls back to the species composition. */
+  /** Overrides the lot's own catch photo. Without either, the species picture is shown. */
   photoUrl?: string
   /** Set on the first card in a grid: it is the LCP element. */
   priority?: boolean
@@ -22,12 +22,18 @@ export function LotCard({ lot, photoUrl, matched = false, priority = false }: Lo
   const label = lot.species_id.replace('species_', '')
   const names = resolveSpecies(label)
   const live = lot.status === 'active'
+  // The operator's own catch photo when the lot has one, so every lot shows
+  // its fish rather than one picture per species.
+  const photo = photoUrl ?? lotPhotoUrl(lot as { photo_url?: string | null })
 
   return (
     <article className="flex flex-col gap-3 lg:transition-transform lg:hover:-translate-y-[2px]">
       <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] bg-bg-sunken">
-        {photoUrl ? (
-          <Image src={photoUrl} alt={names.commonName} fill className="object-cover" sizes="(max-width: 640px) 100vw, 33vw" />
+        {photo ? (
+          // A plain img: the photo is served by the API on another origin, which
+          // next/image would refuse without listing that host in next.config.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={photo} alt={names.commonName} loading={priority ? 'eager' : 'lazy'} className="absolute inset-0 size-full object-cover" />
         ) : (
           <SpeciesArt label={label} className="absolute inset-0" priority={priority} />
         )}
