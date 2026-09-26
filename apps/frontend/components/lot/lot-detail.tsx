@@ -86,8 +86,29 @@ export function LotDetail({
     }
   }
 
+  const actions = closed ? (
+    <p className="text-body text-ink">Lelang selesai. {rupiahPerKg(highest)}</p>
+  ) : (
+    <>
+      <div>
+        <p className="text-num-lg tabular-nums text-ink">{rupiahPerKg(highest)}</p>
+        <Countdown endsAt={lot.auction_ends_at} />
+      </div>
+      {viewer === 'buyer' ? (
+        <Button type="button" onClick={() => setSheetOpen(true)}>
+          Ajukan penawaran
+        </Button>
+      ) : viewer === 'guest' ? (
+        // Anyone can read a lot; bidding needs a buyer account.
+        <Link href={`/account?next=${encodeURIComponent(`/marketplace/${lot.id}`)}`}>
+          <Button type="button">Masuk untuk menawar</Button>
+        </Link>
+      ) : null}
+    </>
+  )
+
   return (
-    <div data-page="lot-detail" className="flex flex-col gap-6 px-4 pb-28 lg:pb-8">
+    <div data-page="lot-detail" className="mx-auto flex w-full max-w-[720px] flex-col gap-6 px-4 pb-28 lg:pb-8">
       <SpeciesHeader label={label} verified />
       {reasons.length > 0 && <MatchReasons reasons={reasons} />}
       {photoUrl ? (
@@ -117,6 +138,9 @@ export function LotDetail({
           </div>
         )}
       </dl>
+      <div className="hidden items-center justify-between gap-3 rounded-2xl border border-line px-5 py-4 lg:flex">
+        {actions}
+      </div>
       {canReview && (
         // Winning the lot is what grants the card: the restaurant prints it for
         // its diners, and the code opens this fish in Fishora.
@@ -141,30 +165,14 @@ export function LotDetail({
       </section>
       {canReview && <ReviewForm lotId={lot.id} onSubmitted={(review) => setPosted((current) => [review, ...current])} />}
 
+      {/* The same actions twice: a bar pinned to the bottom on a phone, and a
+          panel under the lot facts on a wide screen, where the bar was hidden
+          and left no way to bid or to sign in to bid. */}
       <div
         className="fixed inset-x-0 bottom-0 flex items-center justify-between gap-3 border-t border-line bg-surface px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] lg:hidden"
         style={{ zIndex: Z.actionBar }}
       >
-        {closed ? (
-          <p className="text-body text-ink">Lelang selesai. {rupiahPerKg(highest)}</p>
-        ) : (
-          <>
-            <div>
-              <p className="text-num-lg tabular-nums text-ink">{rupiahPerKg(highest)}</p>
-              <Countdown endsAt={lot.auction_ends_at} />
-            </div>
-            {viewer === 'buyer' ? (
-              <Button type="button" onClick={() => setSheetOpen(true)}>
-                Ajukan penawaran
-              </Button>
-            ) : viewer === 'guest' ? (
-              // Anyone can read a lot; bidding needs a buyer account.
-              <Link href={`/account?next=${encodeURIComponent(`/marketplace/${lot.id}`)}`}>
-                <Button type="button">Masuk untuk menawar</Button>
-              </Link>
-            ) : null}
-          </>
-        )}
+        {actions}
       </div>
 
       <Sheet
