@@ -137,12 +137,16 @@ class SqlLotRepository:
                 if amount_per_kg <= highest:
                     raise BidOutbid(Decimal(highest))
             elif amount_per_kg < lot.starting_price_per_kg:
-                raise BidOutbid(Decimal(lot.starting_price_per_kg))
+                raise BidOutbid(Decimal(lot.starting_price_per_kg), "bid must be at least the starting price")
             bid = Bid(
                 id=uuid4().hex,
                 lot_id=lot_id,
                 buyer_id=buyer_id,
                 amount_per_kg=amount_per_kg,
+                # Stamped now that the lock is held. The column default, now(),
+                # is when the transaction began, before it waited on the lock,
+                # so a later, higher bid could be dated before the one it beat.
+                created_at=func.clock_timestamp(),
             )
             session.add(bid)
             session.commit()

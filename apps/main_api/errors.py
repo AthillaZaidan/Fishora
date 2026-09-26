@@ -124,10 +124,11 @@ class LotClosed(Exception):
 
 
 class BidOutbid(Exception):
-    """The bid is at or below the current highest. Maps to HTTP 409 with that floor."""
+    """The bid is at or below the current highest, or a first bid under the
+    starting price. Maps to HTTP 409 with that floor."""
 
-    def __init__(self, current_highest_per_kg: Decimal):
-        super().__init__("bid must exceed current highest")
+    def __init__(self, current_highest_per_kg: Decimal, message: str = "bid must exceed current highest"):
+        super().__init__(message)
         self.current_highest_per_kg = current_highest_per_kg
 
 
