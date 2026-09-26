@@ -1,0 +1,1215 @@
+{
+  "judge": "glm-5.3-flash",
+  "facts": "corpus_v1",
+  "summary": {
+    "experts+e5:gpt-5.6-luna": {
+      "fact_coverage": 0.669,
+      "fact_coverage_card_mean": 0.686,
+      "fact_coverage_ci": [
+        0.5947,
+        0.7746
+      ],
+      "facts_covered_pooled": "109/163",
+      "coverage_scored_cards": 10
+    },
+    "experts+e5:gpt-6-luna": {
+      "fact_coverage": 0.638,
+      "fact_coverage_card_mean": 0.629,
+      "fact_coverage_ci": [
+        0.5557,
+        0.7049
+      ],
+      "facts_covered_pooled": "104/163",
+      "coverage_scored_cards": 10
+    },
+    "writer_critic+e5:gpt-5.6-luna": {
+      "fact_coverage": 0.859,
+      "fact_coverage_card_mean": 0.883,
+      "fact_coverage_ci": [
+        0.8057,
+        0.956
+      ],
+      "facts_covered_pooled": "140/163",
+      "coverage_scored_cards": 10
+    },
+    "writer_critic+e5:gpt-6-luna": {
+      "fact_coverage": 0.871,
+      "fact_coverage_card_mean": 0.888,
+      "fact_coverage_ci": [
+        0.8132,
+        0.9596
+      ],
+      "facts_covered_pooled": "142/163",
+      "coverage_scored_cards": 10
+    },
+    "iteration-1 agent:gpt-5.6-luna": {
+      "fact_coverage": 0.442,
+      "fact_coverage_card_mean": 0.46,
+      "fact_coverage_ci": [
+        0.3426,
+        0.5796
+      ],
+      "facts_covered_pooled": "144/326",
+      "coverage_scored_cards": 20
+    }
+  },
+  "cards": [
+    {
+      "arch": "experts+e5",
+      "model": "gpt-5.6-luna",
+      "species": "bandeng",
+      "covered": [
+        "bandeng_c1_1",
+        "bandeng_c1_2",
+        "bandeng_c1_3",
+        "bandeng_c1_4",
+        "bandeng_c1_5",
+        "bandeng_c1_6",
+        "bandeng_c1_7",
+        "bandeng_p1_1",
+        "bandeng_p1_2",
+        "bandeng_p1_3",
+        "bandeng_p1_4",
+        "bandeng_pr1_1",
+        "bandeng_pr1_2",
+        "bandeng_pr1_3",
+        "bandeng_t1_1"
+      ],
+      "facts_total": 25
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-5.6-luna",
+      "species": "gelama_bunga",
+      "covered": [
+        "gelama_bunga_c1_1",
+        "gelama_bunga_c1_2",
+        "gelama_bunga_c1_3",
+        "gelama_bunga_i1_2",
+        "gelama_bunga_i1_4",
+        "gelama_bunga_i1_5",
+        "gelama_bunga_pr1_1",
+        "gelama_bunga_pr1_2",
+        "gelama_bunga_t1_1",
+        "gelama_bunga_t1_2"
+      ],
+      "facts_total": 12
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-5.6-luna",
+      "species": "gembolo",
+      "covered": [],
+      "facts_total": 0
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-5.6-luna",
+      "species": "gulamah",
+      "covered": [
+        "gulamah_c1_1",
+        "gulamah_c2_1",
+        "gulamah_i1_1",
+        "gulamah_i1_3",
+        "gulamah_p1_1",
+        "gulamah_p1_2",
+        "gulamah_p1_3",
+        "gulamah_p1_4",
+        "gulamah_pr1_1",
+        "gulamah_pr1_2"
+      ],
+      "facts_total": 13
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-5.6-luna",
+      "species": "kembung",
+      "covered": [
+        "kembung_i1_1",
+        "kembung_i1_2",
+        "kembung_i1_4",
+        "kembung_i1_5",
+        "kembung_p1_1",
+        "kembung_p1_2",
+        "kembung_p1_3",
+        "kembung_p1_4",
+        "kembung_p1_5",
+        "kembung_p1_6",
+        "kembung_p1_7"
+      ],
+      "facts_total": 13
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-5.6-luna",
+      "species": "kuniran",
+      "covered": [
+        "kuniran_c1_1",
+        "kuniran_i1_2",
+        "kuniran_i1_3",
+        "kuniran_i1_4",
+        "kuniran_p1_1",
+        "kuniran_p1_2",
+        "kuniran_p1_3",
+        "kuniran_p1_4",
+        "kuniran_pr1_1"
+      ],
+      "facts_total": 12
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-5.6-luna",
+      "species": "mujair",
+      "covered": [
+        "mujair_c1_1",
+        "mujair_c1_2",
+        "mujair_p1_1",
+        "mujair_pr1_1",
+        "mujair_pr1_2",
+        "mujair_pr1_3",
+        "mujair_t1_1",
+        "mujair_t1_4"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-5.6-luna",
+      "species": "nila",
+      "covered": [
+        "nila_c1_1",
+        "nila_c1_2",
+        "nila_c1_3",
+        "nila_c1_4",
+        "nila_p1_3",
+        "nila_pr1_1",
+        "nila_pr1_2"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-5.6-luna",
+      "species": "senangin",
+      "covered": [
+        "senangin_c1_4",
+        "senangin_c1_5",
+        "senangin_c1_6",
+        "senangin_i1_2",
+        "senangin_p1_1",
+        "senangin_p1_2",
+        "senangin_p1_3",
+        "senangin_p1_4",
+        "senangin_p1_5",
+        "senangin_p1_6",
+        "senangin_pr1_1",
+        "senangin_pr1_2",
+        "senangin_pr1_3",
+        "senangin_pr1_4"
+      ],
+      "facts_total": 21
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-5.6-luna",
+      "species": "tenggiri",
+      "covered": [
+        "tenggiri_c1_1",
+        "tenggiri_c1_2",
+        "tenggiri_c1_3",
+        "tenggiri_c1_4",
+        "tenggiri_c1_5",
+        "tenggiri_i1_1",
+        "tenggiri_i1_2",
+        "tenggiri_i1_3",
+        "tenggiri_i3_2",
+        "tenggiri_i3_3",
+        "tenggiri_i3_4"
+      ],
+      "facts_total": 19
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-5.6-luna",
+      "species": "tuna",
+      "covered": [
+        "tuna_p1_1",
+        "tuna_p1_2",
+        "tuna_p1_3",
+        "tuna_pr1_1",
+        "tuna_pr1_2",
+        "tuna_pr1_3",
+        "tuna_pr1_4",
+        "tuna_pr2_1",
+        "tuna_pr2_2",
+        "tuna_pr2_3",
+        "tuna_pr2_4",
+        "tuna_pr2_5",
+        "tuna_t1_1",
+        "tuna_t1_2"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-6-luna",
+      "species": "bandeng",
+      "covered": [
+        "bandeng_c1_1",
+        "bandeng_c1_2",
+        "bandeng_c1_3",
+        "bandeng_c1_4",
+        "bandeng_c1_5",
+        "bandeng_c1_6",
+        "bandeng_c1_7",
+        "bandeng_c1_8",
+        "bandeng_p1_1",
+        "bandeng_p1_2",
+        "bandeng_p1_3",
+        "bandeng_p1_4",
+        "bandeng_pr1_1",
+        "bandeng_pr1_2",
+        "bandeng_pr1_3",
+        "bandeng_t1_1"
+      ],
+      "facts_total": 25
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-6-luna",
+      "species": "gelama_bunga",
+      "covered": [
+        "gelama_bunga_c1_3",
+        "gelama_bunga_i1_4",
+        "gelama_bunga_i1_5",
+        "gelama_bunga_pr1_1",
+        "gelama_bunga_pr1_2",
+        "gelama_bunga_t1_1",
+        "gelama_bunga_t1_2"
+      ],
+      "facts_total": 12
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-6-luna",
+      "species": "gembolo",
+      "covered": [],
+      "facts_total": 0
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-6-luna",
+      "species": "gulamah",
+      "covered": [
+        "gulamah_c1_1",
+        "gulamah_c2_1",
+        "gulamah_i1_3",
+        "gulamah_p1_1",
+        "gulamah_p1_2",
+        "gulamah_p1_3",
+        "gulamah_p1_4",
+        "gulamah_pr1_1",
+        "gulamah_pr1_2"
+      ],
+      "facts_total": 13
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-6-luna",
+      "species": "kembung",
+      "covered": [
+        "kembung_c1_1",
+        "kembung_i1_4",
+        "kembung_i1_5",
+        "kembung_p1_1",
+        "kembung_p1_2",
+        "kembung_p1_3",
+        "kembung_p1_4",
+        "kembung_p1_5"
+      ],
+      "facts_total": 13
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-6-luna",
+      "species": "kuniran",
+      "covered": [
+        "kuniran_i1_1",
+        "kuniran_i1_2",
+        "kuniran_i1_3",
+        "kuniran_i1_4",
+        "kuniran_pr1_1"
+      ],
+      "facts_total": 12
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-6-luna",
+      "species": "mujair",
+      "covered": [
+        "mujair_c1_1",
+        "mujair_c1_2",
+        "mujair_p1_1",
+        "mujair_pr1_1",
+        "mujair_pr1_2",
+        "mujair_pr1_3",
+        "mujair_t1_1",
+        "mujair_t1_4"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-6-luna",
+      "species": "nila",
+      "covered": [
+        "nila_c1_1",
+        "nila_c1_2",
+        "nila_c1_3",
+        "nila_c1_4",
+        "nila_p1_1",
+        "nila_p1_2",
+        "nila_p1_3",
+        "nila_pr1_1",
+        "nila_pr1_2",
+        "nila_t1_1"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-6-luna",
+      "species": "senangin",
+      "covered": [
+        "senangin_c1_1",
+        "senangin_c1_2",
+        "senangin_c1_4",
+        "senangin_c1_5",
+        "senangin_c1_6",
+        "senangin_i1_2",
+        "senangin_p1_1",
+        "senangin_p1_2",
+        "senangin_p1_3",
+        "senangin_p1_4",
+        "senangin_p1_5",
+        "senangin_p1_6",
+        "senangin_pr1_1",
+        "senangin_pr1_2",
+        "senangin_pr1_3",
+        "senangin_pr1_4"
+      ],
+      "facts_total": 21
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-6-luna",
+      "species": "tenggiri",
+      "covered": [
+        "tenggiri_c1_1",
+        "tenggiri_c1_2",
+        "tenggiri_c1_3",
+        "tenggiri_c1_4",
+        "tenggiri_c1_5",
+        "tenggiri_i1_1",
+        "tenggiri_i1_2",
+        "tenggiri_i1_3",
+        "tenggiri_i3_2",
+        "tenggiri_i3_3",
+        "tenggiri_i3_4"
+      ],
+      "facts_total": 19
+    },
+    {
+      "arch": "experts+e5",
+      "model": "gpt-6-luna",
+      "species": "tuna",
+      "covered": [
+        "tuna_i1_2",
+        "tuna_p1_1",
+        "tuna_p1_2",
+        "tuna_p1_3",
+        "tuna_pr1_1",
+        "tuna_pr1_2",
+        "tuna_pr1_3",
+        "tuna_pr1_4",
+        "tuna_pr2_1",
+        "tuna_pr2_2",
+        "tuna_pr2_3",
+        "tuna_pr2_4",
+        "tuna_pr2_5",
+        "tuna_t1_1"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-5.6-luna",
+      "species": "bandeng",
+      "covered": [
+        "bandeng_c1_3",
+        "bandeng_c1_4",
+        "bandeng_c1_5",
+        "bandeng_c1_6",
+        "bandeng_c1_7",
+        "bandeng_c1_8",
+        "bandeng_i1_1",
+        "bandeng_i1_2",
+        "bandeng_i1_3",
+        "bandeng_i1_4",
+        "bandeng_i1_5",
+        "bandeng_i1_6",
+        "bandeng_p1_1",
+        "bandeng_p1_2",
+        "bandeng_p1_3",
+        "bandeng_p1_4",
+        "bandeng_pr1_1",
+        "bandeng_pr1_2",
+        "bandeng_pr1_3"
+      ],
+      "facts_total": 25
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-5.6-luna",
+      "species": "gelama_bunga",
+      "covered": [
+        "gelama_bunga_c1_1",
+        "gelama_bunga_c1_2",
+        "gelama_bunga_c1_3",
+        "gelama_bunga_i1_1",
+        "gelama_bunga_i1_2",
+        "gelama_bunga_i1_3",
+        "gelama_bunga_i1_4",
+        "gelama_bunga_i1_5",
+        "gelama_bunga_pr1_1",
+        "gelama_bunga_pr1_2",
+        "gelama_bunga_t1_1",
+        "gelama_bunga_t1_2"
+      ],
+      "facts_total": 12
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-5.6-luna",
+      "species": "gembolo",
+      "covered": [],
+      "facts_total": 0
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-5.6-luna",
+      "species": "gulamah",
+      "covered": [
+        "gulamah_c1_1",
+        "gulamah_c2_1",
+        "gulamah_i1_1",
+        "gulamah_i1_2",
+        "gulamah_i1_3",
+        "gulamah_i1_4",
+        "gulamah_i1_5",
+        "gulamah_p1_1",
+        "gulamah_p1_2",
+        "gulamah_p1_3",
+        "gulamah_p1_4",
+        "gulamah_pr1_1",
+        "gulamah_pr1_2"
+      ],
+      "facts_total": 13
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-5.6-luna",
+      "species": "kembung",
+      "covered": [
+        "kembung_c1_1",
+        "kembung_i1_1",
+        "kembung_i1_2",
+        "kembung_i1_3",
+        "kembung_i1_4",
+        "kembung_i1_5",
+        "kembung_p1_1",
+        "kembung_p1_2",
+        "kembung_p1_3",
+        "kembung_p1_4",
+        "kembung_p1_6",
+        "kembung_p1_7"
+      ],
+      "facts_total": 13
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-5.6-luna",
+      "species": "kuniran",
+      "covered": [
+        "kuniran_c1_1",
+        "kuniran_c1_2",
+        "kuniran_c1_3",
+        "kuniran_i1_1",
+        "kuniran_i1_2",
+        "kuniran_i1_3",
+        "kuniran_i1_4",
+        "kuniran_p1_1",
+        "kuniran_p1_2",
+        "kuniran_p1_3",
+        "kuniran_p1_4",
+        "kuniran_pr1_1"
+      ],
+      "facts_total": 12
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-5.6-luna",
+      "species": "mujair",
+      "covered": [
+        "mujair_c1_1",
+        "mujair_c1_2",
+        "mujair_i1_1",
+        "mujair_i1_2",
+        "mujair_i1_3",
+        "mujair_i1_4",
+        "mujair_p1_1",
+        "mujair_pr1_1",
+        "mujair_pr1_2",
+        "mujair_pr1_3",
+        "mujair_t1_2",
+        "mujair_t1_3",
+        "mujair_t1_4"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-5.6-luna",
+      "species": "nila",
+      "covered": [
+        "nila_c1_1",
+        "nila_c1_2",
+        "nila_c1_3",
+        "nila_c1_4",
+        "nila_i1_1",
+        "nila_i1_2",
+        "nila_p1_1",
+        "nila_p1_2",
+        "nila_p1_3",
+        "nila_p1_4",
+        "nila_p1_5",
+        "nila_pr1_1",
+        "nila_pr1_2",
+        "nila_t1_1",
+        "nila_t1_2"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-5.6-luna",
+      "species": "senangin",
+      "covered": [
+        "senangin_c1_1",
+        "senangin_c1_3",
+        "senangin_c1_4",
+        "senangin_c1_5",
+        "senangin_c1_6",
+        "senangin_i1_1",
+        "senangin_i1_2",
+        "senangin_i1_3",
+        "senangin_i1_4",
+        "senangin_i1_5",
+        "senangin_p1_4",
+        "senangin_p1_5",
+        "senangin_pr1_1",
+        "senangin_pr1_2",
+        "senangin_pr1_3",
+        "senangin_pr1_4"
+      ],
+      "facts_total": 21
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-5.6-luna",
+      "species": "tenggiri",
+      "covered": [
+        "tenggiri_c1_1",
+        "tenggiri_c1_2",
+        "tenggiri_c1_3",
+        "tenggiri_c1_4",
+        "tenggiri_c1_5",
+        "tenggiri_i1_1",
+        "tenggiri_i1_2",
+        "tenggiri_i1_3",
+        "tenggiri_i2_2",
+        "tenggiri_i2_3",
+        "tenggiri_i2_4",
+        "tenggiri_p1_1"
+      ],
+      "facts_total": 19
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-5.6-luna",
+      "species": "tuna",
+      "covered": [
+        "tuna_i1_1",
+        "tuna_i1_2",
+        "tuna_p1_1",
+        "tuna_p1_2",
+        "tuna_p1_3",
+        "tuna_pr1_1",
+        "tuna_pr1_2",
+        "tuna_pr1_3",
+        "tuna_pr1_4",
+        "tuna_pr2_1",
+        "tuna_pr2_2",
+        "tuna_pr2_3",
+        "tuna_pr2_4",
+        "tuna_pr2_5",
+        "tuna_t1_1",
+        "tuna_t1_2"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna",
+      "species": "bandeng",
+      "covered": [
+        "bandeng_c1_3",
+        "bandeng_c1_4",
+        "bandeng_c1_5",
+        "bandeng_c1_6",
+        "bandeng_c1_7",
+        "bandeng_c1_8",
+        "bandeng_i1_1",
+        "bandeng_i1_2",
+        "bandeng_i1_3",
+        "bandeng_i1_4",
+        "bandeng_i1_5",
+        "bandeng_i1_6",
+        "bandeng_p1_1",
+        "bandeng_p1_2",
+        "bandeng_p1_3",
+        "bandeng_p1_4",
+        "bandeng_pr1_1",
+        "bandeng_pr1_2",
+        "bandeng_pr1_3",
+        "bandeng_t1_1"
+      ],
+      "facts_total": 25
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna",
+      "species": "gelama_bunga",
+      "covered": [
+        "gelama_bunga_c1_1",
+        "gelama_bunga_c1_2",
+        "gelama_bunga_c1_3",
+        "gelama_bunga_i1_1",
+        "gelama_bunga_i1_2",
+        "gelama_bunga_i1_3",
+        "gelama_bunga_i1_4",
+        "gelama_bunga_i1_5",
+        "gelama_bunga_pr1_1",
+        "gelama_bunga_pr1_2",
+        "gelama_bunga_t1_1",
+        "gelama_bunga_t1_2"
+      ],
+      "facts_total": 12
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna",
+      "species": "gembolo",
+      "covered": [],
+      "facts_total": 0
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna",
+      "species": "gulamah",
+      "covered": [
+        "gulamah_c1_1",
+        "gulamah_c2_1",
+        "gulamah_i1_2",
+        "gulamah_i1_3",
+        "gulamah_i1_4",
+        "gulamah_i1_5",
+        "gulamah_p1_1",
+        "gulamah_p1_2",
+        "gulamah_p1_3",
+        "gulamah_p1_4",
+        "gulamah_pr1_1",
+        "gulamah_pr1_2"
+      ],
+      "facts_total": 13
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna",
+      "species": "kembung",
+      "covered": [
+        "kembung_c1_1",
+        "kembung_i1_1",
+        "kembung_i1_2",
+        "kembung_i1_3",
+        "kembung_i1_4",
+        "kembung_i1_5",
+        "kembung_p1_1",
+        "kembung_p1_2",
+        "kembung_p1_4",
+        "kembung_p1_5",
+        "kembung_p1_6",
+        "kembung_p1_7"
+      ],
+      "facts_total": 13
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna",
+      "species": "kuniran",
+      "covered": [
+        "kuniran_c1_1",
+        "kuniran_c1_2",
+        "kuniran_c1_3",
+        "kuniran_i1_1",
+        "kuniran_i1_2",
+        "kuniran_i1_3",
+        "kuniran_i1_4",
+        "kuniran_p1_1",
+        "kuniran_p1_2",
+        "kuniran_p1_3",
+        "kuniran_p1_4",
+        "kuniran_pr1_1"
+      ],
+      "facts_total": 12
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna",
+      "species": "mujair",
+      "covered": [
+        "mujair_c1_1",
+        "mujair_c1_2",
+        "mujair_i1_1",
+        "mujair_i1_2",
+        "mujair_i1_3",
+        "mujair_i1_4",
+        "mujair_i1_5",
+        "mujair_i1_6",
+        "mujair_p1_1",
+        "mujair_pr1_1",
+        "mujair_pr1_2",
+        "mujair_pr1_3",
+        "mujair_t1_1",
+        "mujair_t1_2",
+        "mujair_t1_3",
+        "mujair_t1_4"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna",
+      "species": "nila",
+      "covered": [
+        "nila_c1_1",
+        "nila_c1_2",
+        "nila_i1_1",
+        "nila_p1_1",
+        "nila_p1_2",
+        "nila_p1_3",
+        "nila_p1_4",
+        "nila_p1_5",
+        "nila_pr1_1",
+        "nila_pr1_2",
+        "nila_t1_1",
+        "nila_t1_2"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna",
+      "species": "senangin",
+      "covered": [
+        "senangin_c1_1",
+        "senangin_c1_4",
+        "senangin_c1_5",
+        "senangin_c1_6",
+        "senangin_i1_1",
+        "senangin_i1_2",
+        "senangin_i1_3",
+        "senangin_i1_4",
+        "senangin_i1_5",
+        "senangin_p1_1",
+        "senangin_p1_2",
+        "senangin_p1_3",
+        "senangin_p1_4",
+        "senangin_p1_5",
+        "senangin_pr1_1",
+        "senangin_pr1_2",
+        "senangin_pr1_3",
+        "senangin_pr1_4"
+      ],
+      "facts_total": 21
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna",
+      "species": "tenggiri",
+      "covered": [
+        "tenggiri_c1_1",
+        "tenggiri_c1_2",
+        "tenggiri_c1_3",
+        "tenggiri_c1_4",
+        "tenggiri_c1_5",
+        "tenggiri_i1_1",
+        "tenggiri_i1_3",
+        "tenggiri_i2_3",
+        "tenggiri_i2_4",
+        "tenggiri_p1_1",
+        "tenggiri_pr1_1",
+        "tenggiri_pr1_2"
+      ],
+      "facts_total": 19
+    },
+    {
+      "arch": "writer_critic+e5",
+      "model": "gpt-6-luna",
+      "species": "tuna",
+      "covered": [
+        "tuna_i1_1",
+        "tuna_i1_2",
+        "tuna_p1_1",
+        "tuna_p1_2",
+        "tuna_p1_3",
+        "tuna_pr1_1",
+        "tuna_pr1_2",
+        "tuna_pr1_3",
+        "tuna_pr1_4",
+        "tuna_pr2_1",
+        "tuna_pr2_2",
+        "tuna_pr2_3",
+        "tuna_pr2_4",
+        "tuna_pr2_5",
+        "tuna_t1_1",
+        "tuna_t1_2"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "bandeng",
+      "covered": [
+        "bandeng_c1_1",
+        "bandeng_c1_2",
+        "bandeng_c1_4",
+        "bandeng_c1_5",
+        "bandeng_c1_6",
+        "bandeng_c1_7",
+        "bandeng_c1_8",
+        "bandeng_p1_1",
+        "bandeng_p1_2",
+        "bandeng_p1_3",
+        "bandeng_p1_4",
+        "bandeng_p1_5",
+        "bandeng_p1_6",
+        "bandeng_p1_7",
+        "bandeng_t1_1"
+      ],
+      "facts_total": 25
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "gelama_bunga",
+      "covered": [
+        "gelama_bunga_c1_1",
+        "gelama_bunga_c1_3",
+        "gelama_bunga_pr1_1",
+        "gelama_bunga_pr1_2"
+      ],
+      "facts_total": 12
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "gembolo",
+      "covered": [],
+      "facts_total": 0
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "gulamah",
+      "covered": [
+        "gulamah_c1_1",
+        "gulamah_c2_1",
+        "gulamah_p1_1",
+        "gulamah_p1_2",
+        "gulamah_p1_3",
+        "gulamah_p1_4",
+        "gulamah_pr1_1",
+        "gulamah_pr1_2"
+      ],
+      "facts_total": 13
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "kembung",
+      "covered": [
+        "kembung_i1_4",
+        "kembung_i1_5",
+        "kembung_p1_1",
+        "kembung_p1_2",
+        "kembung_p1_3",
+        "kembung_p1_4",
+        "kembung_p1_5",
+        "kembung_p1_6",
+        "kembung_p1_7"
+      ],
+      "facts_total": 13
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "kuniran",
+      "covered": [
+        "kuniran_c1_1",
+        "kuniran_c1_2",
+        "kuniran_c1_3",
+        "kuniran_i1_1",
+        "kuniran_i1_2",
+        "kuniran_i1_3",
+        "kuniran_i1_4",
+        "kuniran_p1_1",
+        "kuniran_p1_2",
+        "kuniran_p1_3",
+        "kuniran_p1_4",
+        "kuniran_pr1_1"
+      ],
+      "facts_total": 12
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "mujair",
+      "covered": [
+        "mujair_c1_1",
+        "mujair_c1_2",
+        "mujair_p1_1",
+        "mujair_pr1_1",
+        "mujair_pr1_2",
+        "mujair_pr1_3"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "nila",
+      "covered": [
+        "nila_c1_1",
+        "nila_c1_2",
+        "nila_c1_4",
+        "nila_p1_1",
+        "nila_p1_2",
+        "nila_p1_3",
+        "nila_p1_4",
+        "nila_p1_5",
+        "nila_pr1_1",
+        "nila_pr1_2"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "senangin",
+      "covered": [
+        "senangin_c1_1",
+        "senangin_c1_2",
+        "senangin_i1_2",
+        "senangin_p1_1",
+        "senangin_p1_2",
+        "senangin_p1_3",
+        "senangin_p1_4",
+        "senangin_p1_5",
+        "senangin_p1_6"
+      ],
+      "facts_total": 21
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "tenggiri",
+      "covered": [],
+      "facts_total": 19
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "tuna",
+      "covered": [],
+      "facts_total": 16
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "bandeng",
+      "covered": [
+        "bandeng_c1_1",
+        "bandeng_c1_2",
+        "bandeng_c1_4",
+        "bandeng_c1_5",
+        "bandeng_c1_6",
+        "bandeng_c1_7",
+        "bandeng_c1_8",
+        "bandeng_p1_1",
+        "bandeng_p1_2",
+        "bandeng_p1_3",
+        "bandeng_p1_4",
+        "bandeng_p1_5",
+        "bandeng_p1_6",
+        "bandeng_p1_7",
+        "bandeng_t1_1"
+      ],
+      "facts_total": 25
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "gelama_bunga",
+      "covered": [
+        "gelama_bunga_c1_1",
+        "gelama_bunga_c1_3",
+        "gelama_bunga_pr1_1",
+        "gelama_bunga_pr1_2"
+      ],
+      "facts_total": 12
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "gembolo",
+      "covered": [],
+      "facts_total": 0
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "gulamah",
+      "covered": [
+        "gulamah_c1_1",
+        "gulamah_c2_1",
+        "gulamah_p1_1",
+        "gulamah_p1_2",
+        "gulamah_p1_3",
+        "gulamah_p1_4",
+        "gulamah_pr1_1",
+        "gulamah_pr1_2"
+      ],
+      "facts_total": 13
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "kembung",
+      "covered": [
+        "kembung_i1_4",
+        "kembung_i1_5",
+        "kembung_p1_1",
+        "kembung_p1_2",
+        "kembung_p1_3",
+        "kembung_p1_4",
+        "kembung_p1_5",
+        "kembung_p1_6",
+        "kembung_p1_7"
+      ],
+      "facts_total": 13
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "kuniran",
+      "covered": [
+        "kuniran_c1_1",
+        "kuniran_c1_2",
+        "kuniran_c1_3",
+        "kuniran_i1_2",
+        "kuniran_i1_3",
+        "kuniran_i1_4",
+        "kuniran_p1_1",
+        "kuniran_p1_2",
+        "kuniran_p1_3",
+        "kuniran_p1_4",
+        "kuniran_pr1_1"
+      ],
+      "facts_total": 12
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "mujair",
+      "covered": [
+        "mujair_c1_1",
+        "mujair_c1_2",
+        "mujair_p1_1",
+        "mujair_pr1_1",
+        "mujair_pr1_2",
+        "mujair_pr1_3"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "nila",
+      "covered": [
+        "nila_c1_1",
+        "nila_c1_2",
+        "nila_p1_1",
+        "nila_p1_2",
+        "nila_p1_3",
+        "nila_p1_4",
+        "nila_p1_5",
+        "nila_pr1_1",
+        "nila_pr1_2"
+      ],
+      "facts_total": 16
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "senangin",
+      "covered": [
+        "senangin_c1_1",
+        "senangin_c1_2",
+        "senangin_i1_2",
+        "senangin_p1_1",
+        "senangin_p1_2",
+        "senangin_p1_3",
+        "senangin_p1_4",
+        "senangin_p1_5",
+        "senangin_p1_6"
+      ],
+      "facts_total": 21
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "tenggiri",
+      "covered": [],
+      "facts_total": 19
+    },
+    {
+      "arch": "iteration-1 agent",
+      "model": "gpt-5.6-luna",
+      "species": "tuna",
+      "covered": [],
+      "facts_total": 16
+    }
+  ]
+}
