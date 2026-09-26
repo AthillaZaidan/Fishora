@@ -45,6 +45,12 @@ def grounding_pairs() -> list[dict]:
 
 
 def _critic_accepts(claim: str, chunk, embedder) -> bool:
+    # Graded under the physical field, so present the chunk in that field's
+    # category: this measures the verifier, not the field-to-category routing
+    # (R4), which unit tests cover separately.
+    from dataclasses import replace
+
+    chunk = replace(chunk, category="physical_characteristics")
     state = {
         "refined_evidence": [chunk],
         "expert_outputs": {
@@ -120,7 +126,7 @@ def evaluate(store, embedder) -> dict:
     dev = [(p, y) for p, y in zip(pairs, predictions) if p["split"] == "dev"]
     return {
         "pairs": len(pairs),
-        "grader": "embedding+lexical" if "embedder" in inspect.signature(orchestrator.critic_node).parameters else "lexical",
+        "grader": "E5 cosine + numbers" if "embedder" in inspect.signature(orchestrator.critic_node).parameters else "lexical",
         "test": _classification([p for p, _ in test], [y for _, y in test]),
         "dev": _classification([p for p, _ in dev], [y for _, y in dev]),
         "all": _classification(pairs, predictions),

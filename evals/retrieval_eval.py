@@ -126,8 +126,16 @@ def evaluate(store, embedder, k: int = 6) -> dict:
     available = defaultdict(set)
     for chunk in load_corpus():
         available[chunk.species_id].add(chunk.category)
+    species_chunks = defaultdict(int)
+    for chunk in load_corpus():
+        species_chunks[chunk.species_id] += 1
+    completeness = []
+    card_evidence = getattr(retriever, "card_evidence", None)
     for species in species_records():
-        hits = retriever.retrieve(species.id, CARD_QUERY.format(common_name=species.common_name_id), max_chunks=k)
+        query = CARD_QUERY.format(common_name=species.common_name_id)
+        card = card_evidence(species.id, query) if card_evidence else retriever.retrieve(species.id, query, max_chunks=k)
+        completeness.append(len(card) / max(1, species_chunks[species.id]))
+        hits = retriever.retrieve(species.id, query, max_chunks=k)
         covered = {h.category for h in hits}
         coverage.append({
             "species_label": species.normalized_label,
@@ -162,6 +170,9 @@ def evaluate(store, embedder, k: int = 6) -> dict:
         "global": summarize(global_rows, global_keys),
         "global_by_lang": by_lang,
         "by_category": by_category,
+        # share of the species' verified chunks that reach the card (R1)
+        "card_evidence_completeness": {"mean": round(statistics.fmean(completeness), 4),
+                                       "min": round(min(completeness), 4)},
         "card_query_coverage": {
             "mean": round(statistics.fmean(c["coverage"] for c in coverage), 4),
             "per_species": coverage,

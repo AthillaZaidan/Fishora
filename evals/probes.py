@@ -67,6 +67,7 @@ def publication_path() -> dict:
     matching = (ROOT / "apps/main_api/services/matching.py").read_text(encoding="utf-8")
     return {
         "publish_uses_sync_knowledge_service": "get_for_prediction" in lots,
+        "publish_prefers_graded_card": "_graded_card" in lots and "final_card" in lots,
         "sync_path_has_claim_critic": any(tok in knowledge for tok in ("critic", "_grade_claim", "ClaimStatus")),
         "matching_reads_snapshot_fields": sorted(
             f for f in ("processing_methods", "commercial_uses", "taste", "texture", "physical_characteristics")

@@ -73,11 +73,10 @@ EVAL_USER_AGENT = "fishora-rag-eval/0.1"
 
 def make_llm(settings, session_id: str, model: str | None = None,
              timeout: float | None = None, max_retries: int | None = None):
-    """``generation.make_opencode_go_llm`` plus the two headers OpenCode Go
-    requires: a stable ``x-opencode-session`` per conversation and a
-    descriptive user agent. The production factory sends neither, so every
-    production call is rejected with 400 MissingSessionID (finding W20). The
-    headers are added here, in the eval, not in application code."""
+    """Eval client for the model comparison (any model, bounded timeouts).
+    Baseline runs also used it for the production model, because the shipped
+    factory sent no session header then (W20); it now does, so the cost run
+    uses the production factory for the configured model."""
     from langchain_openai import ChatOpenAI
 
     model = model or settings.opencode_go_model
@@ -206,7 +205,9 @@ def run_agent(species, store, embedder, settings, repeat: int, normalize: bool =
             llm.species = record.normalized_label
             before = len(llm.records)
             job_id = new_id()
-            llm.llm = make_llm(settings, session_id=f"fishora-card-{job_id}")  # one session per card
+            # The production client (it sends the session header itself since W20).
+            from apps.main_api.services.generation import make_opencode_go_llm
+            llm.llm = make_opencode_go_llm(settings, session_id=f"fishora-card-{job_id}")
             jobs.create(job_id, job_id, record.id)
             started = time.perf_counter()
             orchestrator.run_graph(job_id, record.id, job_id, store, embedder, llm, llm, species_repo, jobs)
@@ -254,8 +255,10 @@ def run_published(species, store, embedder, settings, repeat: int, model: str | 
             session = f"fishora-card-{new_id()}"
             # OpenCodeGoClient looks the factory up at call time; swap in the
             # header-carrying one for this card only (eval process, not app code).
-            generation.make_opencode_go_llm = (
-                lambda s, timeout_=None, _sid=session, _m=model: make_llm(s, _sid, _m, timeout, max_retries))
+            if model != settings.opencode_go_model or timeout or max_retries is not None:
+                # Model comparison: another model or bounded calls, via the eval client.
+                generation.make_opencode_go_llm = (
+                    lambda s, timeout_=None, session_id=None, _sid=session, _m=model: make_llm(s, _sid, _m, timeout, max_retries))
             started = time.perf_counter()
             evidence = retriever.retrieve(record.id, CARD_QUERY.format(common_name=record.common_name_id))
             retrieval_s = time.perf_counter() - started
@@ -305,7 +308,12 @@ def _dist(values: list[float]) -> dict:
 def summarize(cards: list[dict], records: list[CallRecord], model: str) -> dict:
     by_path = {}
     for path in ("published", "agent", "agent_normalized"):
-        pc = [c for c in cards if c["path"] == path]
+        every = [c for c in cards if c["path"] == path]
+        # A completed agent card with no LLM call came from the card cache (W6).
+        # Generation statistics exclude those so they compare with uncached runs;
+        # cache hits are reported on their own.
+        hits = [c for c in every if path != "published" and c["status"] == "completed" and c["llm_calls"] == 0]
+        pc = [c for c in every if c not in hits]
         if not pc:
             continue
         mean_cost = statistics.fmean(c["cost_usd"] for c in pc)
@@ -326,6 +334,8 @@ def summarize(cards: list[dict], records: list[CallRecord], model: str) -> dict:
             "cards_per_allowance": {window: int(limit // mean_cost) if mean_cost else None
                                     for window, limit in ALLOWANCE[model].items()},
             "cost_usd_per_1000_cards": round(mean_cost * 1000, 2),
+            "cache_hits": len(hits),
+            "cache_hit_wall_s": _dist([c["wall_s"] for c in hits]),
             "fields_filled_rate": {
                 f: round(sum(c["fields_filled"].get(f, False) for c in pc) / len(pc), 3)
                 for f in (pc[0]["fields_filled"] or {"physical_characteristics": 0})
@@ -364,7 +374,7 @@ def main(argv: list[str] | None = None):
     parser.add_argument("--label", default="current")
     parser.add_argument("--species", default="", help="comma-separated labels; default all 11")
     parser.add_argument("--repeat", type=int, default=1)
-    parser.add_argument("--paths", default="published,agent,agent_normalized")
+    parser.add_argument("--paths", default="published,agent")
     args = parser.parse_args(argv)
 
     settings = MainSettings()

@@ -77,7 +77,7 @@ def test_every_citation_belongs_to_the_species(plain):
 
 
 def test_card_needs_at_most_two_sequential_llm_rounds(plain):
-    assert plain["sequential_rounds"] <= 2.5
+    assert plain["llm_rounds"] <= 2.5
 
 
 def test_repeat_card_is_served_from_cache(plain):
