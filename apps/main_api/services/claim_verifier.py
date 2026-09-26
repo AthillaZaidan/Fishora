@@ -61,15 +61,15 @@ TAU = 0.805  # iteration-1 dev-split threshold (evals/calibrate_grounding.py)
 USE_EMBEDDING_FILTER = True
 _SENTENCE = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9])")
 
-VERIFIER_PROMPT = """Kamu adalah pemeriksa fakta. Untuk setiap klaim, bandingkan dengan bukti yang disitasinya saja.
+VERIFIER_PROMPT = """You are a fact checker. Compare each claim with the evidence it cites, and only that evidence.
 
-Label:
-- "supported": setiap fakta dalam klaim (angka, ciri, kegunaan, cakupan) dinyatakan atau langsung tersirat oleh bukti.
-- "inferred": turunan wajar yang tidak tertulis di bukti, atau fakta satu spesies yang digeneralisasi ke label multi-spesies tanpa menyebutnya.
-- "unsupported": ada fakta yang tidak ada di bukti, bertentangan (termasuk negasi), salah cakupan (mis. hasil produk olahan disebut sifat ikan, proyeksi disebut fakta), atau salah terjemah.
+Labels:
+- "supported": every fact in the claim (numbers, traits, uses, scope) is stated or directly implied by the evidence.
+- "inferred": a reasonable derivation that is not written in the evidence, or a fact about one species generalised to a multi-species label without saying so.
+- "unsupported": a fact is missing from the evidence or contradicts it (including a negation), the scope is wrong (e.g. a property of a processed product stated as a property of the fish, a projection stated as fact), or it misreads the evidence.
 
-Bukti berbahasa Inggris dan klaim berbahasa Indonesia; nilai maknanya, bukan kata-katanya.
-Jawab hanya JSON: {"verdicts": [{"id": <id>, "alasan": "<singkat>", "label": "supported"|"inferred"|"unsupported"}]}
+A claim may paraphrase the evidence or be written in another language; judge the meaning, not the wording.
+Answer only JSON: {"verdicts": [{"id": <id>, "reason": "<short>", "label": "supported"|"inferred"|"unsupported"}]}
 """
 
 
@@ -124,18 +124,18 @@ def _deterministic(claim: Claim, by_chunk: dict[str, RetrievedChunk], known: fro
     cited = [by_chunk[c] for c in claim.chunk_ids if _verified(by_chunk.get(c)) and by_chunk[c].category in allowed]
     claim.chunk_ids = [c.chunk_id for c in cited]
     if not cited:
-        claim.label, claim.reason, claim.stage = "unsupported", "tidak menyitasi chunk terverifikasi untuk field ini", "deterministic"
+        claim.label, claim.reason, claim.stage = "unsupported", "cites no verified chunk allowed for this field", "deterministic"
         return
     text = " ".join(c.content for c in cited)
     missing_numbers = _numbers(claim.text) - _numbers(text)
     if missing_numbers:
         claim.label, claim.stage = "unsupported", "deterministic"
-        claim.reason = f"angka tidak ada di bukti: {', '.join(sorted(missing_numbers))}"
+        claim.reason = f"numbers not in the evidence: {', '.join(sorted(missing_numbers))}"
         return
     missing_taxa = _taxa(claim.text, known) - _taxa(text, known)
     if missing_taxa:
         claim.label, claim.stage = "unsupported", "deterministic"
-        claim.reason = f"nama takson tidak ada di bukti: {', '.join(sorted(missing_taxa))}"
+        claim.reason = f"taxon names not in the evidence: {', '.join(sorted(missing_taxa))}"
 
 
 def _cosine(a, b) -> float:
@@ -156,7 +156,7 @@ def _embedding_filter(pending: list[Claim], by_chunk: dict, embedder, tau: float
         best = max(_cosine(vec("q:" + c.text, c.text), vec("c:" + cid, by_chunk[cid].content)) for cid in c.chunk_ids)
         if best < tau:
             c.label, c.stage = "unsupported", "embedding"
-            c.reason = f"kemiripan dengan bukti {best:.3f} < {tau}"
+            c.reason = f"similarity to the evidence {best:.3f} < {tau}"
 
 
 def verify(claims: list[Claim], evidence: list[RetrievedChunk], llm, known_binomials=(),
@@ -171,20 +171,20 @@ def verify(claims: list[Claim], evidence: list[RetrievedChunk], llm, known_binom
     pending = [c for c in claims if c.label is None]
     if not use_llm:
         for c in pending:
-            c.label, c.reason, c.stage = "supported", "lolos cek deterministik dan embedding", "embedding"
+            c.label, c.reason, c.stage = "supported", "passed the deterministic and embedding checks", "embedding"
         return VerificationResult(claims=claims)
     result = VerificationResult(claims=claims)
     if not pending:
         return result
     if llm is None:
         for c in pending:
-            c.label, c.reason, c.stage = "unsupported", "tidak ada verifier LLM", "llm"
+            c.label, c.reason, c.stage = "unsupported", "no LLM verifier", "llm"
         result.llm_error = "no llm"
         return result
     used = sorted({cid for c in pending for cid in c.chunk_ids})
     payload = {
-        "bukti": {cid: f"[{by_chunk[cid].category}] {by_chunk[cid].content}" for cid in used},
-        "klaim": [{"id": c.id, "field": c.field, "teks": c.text, "sitasi": c.chunk_ids} for c in pending],
+        "evidence": {cid: f"[{by_chunk[cid].category}] {by_chunk[cid].content}" for cid in used},
+        "claims": [{"id": c.id, "field": c.field, "text": c.text, "citations": c.chunk_ids} for c in pending],
     }
     verdicts: dict = {}
     for attempt in range(attempts):
@@ -201,8 +201,9 @@ def verify(claims: list[Claim], evidence: list[RetrievedChunk], llm, known_binom
         v = verdicts.get(c.id)
         label = v.get("label") if v else None
         if label in ("supported", "inferred", "unsupported"):
-            c.label, c.reason = label, str(v.get("alasan", ""))[:300]
+            # "alasan" is the Indonesian-era key; still read so replayed replies parse.
+            c.label, c.reason = label, str(v.get("reason") or v.get("alasan") or "")[:300]
         else:
-            c.label, c.reason = "unsupported", "verifier tidak memberi label"
+            c.label, c.reason = "unsupported", "the verifier gave no label"
         c.stage = "llm"
     return result

@@ -1,16 +1,18 @@
-/** The MVP landing points. Mock data until the backend seeds a real list. */
-export const LANDING_POINTS = ['PPI Muara Angke', 'TPI Cilacap', 'PPI Karangsong'] as const
+import type { LandingPoint } from '@/lib/api/commerce'
 
-export type LandingPointName = (typeof LANDING_POINTS)[number]
-
-export const LANDING_POINT_IDS: Record<LandingPointName, string> = {
-  'PPI Muara Angke': 'lp_muara_angke',
-  'TPI Cilacap': 'lp_cilacap',
-  'PPI Karangsong': 'lp_karangsong',
-}
+/**
+ * The landing points the backend seeds (apps/main_api/services/landing_points.py).
+ * The live list comes from GET /api/v1/landing-points; this copy is only the
+ * fallback when that request fails, and the source of readable names offline.
+ */
+export const FALLBACK_LANDING_POINTS: LandingPoint[] = [
+  { id: 'lp_muara_angke', name: 'PPI Muara Angke', latitude: -6.104, longitude: 106.792 },
+  { id: 'lp_cilacap', name: 'TPI Cilacap', latitude: -7.732, longitude: 109.015 },
+  { id: 'lp_karangsong', name: 'PPI Karangsong', latitude: -6.305, longitude: 108.32 },
+]
 
 const NAME_BY_ID: Record<string, string> = Object.fromEntries(
-  Object.entries(LANDING_POINT_IDS).map(([name, id]) => [id, name])
+  FALLBACK_LANDING_POINTS.map((point) => [point.id, point.name])
 )
 
 /**

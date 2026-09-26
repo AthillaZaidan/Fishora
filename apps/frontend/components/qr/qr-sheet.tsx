@@ -56,8 +56,8 @@ export function QrSheet({
           // Hands off to the device: the restaurant picks the printer, the paper
           // and the copies, and a kiosk or a phone share sheet works the same.
           onClick={() => window.print()}
-          aria-label="Cetak kartu"
-          title="Cetak kartu"
+          aria-label="Print card"
+          title="Print card"
           className="grid size-11 shrink-0 place-items-center rounded-full text-ink-muted transition-colors hover:bg-bg-sunken hover:text-ink active:scale-[0.98]"
         >
           <Printer className="size-5" aria-hidden />
@@ -79,7 +79,7 @@ export function QrSheet({
             }}
             className="text-body-sm min-h-11 shrink-0 rounded-full border border-line-strong px-4 text-ink"
           >
-            {copied ? 'Disalin' : 'Salin URL'}
+            {copied ? 'Copied' : 'Copy URL'}
           </button>
         </div>
       }

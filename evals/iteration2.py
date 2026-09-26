@@ -36,8 +36,8 @@ CELLS = [("experts", "gpt-5.6-luna"), ("experts", "gpt-6-luna"),
          ("writer_critic", "gpt-5.6-luna"), ("writer_critic", "gpt-6-luna")]
 CARD_FIELDS = ("physical_characteristics", "taste", "texture", "processing_methods",
                "commercial_uses", "similar_or_substitute_species", "potential_buyer_segments")
-STAGES = (("Kamu adalah pemeriksa fakta", "verifier"), ("Tulis klaim", "writer"),
-          ("Beberapa klaimmu ditolak", "writer_revision"))
+STAGES = (("You are a fact checker", "verifier"), ("Write claims", "writer"),
+          ("The fact checker rejected", "writer_revision"))
 
 
 def card_claims(card: dict | None) -> list[tuple[str, str]]:

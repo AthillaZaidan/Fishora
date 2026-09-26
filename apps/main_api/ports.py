@@ -122,6 +122,9 @@ class AppDependencies:
     preference_repo: object | None = None  # PreferenceRepository
     landing_point_repo: object | None = None
     session_service: object | None = None
+    # Accounts (services/session.py UserRepository). None with no database:
+    # the session service then keeps them in memory, seeded with the demo pair.
+    user_repo: object | None = None
     review_repo: object | None = None  # ReviewRepository
     job_repo: KnowledgeJobRepository | None = None
     # Chat model for the agent graph (LangChain-style ``invoke``). None builds

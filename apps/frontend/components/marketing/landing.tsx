@@ -34,9 +34,9 @@ const DEMO_LOT: Lot = {
 }
 
 const DEMO_REASONS = [
-  { criterion: 'intended_use', met: true, detail: 'cocok untuk digoreng', value: 'digoreng' },
-  { criterion: 'characteristics', met: true, detail: 'ciri sesuai preferensi', value: 'gurih' },
-  { criterion: 'price', met: true, detail: 'Rp 68.000/kg', value: '68000' },
+  { criterion: 'intended_use', met: true, detail: 'suitable for frying', value: 'frying' },
+  { criterion: 'characteristics', met: true, detail: 'matches your preferred characteristics', value: 'savoury' },
+  { criterion: 'price', met: true, detail: 'Rp 68,000/kg', value: '68000' },
   { criterion: 'volume', met: true, detail: '24 kg', value: '24 kg' },
   { criterion: 'distance', met: true, detail: '37 km', value: '37 km' },
 ]
@@ -145,7 +145,7 @@ export function LandingPage() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1279px) 62vw, 750px"
                 />
                 <CellBody title="Taste and texture">
-                  Gurih and not especially oily. Firm, with a fine grain.
+                  Savoury and not especially oily. Firm, with a fine grain.
                 </CellBody>
               </Cell>
 
@@ -158,15 +158,15 @@ export function LandingPage() {
                   className="aspect-[16/9] w-full"
                   sizes="(max-width: 768px) 100vw, (max-width: 1279px) 31vw, 370px"
                 />
-                <CellBody title="Cooking">Loin segar, dibakar, dikukus.</CellBody>
+                <CellBody title="Cooking">Fresh loins, grilled, steamed.</CellBody>
               </Cell>
 
               <Cell className="bg-abyss-850">
-                <CellBody title="Commercial uses">Fillet. Steak. Rumah makan.</CellBody>
+                <CellBody title="Commercial uses">Fillet. Steak. Restaurants.</CellBody>
               </Cell>
 
               <Cell className="bg-gradient-to-b from-abyss-900 to-abyss-800">
-                <CellBody title="Substitutes">Kembung. Tuna.</CellBody>
+                <CellBody title="Substitutes">Indian mackerel. Tuna.</CellBody>
               </Cell>
 
               <Cell className="md:col-span-2">

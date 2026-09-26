@@ -5,10 +5,11 @@ pending predictions are rejected before any retrieval, and no caller-supplied
 species id or raw label ever reaches the retriever.
 
 This is the path for a prediction with no background job (a manually declared
-catch) and the fallback at lot publication. It runs the same graded graph as
-the job, ``orchestrator.grade_card``, so a card served or frozen here has had
-every claim checked against its cited chunk (W19). The former one-call
-generator, which had no per-claim critic, is no longer used by the product.
+catch) and the fallback at lot publication. It runs the same pipeline as the
+job, ``workflow.workflow_card`` (writer, claim verifier, assembler), so a card
+served or frozen here has had every claim checked against its cited chunk
+(W19). The former one-call generator, which had no per-claim critic, is no
+longer used by the product.
 """
 
 from apps.main_api.errors import (
@@ -30,7 +31,7 @@ class KnowledgeService:
         self._llm = llm
 
     def get_for_prediction(self, prediction_id: str) -> KnowledgeResponse:
-        from apps.main_api.services.orchestrator import grade_card
+        from apps.main_api.services.workflow import workflow_card
 
         record = self._prediction_repo.get(prediction_id)
         if record is None:
@@ -45,12 +46,12 @@ class KnowledgeService:
             # would read as "nothing verifiable", and publication would freeze it.
             raise OpenCodeUnavailable("opencode go generation unavailable", [])
 
-        result = grade_card(species.id, prediction_id=record.id, knowledge_repo=self._knowledge_repo,
-                            embedder=self._embedder, llm=self._llm, species_repo=self._species_repo)
-        final, error = result.get("final_card"), result.get("error")
-        chunk_ids = [chunk.chunk_id for chunk in result.get("refined_evidence") or []]
+        result = workflow_card(species.id, prediction_id=record.id, knowledge_repo=self._knowledge_repo,
+                               embedder=self._embedder, llm=self._llm, species_repo=self._species_repo)
+        final, error = result["final_card"], result["error"]
+        chunk_ids = [e["chunk_id"] for e in result["trace"].get("evidence", [])]
         if final is None or error:
-            if error and "every expert failed" in error:
+            if error and "verifier unavailable" in error:
                 raise OpenCodeUnavailable("opencode go generation unavailable", chunk_ids)
             raise InvalidGeneratedKnowledge(error or "knowledge generation failed", chunk_ids)
         card = final if isinstance(final, KnowledgeCard) else KnowledgeCard.model_validate(final)

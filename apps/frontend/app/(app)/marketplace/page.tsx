@@ -1,12 +1,16 @@
 import { MarketplaceView } from '@/components/marketplace/marketplace-view'
 import { listLots, searchLots, type Lot, type SearchResult } from '@/lib/api/commerce'
+import { matchedLotIds } from '@/lib/api/preferences'
 import { getMeAsServer, getRecommendationsAsServer } from '@/lib/api/server'
 import { lotApiQuery, parseFilters, searchApiQuery } from '@/lib/marketplace-filters'
 
-// A lot is badged "Matched for you" from this score up. The weights in
-// services/matching.py sum to 1, so 0.6 means most of what the buyer asked for
-// (use, characteristics, price, volume, distance) holds, not just the distance.
-const MATCH_BADGE_MIN_SCORE = 0.6
+// A lot is badged "Matched for you" when the API marks it matched: a score of
+// at least MATCH_THRESHOLD (0.6) in services/matching.py, whose weights over
+// use, characteristics, business type, price, volume and distance sum to 1.
+// Price, volume and distance alone reach 0.45, so a badge always means the
+// fish itself fits. The threshold lives in the API so the lot page, this grid
+// and the preferences count cannot disagree; matchedLotIds falls back to 0.6
+// only for a response that does not carry it.
 
 export default async function MarketplacePage({
   searchParams,
@@ -38,11 +42,12 @@ export default async function MarketplacePage({
   // Only a signed-in buyer with a preference profile has matches. Anyone else
   // sees the plain grid rather than an empty promise.
   let matchedIds: string[] = []
+  let buyerId: string | null = null
   try {
     const me = await getMeAsServer()
     if (me.role === 'buyer') {
-      const { items } = await getRecommendationsAsServer(me.id)
-      matchedIds = items.filter((item) => item.score >= MATCH_BADGE_MIN_SCORE).map((item) => item.lot.id)
+      buyerId = me.id
+      matchedIds = matchedLotIds(await getRecommendationsAsServer(me.id))
     }
   } catch {
     // Anonymous or no profile: no badges.
@@ -54,6 +59,7 @@ export default async function MarketplacePage({
       similar={search?.similar ?? []}
       similarTo={search?.similar_to ?? []}
       matchedIds={matchedIds}
+      buyerId={buyerId}
       inventoryEmpty={lots.length === 0 && !filters.query && !filters.minPrice && !filters.maxPrice}
     />
   )

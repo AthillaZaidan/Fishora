@@ -5,7 +5,7 @@ from decimal import Decimal
 from typing import Callable
 from uuid import uuid4
 
-from sqlalchemy import func, select
+from sqlalchemy import func, select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -85,6 +85,24 @@ class SqlLotRepository:
         with self._session_factory() as session:
             rows = session.scalars(select(Lot).order_by(Lot.created_at.desc())).all()
             return [self._to_lot(row) for row in rows]
+
+    def close_expired(self, now: datetime | None = None) -> int:
+        """Close every active lot whose auction has ended; returns how many.
+
+        Nothing else would: there is no sweeper process, and a lot's status
+        otherwise only changes inside place_bid and allocate. Readers call this
+        first, so a lot past its end is never listed, searched or recommended
+        as live. One indexed UPDATE, and a no-op when nothing has expired.
+        """
+        clock = now or datetime.now(timezone.utc)
+        with self._session_factory() as session:
+            result = session.execute(
+                update(Lot)
+                .where(Lot.status == "active", Lot.auction_ends_at <= clock)
+                .values(status="closed")
+            )
+            session.commit()
+            return result.rowcount or 0
 
     def highest(self, lot_id: str) -> Decimal | None:
         with self._session_factory() as session:

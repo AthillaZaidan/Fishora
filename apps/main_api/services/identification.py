@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Literal
 
 from apps.common.image import validate_image_bytes
-from apps.main_api.errors import UnsupportedCvLabel
+from apps.main_api.errors import PhotoRejected, UnsupportedCvLabel
 
 
 @dataclass(frozen=True)
@@ -42,6 +42,10 @@ class IdentificationService:
         validate_image_bytes(image_bytes, content_type, self._max_image_bytes)  # 400/413/415 before CV
 
         envelope = self._cv_client.predict(image_bytes, filename=filename, content_type=content_type)
+        if envelope.status.startswith("rejected_"):
+            # Refused by the CV gates: raise before any image or prediction is
+            # written, as for a CV failure. A rejected photo identifies nothing.
+            raise PhotoRejected(envelope.status.removeprefix("rejected_"))
 
         prediction = self._map(envelope.prediction.label, envelope.prediction.confidence)
         top_candidates = [self._map(candidate.label, candidate.confidence) for candidate in envelope.top_candidates]

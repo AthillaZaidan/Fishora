@@ -3,15 +3,17 @@
 import Link from 'next/link'
 import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Fish, Funnel, MagnifyingGlass, Sparkle } from '@phosphor-icons/react/dist/ssr'
+import { Fish, Funnel, MagnifyingGlass, Sparkle, Star } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components/common/button'
 import { EmptyState } from '@/components/common/empty-state'
 import { LotCard } from '@/components/lot/lot-card'
 import { FilterRail } from '@/components/marketplace/filter-rail'
 import { FilterSheet } from '@/components/marketplace/filter-sheet'
 import { listLots } from '@/lib/api/commerce'
+import { getRecommendations, matchedLotIds } from '@/lib/api/preferences'
 import {
   activeFilterCount,
+  EMPTY_FILTERS,
   lotApiQuery,
   parseFilters,
   serializeFilters,
@@ -29,12 +31,19 @@ const POLL_MS = 15_000
 interface PollSnapshot {
   lots: Lot[]
   fresh: number
+  /** Matched lot ids as of this poll; null until recommendations have been read. */
+  matched: string[] | null
+}
+
+interface PollResult {
+  lots: Lot[]
+  matched: string[] | null
 }
 
 // An external store, not state in an effect: the interval, the tab visibility
 // and the fetch all live outside React, and useSyncExternalStore is how this
 // codebase reads such values.
-function createLotPoll(load: (query: string) => Promise<Lot[]>) {
+function createLotPoll(load: (query: string) => Promise<PollResult>) {
   const listeners = new Set<() => void>()
   let snapshot: PollSnapshot | null = null
   let seen = new Set<string>()
@@ -49,9 +58,13 @@ function createLotPoll(load: (query: string) => Promise<Lot[]>) {
   const poll = () => {
     const asked = query
     load(asked)
-      .then((lots) => {
+      .then((result) => {
         // A late reply from a filter the buyer already left must not land.
         if (asked !== query) return
+        const { lots } = result
+        // A failed recommendations read keeps the last known badges rather
+        // than dropping them all for fifteen seconds.
+        const matched = result.matched ?? snapshot?.matched ?? null
         const arrived = lots.filter((lot) => !seen.has(lot.id))
         for (const lot of arrived) seen.add(lot.id)
         fresh += arrived.length
@@ -59,9 +72,10 @@ function createLotPoll(load: (query: string) => Promise<Lot[]>) {
           snapshot !== null &&
           snapshot.fresh === fresh &&
           snapshot.lots.length === lots.length &&
-          snapshot.lots.every((lot, index) => lot.id === lots[index].id)
+          snapshot.lots.every((lot, index) => lot.id === lots[index].id) &&
+          (snapshot.matched ?? []).join(',') === (matched ?? []).join(',')
         if (same) return
-        snapshot = { lots, fresh }
+        snapshot = { lots, fresh, matched }
         emit()
       })
       .catch(() => {
@@ -94,7 +108,7 @@ function createLotPoll(load: (query: string) => Promise<Lot[]>) {
     dismiss: () => {
       if (fresh === 0) return
       fresh = 0
-      if (snapshot !== null) snapshot = { lots: snapshot.lots, fresh: 0 }
+      if (snapshot !== null) snapshot = { ...snapshot, fresh: 0 }
       emit()
     },
     start(nextQuery: string, seedIds: string[], listener: () => void) {
@@ -127,6 +141,7 @@ export function MarketplaceView({
   similar = [],
   similarTo = [],
   matchedIds = [],
+  buyerId = null,
   inventoryEmpty,
 }: {
   lots: Lot[]
@@ -135,6 +150,8 @@ export function MarketplaceView({
   similarTo?: string[]
   /** Lots that fit the signed-in buyer's preferences. */
   matchedIds?: string[]
+  /** The signed-in buyer, so polling can refresh their matches with the lots. */
+  buyerId?: string | null
   inventoryEmpty: boolean
 }) {
   const router = useRouter()
@@ -146,7 +163,6 @@ export function MarketplaceView({
   const [typed, setTyped] = useState(filters.query)
   const count = activeFilterCount(filters)
   const searching = filters.query.trim() !== ''
-  const matched = useMemo(() => new Set(matchedIds), [matchedIds])
 
   const apply = useCallback(
     (next: MarketplaceFilters) => {
@@ -164,7 +180,22 @@ export function MarketplaceView({
     return () => clearTimeout(timer)
   }, [typed, filters, apply])
 
-  const poll = useMemo(() => createLotPoll(listLots), [])
+  // Lots and matches are read together on every tick: a lot that arrives by
+  // polling is badged only once the recommendations that score it are in, so
+  // the badges never lag the grid or disagree with the lot page.
+  const poll = useMemo(
+    () =>
+      createLotPoll(async (query) => {
+        const lots = await listLots(query)
+        if (!buyerId) return { lots, matched: null }
+        try {
+          return { lots, matched: matchedLotIds(await getRecommendations(buyerId)) }
+        } catch {
+          return { lots, matched: null }
+        }
+      }),
+    [buyerId]
+  )
   const pollQuery = useMemo(() => lotApiQuery(filters), [filters])
   // A joined string, so a re-render with an equal list does not resubscribe.
   const seed = useMemo(() => lots.map((lot) => lot.id).join(','), [lots])
@@ -178,14 +209,17 @@ export function MarketplaceView({
   const live = useSyncExternalStore(subscribe, poll.read, noSnapshot)
   const current = live?.lots ?? lots
   const fresh = live?.fresh ?? 0
+  const liveMatched = live?.matched ?? null
+  const matched = useMemo(() => new Set(liveMatched ?? matchedIds), [liveMatched, matchedIds])
 
   const visible = useMemo(() => {
     return current.filter((lot) => {
+      if (filters.matchedOnly && !matched.has(lot.id)) return false
       if (filters.minPrice && Number(lot.starting_price_per_kg) < Number(filters.minPrice)) return false
       if (filters.maxPrice && Number(lot.starting_price_per_kg) > Number(filters.maxPrice)) return false
       return true
     })
-  }, [current, filters])
+  }, [current, filters, matched])
 
   const grid = (items: Lot[]) => (
     <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -205,7 +239,7 @@ export function MarketplaceView({
       <header>
         <h1 className="text-h1 text-ink">All lots</h1>
         <p className="text-body-sm mt-1 max-w-[52ch] text-ink-muted">
-          Semua lot lelang yang masih aktif.
+          Every auction lot that is still open.{buyerId ? ' Lots that fit your buying profile are marked “Matched for you”.' : ''}
         </p>
       </header>
 
@@ -214,7 +248,7 @@ export function MarketplaceView({
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2 border-b border-line pb-3">
             <label className="relative min-w-0 flex-1">
-              <span className="sr-only">Cari ikan</span>
+              <span className="sr-only">Search fish</span>
               <MagnifyingGlass
                 size={18}
                 className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-ink-muted"
@@ -224,17 +258,30 @@ export function MarketplaceView({
                 type="search"
                 value={typed}
                 onChange={(event) => setTyped(event.target.value)}
-                placeholder="Cari nama ikan, rasa, tekstur, atau olahan"
+                placeholder="Search by fish name, taste, texture or use"
                 className="text-body min-h-11 w-full rounded-full border border-line-input bg-transparent pr-4 pl-10 text-ink"
               />
             </label>
+            {buyerId && (
+              <button
+                type="button"
+                aria-pressed={filters.matchedOnly}
+                onClick={() => apply({ ...filters, matchedOnly: !filters.matchedOnly })}
+                className={`text-body-sm flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border px-3 ${
+                  filters.matchedOnly ? 'border-ink bg-bg-sunken text-ink' : 'border-line text-ink-muted hover:text-ink'
+                }`}
+              >
+                <Star size={14} weight="fill" className="text-accent" aria-hidden />
+                Matched for you
+              </button>
+            )}
             {fresh > 0 && (
               <button
                 type="button"
                 onClick={poll.dismiss}
                 className="text-body-sm min-h-11 shrink-0 rounded-full border border-line px-3 text-ink"
               >
-                {fresh} lot baru
+                {fresh} new {fresh === 1 ? 'lot' : 'lots'}
               </button>
             )}
             <div className="shrink-0 lg:hidden">
@@ -245,27 +292,54 @@ export function MarketplaceView({
                 icon={<Funnel size={16} />}
                 onClick={() => setSheetOpen(true)}
               >
-                Harga{count ? ` ${count}` : ''}
+                Price{count ? ` ${count}` : ''}
               </Button>
             </div>
           </div>
 
           {inventoryEmpty && current.length === 0 ? (
-            <EmptyState icon={Fish} message="Belum ada lot aktif." action={<Button type="button">Muat ulang</Button>} />
+            <EmptyState
+              icon={Fish}
+              message="No open lots yet."
+              action={
+                <Button type="button" onClick={() => router.refresh()}>
+                  Reload
+                </Button>
+              }
+            />
+          ) : visible.length === 0 && filters.matchedOnly && !searching ? (
+            <EmptyState
+              icon={Star}
+              message={
+                buyerId
+                  ? 'No open lots match your buying profile right now.'
+                  : 'Sign in as a buyer and save a buying profile to see lots matched for you.'
+              }
+              action={
+                <div className="flex flex-wrap justify-center gap-2">
+                  <Link href={buyerId ? '/preferences' : '/account?next=%2Fpreferences'}>
+                    <Button type="button">{buyerId ? 'Edit buying profile' : 'Sign in'}</Button>
+                  </Link>
+                  <Button type="button" variant="secondary" onClick={() => apply({ ...filters, matchedOnly: false })}>
+                    Show all lots
+                  </Button>
+                </div>
+              }
+            />
           ) : visible.length === 0 ? (
             <EmptyState
               icon={searching ? MagnifyingGlass : Funnel}
-              message={searching ? `Tidak ada lot untuk "${filters.query}".` : 'Tidak ada lot di rentang harga ini.'}
+              message={searching ? `No lots for "${filters.query}".` : 'No lots in this price range.'}
               action={
                 <Button
                   type="button"
                   variant="secondary"
                   onClick={() => {
                     setTyped('')
-                    apply({ query: '', minPrice: '', maxPrice: '' })
+                    apply(EMPTY_FILTERS)
                   }}
                 >
-                  Hapus pencarian dan filter
+                  Clear search and filters
                 </Button>
               }
             />
@@ -277,11 +351,11 @@ export function MarketplaceView({
             <section className="mt-10" aria-labelledby="similar-heading">
               <h2 id="similar-heading" className="text-h3 flex items-center gap-2 text-ink">
                 <Sparkle size={18} weight="fill" className="text-accent" aria-hidden />
-                Rekomendasi ikan serupa
+                Similar fish on sale
               </h2>
               <p className="text-body-sm mt-1 max-w-[60ch] text-ink-muted">
-                Selain {similarTo.join(', ')}, ikan ini juga sedang dijual. Kemiripannya diambil dari kartu
-                pengetahuan {similarTo.length > 1 ? 'ikan-ikan tersebut' : 'ikan tersebut'}.
+                Besides {similarTo.join(', ')}, these fish are on sale too. The similarity comes from the
+                knowledge {similarTo.length > 1 ? 'cards of those fish' : 'card of that fish'}.
               </p>
               {grid(similar)}
             </section>

@@ -3,14 +3,15 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { useRouter } from 'next/navigation'
 import { Camera, UploadSimple, X } from '@phosphor-icons/react/dist/ssr'
+import { Skeleton } from '@/components/common/skeleton'
 import { Button } from '@/components/common/button'
 import { Field } from '@/components/common/field'
 import { Select } from '@/components/common/select'
-import { LANDING_POINTS, LANDING_POINT_IDS, type LandingPointName } from '@/lib/landing-points'
+import { FALLBACK_LANDING_POINTS } from '@/lib/landing-points'
 import { KnowledgeCardView } from '@/components/fish/knowledge-card'
 import { PredictionCard } from '@/components/fish/prediction-card'
 import type { ActionFailure, ActionResult } from '@/lib/api/action-result'
-import { publishLot as defaultPublishLot, type Lot } from '@/lib/api/commerce'
+import { listLandingPoints, publishLot as defaultPublishLot, type LandingPoint, type Lot } from '@/lib/api/commerce'
 import { ApiError, messageFor } from '@/lib/api/errors'
 import type {
   IdentificationResult,
@@ -24,6 +25,9 @@ import { SPECIES, SUPPORTED_LABELS, type SpeciesLabel } from '@/lib/species'
 import { Z } from '@/lib/z'
 
 const DRAFT_KEY = 'fishora.operator.draft'
+// The card job runs after verification. Poll until it finishes: about 90 s.
+const CARD_POLL_MS = 2000
+const CARD_POLL_ATTEMPTS = 45
 
 type PublishLotPayload = {
   prediction_id: string
@@ -37,10 +41,10 @@ type PublishLotPayload = {
 
 // Mirrors AUCTION_MINUTE_OPTIONS in apps/main_api/services/lots.py.
 const DURATIONS = [
-  { id: '30m', label: '30 menit', minutes: 30 },
-  { id: '1h', label: '1 jam', minutes: 60 },
-  { id: '2h', label: '2 jam', minutes: 120 },
-  { id: '3h', label: '3 jam', minutes: 180 },
+  { id: '30m', label: '30 min', minutes: 30 },
+  { id: '1h', label: '1 hour', minutes: 60 },
+  { id: '2h', label: '2 hours', minutes: 120 },
+  { id: '3h', label: '3 hours', minutes: 180 },
 ] as const
 // Mirrors MAX_LOT_COUNT in the same file.
 const MAX_LOT_COUNT = 50
@@ -64,6 +68,45 @@ const assumeOnline = () => true
 
 type Size = (typeof SIZES)[number]
 type Step = 1 | 2 | 3 | 4
+
+type Draft = {
+  quantityKg: string
+  lotCount: string
+  size: Size
+  pricePerKg: string
+  landingPoint: string
+  duration: (typeof DURATIONS)[number]['id']
+}
+
+function readDraft(): Partial<Draft> | null {
+  try {
+    const raw = sessionStorage.getItem(DRAFT_KEY)
+    return raw ? (JSON.parse(raw) as Partial<Draft>) : null
+  } catch {
+    // Blocked storage or a corrupt draft: start empty.
+    return null
+  }
+}
+
+type FormErrors = Partial<Record<'quantity' | 'lotCount' | 'price', string>>
+
+/** The same bounds the API enforces, checked before the request so the message sits on the field. */
+function validateLot(quantityKg: string, lotCount: string, pricePerKg: string): FormErrors {
+  const errors: FormErrors = {}
+  const quantity = Number(quantityKg.replace(',', '.'))
+  if (!quantityKg.trim() || !Number.isFinite(quantity) || quantity <= 0) {
+    errors.quantity = 'Enter the weight of each lot in kg.'
+  }
+  const count = Number(lotCount)
+  if (!Number.isInteger(count) || count < 1 || count > MAX_LOT_COUNT) {
+    errors.lotCount = `Enter a number of lots from 1 to ${MAX_LOT_COUNT}.`
+  }
+  const price = Number(pricePerKg)
+  if (!pricePerKg.trim() || !Number.isFinite(price) || price <= 0) {
+    errors.price = 'Enter a starting price per kg.'
+  }
+  return errors
+}
 
 export interface IdentifyFlowProps {
   identifyCatch: (formData: FormData) => Promise<ActionResult<IdentificationResult>>
@@ -114,18 +157,64 @@ export function IdentifyFlow({
   const [manualOpen, setManualOpen] = useState(false)
   const [prediction, setPrediction] = useState<IdentificationResult | null>(null)
   const [knowledge, setKnowledge] = useState<KnowledgeResponse | null>(null)
-  const [knowledgePending, setKnowledgePending] = useState(false)
+  const [knowledgeStatus, setKnowledgeStatus] = useState<'idle' | 'loading' | 'ready' | 'unavailable'>('idle')
+  const [knowledgeMessage, setKnowledgeMessage] = useState('')
+  // The prediction whose card is being awaited; cleared when the operator
+  // moves on, so a late reply never lands on the next catch.
+  const cardPoll = useRef<string | null>(null)
   const [label, setLabel] = useState<string>('tenggiri')
   const [quantityKg, setQuantityKg] = useState('')
   const [lotCount, setLotCount] = useState('1')
   const [size, setSize] = useState<Size>('M')
   const [pricePerKg, setPricePerKg] = useState('')
-  const [landingPoint, setLandingPoint] = useState<string>(LANDING_POINTS[0])
+  const [landingPoints, setLandingPoints] = useState<LandingPoint[]>(FALLBACK_LANDING_POINTS)
+  const [landingPoint, setLandingPoint] = useState<string>(FALLBACK_LANDING_POINTS[0].id)
   const [duration, setDuration] = useState<(typeof DURATIONS)[number]['id']>('1h')
   const [publishError, setPublishError] = useState('')
+  const [formErrors, setFormErrors] = useState<FormErrors>({})
+  const restored = useRef(false)
+
+  // The API's list is the one publish validates against; the static list is
+  // only a fallback so the form still works when the request fails.
+  useEffect(() => {
+    let cancelled = false
+    listLandingPoints()
+      .then((points) => {
+        if (cancelled || points.length === 0) return
+        setLandingPoints(points)
+        setLandingPoint((current) => (points.some((point) => point.id === current) ? current : points[0].id))
+      })
+      .catch(() => {
+        // Keep the fallback list.
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  // Restore the lot details typed before a reload or a dropped connection.
+  // The photo and the identification cannot be kept (a File does not survive
+  // storage), so the flow restarts at the photo with the form filled in.
+  useEffect(() => {
+    const draft = readDraft()
+    restored.current = true
+    if (!draft) return
+    // Deferred: a one-off sync from external storage, not render-driven state.
+    queueMicrotask(() => {
+      if (typeof draft.quantityKg === 'string') setQuantityKg(draft.quantityKg)
+      if (typeof draft.lotCount === 'string') setLotCount(draft.lotCount)
+      if (draft.size && SIZES.includes(draft.size)) setSize(draft.size)
+      if (typeof draft.pricePerKg === 'string') setPricePerKg(draft.pricePerKg)
+      if (typeof draft.landingPoint === 'string') setLandingPoint(draft.landingPoint)
+      if (draft.duration && DURATIONS.some((option) => option.id === draft.duration)) setDuration(draft.duration)
+    })
+  }, [])
 
   useEffect(() => {
-    sessionStorage.setItem(
+    // Not before the restore has read it: the first render would overwrite it.
+    if (!restored.current) return
+    try {
+      sessionStorage.setItem(
       DRAFT_KEY,
       JSON.stringify({
         quantityKg,
@@ -138,11 +227,15 @@ export function IdentifyFlow({
         step,
       })
     )
+    } catch {
+      // Storage full or blocked: the form still works, only unsaved.
+    }
   }, [quantityKg, lotCount, size, pricePerKg, landingPoint, duration, image, step])
 
   useEffect(() => {
     return () => {
       if (previewRef.current) URL.revokeObjectURL(previewRef.current)
+      cardPoll.current = null
       // A live track keeps the camera indicator lit after the operator leaves.
       streamRef.current?.getTracks().forEach((track) => track.stop())
     }
@@ -216,7 +309,7 @@ export function IdentifyFlow({
       setIdentifyError({
         ok: false,
         kind: 'image_invalid',
-        userMessage: 'Format gambar tidak didukung. Gunakan JPG atau PNG.',
+        userMessage: 'Unsupported image format. Use JPG or PNG.',
         retryable: true,
         status: 0,
       })
@@ -254,26 +347,30 @@ export function IdentifyFlow({
   async function runConfirm(speciesId: string) {
     if (!prediction) return
     setBusy(true)
+    setIdentifyError(null)
     try {
       const verified = await confirmSpecies(prediction.prediction_id, speciesId)
       if (!verified.ok) {
+        // Shown on this step (below the card), not only on the photo step.
         setIdentifyError(verified)
         return
       }
-      const card = await loadKnowledge(prediction.prediction_id)
-      // A 202 means the agent graph is still running: success, but no card.
-      if (!card.ok || !hasCard(card.data)) {
-        setKnowledge(null)
-        setKnowledgePending(true)
-        setStep(3)
-        return
-      }
-      setKnowledge(card.data)
-      setKnowledgePending(false)
       setStep(3)
+      void fetchCard(prediction.prediction_id)
+    } catch {
+      setIdentifyError({ ok: false, kind: 'offline', userMessage: messageFor('offline'), retryable: true, status: 0 })
     } finally {
       setBusy(false)
     }
+  }
+
+  // "Species not listed": back to the photo, with the full species list open.
+  // The photo is kept, so the operator either names the fish or retakes it.
+  function speciesNotListed() {
+    setPrediction(null)
+    setIdentifyError(null)
+    setManualOpen(true)
+    setStep(1)
   }
 
   async function pickManual(species: SpeciesLabel) {
@@ -304,23 +401,45 @@ export function IdentifyFlow({
       setLabel(species)
       setIdentifyError(null)
 
-      const card = await loadKnowledge(declared.data.prediction_id)
-      if (card.ok && hasCard(card.data)) {
-        setKnowledge(card.data)
-        setKnowledgePending(false)
-      } else {
-        // Either an error, or a 202 with the graph still running.
-        setKnowledge(null)
-        setKnowledgePending(true)
-      }
       setStep(3)
+      void fetchCard(declared.data.prediction_id)
     } finally {
       setBusy(false)
     }
   }
 
+  // A 202 means the card job is still running; ask again until it has a card,
+  // fails, or runs out of time. The operator can publish meanwhile.
+  async function fetchCard(predictionId: string) {
+    cardPoll.current = predictionId
+    setKnowledge(null)
+    setKnowledgeMessage('')
+    setKnowledgeStatus('loading')
+    for (let attempt = 0; attempt < CARD_POLL_ATTEMPTS; attempt++) {
+      const result = await loadKnowledge(predictionId)
+      if (cardPoll.current !== predictionId) return
+      if (result.ok && hasCard(result.data)) {
+        setKnowledge(result.data)
+        setKnowledgeStatus('ready')
+        return
+      }
+      if (!result.ok) {
+        setKnowledgeMessage(result.userMessage)
+        setKnowledgeStatus('unavailable')
+        return
+      }
+      await new Promise((resolve) => setTimeout(resolve, CARD_POLL_MS))
+      if (cardPoll.current !== predictionId) return
+    }
+    setKnowledgeMessage('The knowledge card is not ready yet.')
+    setKnowledgeStatus('unavailable')
+  }
+
   async function runPublish() {
     if (!prediction) return
+    const errors = validateLot(quantityKg, lotCount, pricePerKg)
+    setFormErrors(errors)
+    if (Object.keys(errors).length > 0) return
     setBusy(true)
     setPublishError('')
     try {
@@ -330,13 +449,24 @@ export function IdentifyFlow({
         lot_count: Number(lotCount),
         starting_price_per_kg: pricePerKg,
         size_category: size,
-        landing_point_id: LANDING_POINT_IDS[landingPoint as LandingPointName],
+        landing_point_id: landingPoint,
         auction_minutes: DURATIONS.find((option) => option.id === duration)?.minutes ?? 60,
       })
+      try {
+        sessionStorage.removeItem(DRAFT_KEY)
+      } catch {
+        // Nothing to clear.
+      }
       router.push('/operator/lots')
     } catch (cause) {
       setPublishError(
-        cause instanceof ApiError ? cause.userMessage : 'Terjadi kesalahan. Coba lagi.'
+        cause instanceof ApiError && cause.status === 422
+          ? 'Check the lot details: a value was refused.'
+          : cause instanceof ApiError && cause.status === 409
+            ? 'This catch has already been published.'
+            : cause instanceof ApiError
+              ? cause.userMessage
+              : 'Something went wrong. Try again.'
       )
     } finally {
       setBusy(false)
@@ -346,7 +476,7 @@ export function IdentifyFlow({
   return (
     <div className="flex h-[calc(100dvh-7rem)] flex-col lg:h-[calc(100dvh-3.5rem)]">
       <div className="mx-auto flex w-full max-w-lg flex-1 flex-col overflow-y-auto pt-4">
-        <p className="text-num-sm text-ink-muted">Langkah {step} dari 4</p>
+        <p className="text-num-sm text-ink-muted">Step {step} of 4</p>
         <div className="mt-2 flex gap-1" aria-hidden>
           {([1, 2, 3, 4] as const).map((n) => (
             <span
@@ -361,7 +491,7 @@ export function IdentifyFlow({
 
         {!online && (
           <p className="text-body-sm mt-4 rounded-[var(--radius-input)] border border-state-warn px-3 py-3 text-state-warn">
-            Tidak ada koneksi. Data yang sudah diisi tetap tersimpan.
+            No connection. The lot details you have typed are kept on this device.
           </p>
         )}
 
@@ -380,18 +510,36 @@ export function IdentifyFlow({
 
         {step === 2 && prediction && (
           <div className="mt-6">
-            <PredictionCard result={prediction} onConfirm={runConfirm} />
+            <PredictionCard result={prediction} onConfirm={runConfirm} onSpeciesNotListed={speciesNotListed} />
+            {identifyError && (
+              <p className="text-body-sm mt-4 rounded-[var(--radius-input)] border border-state-error px-3 py-3 text-state-error">
+                {identifyError.userMessage}
+              </p>
+            )}
           </div>
         )}
 
         {step === 3 && (
           <div className="mt-6 flex min-h-0 flex-1 flex-col gap-4">
-            {knowledgePending && (
-              <p className="text-body-sm rounded-[var(--radius-input)] border border-state-warn px-3 py-3 text-state-warn">
-                Kartu pengetahuan tertunda. Lot tetap dapat diterbitkan.
-              </p>
+            {knowledgeStatus === 'loading' && (
+              <div className="flex flex-col gap-3" aria-live="polite">
+                <p className="text-body-sm text-ink-muted">Preparing the knowledge card… You can publish the lot meanwhile.</p>
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-2/3" />
+              </div>
             )}
-            {knowledge?.card && (
+            {knowledgeStatus === 'unavailable' && prediction && (
+              <div className="flex flex-col gap-2 rounded-[var(--radius-input)] border border-state-warn px-3 py-3">
+                <p className="text-body-sm text-state-warn">
+                  {knowledgeMessage} You can still publish the lot.
+                </p>
+                <Button variant="secondary" size="sm" onClick={() => void fetchCard(prediction.prediction_id)}>
+                  Try again
+                </Button>
+              </div>
+            )}
+            {knowledgeStatus === 'ready' && knowledge?.card && (
               <KnowledgeCardView card={knowledge.card} label={label} />
             )}
           </div>
@@ -407,6 +555,8 @@ export function IdentifyFlow({
               size={size}
               pricePerKg={pricePerKg}
               landingPoint={landingPoint}
+              landingPoints={landingPoints}
+              errors={formErrors}
               duration={duration}
               onQuantity={setQuantityKg}
               onSize={setSize}
@@ -446,7 +596,7 @@ export function IdentifyFlow({
           <>
             {live ? (
               <Button size="lg" className={FLEX_ACTION} onClick={shoot}>
-                Ambil foto
+                Take photo
               </Button>
             ) : (
               <Button
@@ -455,11 +605,11 @@ export function IdentifyFlow({
                 icon={<Camera size={20} />}
                 onClick={startCamera}
               >
-                Kamera
+                Camera
               </Button>
             )}
             <IconButton
-              label={live ? 'Tutup kamera' : 'Unggah berkas'}
+              label={live ? 'Close camera' : 'Upload a file'}
               onClick={live ? stopCamera : () => uploadRef.current?.click()}
             >
               {live ? <X size={20} /> : <UploadSimple size={20} />}
@@ -478,16 +628,16 @@ export function IdentifyFlow({
                 setIdentifyError(null)
               }}
             >
-              Ambil ulang
+              Retake
             </Button>
             <Button size="lg" className={FLEX_ACTION} loading={busy} onClick={runIdentify}>
-              Identifikasi
+              Identify
             </Button>
           </>
         )}
         {step === 3 && (
           <Button size="lg" className={FLEX_ACTION} onClick={() => setStep(4)}>
-            Lanjut
+            Continue
           </Button>
         )}
         {step === 4 && (
@@ -498,7 +648,7 @@ export function IdentifyFlow({
             loading={busy}
             onClick={runPublish}
           >
-            Terbitkan
+            Publish
           </Button>
         )}
         </div>
@@ -551,7 +701,7 @@ function CaptureStep({
   return (
     <div className="mt-6 flex min-h-0 flex-1 flex-col gap-4">
       <p className="text-body-sm text-ink-muted">
-        Ikan utuh, latar polos, cahaya cukup.
+        Whole fish, plain background, good light.
       </p>
       {/* One frame for all three states, so the layout never jumps between
           them. The video stays mounted because its ref has to exist before the
@@ -569,27 +719,34 @@ function CaptureStep({
         {!live &&
           (preview ? (
             // eslint-disable-next-line @next/next/no-img-element -- blob URL from the capture
-            <img src={preview} alt="Hasil tangkapan" className="size-full object-cover" />
+            <img src={preview} alt="Your catch" className="size-full object-cover" />
           ) : (
             <div
               className="text-body-sm flex size-full flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-line-strong text-ink-muted"
               aria-hidden
             >
               <Camera size={28} />
-              <p>Belum ada foto</p>
+              <p>No photo yet</p>
             </div>
           ))}
       </div>
       {error && (
         <div className="flex flex-col gap-3 rounded-[var(--radius-input)] border border-state-error px-3 py-3">
           <p className="text-body-sm text-state-error">{error.userMessage}</p>
+          {(error.kind === 'photo_not_fish' || error.kind === 'photo_unknown_species') && (
+            // Retaking is the bar's own action; naming the species by hand is
+            // the way on when the model cannot place the fish.
+            <Button size="lg" variant="secondary" block onClick={onManualOpen}>
+              Choose the species myself
+            </Button>
+          )}
           {error.kind === 'cv_unavailable' && (
             <div className="flex flex-col gap-2">
               <Button size="lg" block onClick={onRetry}>
-                Coba lagi
+                Try again
               </Button>
               <Button size="lg" variant="secondary" block onClick={onManualOpen}>
-                Pilih spesies manual
+                Choose the species myself
               </Button>
             </div>
           )}
@@ -623,6 +780,8 @@ function LotForm({
   size,
   pricePerKg,
   landingPoint,
+  landingPoints,
+  errors,
   duration,
   onQuantity,
   onSize,
@@ -637,6 +796,8 @@ function LotForm({
   size: Size
   pricePerKg: string
   landingPoint: string
+  landingPoints: LandingPoint[]
+  errors: FormErrors
   duration: string
   onQuantity: (value: string) => void
   onSize: (value: Size) => void
@@ -650,33 +811,37 @@ function LotForm({
     <form className="mt-6 flex flex-col gap-5" onSubmit={(event) => event.preventDefault()}>
       <div className="rounded-[var(--radius-input)] bg-bg-sunken px-3 py-3">
         <p className="text-h3 text-ink">{resolved?.commonName ?? label}</p>
-        <p className="text-body-sm text-ink-muted">{landingPoint}</p>
+        <p className="text-body-sm text-ink-muted">
+          {landingPoints.find((point) => point.id === landingPoint)?.name ?? landingPoint}
+        </p>
       </div>
       <div className="grid grid-cols-2 gap-3">
         <Field
-          label="1 lot berapa kg"
+          label="Weight per lot"
           inputMode="decimal"
           value={quantityKg}
           onChange={(event) => onQuantity(event.target.value)}
           suffix="kg"
-          helper="Berat setiap lot."
+          helper="The weight of each lot."
+          error={errors.quantity}
         />
         <Field
-          label="Tersedia berapa lot"
+          label="Number of lots"
           inputMode="numeric"
           value={lotCount}
           onChange={(event) => onLotCount(event.target.value.replace(/\D/g, ''))}
-          suffix="lot"
-          helper={`1 sampai ${MAX_LOT_COUNT}. Tiap lot dilelang terpisah.`}
+          suffix="lots"
+          helper={`1 to ${MAX_LOT_COUNT}. Each lot is auctioned separately.`}
+          error={errors.lotCount}
         />
       </div>
       {total > 0 && Number(lotCount) > 1 && (
         <p className="text-body-sm -mt-2 text-ink-muted tabular-nums">
-          Total {lotCount} lot × {quantityKg} kg = {total.toLocaleString('id-ID')} kg
+          Total {lotCount} lots × {quantityKg} kg = {total.toLocaleString('en-GB')} kg
         </p>
       )}
       <fieldset>
-        <legend className="text-label mb-2 text-ink">Kategori ukuran</legend>
+        <legend className="text-label mb-2 text-ink">Size category</legend>
         <div className="grid grid-cols-3 gap-2">
           {SIZES.map((option) => (
             <button
@@ -696,21 +861,22 @@ function LotForm({
         </div>
       </fieldset>
       <Field
-        label="Harga awal per kg"
+        label="Starting price per kg"
         inputMode="numeric"
         value={pricePerKg}
         onChange={(event) => onPrice(event.target.value)}
         prefix="Rp"
-        helper="Harga pembuka lelang."
+        helper="The price the auction opens at."
+        error={errors.price}
       />
       <Select
-        label="Titik pendaratan"
+        label="Landing point"
         value={landingPoint}
         onChange={(event) => onLanding(event.target.value)}
-        options={LANDING_POINTS.map((point) => ({ value: point, label: point }))}
+        options={landingPoints.map((point) => ({ value: point.id, label: point.name }))}
       />
       <fieldset>
-        <legend className="text-label mb-2 text-ink">Durasi lelang</legend>
+        <legend className="text-label mb-2 text-ink">Auction length</legend>
         <div className="grid grid-cols-4 gap-2">
           {DURATIONS.map((option) => (
             <button

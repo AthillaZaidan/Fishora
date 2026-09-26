@@ -40,8 +40,8 @@ def discover(public_slug: str, request: Request):
 
 
 CARD_PENDING = (
-    "Kartu pengetahuan untuk lot ini belum tersedia. Nama dan taksonomi di bawah "
-    "berasal dari basis data spesies, bukan dari penelusuran sumber."
+    "The knowledge card for this lot is not available yet. The name and taxonomy "
+    "below come from the species database, not from a source search."
 )
 
 

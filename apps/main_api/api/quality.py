@@ -4,15 +4,17 @@ GET /quality                 the dashboard HTML (reports/dashboard.html, else th
 GET /api/v1/quality/summary  which runs exist and the baseline-vs-current comparison
 
 Read-only: nothing here runs an evaluation. The pages contain evaluation
-results and weakness lists, no secrets; put them behind operator auth before a
-public deployment.
+results and weakness lists, no secrets, but they are internal, so both need an
+operator session.
 """
 
 import json
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse
+
+from apps.main_api.services.session import require_role
 
 ROOT = Path(__file__).resolve().parents[3]
 REPORTS = ROOT / "reports"
@@ -30,7 +32,8 @@ def _dashboard_path() -> Path | None:
 
 
 @router.get("/quality", response_class=HTMLResponse)
-def quality_dashboard():
+def quality_dashboard(request: Request):
+    require_role(request, "operator")
     path = _dashboard_path()
     if path is None:
         raise HTTPException(status_code=404, detail="no dashboard yet; run python -m scripts.quality")
@@ -38,7 +41,8 @@ def quality_dashboard():
 
 
 @router.get("/api/v1/quality/summary")
-def quality_summary():
+def quality_summary(request: Request):
+    require_role(request, "operator")
     runs = {}
     for base in (REPORTS, COMMITTED):
         if not base.exists():

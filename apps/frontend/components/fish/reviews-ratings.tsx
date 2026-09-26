@@ -1,6 +1,6 @@
 import { ChatCircle, Star } from '@phosphor-icons/react/dist/ssr'
 import { EmptyState } from '@/components/common/empty-state'
-import { normaliseDashes } from '@/lib/format'
+import { normaliseDashes, oneDecimalPlace } from '@/lib/format'
 import type { Review } from '@/lib/api/commerce'
 
 // The unverified surface: what other buyers report, never styled like the
@@ -16,21 +16,21 @@ export function ReviewsRatings({ reviews }: { reviews: Review[] }) {
     <section className="rounded-2xl bg-bg-sunken px-5 py-5" aria-labelledby="reviews-heading">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h2 id="reviews-heading" className="text-h3 text-ink">
-          Ulasan & rating
+          Reviews & ratings
         </h2>
         {average !== null && (
           <p className="text-body-sm flex items-center gap-1.5 text-ink">
             <Stars value={average} />
-            <span className="tabular-nums">{average.toLocaleString('id-ID', { maximumFractionDigits: 1 })}</span>
-            <span className="text-ink-muted">· {reviews.length} ulasan</span>
+            <span className="tabular-nums">{oneDecimalPlace(average)}</span>
+            <span className="text-ink-muted">· {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}</span>
           </p>
         )}
       </div>
       <p className="text-body-sm mt-1 text-ink-muted">
-        Dari pembeli lain yang sudah memakai ikan ini. Bukan pengetahuan terverifikasi.
+        From other buyers who have used this fish. Not verified knowledge.
       </p>
       {reviews.length === 0 ? (
-        <EmptyState icon={ChatCircle} message="Belum ada ulasan untuk ikan ini." />
+        <EmptyState icon={ChatCircle} message="No reviews for this fish yet." />
       ) : (
         <ul className="mt-4 flex flex-col divide-y divide-line">
           {reviews.map((review) => (
@@ -43,7 +43,7 @@ export function ReviewsRatings({ reviews }: { reviews: Review[] }) {
                 <p className="text-body-sm text-ink-muted">{normaliseDashes(review.comment)}</p>
               )}
               {review.substitute_acceptance === true && (
-                <p className="text-body-sm text-ink-muted">Bisa dipakai sebagai pengganti</p>
+                <p className="text-body-sm text-ink-muted">Works as a substitute</p>
               )}
             </li>
           ))}
@@ -57,7 +57,7 @@ export function ReviewsRatings({ reviews }: { reviews: Review[] }) {
 export function Stars({ value }: { value: number }) {
   const filled = Math.round(value)
   return (
-    <span className="flex items-center gap-0.5" role="img" aria-label={`Rating ${value.toLocaleString('id-ID', { maximumFractionDigits: 1 })} dari 5`}>
+    <span className="flex items-center gap-0.5" role="img" aria-label={`Rated ${oneDecimalPlace(value)} out of 5`}>
       {[1, 2, 3, 4, 5].map((index) => (
         <Star
           key={index}

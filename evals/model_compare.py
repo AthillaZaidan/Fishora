@@ -60,7 +60,7 @@ def main(argv: list[str] | None = None):
             "cards": len(cards),
             "valid_card_rate": round(len(ok) / len(cards), 4),
             "errors": errors,
-            "english_leak_rate": round(sum(bool(c.get("english_leak")) for c in ok) / len(ok), 4) if ok else None,
+            "language_leak_rate": round(sum(bool(c.get("language_leak")) for c in ok) / len(ok), 4) if ok else None,
             "mean_fields_filled": round(statistics.fmean(sum(c["fields_filled"].values()) for c in ok), 2) if ok else None,
             "mean_sources": round(statistics.fmean(c["sources"] for c in ok), 2) if ok else None,
             "latency_s": _dist([c["llm_time_s"] for c in cards]),

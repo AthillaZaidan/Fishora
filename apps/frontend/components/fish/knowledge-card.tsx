@@ -4,6 +4,7 @@ import {
   Barbell,
   CookingPot,
   ForkKnife,
+  Info,
   ShieldCheck,
   ShoppingCart,
   Waves,
@@ -22,6 +23,29 @@ export interface KnowledgeCardViewProps {
   label: string
 }
 
+// The development seed marks its cards with this limitation (in English, or in
+// the Indonesian it was first written in); scripts/seed_demo_lots.py.
+const SAMPLE_CARD = /sample data|data contoh|fixture/i
+
+type Provenance = 'verified' | 'sample' | 'unavailable'
+
+/**
+ * Only a card that cites sources has earned the verified header. A seeded
+ * sample card and an identity-only card (generation was down at publication)
+ * both have none, and saying "verified" over them would be false.
+ */
+export function cardProvenance(card: KnowledgeCard): Provenance {
+  if (card.sources.length > 0) return 'verified'
+  if (card.limitations.some((item) => SAMPLE_CARD.test(item))) return 'sample'
+  return 'unavailable'
+}
+
+const HEADER: Record<Provenance, string> = {
+  verified: 'Verified knowledge',
+  sample: 'Sample card',
+  unavailable: 'Knowledge not yet available',
+}
+
 /**
  * The fish at a glance, one labelled row per fact, as in the Fish Knowledge
  * Card the team uses for buyers. Every row but protein comes from the
@@ -30,12 +54,19 @@ export interface KnowledgeCardViewProps {
  */
 export function KnowledgeCardView({ card, label }: KnowledgeCardViewProps) {
   const protein = proteinFor(label)
+  const provenance = cardProvenance(card)
+  const HeaderIcon = provenance === 'verified' ? ShieldCheck : Info
 
   return (
     <article className="rounded-2xl bg-surface px-5 py-5">
-      <header className="text-body-sm mb-4 inline-flex items-center gap-1.5 text-verified">
-        <ShieldCheck className="size-4" weight="fill" aria-hidden />
-        Pengetahuan terverifikasi
+      <header
+        className={[
+          'text-body-sm mb-4 inline-flex items-center gap-1.5',
+          provenance === 'verified' ? 'text-verified' : 'text-ink-muted',
+        ].join(' ')}
+      >
+        <HeaderIcon className="size-4" weight={provenance === 'verified' ? 'fill' : 'regular'} aria-hidden />
+        {HEADER[provenance]}
       </header>
 
       <div className="flex flex-col gap-5">
@@ -48,16 +79,16 @@ export function KnowledgeCardView({ card, label }: KnowledgeCardViewProps) {
         <TaxonomyQualifier status={card.taxonomy_status} label={label} />
 
         <dl className="flex flex-col gap-2">
-          <FactRow icon={ForkKnife} label="Rasa" value={card.taste} />
-          <FactRow icon={Waves} label="Tekstur" value={card.texture} />
-          <FactRow icon={CookingPot} label="Cocok untuk" value={joined(card.processing_methods)} />
-          <FactRow icon={ArrowsClockwise} label="Ikan pengganti" value={joined(card.similar_or_substitute_species)} />
-          <FactRow icon={ShoppingCart} label="Calon pembeli" value={joined(card.potential_buyer_segments)} />
+          <FactRow icon={ForkKnife} label="Taste" value={card.taste} />
+          <FactRow icon={Waves} label="Texture" value={card.texture} />
+          <FactRow icon={CookingPot} label="Suitable for" value={joined(card.processing_methods)} />
+          <FactRow icon={ArrowsClockwise} label="Substitutes" value={joined(card.similar_or_substitute_species)} />
+          <FactRow icon={ShoppingCart} label="Potential buyers" value={joined(card.potential_buyer_segments)} />
           <FactRow
             icon={Barbell}
             label="Protein per 100 g"
             value={protein ? formatProtein(protein) : null}
-            empty="Belum ada data bersumber"
+            empty="No sourced data yet"
             note={
               protein && (
                 <>
@@ -65,7 +96,7 @@ export function KnowledgeCardView({ card, label }: KnowledgeCardViewProps) {
                     {protein.source}
                   </a>
                   , {protein.item}
-                  {protein.match === 'genus' && ' (spesies lain dalam genus yang sama)'}
+                  {protein.match === 'genus' && ' (another species in the same genus)'}
                 </>
               )
             }
@@ -73,14 +104,14 @@ export function KnowledgeCardView({ card, label }: KnowledgeCardViewProps) {
         </dl>
 
         {card.physical_characteristics && (
-          <Field heading="Ciri fisik" body={card.physical_characteristics} />
+          <Field heading="Physical traits" body={card.physical_characteristics} />
         )}
-        <ChipList heading="Penggunaan komersial" items={card.commercial_uses} />
+        <ChipList heading="Commercial uses" items={card.commercial_uses} />
 
         {card.limitations.length > 0 && (
           <section aria-labelledby="knowledge-limitations">
             <h3 id="knowledge-limitations" className="text-label mb-2 text-ink">
-              Keterbatasan
+              Limitations
             </h3>
             <ul className="text-body-sm flex flex-col gap-2 text-ink-muted">
               {card.limitations.map((item) => (
@@ -93,7 +124,7 @@ export function KnowledgeCardView({ card, label }: KnowledgeCardViewProps) {
         {card.sources.length > 0 && (
           <section aria-labelledby="knowledge-sources">
             <h3 id="knowledge-sources" className="text-label mb-2 text-ink">
-              Sumber
+              Sources
             </h3>
             <SourceList sources={card.sources} />
           </section>
@@ -107,7 +138,7 @@ function FactRow({
   icon: Icon,
   label,
   value,
-  empty = 'Belum ada bukti terverifikasi',
+  empty = 'No verified evidence yet',
   note,
 }: {
   icon: ComponentType<IconProps>

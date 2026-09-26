@@ -134,7 +134,7 @@ Generated cards need three things, in this order:
 ```
 
 Miss any of those and the endpoint answers `502 knowledge retrieval is temporarily unavailable`.
-Even with all three, cards come back empty with the limitation `Informasi belum tersedia` until an
+Even with all three, cards come back empty with the limitation `No information available yet` until an
 approved corpus is ingested: generation is fail-closed and will not assert anything it cannot cite.
 That approval requires a human attestation and is deliberately not automated.
 

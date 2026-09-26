@@ -16,7 +16,7 @@ TASTE = RetrievedChunk(
     distance=0.1, chunk_verification_status="verified", source_verification_status="verified",
     source_title="FAO", source_publisher="FAO", source_url="https://fao.org", source_reviewed_at=None,
 )
-ANSWER = {"taste": "Rasa ringan", "texture": None,
+ANSWER = {"taste": "Mild flavour", "texture": None,
           "sources": [{"source_id": "fao_en_niletilapia", "chunk_id": "chunk_nila_taste_001"}]}
 
 
@@ -34,7 +34,7 @@ class _LLM:
 def test_expert_reads_responses_api_blocks():
     llm = _LLM(AIMessage(content=[{"type": "text", "text": json.dumps(ANSWER)}]))
     out = orchestrator._expert_node("taste", {"refined_evidence": [TASTE]}, llm)
-    assert out["taste"] == "Rasa ringan" and "error" not in out
+    assert out["taste"] == "Mild flavour" and "error" not in out
 
 
 def test_expert_without_evidence_is_not_called():
@@ -43,8 +43,8 @@ def test_expert_without_evidence_is_not_called():
     assert llm.calls == 0 and out.get("skipped")
 
 
-def test_expert_prompt_requires_indonesian():
-    assert all("bahasa Indonesia" in prompt for prompt in orchestrator._EXPERT_PROMPTS.values())
+def test_expert_prompt_requires_english():
+    assert all("English" in prompt for prompt in orchestrator._EXPERT_PROMPTS.values())
 
 
 def test_no_groundable_claim_gives_a_limitation_card():
@@ -77,7 +77,7 @@ def test_critic_llm_pass_reads_the_whole_chunk():
     llm = _LLM("{}")
     state = {"refined_evidence": [long],
              # shares "tilapia"/"fillets" with the chunk, so the lexical fallback accepts it
-             "expert_outputs": {"taste": {"taste": "Fillets tilapia terasa ringan", "sources": ANSWER["sources"]}}}
+             "expert_outputs": {"taste": {"taste": "Tilapia fillets taste mild", "sources": ANSWER["sources"]}}}
     llm.prompts = []
     original = llm.invoke
     llm.invoke = lambda prompt: (llm.prompts.append(prompt), original(prompt))[1]
@@ -94,7 +94,7 @@ def test_llm_judge_pass_is_off_in_production():
     vs 0.07 for the cosine critic, leakage 15% vs 48%)."""
     llm = _LLM("{}")
     state = {"refined_evidence": [TASTE],
-             "expert_outputs": {"taste": {"taste": "Fillets tilapia terasa ringan", "sources": ANSWER["sources"]}}}
+             "expert_outputs": {"taste": {"taste": "Tilapia fillets taste mild", "sources": ANSWER["sources"]}}}
     orchestrator.critic_node(state, llm)
     assert orchestrator.USE_LLM_JUDGE is False
     assert orchestrator.CRITIC_MODE == "verifier" and llm.calls == 1
@@ -111,7 +111,7 @@ def test_substitute_claim_needs_substitute_evidence():
 
 def test_missing_evidence_is_named_on_the_card():
     text = orchestrator.missing_evidence_limitation([TASTE])
-    assert "spesies pengganti" in text and "rasa" not in text.split(":")[1].split(",")[0]
+    assert "substitute species" in text and "taste" not in text.split(":")[1].split(",")[0]
 
 
 def test_cache_key_follows_the_evidence():

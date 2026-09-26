@@ -77,32 +77,37 @@ ALLOCATED_LOT = ("nila", "M", "200.000", "29000.00", "lp_karangsong", "KUB Tamba
 # an unlabelled synthetic card is indistinguishable from a retrieved one and the
 # whole point of the panel is that its claims are traceable.
 FIXTURE_LIMITATION = (
-    "Kartu ini adalah data contoh untuk pengembangan, bukan hasil penelusuran sumber terverifikasi."
+    "This card is sample data for development, not the result of a verified source search."
 )
 
+# English, like the cards the generator writes, and worded so that every chip
+# on the buyer preference form matches at least one card
+# (evals/tests/unit/test_matching.py checks this). Dish names with no English
+# equivalent keep the local name with a gloss. Similar species keep the
+# taxonomy name first: search links similar fish by that name.
 KNOWLEDGE = {
-    "tenggiri": ("Tubuh memanjang dengan garis vertikal samar di sisi badan.", "Gurih dan tidak terlalu berminyak.", "Padat dan berserat halus.",
-                 ["Fillet", "Pengasapan", "Bakso ikan"], ["Restoran", "Pengolahan bakso", "Katering"], ["Kembung"], ["Pengolah bakso", "Restoran seafood"]),
-    "tuna": ("Badan besar berbentuk cerutu, sirip punggung tegas.", "Kaya dan pekat.", "Padat dan liat.",
-             ["Loin segar", "Beku", "Pengalengan"], ["Ekspor", "Restoran Jepang", "Pengalengan"], ["Tenggiri"], ["Eksportir", "Restoran premium"]),
-    "kembung": ("Ikan kecil dengan punggung kehijauan dan sisi keperakan.", "Gurih dengan rasa laut yang kuat.", "Lembut dan sedikit berminyak.",
-                ["Pindang", "Pengasapan", "Goreng"], ["Pasar basah", "Pengolahan pindang", "Warung"], ["Gembolo"], ["Pengolah pindang", "Pedagang pasar"]),
-    "bandeng": ("Tubuh keperakan dengan sirip ekor bercagak dalam.", "Manis dan lembut.", "Halus dengan banyak tulang kecil.",
-                ["Presto", "Otak-otak", "Pengasapan"], ["Pengolahan presto", "Katering", "Oleh-oleh"], ["Nila"], ["Pengolah presto", "Produsen oleh-oleh"]),
-    "gelama_bunga": ("Ikan kecil bersisi keperakan dengan kepala agak besar.", "Ringan dan sedikit manis.", "Lembut dan mudah hancur.",
-                     ["Goreng", "Pindang", "Surimi"], ["Pasar basah", "Pengolahan surimi"], ["Gulamah"], ["Pengolah surimi", "Pedagang pasar"]),
-    "gembolo": ("Ikan kecil bersisi keperakan; nama ini dipakai untuk beberapa spesies menurut daerah.", "Ringan dan gurih.", "Lembut.",
-                ["Goreng", "Pindang", "Kerupuk"], ["Pasar basah", "Warung", "Pengolahan kerupuk"], ["Kembung"], ["Pedagang pasar", "Pengolah kerupuk"]),
-    "gulamah": ("Tubuh keperakan dengan mulut agak menghadap ke bawah.", "Netral dan ringan.", "Lembut dan berair.",
-                ["Surimi", "Bakso ikan", "Pindang"], ["Pengolahan surimi", "Bakso"], ["Kuniran"], ["Pengolah surimi"]),
-    "kuniran": ("Ikan kecil kemerahan dengan garis kuning memanjang.", "Ringan dan sedikit manis.", "Lembut.",
-                ["Goreng kering", "Kerupuk", "Surimi"], ["Pengolahan kerupuk", "Pasar basah"], ["Gulamah"], ["Pengolah kerupuk", "Pedagang pasar"]),
-    "mujair": ("Tubuh pipih dengan sirip punggung berduri panjang.", "Ringan dengan sedikit rasa tanah.", "Padat dan berserat.",
-               ["Goreng", "Bakar", "Pepes"], ["Pasar basah", "Warung", "Katering"], ["Nila"], ["Pedagang pasar", "Katering"]),
-    "senangin": ("Empat sungut panjang di bawah kepala.", "Lembut dan bersih.", "Padat dan mudah dilepas dari tulang.",
-                 ["Fillet", "Gulai", "Bakar"], ["Restoran", "Hotel"], ["Tenggiri"], ["Restoran", "Hotel"]),
-    "nila": ("Tubuh pipih tinggi dengan garis vertikal gelap.", "Ringan dan bersih.", "Padat dan berserat.",
-             ["Fillet", "Bakar", "Goreng"], ["Restoran", "Katering", "Pasar basah"], ["Mujair"], ["Restoran", "Katering"]),
+    "tenggiri": ("Elongated body with faint vertical bars along its sides.", "Savory and not too oily.", "Firm with fine fibers and white flesh.",
+                 ["Fillet", "Smoked", "Fish balls"], ["Restaurants", "Fish ball processing", "Catering"], ["Kembung (Indian mackerel)"], ["Fish ball processors", "Seafood restaurants"]),
+    "tuna": ("Large cigar-shaped body with a prominent dorsal fin.", "Rich and full-flavoured.", "Firm and dense.",
+             ["Fresh loins", "Frozen", "Canned"], ["Export", "Japanese restaurants", "Canneries"], ["Tenggiri (Spanish mackerel)"], ["Exporters", "Premium restaurants"]),
+    "kembung": ("Small fish with a greenish back and silvery sides.", "Savory with a strong sea flavour.", "Soft and slightly oily.",
+                ["Pindang (salt-boiled)", "Smoked", "Fried"], ["Wet markets", "Pindang processing", "Food stalls"], ["Gembolo"], ["Pindang processors", "Market traders"]),
+    "bandeng": ("Silvery body with a deeply forked tail fin.", "Sweet and mild.", "Fine-textured with many small bones.",
+                ["Presto (pressure-cooked)", "Otak-otak (fish cake)", "Smoked"], ["Presto processing", "Catering", "Souvenir food"], ["Nila (Nile tilapia)"], ["Presto processors", "Souvenir food producers"]),
+    "gelama_bunga": ("Small silvery fish with a fairly large head.", "Mild and slightly sweet.", "Soft and falls apart easily.",
+                     ["Fried", "Pindang (salt-boiled)", "Surimi"], ["Wet markets", "Surimi processing"], ["Gulamah (croaker)"], ["Surimi processors", "Market traders"]),
+    "gembolo": ("Small silvery fish; the name covers several species depending on the region.", "Mild and savory.", "Soft.",
+                ["Fried", "Pindang (salt-boiled)", "Fish crackers"], ["Wet markets", "Food stalls", "Cracker processing"], ["Kembung (Indian mackerel)"], ["Market traders", "Cracker processors"]),
+    "gulamah": ("Silvery body with a slightly downturned mouth.", "Neutral and mild.", "Soft and moist.",
+                ["Surimi", "Fish balls", "Pindang (salt-boiled)"], ["Surimi processing", "Fish ball makers"], ["Kuniran (goatfish)"], ["Surimi processors"]),
+    "kuniran": ("Small reddish fish with a long yellow stripe.", "Mild and slightly sweet.", "Soft.",
+                ["Deep-fried", "Fish crackers", "Surimi"], ["Cracker processing", "Wet markets"], ["Gulamah (croaker)"], ["Cracker processors", "Market traders"]),
+    "mujair": ("Flat body with a long spiny dorsal fin.", "Mild with a slightly earthy taste.", "Firm and fibrous.",
+               ["Fried", "Grilled", "Steamed in banana leaf (pepes)"], ["Wet markets", "Food stalls", "Catering"], ["Nila (Nile tilapia)"], ["Market traders", "Caterers"]),
+    "senangin": ("Four long filaments below the head.", "Delicate and clean.", "Firm, and lifts easily off the bone.",
+                 ["Fillet", "Curry (gulai)", "Grilled"], ["Restaurants", "Hotels"], ["Tenggiri (Spanish mackerel)"], ["Restaurants", "Hotels"]),
+    "nila": ("Deep, flat body with dark vertical bars.", "Mild and clean.", "Firm and fibrous with white flesh.",
+             ["Fillet", "Grilled", "Fried"], ["Restaurants", "Catering", "Wet markets"], ["Mujair (Mozambique tilapia)"], ["Restaurants", "Caterers"]),
 }
 
 
@@ -288,10 +293,10 @@ def main() -> int:
                 lot_id=f"{DEMO_PREFIX}lot_{allocated_index}",
                 species_id=_species(session, ALLOCATED_LOT[0]).id,
                 buyer_id=DEMO_BUYER,
-                actual_use="Fillet untuk katering",
+                actual_use="Fillet for catering",
                 processing_suitability=4,
                 substitute_acceptance=True,
-                comment="Ukuran seragam, tulang mudah dipisahkan.",
+                comment="Even sizes, and the bones come away easily.",
             )
         )
         session.commit()

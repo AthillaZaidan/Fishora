@@ -44,15 +44,15 @@ export function LotCard({ lot, photoUrl, matched = false, priority = false }: Lo
           {live ? (
             <p className="text-body-sm flex items-center gap-1.5 text-ink">
               <span className="size-1.5 rounded-full bg-accent" aria-hidden />
-              Berlangsung
+              Live
             </p>
           ) : (
-            <p className="text-body-sm text-ink-muted">Selesai</p>
+            <p className="text-body-sm text-ink-muted">Ended</p>
           )}
         </div>
         <p className="text-num-sm tabular-nums text-ink-muted">
           {kilograms(Number(lot.quantity_kg))}
-          {lot.batch_size > 1 && ` · Lot ${lot.batch_index} dari ${lot.batch_size}`}
+          {lot.batch_size > 1 && ` · Lot ${lot.batch_index} of ${lot.batch_size}`}
         </p>
         <p className="text-num-sm tabular-nums text-ink">
           {rupiahPerKg(Number(lot.current_highest_per_kg ?? lot.starting_price_per_kg))}

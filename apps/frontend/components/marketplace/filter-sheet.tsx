@@ -25,7 +25,7 @@ export function FilterSheet({
       title="Filter"
       footer={
         <Button block type="button" onClick={onClose}>
-          Tampilkan {resultCount} lot
+          Show {resultCount} {resultCount === 1 ? 'lot' : 'lots'}
         </Button>
       }
     >

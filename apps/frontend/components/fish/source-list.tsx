@@ -20,7 +20,7 @@ export function SourceList({ sources }: SourceListProps) {
       {rest.length > 0 && (
         <details className="mt-2">
           <summary className="text-body-sm flex min-h-11 cursor-pointer items-center text-ink-muted">
-            {rest.length} sumber lainnya
+            {rest.length} more {rest.length === 1 ? 'source' : 'sources'}
           </summary>
           <TitleList sources={rest} start={VISIBLE + 1} />
         </details>

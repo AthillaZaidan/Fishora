@@ -298,14 +298,26 @@ def _w21(a):
 
 
 def _w22(a):
+    # The app is English-only: a card whose prose is not English is the defect.
+    # Artifacts from before that rule carry only english_leak_rate (the opposite
+    # check), so their stored cards are re-scored here instead.
+    from evals.cost_eval import language_leak
+
     paths = get(a, "cost_eval.summary.by_path") or {}
-    rates = {p: v.get("english_leak_rate") for p, v in paths.items() if v.get("english_leak_rate") is not None}
+    rates = {p: v["language_leak_rate"] for p, v in paths.items() if v.get("language_leak_rate") is not None}
+    if not rates:
+        scored: dict[str, list[bool]] = {}
+        for c in get(a, "cost_eval.cards") or []:
+            leak = language_leak(c.get("card"))
+            if leak is not None:
+                scored.setdefault(c["path"], []).append(leak)
+        rates = {p: sum(v) / len(v) for p, v in scored.items()}
     if not rates:
         return "not_measured", []
     leaking = any(r > 0 for r in rates.values())
-    return ("open" if leaking else "not_observed"), [
-        "cards whose prose is mostly English: " + ", ".join(f"{p} {r:.0%}" for p, r in rates.items()),
-        "expert prompts do not state the output language; not seen in final cards in this run"]
+    return ("open" if leaking else "resolved"), [
+        "cards whose prose is not English: " + ", ".join(f"{p} {r:.0%}" for p, r in rates.items()),
+        "expert, writer and verifier prompts require English output"]
 
 
 def _w24(a):
@@ -482,6 +494,12 @@ def _in_use_verifier(a):
     if not variants:
         return None, None
     name = get(a, "experiment_verifier.verifier_in_use") or "A_e5_exact"
+    # Since the team's iteration 2 the product grades claims with claim_verifier
+    # (orchestrator.CRITIC_MODE == "verifier"); the experiment measures it as
+    # P_production_claim_verifier when run with --with-llm.
+    from apps.main_api.services.orchestrator import CRITIC_MODE
+    if CRITIC_MODE == "verifier" and "P_production_claim_verifier" in variants:
+        name = "P_production_claim_verifier"
     return name, variants
 
 
@@ -575,8 +593,8 @@ REGISTRY: tuple[Finding, ...] = (
             "held-out real claim atoms: false support ≤ 0.10 and recall ≥ 0.80", _w29),
     Finding("W14", "low", "context construction", "Expert evidence truncated at 300 characters",
             "experts see whole chunks", _w14),
-    Finding("W22", "low", "prompting", "Expert prompts do not require Indonesian output",
-            "0% English cards", _w22),
+    Finding("W22", "low", "prompting", "Card prose must be English (the app is English-only)",
+            "0% non-English cards", _w22),
     Finding("W27", "info", "cost", "Where the LLM money goes", "n/a", _w27),
     Finding("R1", "medium", "retrieval", "Retrieval is unnecessary at this corpus size and loses evidence",
             "every species' full evidence reaches its card", _r1),

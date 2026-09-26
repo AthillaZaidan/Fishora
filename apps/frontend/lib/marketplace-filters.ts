@@ -6,12 +6,16 @@ export interface MarketplaceFilters {
   query: string
   minPrice: string
   maxPrice: string
+  /** Only lots marked "Matched for you". Applied in the browser: the match
+   *  set comes from the buyer's recommendations, not from the lots query. */
+  matchedOnly: boolean
 }
 
 export const EMPTY_FILTERS: MarketplaceFilters = {
   query: '',
   minPrice: '',
   maxPrice: '',
+  matchedOnly: false,
 }
 
 export function parseFilters(search: string): MarketplaceFilters {
@@ -20,6 +24,7 @@ export function parseFilters(search: string): MarketplaceFilters {
     query: params.get('q') ?? '',
     minPrice: params.get('min_price') ?? '',
     maxPrice: params.get('max_price') ?? '',
+    matchedOnly: params.get('matched') === '1',
   }
 }
 
@@ -28,6 +33,7 @@ export function serializeFilters(filters: MarketplaceFilters): string {
   if (filters.query.trim()) params.set('q', filters.query.trim())
   if (filters.minPrice) params.set('min_price', filters.minPrice)
   if (filters.maxPrice) params.set('max_price', filters.maxPrice)
+  if (filters.matchedOnly) params.set('matched', '1')
   return params.toString()
 }
 

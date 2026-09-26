@@ -55,18 +55,14 @@ ALLOWANCE = {
     "deepseek-v4.1-flash": {"5h": 12.0, "week": 30.0, "month": 60.0},
 }
 
-CARD_QUERY = (
-    "Buat kartu pengetahuan bahasa Indonesia untuk {common_name}: identitas, "
-    "ciri fisik, rasa dan tekstur, cara pengolahan, penggunaan komersial, dan "
-    "spesies pengganti."
-)
+from apps.main_api.services.orchestrator import CARD_QUERY  # noqa: E402  (the production query)
 _STAGE_PREFIXES = (
     ("Untuk spesies", "researcher_subquery"),
-    ("Tulis physical_characteristics", "expert_physical"),
-    ("Tulis taste dan texture", "expert_taste"),
-    ("Tulis processing_methods", "expert_commercial"),
-    ("Tulis similar_or_substitute_species", "expert_substitute"),
-    ("Untuk setiap field", "critic_llm"),
+    ("Write physical_characteristics", "expert_physical"),
+    ("Write taste and texture", "expert_taste"),
+    ("Write processing_methods", "expert_commercial"),
+    ("Write similar_or_substitute_species", "expert_substitute"),
+    ("For each field", "critic_llm"),
     ("Perbaiki bahasa", "writer_polish"),
 )
 
@@ -170,9 +166,18 @@ _EN = {"the", "and", "with", "of", "is", "are", "for", "from", "its", "fish"}
 _ID = {"dan", "yang", "dengan", "untuk", "dari", "adalah", "ikan", "atau", "pada", "sebagai"}
 
 
-def english_leak(card: dict | None) -> bool | None:
-    """True when a card's prose has more English than Indonesian function
-    words. The prompt requires Indonesian; the evidence is English."""
+def language_leak(card: dict | None) -> bool | None:
+    """True when a card's prose is not English: it has more Indonesian than
+    English function words. The app is English-only and so is the prompt (W22).
+    Until the app went English-only this was ``english_leak``, the opposite
+    check; findings W22 re-scores the stored cards of artifacts that predate it."""
+    words = _prose_words(card)
+    if words is None:
+        return None
+    return sum(w in _ID for w in words) > sum(w in _EN for w in words)
+
+
+def _prose_words(card: dict | None) -> list[str] | None:
     if not card:
         return None
     text = " ".join(
@@ -181,9 +186,7 @@ def english_leak(card: dict | None) -> bool | None:
         if k in {"physical_characteristics", "taste", "texture", "processing_methods", "commercial_uses",
                  "similar_or_substitute_species", "potential_buyer_segments"} and v
     ).lower().split()
-    if not text:
-        return None
-    return sum(w in _EN for w in text) > sum(w in _ID for w in text)
+    return text or None
 
 
 def _card_fill(card: dict | None) -> dict:
@@ -231,7 +234,7 @@ def run_agent(species, store, embedder, settings, repeat: int, normalize: bool =
                 "expert_outputs": job.expert_outputs,
                 "trace": job.trace,
                 "fields_filled": _card_fill(job.final_card),
-                "english_leak": english_leak(job.final_card),
+                "language_leak": language_leak(job.final_card),
                 "card": job.final_card,
                 "sources": len((job.final_card or {}).get("sources", [])),
                 "error": job.error,
@@ -292,7 +295,7 @@ def run_one_call(species, store, embedder, settings, repeat: int, model: str | N
                 "wall_s": round(time.perf_counter() - started, 2), "retrieval_ms": round(retrieval_s * 1000, 1),
                 "llm_calls": 1, "llm_errors": int(error is not None), "llm_time_s": round(gen_s, 2),
                 **usage, "cost_usd": round(call.cost_usd, 6),
-                "fields_filled": _card_fill(card), "english_leak": english_leak(card),
+                "fields_filled": _card_fill(card), "language_leak": language_leak(card),
                 "model": model, "card": card, "sources": len((card or {}).get("sources", [])),
                 "error": error,
             })
@@ -335,7 +338,7 @@ def summarize(cards: list[dict], records: list[CallRecord], model: str) -> dict:
             "cache_hit_share_of_input": round(sum(c["cached_tokens"] for c in pc) / max(1, sum(c["input_tokens"] for c in pc)), 4),
             "output_share_of_cost": round(
                 sum(c["output_tokens"] for c in pc) * PRICES[model][1] / 1e6 / max(1e-12, sum(c["cost_usd"] for c in pc)), 4),
-            "english_leak_rate": round(sum(bool(c.get("english_leak")) for c in pc) / len(pc), 4),
+            "language_leak_rate": round(sum(bool(c.get("language_leak")) for c in pc) / len(pc), 4),
             "cards_per_allowance": {window: int(limit // mean_cost) if mean_cost else None
                                     for window, limit in ALLOWANCE[model].items()},
             "cost_usd_per_1000_cards": round(mean_cost * 1000, 2),

@@ -15,7 +15,8 @@ from apps.main_api.services.matching import fold_words, lot_characteristics, lot
 
 MIN_TERM_LENGTH = 2
 # Every name and most card sentences contain it, so it would match everything.
-_STOPWORDS = {"ikan"}
+# "ikan" for the Indonesian names, "fish" for the English cards.
+_STOPWORDS = {"ikan", "fish"}
 
 
 @dataclass(frozen=True)

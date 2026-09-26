@@ -5,13 +5,14 @@ quality dashboard that reports on all of it."""
 from fastapi.testclient import TestClient
 
 from evals.corpus import load_corpus
-from evals.tests.conftest import png_bytes
+from evals.tests.conftest import png_bytes, sign_in
 
 
 def test_photo_to_grounded_card(app_factory):
     app, _ = app_factory("tuna")
     own_sources = {c.source["id"] for c in load_corpus() if c.species_label == "tuna"}
     with TestClient(app) as client:
+        sign_in(client)
         identified = client.post("/api/v1/fish/identify",
                                  files={"file": ("tuna.png", png_bytes(), "image/png")}).json()
         assert identified["prediction"]["normalized_label"] == "tuna"
@@ -32,6 +33,7 @@ def test_photo_to_grounded_card(app_factory):
 def test_quality_dashboard_is_served(app_factory):
     app, _ = app_factory()
     with TestClient(app) as client:
+        sign_in(client)
         page = client.get("/quality")
         from evals.dashboard import TITLE
 

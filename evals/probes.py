@@ -28,6 +28,8 @@ RAG_SOURCES = (
     "apps/main_api/services/generation.py",
     "apps/main_api/services/knowledge.py",
     "apps/main_api/services/lots.py",
+    "apps/main_api/services/workflow.py",
+    "apps/main_api/services/claim_verifier.py",
 )
 TAXONOMY_CSV = ROOT / "artifacts/Dataset/fishora_dataset/metadata/taxonomy.csv"
 _BINOMIAL = re.compile(r"\b([A-Z][a-z]+ [a-z]{3,})\b")
@@ -79,9 +81,10 @@ def publication_path() -> dict:
     return {
         "publish_uses_sync_knowledge_service": "get_for_prediction" in lots,
         "publish_prefers_graded_card": "_graded_card" in lots and "final_card" in lots,
-        # The sync path is graded when its code runs the critic's graph (W19):
+        # The sync path is graded when its code runs the job's pipeline (W19):
         # a call, read from the syntax tree, so a comment cannot satisfy it.
-        "sync_path_has_claim_critic": _calls(knowledge, "grade_card") or _calls(knowledge, "critic_node"),
+        "sync_path_has_claim_critic": any(_calls(knowledge, name) for name in
+                                          ("workflow_card", "grade_card", "critic_node")),
         "matching_reads_snapshot_fields": sorted(
             f for f in ("processing_methods", "commercial_uses", "taste", "texture", "physical_characteristics")
             if f'"{f}"' in matching
@@ -139,6 +142,8 @@ def sync_path_blank_key() -> dict:
     predictions.verify("probe1", "species_nila", "confirmed")
     app = create_main_app(settings=settings, deps=deps)
     with TestClient(app, raise_server_exceptions=False) as client:
+        # The knowledge route is operator-only since accounts were added.
+        client.post("/api/v1/auth/login", json={"username": "rian", "password": "demo"})
         response = client.get("/api/v1/predictions/probe1/knowledge")
     return {"status_code": response.status_code, "body": response.text[:120]}
 

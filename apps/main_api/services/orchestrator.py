@@ -17,8 +17,8 @@ cross-lingual grounding instead of lexical overlap (W1); replies read through
 ``llm_output`` so content blocks and fenced JSON parse (W21, W4); no LLM
 sub-query and no post-grading polish, two LLM rounds instead of four (W5);
 a card cache keyed by the evidence (W6); experts with no evidence are not
-called (W11); whole chunks, not 300 characters (W14); Indonesian output is
-required (W22); a card with nothing groundable is an honest empty card rather
+called (W11); whole chunks, not 300 characters (W14); the output language is
+stated (W22; Indonesian then, English since the app became English-only); a card with nothing groundable is an honest empty card rather
 than a failed job (W24); and failures are logged, not swallowed (W12).
 """
 
@@ -52,7 +52,7 @@ logger = logging.getLogger(__name__)
 EXPERT_NAMES = ("physical", "taste", "commercial", "substitute")
 
 # Bump when a prompt or grading rule changes: it is part of the card cache key.
-PIPELINE_VERSION = "iteration-2"
+PIPELINE_VERSION = "iteration-2-en"
 
 # Cross-lingual grounding threshold on E5 symmetric cosine (query:/query:).
 # Chosen on the dev split of evals/datasets/grounding_claims.json together
@@ -69,16 +69,16 @@ USE_LLM_JUDGE = False
 # keeps only supported items; "e5" is the iteration-1 cosine critic, kept for
 # the 2x2 comparison (evals/iteration2.py).
 CRITIC_MODE = "verifier"
-NO_GROUNDED_CLAIM = "Belum ada klaim yang dapat diverifikasi dari bukti yang tersedia."
-# Indonesian field names for the missing-evidence limitation (R4).
+NO_GROUNDED_CLAIM = "No claim could be verified against the available evidence yet."
+# Reader-facing field names for the missing-evidence limitation (R4).
 _FIELD_LABELS = {
-    "physical_characteristics": "ciri fisik",
-    "taste": "rasa",
-    "texture": "tekstur",
-    "processing_methods": "cara pengolahan",
-    "commercial_uses": "penggunaan komersial",
-    "similar_or_substitute_species": "spesies pengganti",
-    "potential_buyer_segments": "segmen pembeli",
+    "physical_characteristics": "physical characteristics",
+    "taste": "taste",
+    "texture": "texture",
+    "processing_methods": "processing methods",
+    "commercial_uses": "commercial uses",
+    "similar_or_substitute_species": "substitute species",
+    "potential_buyer_segments": "buyer segments",
 }
 
 
@@ -87,7 +87,7 @@ def missing_evidence_limitation(evidence) -> str | None:
     so an empty field reads as missing evidence rather than as nothing to say."""
     present = {chunk.category for chunk in evidence}
     missing = [label for field, label in _FIELD_LABELS.items() if not (FIELD_EVIDENCE[field] & present)]
-    return f"Belum ada bukti terverifikasi untuk: {', '.join(missing)}." if missing else None
+    return f"No verified evidence yet for: {', '.join(missing)}." if missing else None
 
 
 class ClaimStatus(BaseModel):
@@ -129,9 +129,9 @@ class FishoraState(TypedDict, total=False):
 # ---- Researcher -----------------------------------------------------------
 
 CARD_QUERY = (
-    "Buat kartu pengetahuan bahasa Indonesia untuk {common_name}: identitas, "
-    "ciri fisik, rasa dan tekstur, cara pengolahan, penggunaan komersial, dan "
-    "spesies pengganti."
+    "Build an English knowledge card for {common_name}: identity, physical "
+    "characteristics, taste and texture, processing methods, commercial uses, "
+    "and substitute species."
 )
 
 
@@ -151,18 +151,18 @@ def hybrid_researcher(state: FishoraState, knowledge_repo, embedder, llm_medium=
 
 # ---- Expert nodes (luna) -----------------------------------------------
 
-_INDONESIAN = " Tulis semua nilai dalam bahasa Indonesia, walaupun buktinya berbahasa Inggris."
+_ENGLISH = " Write every value in plain English."
 # Iteration 2: the same scope rule the writer-critic workflow uses, so the 2x2
 # compares architectures, not prompts.
-_SCOPE_RULE = (" Pertahankan cakupan bukti: jika bukti menyebut produk olahan, populasi tertentu, proyeksi,"
-               " atau satu spesies dari label multi-spesies, nilai harus menyebutnya juga. Jangan menyimpulkan"
-               " hal yang tidak tertulis; lebih baik kosong daripada menebak.")
+_SCOPE_RULE = (" Keep the scope of the evidence: if the evidence is about a processed product, a specific population,"
+               " a projection, or one species of a multi-species label, the value must say so too. Do not infer"
+               " anything that is not written; an empty value is better than a guess.")
 
 _EXPERT_PROMPTS = {
-    "physical": "Tulis physical_characteristics dari bukti kategori physical_characteristics dan identity. Jika tidak ada, null. Jawab JSON {\"physical_characteristics\": str|null, \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN + _SCOPE_RULE,
-    "taste": "Tulis taste dan texture dari bukti taste_texture. Jika tidak ada, null. JSON {\"taste\": str|null, \"texture\": str|null, \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN + _SCOPE_RULE,
-    "commercial": "Tulis processing_methods dan commercial_uses dari bukti processing_methods dan commercial_uses. JSON {\"processing_methods\": [], \"commercial_uses\": [], \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN + _SCOPE_RULE,
-    "substitute": "Tulis similar_or_substitute_species dan potential_buyer_segments dari bukti substitutes dan commercial_uses. JSON {\"similar_or_substitute_species\": [], \"potential_buyer_segments\": [], \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN + _SCOPE_RULE,
+    "physical": "Write physical_characteristics from the evidence of categories physical_characteristics and identity. If there is none, null. Answer JSON {\"physical_characteristics\": str|null, \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _ENGLISH + _SCOPE_RULE,
+    "taste": "Write taste and texture from the taste_texture evidence. If there is none, null. JSON {\"taste\": str|null, \"texture\": str|null, \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _ENGLISH + _SCOPE_RULE,
+    "commercial": "Write processing_methods and commercial_uses from the processing_methods and commercial_uses evidence. JSON {\"processing_methods\": [], \"commercial_uses\": [], \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _ENGLISH + _SCOPE_RULE,
+    "substitute": "Write similar_or_substitute_species and potential_buyer_segments from the substitutes and commercial_uses evidence. JSON {\"similar_or_substitute_species\": [], \"potential_buyer_segments\": [], \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _ENGLISH + _SCOPE_RULE,
 }
 
 _EXPERT_CATEGORIES = {
@@ -247,7 +247,7 @@ def _expert_node(category: str, state: FishoraState, llm_luna) -> dict:
         f"[chunk_id: {c.chunk_id}] [source_id: {c.source_id}] [{c.category}] {c.content}"
         for c in subset
     )
-    prompt = _EXPERT_PROMPTS[category] + f"\nBukti:\n{payload}"
+    prompt = _EXPERT_PROMPTS[category] + f"\nEvidence:\n{payload}"
     trace = {"chunk_ids": [c.chunk_id for c in subset],
              "prompt_sha256": hashlib.sha256(_EXPERT_PROMPTS[category].encode("utf-8")).hexdigest()[:16]}
     started = time.perf_counter()
@@ -300,14 +300,14 @@ def substitute_expert(state: FishoraState, llm_luna) -> dict:
 # Function words carry no grounding signal, so overlap on them would let any
 # citation pass the content check.
 _STOPWORDS = frozenset({
-    "adalah", "akan", "atau", "bagi", "banyak", "bisa", "dalam", "dapat",
-    "dari", "dengan", "hingga", "ikan", "itu", "juga", "karena", "kemudian",
-    "lain", "lebih", "namun", "oleh", "pada", "paling", "sangat", "sebagai",
-    "serta", "setelah", "sudah", "telah", "terhadap", "tetapi", "tidak",
-    "untuk", "yang",
+    "about", "also", "after", "because", "been", "being", "between", "both",
+    "can", "could", "fish", "from", "have", "into", "more", "most", "other",
+    "over", "such", "than", "that", "their", "them", "then", "there", "these",
+    "they", "this", "under", "used", "very", "when", "where", "which", "while",
+    "will", "with", "without",
 })
 _NUMBER = re.compile(r"\d+(?:[.,]\d+)?")
-# Latin family and order names; Indonesian words never end like this.
+# Latin family and order names; English words almost never end like this.
 _TAXON = re.compile(r"\b[A-Z][a-z]+(?:idae|inae|iformes)\b")
 
 
@@ -316,7 +316,7 @@ def _tokens(text: str) -> set[str]:
 
 
 def _numbers(text: str) -> set[str]:
-    """Numbers normalised across the Indonesian decimal comma (43,5 == 43.5)."""
+    """Numbers normalised across a decimal comma (43,5 == 43.5), as some sources write them."""
     return {m.group().replace(",", ".") for m in _NUMBER.finditer(text)}
 
 
@@ -378,7 +378,7 @@ def _grade_claim(field: str, value, citations, by_chunk: dict, verifier: _Verifi
     """Grade one claim against the verified chunks it cites."""
     text = _claim_text(value).strip()
     if not text:
-        return ClaimStatus(field=field, status="no_evidence", chunk_ids=[], reason="tidak ada klaim")
+        return ClaimStatus(field=field, status="no_evidence", chunk_ids=[], reason="no claim")
     allowed = FIELD_EVIDENCE.get(field)
     cited = [c["chunk_id"] for c in citations
              if _is_verified(by_chunk.get(c.get("chunk_id")))
@@ -386,7 +386,7 @@ def _grade_claim(field: str, value, citations, by_chunk: dict, verifier: _Verifi
     if not cited:
         return ClaimStatus(
             field=field, status="unsupported", chunk_ids=[],
-            reason="klaim tidak terikat pada chunk terverifikasi",
+            reason="claim is not bound to a verified chunk",
         )
     if verifier is not None:
         grounded = [cid for cid in cited if verifier.supports(text, by_chunk[cid])]
@@ -396,11 +396,11 @@ def _grade_claim(field: str, value, citations, by_chunk: dict, verifier: _Verifi
     if not grounded:
         return ClaimStatus(
             field=field, status="unsupported", chunk_ids=[],
-            reason="isi chunk yang disitasi tidak mendukung klaim",
+            reason="the cited chunk does not support the claim",
         )
     return ClaimStatus(
         field=field, status="supported", chunk_ids=grounded,
-        reason="didukung isi chunk terverifikasi",
+        reason="supported by a verified chunk",
     )
 
 
@@ -416,9 +416,9 @@ def _llm_downgrade(statuses: list[ClaimStatus], by_chunk: dict, llm_medium) -> l
     import json
 
     prompt = (
-        "Untuk setiap field, tentukan apakah kutipan bukti mendukung klaim. "
-        "Jawab JSON {field: \"supported\"|\"unsupported\"}.\n"
-        f"Klaim dan bukti: {json.dumps(claims, ensure_ascii=False)}"
+        "For each field, decide whether the evidence excerpts support the claim. "
+        "Answer JSON {field: \"supported\"|\"unsupported\"}.\n"
+        f"Claims and evidence: {json.dumps(claims, ensure_ascii=False)}"
     )
     try:
         verdicts = reply_json(llm_medium.invoke(prompt))
@@ -426,7 +426,7 @@ def _llm_downgrade(statuses: list[ClaimStatus], by_chunk: dict, llm_medium) -> l
         logger.warning("critic downgrade pass skipped: %s", type(exc).__name__)
         return statuses
     return [
-        s.model_copy(update={"chunk_ids": [], "status": "unsupported", "reason": "ditolak critic LLM"})
+        s.model_copy(update={"chunk_ids": [], "status": "unsupported", "reason": "rejected by the LLM critic"})
         if s.status == "supported" and verdicts.get(s.field) == "unsupported"
         else s
         for s in statuses
@@ -460,11 +460,11 @@ def verified_critic_node(state: FishoraState, llm, embedder=None) -> dict:
                     data[fld] = " ".join(c.text for c in kept) or None
             if kept:
                 ids = sorted({cid for c in kept for cid in c.chunk_ids})
-                statuses.append(ClaimStatus(field=fld, status="supported", chunk_ids=ids, reason="diverifikasi per klaim"))
+                statuses.append(ClaimStatus(field=fld, status="supported", chunk_ids=ids, reason="verified claim by claim"))
             else:
                 any_claim = any(c.field == fld for c in result.claims)
                 statuses.append(ClaimStatus(field=fld, status="unsupported" if any_claim else "no_evidence",
-                                            chunk_ids=[], reason="tidak ada klaim yang lolos verifikasi"))
+                                            chunk_ids=[], reason="no claim passed verification"))
     feedback = "; ".join(f"{s.field}={s.status}" for s in statuses)
     update = {"claim_statuses": statuses, "critic_feedback": feedback, "expert_outputs_verified": outputs,
               "claim_verdicts": [c.__dict__ for c in result.claims], "verifier_error": result.llm_error}

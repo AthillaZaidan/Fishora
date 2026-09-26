@@ -38,6 +38,11 @@ not part of the pre-registered rule): the winner replaces the shipped verifier
 only if, on the test split, its F1 is not lower than A's and its false-support
 rate is not higher than A's. The first run's winner (H with MiniLM-L12) had test
 F1 0.809 vs 0.800 but false support 0.235 vs 0.165, so E5 stayed.
+
+Production verifier (added after the team's iteration 2 was merged, reported
+only, never selected on): with --with-llm, the claim_verifier the product now
+runs (deterministic checks, E5 filter, one LLM entailment call) grades the same
+rows and traps with the production default model, one call per chunk.
 Writes reports/<label>/experiment_verifier.json.
 """
 
@@ -158,6 +163,47 @@ def _card_policy(verifier) -> dict:
             "atomic_recall": ratio(totals["atomic_kept_true"], totals["true"])}
 
 
+_FIELD_FOR_CATEGORY = {"identity": "physical_characteristics", "physical_characteristics": "physical_characteristics",
+                       "taste_texture": "taste", "processing_methods": "processing_methods",
+                       "commercial_uses": "commercial_uses", "substitutes": "similar_or_substitute_species"}
+
+
+def _production_verifier(rows, embedder, known) -> tuple[list[bool], dict]:
+    """The claim_verifier the product runs, on every row, grouped by cited chunk."""
+    from apps.main_api.config import MainSettings
+    from apps.main_api.contracts import RetrievedChunk
+    from apps.main_api.services import claim_verifier
+    from apps.main_api.services.generation import make_opencode_go_llm
+
+    model = MainSettings.model_fields["opencode_go_model"].default
+    settings = MainSettings().model_copy(update={"opencode_go_model": model})
+    llm = make_opencode_go_llm(settings, session_id="fishora-eval-claim-verifier")
+    corpus = {c.id: c for c in load_corpus()}
+
+    def chunk(cid: str) -> RetrievedChunk:
+        c = corpus[cid]
+        return RetrievedChunk(chunk_id=cid, species_id=f"species_{c.species_label}", source_id=c.source["id"],
+                              source_type=c.source.get("source_type", ""), category=c.category, content=c.content,
+                              distance=0.0, chunk_verification_status="verified", source_verification_status="verified",
+                              source_title=None, source_publisher=None, source_url=None, source_reviewed_at=None)
+
+    by_chunk: dict[str, list[int]] = {}
+    for i, r in enumerate(rows):
+        by_chunk.setdefault(r["chunk_id"], []).append(i)
+    pred = [False] * len(rows)
+    calls, errors = 0, 0
+    for cid, ids in by_chunk.items():
+        ev = chunk(cid)
+        claims = [claim_verifier.Claim(id=n, field=rows[i].get("field") or _FIELD_FOR_CATEGORY[ev.category],
+                                       text=rows[i]["claim"], chunk_ids=[cid]) for n, i in enumerate(ids)]
+        result = claim_verifier.verify(claims, [ev], llm, known, embedder=embedder)
+        calls += result.llm_calls
+        errors += result.llm_error is not None
+        for n, i in enumerate(ids):
+            pred[i] = claims[n].label == "supported"
+    return pred, {"model": model, "llm_calls": calls, "chunks_with_llm_error": errors}
+
+
 def _pick(rows, dev, predict, grid):
     best = None
     for params in grid:
@@ -175,6 +221,8 @@ def main(argv: list[str] | None = None):
 
     parser = argparse.ArgumentParser(prog="python -m evals.experiment_verifier")
     parser.add_argument("--label", default="current")
+    parser.add_argument("--with-llm", action="store_true",
+                        help="also grade every row with the production claim_verifier (needs OPENCODE_GO_API_KEY)")
     args = parser.parse_args(argv)
 
     content = {c.id: c.content for c in load_corpus()}
@@ -263,6 +311,18 @@ def main(argv: list[str] | None = None):
     top = out[ranked[0]]["dev"]["f1"]
     close = [k for k in ranked if top - out[k]["dev"]["f1"] <= 0.02]
     winner = min(close, key=lambda k: (out[k]["dev_traps_accepted"], out[k]["uses_nli"], -out[k]["dev"]["f1"]))
+    if args.with_llm:
+        pred, meta = _production_verifier(rows, embedder, known)
+        split = lambda ids: _classification([rows[i] for i in ids], [pred[i] for i in ids])
+        out["P_production_claim_verifier"] = {
+            "params": [], "uses_nli": False, "nli_model": None, "reported_only": True, **meta,
+            "dev": split(dev), "test": split(test), "test_real": split(idx("test", "real")),
+            "test_synthetic": split(idx("test", "synthetic")),
+            "dev_traps_accepted": sum(pred[i] for i in trap_dev), "dev_traps_total": len(trap_dev),
+            "test_traps_accepted": sum(pred[i] for i in trap_test), "test_traps_total": len(trap_test),
+            "test_traps_accepted_ids": [f"{rows[i]['id']}:{rows[i]['kind']}" for i in trap_test if pred[i]],
+            "cpu_added_s_per_card_p95": 0.0, "eligible": True,
+        }
     shipped, pick = out["A_e5_exact"]["test"], out[winner]["test"]
     confirmed = winner == "A_e5_exact" or (
         pick["f1"] >= shipped["f1"] and pick["false_support_rate"] <= shipped["false_support_rate"])

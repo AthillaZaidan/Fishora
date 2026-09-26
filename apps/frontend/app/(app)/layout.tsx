@@ -5,7 +5,7 @@ import { RootHtml } from '../root-html'
 
 export const metadata: Metadata = {
   title: 'Fishora',
-  description: 'Identifikasi tangkapan dan terbitkan lot lelang.',
+  description: 'Identify your catch and publish auction lots.',
 }
 
 export const viewport: Viewport = {
@@ -26,7 +26,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   }
 
   return (
-    <RootHtml lang="id">
+    <RootHtml lang="en">
       <AppShell session={session}>{children}</AppShell>
     </RootHtml>
   )

@@ -3,9 +3,14 @@
 Species identity is copied from the prediction's stored verified_species_id.
 Callers never supply a species id, mirroring KnowledgeService.
 Bid races are serialised inside the lot repository (row lock).
+
+An auction ends at auction_ends_at whether or not anyone closes it: every read
+closes expired lots first, so no sweeper process is needed and a lot past its
+end is never served as live.
 """
 
 import logging
+from dataclasses import replace
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from uuid import uuid4
@@ -41,6 +46,7 @@ class LotService:
         landing_point_repo=None,
         knowledge_service=None,
         job_repo=None,
+        image_store=None,
     ):
         self._prediction_repo = prediction_repo
         self._lot_repo = lot_repo
@@ -48,6 +54,7 @@ class LotService:
         self._landing_point_repo = landing_point_repo
         self._knowledge_service = knowledge_service
         self._job_repo = job_repo
+        self._image_store = image_store
 
     def _graded_card(self, prediction_id: str, species_id: str) -> dict | None:
         """The critic-graded card the operator was shown, if its job completed
@@ -99,6 +106,10 @@ class LotService:
             raise InvalidLot("quantity and starting price must be greater than zero")
         if size_category not in _POSITIVE_SIZES:
             raise InvalidLot("size_category must be S, M, or L")
+        # The landing point is where buyers collect and what the geo filter
+        # measures from; an unknown id would publish a lot no radius can find.
+        if self._landing_point_repo is not None and self._landing_point_repo.get(landing_point_id) is None:
+            raise InvalidLot(f"unknown landing_point_id {landing_point_id!r}")
         if self._lot_repo.get_by_prediction(prediction_id) is not None:
             raise LotAlreadyPublished(prediction_id)
 
@@ -142,17 +153,41 @@ class LotService:
             )
         return self._lot_repo.create_many(lots)
 
-    def get(self, lot_id: str) -> LotRecord:
+    def _close_expired(self, now: datetime | None) -> datetime:
+        """Persist the end of every auction that has run out, and return the
+        clock the caller should judge the lots it reads next against."""
+        clock = now or datetime.now(timezone.utc)
+        close_expired = getattr(self._lot_repo, "close_expired", None)
+        if callable(close_expired):
+            try:
+                close_expired(clock)
+            except Exception:
+                # A read must not fail because the write behind it did; the
+                # in-memory settle below still reports the lot as ended.
+                logger.exception("could not close expired auctions")
+        return clock
+
+    @staticmethod
+    def _settled(lot: LotRecord, clock: datetime) -> LotRecord:
+        # Covers a lot that expired between the UPDATE and the SELECT, and a
+        # repository without close_expired.
+        if lot.status == "active" and clock >= lot.auction_ends_at:
+            return replace(lot, status="closed")
+        return lot
+
+    def get(self, lot_id: str, now: datetime | None = None) -> LotRecord:
+        clock = self._close_expired(now)
         lot = self._lot_repo.get(lot_id)
         if lot is None:
             raise LotNotFound(lot_id)
-        return lot
+        return self._settled(lot, clock)
 
-    def get_by_slug(self, public_slug: str) -> LotRecord:
+    def get_by_slug(self, public_slug: str, now: datetime | None = None) -> LotRecord:
+        clock = self._close_expired(now)
         lot = self._lot_repo.get_by_slug(public_slug)
         if lot is None:
             raise LotNotFound(public_slug)
-        return lot
+        return self._settled(lot, clock)
 
     def list_lots(
         self,
@@ -166,11 +201,14 @@ class LotService:
         max_quantity: Decimal | None = None,
         status: str | None = None,
         operator_id: str | None = None,
+        allocated_buyer_id: str | None = None,
         buyer_lat: float | None = None,
         buyer_lon: float | None = None,
         serviceability_radius_km: float | None = None,
+        now: datetime | None = None,
     ) -> list[LotRecord]:
-        lots = self._lot_repo.all()
+        clock = self._close_expired(now)
+        lots = [self._settled(lot, clock) for lot in self._lot_repo.all()]
         wanted_species = set(species_ids or ())
         wanted_uses = fold_words(list(intended_uses or ()))
         wanted_characteristics = fold_words(list(characteristics or ()))
@@ -190,6 +228,8 @@ class LotService:
             if status and lot.status != status:
                 continue
             if operator_id and lot.operator_id != operator_id:
+                continue
+            if allocated_buyer_id and lot.allocated_buyer_id != allocated_buyer_id:
                 continue
             if min_price is not None and lot.starting_price_per_kg < min_price:
                 continue
@@ -233,8 +273,35 @@ class LotService:
     def current_highest(self, lot_id: str) -> Decimal | None:
         return self._lot_repo.highest(lot_id)
 
+    def photo(self, lot: LotRecord):
+        """(path, content_type) of the catch photo the lot was identified from,
+        or None when there is none (no store, or a store that cannot serve)."""
+        find = getattr(self._image_store, "find", None)
+        return find(lot.prediction_id) if callable(find) else None
+
     def close(self, lot_id: str) -> LotRecord:
         return self._lot_repo.close(lot_id)
 
     def allocate(self, lot_id: str, now: datetime | None = None) -> LotRecord:
         return self._lot_repo.allocate(lot_id, now=now)
+
+
+def bidder_labels(bids: list[BidRecord]) -> dict[str, str]:
+    """Public names for the buyers on one lot: "Bidder 1" is whoever bid first.
+
+    Buyer ids are account identifiers, not something other buyers should read.
+    Numbering by first bid keeps a buyer's label stable for the whole auction,
+    so the history still shows one buyer raising against another.
+    """
+    labels: dict[str, str] = {}
+    for bid in sorted(bids, key=lambda bid: (bid.created_at, bid.id)):
+        if bid.buyer_id not in labels:
+            labels[bid.buyer_id] = f"Bidder {len(labels) + 1}"
+    return labels
+
+
+def winning_bid(bids: list[BidRecord]) -> BidRecord | None:
+    """The bid allocation picks: highest amount, earliest on a tie (as the repository does)."""
+    if not bids:
+        return None
+    return min(bids, key=lambda bid: (-bid.amount_per_kg, bid.created_at, bid.id))

@@ -14,7 +14,7 @@ CHUNK = RetrievedChunk(
     distance=0.1, chunk_verification_status="verified", source_verification_status="verified",
     source_title="FAO", source_publisher="FAO", source_url="https://fao.org", source_reviewed_at=None,
 )
-ANSWER = {"taste": "Rasa ringan", "texture": None,
+ANSWER = {"taste": "Mild flavour", "texture": None,
           "sources": [{"source_id": "fao_en_niletilapia", "chunk_id": "chunk_nila_taste_001"}]}
 
 
@@ -33,7 +33,7 @@ class _LLM:
 def test_expert_parses_markdown_fenced_json():
     llm = _LLM("```json\n" + json.dumps(ANSWER) + "\n```")
     out = orchestrator._expert_node("taste", {"refined_evidence": [CHUNK]}, llm)
-    assert out.get("taste") == "Rasa ringan" and "error" not in out
+    assert out.get("taste") == "Mild flavour" and "error" not in out
 
 
 def test_expert_sees_the_whole_chunk():
@@ -56,7 +56,7 @@ def test_expert_citation_outside_its_evidence_is_dropped():
 def test_critic_llm_outage_never_upgrades():
     state = {
         "refined_evidence": [CHUNK],
-        "expert_outputs": {"taste": {"taste": "Pesan tidak terkait", "sources": []}},
+        "expert_outputs": {"taste": {"taste": "Unrelated message", "sources": []}},
     }
     result = orchestrator.critic_node(state, _LLM(RuntimeError("down")))
     taste = next(s for s in result["claim_statuses"] if s.field == "taste")
@@ -65,13 +65,13 @@ def test_critic_llm_outage_never_upgrades():
 
 def test_writer_with_no_evidence_returns_empty_card():
     out = orchestrator.writer_node({"refined_evidence": []}, None, NILA)
-    assert out["final_card"].limitations[0] == "Informasi belum tersedia"
+    assert out["final_card"].limitations[0] == "No information available yet"
 
 
 def test_writer_keeps_only_supported_claims():
     state = {
         "refined_evidence": [CHUNK],
-        "expert_outputs": {"taste": {"taste": "Rasa ringan", "texture": "Keras",
+        "expert_outputs": {"taste": {"taste": "Mild flavour", "texture": "Firm",
                                      "sources": ANSWER["sources"]}},
         "claim_statuses": [
             orchestrator.ClaimStatus(field="taste", status="supported",
@@ -80,5 +80,5 @@ def test_writer_keeps_only_supported_claims():
         ],
     }
     card = orchestrator.writer_node(state, None, NILA)["final_card"]
-    assert card.taste == "Rasa ringan" and card.texture is None
+    assert card.taste == "Mild flavour" and card.texture is None
     assert [s.source_id for s in card.sources] == ["fao_en_niletilapia"]

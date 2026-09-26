@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Request, HTTPException
 from pydantic import BaseModel
 
+from apps.main_api.services.session import require_role
+
 router = APIRouter(prefix="/api/v1/jobs")
 
 
@@ -17,6 +19,7 @@ class JobResponse(BaseModel):
 
 @router.get("/{job_id}", response_model=JobResponse)
 def get_job(job_id: str, request: Request):
+    require_role(request, "operator")
     deps = request.app.state.deps
     job_repo = getattr(deps, "job_repo", None)
     if job_repo is None:

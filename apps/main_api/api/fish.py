@@ -11,6 +11,7 @@ from apps.main_api.services.card_llm import card_llm
 from apps.main_api.services.generation import KnowledgeResponse
 from apps.main_api.services.identification import IdentificationService
 from apps.main_api.services.manual_entry import ManualEntryService
+from apps.main_api.services.session import require_role
 from apps.main_api.services.knowledge import KnowledgeService
 from apps.main_api.services.verification import VerificationService
 
@@ -69,6 +70,7 @@ class VerificationResponse(BaseModel):
 
 @router.post("/identify", response_model=IdentificationResponse)
 async def identify(request: Request, file: UploadFile = File(...)):
+    require_role(request, "operator")
     deps = request.app.state.deps
     settings = request.app.state.settings  # None when a complete fake bundle is injected
     service = IdentificationService(
@@ -96,6 +98,7 @@ async def identify(request: Request, file: UploadFile = File(...)):
 
 @router.post("/verify", response_model=VerificationResponse)
 async def verify(payload: VerifyRequest, request: Request, background_tasks: BackgroundTasks):
+    require_role(request, "operator")
     deps = request.app.state.deps
     result = VerificationService(
         species_repo=deps.species_repo,
@@ -141,6 +144,7 @@ async def manual(
     species_id: str = Form(...),
 ):
     """Operator names the species themselves. Used when identification is down."""
+    require_role(request, "operator")
     deps = request.app.state.deps
     settings = request.app.state.settings
     result = ManualEntryService(
@@ -167,6 +171,8 @@ async def manual(
 async def knowledge_card(prediction_id: str, request: Request):
     from fastapi.responses import JSONResponse
 
+    # Buyers read a card through the lot's knowledge snapshot, never this route.
+    require_role(request, "operator")
     deps = request.app.state.deps
     # If async job exists, gate on its status (background LangGraph)
     job_repo = getattr(deps, "job_repo", None)

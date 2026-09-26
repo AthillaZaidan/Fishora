@@ -1,3 +1,4 @@
+import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
@@ -6,6 +7,8 @@ from apps.common.image import validate_image_bytes
 from apps.contracts import CVPredictionEnvelope, ImageValidationError
 from apps.cv_service.config import CVSettings
 from apps.cv_service.runtime import ClassifierProtocol, load_classifier
+
+logger = logging.getLogger(__name__)
 
 
 def create_cv_app(settings: CVSettings | None = None, classifier: ClassifierProtocol | None = None) -> FastAPI:
@@ -30,7 +33,18 @@ def create_cv_app(settings: CVSettings | None = None, classifier: ClassifierProt
             image = validate_image_bytes(await file.read(), file.content_type, app.state.settings.max_image_bytes)
         except ImageValidationError as exc:
             raise HTTPException(status_code=exc.status_code, detail=exc.message)
-        result = _ensure_classifier(app).predict(image, top_k=3)
+        try:
+            result = _ensure_classifier(app).predict(image, top_k=3)
+        except RuntimeError as exc:
+            # A GPU can fail mid-session ("CUDA error: unknown error" on a laptop
+            # after hours of use) and every later call fails the same way. Reload
+            # on the CPU (about a second per photo) rather than refusing photos.
+            if "cuda" not in str(exc).lower() or app.state.settings.device == "cpu":
+                raise
+            logger.exception("GPU inference failed; reloading the classifier on the CPU")
+            app.state.settings = app.state.settings.model_copy(update={"device": "cpu"})
+            app.state.classifier = None
+            result = _ensure_classifier(app).predict(image, top_k=3)
         result["model_version"] = app.state.settings.model_version
         return CVPredictionEnvelope(**result)
 

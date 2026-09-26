@@ -192,3 +192,20 @@ class CommercialBuyerReview(Base):
     substitute_acceptance: Mapped[bool | None] = mapped_column(Boolean)
     comment: Mapped[str | None] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class User(Base):
+    __tablename__ = "users"
+    __table_args__ = (
+        CheckConstraint("role IN ('operator', 'buyer')", name="ck_users_role"),
+        UniqueConstraint("username", name="uq_users_username"),
+    )
+
+    # Lots, bids and preferences store this id as a plain string, not a foreign
+    # key: the seeded demo ids (op_rian, buyer_dewi) predate this table.
+    id: Mapped[str] = mapped_column(String(120), primary_key=True)
+    username: Mapped[str] = mapped_column(String(32), nullable=False)
+    display_name: Mapped[str] = mapped_column(String(80), nullable=False)
+    role: Mapped[str] = mapped_column(String(20), nullable=False)
+    password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

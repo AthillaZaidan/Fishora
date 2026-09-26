@@ -1,4 +1,4 @@
-import { apiFetch } from './client'
+import { apiFetch, type ApiFetchOptions } from './client'
 
 export type VerificationStatus = 'pending' | 'confirmed' | 'corrected'
 export type TaxonomyStatus =
@@ -71,25 +71,29 @@ export function hasCard(result: KnowledgeResult): result is KnowledgeResponse {
   return 'card' in result && Boolean(result.card)
 }
 
-export function identifyFish(file: File, signal?: AbortSignal) {
+// Each call takes `init` so a server action can forward the operator's
+// session cookie: these routes require an operator, and a server-side fetch
+// carries no browser cookies of its own.
+export function identifyFish(file: File, signal?: AbortSignal, init: ApiFetchOptions = {}) {
   const body = new FormData()
   // Field name must be `file`: it matches the FastAPI File(...) parameter.
   body.append('file', file)
   // No Content-Type header: setting it by hand omits the multipart boundary.
   return apiFetch<IdentificationResult>('/api/v1/fish/identify', {
-    method: 'POST', body, signal,
+    ...init, method: 'POST', body, signal,
   })
 }
 
-export function verifySpecies(predictionId: string, verifiedSpeciesId: string) {
+export function verifySpecies(predictionId: string, verifiedSpeciesId: string, init: ApiFetchOptions = {}) {
   return apiFetch<{
     prediction_id: string
     predicted_species_id: string
     verified_species_id: string
     verification_status: 'confirmed' | 'corrected'
   }>('/api/v1/fish/verify', {
+    ...init,
     method: 'POST',
-    headers: { 'content-type': 'application/json' },
+    headers: { ...init.headers, 'content-type': 'application/json' },
     body: JSON.stringify({ prediction_id: predictionId, verified_species_id: verifiedSpeciesId }),
   })
 }
@@ -103,17 +107,17 @@ export interface ManualEntryResult {
 }
 
 /** Operator names the species themselves. Used when identification is down. */
-export function declareSpeciesManually(file: File, speciesId: string) {
+export function declareSpeciesManually(file: File, speciesId: string, init: ApiFetchOptions = {}) {
   const body = new FormData()
   body.append('file', file)
   body.append('species_id', speciesId)
-  return apiFetch<ManualEntryResult>('/api/v1/fish/manual', { method: 'POST', body })
+  return apiFetch<ManualEntryResult>('/api/v1/fish/manual', { ...init, method: 'POST', body })
 }
 
-export function getKnowledge(predictionId: string) {
+export function getKnowledge(predictionId: string, init: ApiFetchOptions = {}) {
   // Longer budget: this path runs retrieval plus generation.
   return apiFetch<KnowledgeResult>(
     `/api/v1/predictions/${encodeURIComponent(predictionId)}/knowledge`,
-    { timeoutMs: 70_000 }
+    { ...init, timeoutMs: 70_000 }
   )
 }
