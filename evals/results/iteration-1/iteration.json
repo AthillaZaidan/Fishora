@@ -2,7 +2,7 @@
   "name": "iteration-1",
   "baseline": "baseline",
   "current": "current",
-  "generated_at": "2026-09-26T06:26:25+00:00",
+  "generated_at": "2026-09-26T07:51:15+00:00",
   "tests": {
     "baseline": {
       "passed": 35,
@@ -913,6 +913,856 @@
       ],
       "tests": [],
       "metrics": []
+    }
+  ],
+  "cycles": [
+    {
+      "id": "C1",
+      "title": "The agent card path works against the real LLM",
+      "problem": "The card path the app ships (researcher, experts, critic, writer) had never completed a card on OpenCode Go. The gateway rejected calls without a session header, and the experts could not read Responses-API content blocks or JSON wrapped in code fences, so every expert failed and the spend was wasted.",
+      "note": "Nothing in this cycle is open. Read the spend row with care: at baseline it bought no card. The evaluation fix (E2) mattered as much as the product fixes: the cost run used to add the session header itself, so it could not see that the app never sent it. Whether OpenCode Go may carry production traffic is a separate open question (W23).",
+      "findings": [
+        {
+          "id": "W20",
+          "title": "OpenCode Go rejects every call: no x-opencode-session header",
+          "severity": "high",
+          "before": "open",
+          "after": "resolved",
+          "evidence_before": [
+            "client sends x-opencode-session: False; sets a user agent: False",
+            "without it the gateway answers 400 MissingSessionID"
+          ],
+          "evidence_after": [
+            "client sends x-opencode-session: True; sets a user agent: True",
+            "without it the gateway answers 400 MissingSessionID"
+          ]
+        },
+        {
+          "id": "W21",
+          "title": "Agent path cannot parse Responses-API content blocks",
+          "severity": "high",
+          "before": "open",
+          "after": "resolved",
+          "evidence_before": [
+            "agent path as shipped, real LLM: 0% cards completed of 22",
+            "same run, content read as text (eval-only): 82% completed",
+            "spend on the failing path: $0.00100 per card, all wasted"
+          ],
+          "evidence_after": [
+            "agent path as shipped, real LLM: 100% cards completed of 11",
+            "spend: $0.00090 per completed card"
+          ]
+        },
+        {
+          "id": "W4",
+          "title": "Markdown-fenced LLM JSON fails every expert",
+          "severity": "high",
+          "before": "open",
+          "after": "resolved",
+          "evidence_before": [
+            "cards completed when the LLM wraps JSON in ``` fences: 0%",
+            "unit test: failed"
+          ],
+          "evidence_after": [
+            "cards completed when the LLM wraps JSON in ``` fences: 100%",
+            "unit test: passed"
+          ]
+        },
+        {
+          "id": "W3",
+          "title": "Sync knowledge fallback returns an unhandled 500 when the key is blank",
+          "severity": "high",
+          "before": "open",
+          "after": "resolved",
+          "evidence_before": [
+            "GET /predictions/{id}/knowledge, no job, blank key -> HTTP 500"
+          ],
+          "evidence_after": [
+            "GET /predictions/{id}/knowledge, no job, blank key -> HTTP 502"
+          ]
+        }
+      ],
+      "fixes": [
+        {
+          "id": "F1",
+          "track": "product",
+          "title": "OpenCode Go session header and user agent",
+          "sources": [
+            "W20"
+          ],
+          "change": "make_opencode_go_llm sends x-opencode-session (one id per card) and a descriptive User-Agent.",
+          "files": [
+            "apps/main_api/services/generation.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W20",
+              "before": "open",
+              "after": "resolved"
+            }
+          ],
+          "tests": [
+            {
+              "test": "test_provider_client::test_client_sends_session_and_user_agent",
+              "before": "absent",
+              "after": "passed"
+            },
+            {
+              "test": "test_provider_client::test_client_without_session_gets_a_fresh_one",
+              "before": "absent",
+              "after": "passed"
+            }
+          ],
+          "metrics": [
+            {
+              "metric": "Agent card success, real LLM",
+              "path": "cost_eval.summary.by_path.agent.success_rate",
+              "before": 0.0,
+              "after": 1.0
+            },
+            {
+              "metric": "Published card success, real LLM",
+              "path": "cost_eval.summary.by_path.published.success_rate",
+              "before": 0.9545,
+              "after": 1.0
+            }
+          ]
+        },
+        {
+          "id": "F2",
+          "track": "product",
+          "title": "Read Responses-API content blocks and fenced JSON",
+          "sources": [
+            "W21",
+            "W4"
+          ],
+          "change": "llm_output.reply_text/reply_json read every reply; experts, critic and judge use them.",
+          "files": [
+            "apps/main_api/services/llm_output.py",
+            "apps/main_api/services/orchestrator.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W21",
+              "before": "open",
+              "after": "resolved"
+            },
+            {
+              "id": "W4",
+              "before": "open",
+              "after": "resolved"
+            }
+          ],
+          "tests": [
+            {
+              "test": "test_llm_output::test_responses_api_content_blocks",
+              "before": "absent",
+              "after": "passed"
+            },
+            {
+              "test": "test_orchestrator_nodes::test_expert_parses_markdown_fenced_json",
+              "before": "failed",
+              "after": "passed"
+            },
+            {
+              "test": "test_orchestrator_iteration::test_expert_reads_responses_api_blocks",
+              "before": "absent",
+              "after": "passed"
+            }
+          ],
+          "metrics": [
+            {
+              "metric": "Fenced-JSON job success",
+              "path": "rag_eval.pipeline.fenced.job_success_rate",
+              "before": 0.0,
+              "after": 1.0
+            },
+            {
+              "metric": "Agent card success, real LLM",
+              "path": "cost_eval.summary.by_path.agent.success_rate",
+              "before": 0.0,
+              "after": 1.0
+            }
+          ]
+        },
+        {
+          "id": "F12",
+          "track": "product",
+          "title": "A blank key is a provider outage, not a crash",
+          "sources": [
+            "W3"
+          ],
+          "change": "KnowledgeGenerator maps client-construction ValueError to OpenCodeUnavailable (HTTP 502).",
+          "files": [
+            "apps/main_api/services/generation.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W3",
+              "before": "open",
+              "after": "resolved"
+            }
+          ],
+          "tests": [
+            {
+              "test": "test_provider_client::test_blank_key_is_a_provider_outage_not_a_crash",
+              "before": "absent",
+              "after": "passed"
+            }
+          ],
+          "metrics": []
+        },
+        {
+          "id": "E2",
+          "track": "evaluation",
+          "title": "Real-LLM runs use the production client",
+          "sources": [
+            "W20"
+          ],
+          "change": "cost_eval drives make_opencode_go_llm instead of adding the header itself.",
+          "files": [
+            "evals/cost_eval.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W20",
+              "before": "open",
+              "after": "resolved"
+            }
+          ],
+          "tests": [],
+          "metrics": []
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "Agent card success, real LLM",
+          "path": "cost_eval.summary.by_path.agent.success_rate",
+          "before": 0.0,
+          "after": 1.0
+        },
+        {
+          "metric": "Fenced-JSON job success (scripted)",
+          "path": "rag_eval.pipeline.fenced.job_success_rate",
+          "before": 0.0,
+          "after": 1.0
+        },
+        {
+          "metric": "Published card success, real LLM",
+          "path": "cost_eval.summary.by_path.published.success_rate",
+          "before": 0.9545,
+          "after": 1.0
+        },
+        {
+          "metric": "Spend per agent card, real LLM (USD)",
+          "path": "cost_eval.summary.by_path.agent.cost_usd_per_card.mean",
+          "before": 0.001,
+          "after": 0.0009
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "title": "Claims are checked against their evidence, across languages",
+      "problem": "The critic kept a claim when enough words overlapped with the cited chunk. The claims are Indonesian and the evidence English, so it dropped most true claims and still passed some claims borrowed from other species. The review (R2) also asked whether it catches negated or inverted claims.",
+      "note": "The threshold was chosen on the dev split and is reported on the held-out test split, which is small, so its perfect score has a wide interval. The false support left on the full set is a claim borrowed from another species' processing chunk (`rag_eval.grounding.errors`). R2 stays partial: the shipped verifier still accepts part of the negation/scope traps. The LLM judge was measured and removed (F18) because it cut recall; multilingual NLI rejects every trap but is too slow on CPU, so it is the next candidate, to be confirmed on a fresh trap set. W13 stays partial because the number and taxon checks mitigate the embedding overlap rather than remove it.",
+      "findings": [
+        {
+          "id": "W1",
+          "title": "Lexical grounding across languages: Indonesian claims vs English evidence",
+          "severity": "high",
+          "before": "open",
+          "after": "resolved",
+          "evidence_before": [
+            "grader: lexical",
+            "test-split F1 0.791, recall 0.708",
+            "all 98 pairs: recall 0.592, false support 0.102",
+            "scripted pipeline claim retention 56%",
+            "test_indonesian_claim_is_grounded_in_english_evidence: failed",
+            "test_shared_token_does_not_ground_a_borrowed_claim: failed"
+          ],
+          "evidence_after": [
+            "grader: E5 cosine + numbers",
+            "test-split F1 1.000, recall 1.000",
+            "all 98 pairs: recall 1.000, false support 0.020",
+            "scripted pipeline claim retention 100%",
+            "test_indonesian_claim_is_grounded_in_english_evidence: passed",
+            "test_shared_token_does_not_ground_a_borrowed_claim: passed"
+          ]
+        },
+        {
+          "id": "W13",
+          "title": "Embedding similarity alone separates supported from borrowed claims poorly",
+          "severity": "medium",
+          "before": "open",
+          "after": "partial",
+          "evidence_before": [
+            "E5 claim-evidence cosine: supported mean 0.8562, borrowed mean 0.7931",
+            "supported min 0.8111 vs borrowed max 0.8299 (overlap: True)"
+          ],
+          "evidence_after": [
+            "E5 claim-evidence cosine: supported mean 0.8562, borrowed mean 0.7931",
+            "supported min 0.8111 vs borrowed max 0.8299 (overlap: True)"
+          ]
+        },
+        {
+          "id": "R2",
+          "title": "Grounding must catch negated and inverted claims, not only borrowed ones",
+          "severity": "high",
+          "before": "not_measured",
+          "after": "partial",
+          "evidence_before": [],
+          "evidence_after": [
+            "shipped verifier (E5 + exact checks): held-out F1 1.0, false support 0.0, traps accepted 7/14",
+            "with the LLM judge (removed): held-out F1 0.6667, traps accepted 3/14",
+            "NLI + exact (candidate): held-out F1 0.9362, traps accepted 0/14"
+          ]
+        }
+      ],
+      "fixes": [
+        {
+          "id": "F3",
+          "track": "product",
+          "title": "Cross-lingual claim verifier replaces lexical overlap",
+          "sources": [
+            "W1",
+            "W13",
+            "R2",
+            "W26"
+          ],
+          "change": "Critic grades each claim with E5 symmetric cosine >= tau (0.805, chosen on the dev split) AND every number and taxon (family names, supported binomials) in the claim appearing in the cited chunk (the LLM judge pass is off, see F18).",
+          "files": [
+            "apps/main_api/services/orchestrator.py",
+            "evals/calibrate_grounding.py"
+          ],
+          "note": "Tau sits in a narrow band (0.795 admits 12% false support on dev): recalibrate when the corpus changes.",
+          "findings": [
+            {
+              "id": "W1",
+              "before": "open",
+              "after": "resolved"
+            },
+            {
+              "id": "W13",
+              "before": "open",
+              "after": "partial"
+            },
+            {
+              "id": "R2",
+              "before": "not_measured",
+              "after": "partial"
+            },
+            {
+              "id": "W26",
+              "before": "open",
+              "after": "open"
+            }
+          ],
+          "tests": [
+            {
+              "test": "test_grounding_and_pipeline::test_indonesian_claim_is_grounded_in_english_evidence",
+              "before": "failed",
+              "after": "passed"
+            },
+            {
+              "test": "test_grounding_and_pipeline::test_shared_token_does_not_ground_a_borrowed_claim",
+              "before": "failed",
+              "after": "passed"
+            },
+            {
+              "test": "test_grounding_and_pipeline::test_grounding_test_split_f1",
+              "before": "failed",
+              "after": "passed"
+            }
+          ],
+          "metrics": [
+            {
+              "metric": "Grounding F1 (test split)",
+              "path": "rag_eval.grounding.test.f1",
+              "before": 0.7907,
+              "after": 1.0
+            },
+            {
+              "metric": "Grounding false support (all pairs)",
+              "path": "rag_eval.grounding.all.false_support_rate",
+              "before": 0.102,
+              "after": 0.0204
+            },
+            {
+              "metric": "True-claim retention (scripted)",
+              "path": "rag_eval.pipeline.plain.claim_retention",
+              "before": 0.56,
+              "after": 1.0
+            }
+          ]
+        },
+        {
+          "id": "F18",
+          "track": "product",
+          "title": "Critic's LLM judge pass removed",
+          "sources": [
+            "R2",
+            "W5"
+          ],
+          "change": "USE_LLM_JUDGE = False: measured with gpt-5.6-luna, the downgrade-only judge halved held-out recall (1.0 -> 0.5) and still accepted 3 of 14 traps; the verifier alone scores higher on the dev split.",
+          "files": [
+            "apps/main_api/services/orchestrator.py"
+          ],
+          "note": "R2 stays partial: the shipped verifier accepts 7 of 14 negation/scope traps. Multilingual NLI rejects all 14 but costs ~1.1 s per pair on CPU and loses recall (0.917); confirm on a fresh trap set, on GPU/ONNX, before adopting.",
+          "findings": [
+            {
+              "id": "R2",
+              "before": "not_measured",
+              "after": "partial"
+            },
+            {
+              "id": "W5",
+              "before": "open",
+              "after": "resolved"
+            }
+          ],
+          "tests": [
+            {
+              "test": "test_orchestrator_iteration::test_llm_judge_pass_is_off_in_production",
+              "before": "absent",
+              "after": "passed"
+            }
+          ],
+          "metrics": [
+            {
+              "metric": "LLM rounds per card (timestamps)",
+              "path": "rag_eval.pipeline.plain.llm_rounds",
+              "before": null,
+              "after": 1.0
+            }
+          ]
+        },
+        {
+          "id": "E3",
+          "track": "evaluation",
+          "title": "Threshold calibration on the dev split",
+          "sources": [
+            "W1",
+            "W13"
+          ],
+          "change": "calibrate_grounding sweeps tau for the shipped rule and reports the held-out split.",
+          "files": [
+            "evals/calibrate_grounding.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W1",
+              "before": "open",
+              "after": "resolved"
+            },
+            {
+              "id": "W13",
+              "before": "open",
+              "after": "partial"
+            }
+          ],
+          "tests": [],
+          "metrics": [
+            {
+              "metric": "Calibrated tau",
+              "path": "grounding_calibration.chosen.tau",
+              "before": null,
+              "after": 0.805
+            }
+          ]
+        },
+        {
+          "id": "E4",
+          "track": "evaluation",
+          "title": "Negation/scope trap set and verifier comparison",
+          "sources": [
+            "R2"
+          ],
+          "change": "14 traps; E5+exact vs multilingual NLI vs the production LLM judge, pre-registered selection rule.",
+          "files": [
+            "evals/datasets/grounding_traps.json",
+            "evals/experiment_nli_grounding.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "R2",
+              "before": "not_measured",
+              "after": "partial"
+            }
+          ],
+          "tests": [],
+          "metrics": []
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "Grounding F1, held-out test split",
+          "path": "rag_eval.grounding.test.f1",
+          "before": 0.7907,
+          "after": 1.0
+        },
+        {
+          "metric": "Grounding precision, test split",
+          "path": "rag_eval.grounding.test.precision",
+          "before": 0.8947,
+          "after": 1.0
+        },
+        {
+          "metric": "Grounding recall, test split",
+          "path": "rag_eval.grounding.test.recall",
+          "before": 0.7083,
+          "after": 1.0
+        },
+        {
+          "metric": "False support rate, all pairs",
+          "path": "rag_eval.grounding.all.false_support_rate",
+          "before": 0.102,
+          "after": 0.0204
+        },
+        {
+          "metric": "True-claim retention in cards (scripted)",
+          "path": "rag_eval.pipeline.plain.claim_retention",
+          "before": 0.56,
+          "after": 1.0
+        },
+        {
+          "metric": "Hallucinated claims reaching cards (scripted)",
+          "path": "rag_eval.pipeline.plain.hallucination_leakage",
+          "before": 0.0,
+          "after": 0.0
+        },
+        {
+          "metric": "Negation/scope traps accepted (of 14)",
+          "path": "experiment_nli_grounding.variants.A_e5_exact.traps_accepted",
+          "before": null,
+          "after": 7
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "title": "Each card sees all of its evidence, in fewer LLM rounds",
+      "problem": "The card took the ranked top 6 of a species slice of at most 7 chunks, so ranking errors decided what the model saw, and the experts read only the first 300 characters of each chunk. A card took several sequential LLM rounds and the same evidence was regenerated every time.",
+      "note": "The shipped agent path completed no card at baseline (C1), so its real-LLM baseline latency and cost come from the eval-only run that read the replies correctly. Cache hits are excluded from the real-LLM statistics. The p95 got worse. The published path, a single LLM call, shows the same p95 in the same run, which points to provider stalls rather than the pipeline; a repeat cost run would confirm it.",
+      "findings": [
+        {
+          "id": "R1",
+          "title": "Retrieval is unnecessary at this corpus size and loses evidence",
+          "severity": "medium",
+          "before": "open",
+          "after": "resolved",
+          "evidence_before": [
+            "the card takes the ranked top 6 of a 1-7 chunk slice (baseline design)",
+            "scoped MRR 0.5087 decides which evidence the model sees"
+          ],
+          "evidence_after": [
+            "cards receive the whole species slice: completeness mean 100%, min 100%",
+            "semantic ranking applies only above 20 chunks per species"
+          ]
+        },
+        {
+          "id": "W9",
+          "title": "Fixed 6-chunk cap drops evidence",
+          "severity": "medium",
+          "before": "open",
+          "after": "resolved",
+          "evidence_before": [
+            "species with more chunks than the 6-chunk cap: {'tuna': 7}",
+            "scoped recall@6 0.989"
+          ],
+          "evidence_after": [
+            "share of each species' verified chunks that reach its card: mean 100%, min 100%",
+            "largest species slice 7 chunks"
+          ]
+        },
+        {
+          "id": "W14",
+          "title": "Expert evidence truncated at 300 characters",
+          "severity": "low",
+          "before": "open",
+          "after": "resolved",
+          "evidence_before": [
+            "expert evidence cut at 300 chars; unit test: failed"
+          ],
+          "evidence_after": [
+            "experts receive whole chunks; unit test: passed"
+          ]
+        },
+        {
+          "id": "W5",
+          "title": "Too many sequential LLM rounds per card",
+          "severity": "medium",
+          "before": "open",
+          "after": "resolved",
+          "evidence_before": [
+            "LLM rounds per card (scripted): 4.2; wall time / call delay 4.2",
+            "real LLM: agent card p50 11.6s with 6.5 calls vs published card p50 5.2s with 1 call"
+          ],
+          "evidence_after": [
+            "LLM rounds per card (scripted): 1.0; wall time / call delay 1.4",
+            "real LLM: agent card p50 4.0s with 3.2727 calls vs published card p50 8.9s with 1 call"
+          ]
+        },
+        {
+          "id": "W6",
+          "title": "No card cache for identical evidence",
+          "severity": "medium",
+          "before": "open",
+          "after": "resolved",
+          "evidence_before": [
+            "repeat card 833 ms vs first card 839 ms (no cache)"
+          ],
+          "evidence_after": [
+            "repeat card 11 ms vs first card 280 ms (served from the card cache)"
+          ]
+        }
+      ],
+      "fixes": [
+        {
+          "id": "F5",
+          "track": "product",
+          "title": "The whole species slice is the card's evidence",
+          "sources": [
+            "R1",
+            "W9",
+            "W8"
+          ],
+          "change": "VerifiedRetriever.card_evidence returns every verified chunk of the species when there are at most 20, ordered by category; ranked category-first selection only above that.",
+          "files": [
+            "apps/main_api/services/retrieval.py",
+            "apps/main_api/services/knowledge.py",
+            "apps/main_api/services/orchestrator.py"
+          ],
+          "note": "W8 (name-biased ranking) no longer decides what a card sees; the ranking itself is unchanged, and a canonical-name passage prefix did not improve it (experiment_passage_prefix).",
+          "findings": [
+            {
+              "id": "R1",
+              "before": "open",
+              "after": "resolved"
+            },
+            {
+              "id": "W9",
+              "before": "open",
+              "after": "resolved"
+            },
+            {
+              "id": "W8",
+              "before": "open",
+              "after": "open"
+            }
+          ],
+          "tests": [],
+          "metrics": [
+            {
+              "metric": "Card evidence completeness (min)",
+              "path": "rag_eval.retrieval.card_evidence_completeness.min",
+              "before": null,
+              "after": 1.0
+            }
+          ]
+        },
+        {
+          "id": "F4",
+          "track": "product",
+          "title": "Experts and the critic judge read whole chunks",
+          "sources": [
+            "W14",
+            "R3"
+          ],
+          "change": "Removed both 300-character cuts (expert payload and critic LLM pass).",
+          "files": [
+            "apps/main_api/services/orchestrator.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W14",
+              "before": "open",
+              "after": "resolved"
+            }
+          ],
+          "tests": [
+            {
+              "test": "test_orchestrator_nodes::test_expert_sees_the_whole_chunk",
+              "before": "failed",
+              "after": "passed"
+            },
+            {
+              "test": "test_orchestrator_iteration::test_critic_llm_pass_reads_the_whole_chunk",
+              "before": "absent",
+              "after": "passed"
+            }
+          ],
+          "metrics": []
+        },
+        {
+          "id": "F7",
+          "track": "product",
+          "title": "Two LLM rounds per card",
+          "sources": [
+            "W5"
+          ],
+          "change": "Removed the researcher's LLM sub-query and the writer's post-verification polish.",
+          "files": [
+            "apps/main_api/services/orchestrator.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W5",
+              "before": "open",
+              "after": "resolved"
+            }
+          ],
+          "tests": [
+            {
+              "test": "test_grounding_and_pipeline::test_card_needs_at_most_two_sequential_llm_rounds",
+              "before": "failed",
+              "after": "passed"
+            }
+          ],
+          "metrics": [
+            {
+              "metric": "LLM calls per card (scripted)",
+              "path": "rag_eval.pipeline.plain.llm_calls_per_card",
+              "before": 6.82,
+              "after": 3.27
+            },
+            {
+              "metric": "Agent card p50 wall time, real LLM (s)",
+              "path": "cost_eval.summary.by_path.agent.wall_s_per_card.p50",
+              "before": 6.04,
+              "after": 4.03
+            }
+          ]
+        },
+        {
+          "id": "F8",
+          "track": "product",
+          "title": "Card cache keyed by the evidence",
+          "sources": [
+            "W6"
+          ],
+          "change": "Species + evidence ids and contents + model + pipeline version; invalidates itself on corpus change.",
+          "files": [
+            "apps/main_api/services/orchestrator.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W6",
+              "before": "open",
+              "after": "resolved"
+            }
+          ],
+          "tests": [
+            {
+              "test": "test_grounding_and_pipeline::test_repeat_card_is_served_from_cache",
+              "before": "failed",
+              "after": "passed"
+            },
+            {
+              "test": "test_orchestrator_iteration::test_cache_key_follows_the_evidence",
+              "before": "absent",
+              "after": "passed"
+            }
+          ],
+          "metrics": [
+            {
+              "metric": "Repeat card latency (ms)",
+              "path": "rag_eval.pipeline.plain.repeat_latency_ms_mean",
+              "before": 832.7,
+              "after": 11.3
+            }
+          ]
+        },
+        {
+          "id": "E1",
+          "track": "evaluation",
+          "title": "LLM rounds counted from call timestamps",
+          "sources": [
+            "W5"
+          ],
+          "change": "The wall-time/delay proxy counted verifier compute as rounds; overlapping calls now form one round. The old proxy is still reported.",
+          "files": [
+            "evals/fakes.py",
+            "evals/pipeline_eval.py"
+          ],
+          "note": "",
+          "findings": [
+            {
+              "id": "W5",
+              "before": "open",
+              "after": "resolved"
+            }
+          ],
+          "tests": [],
+          "metrics": [
+            {
+              "metric": "LLM rounds per card (timestamps)",
+              "path": "rag_eval.pipeline.plain.llm_rounds",
+              "before": null,
+              "after": 1.0
+            }
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "Card evidence completeness, min over species",
+          "path": "rag_eval.retrieval.card_evidence_completeness.min",
+          "before": null,
+          "after": 1.0
+        },
+        {
+          "metric": "LLM calls per card (scripted)",
+          "path": "rag_eval.pipeline.plain.llm_calls_per_card",
+          "before": 6.82,
+          "after": 3.27
+        },
+        {
+          "metric": "LLM rounds per card (call timestamps)",
+          "path": "rag_eval.pipeline.plain.llm_rounds",
+          "before": null,
+          "after": 1.0
+        },
+        {
+          "metric": "Repeat card latency (ms)",
+          "path": "rag_eval.pipeline.plain.repeat_latency_ms_mean",
+          "before": 832.7,
+          "after": 11.3
+        },
+        {
+          "metric": "Agent card p50 wall time, real LLM (s)",
+          "path": "cost_eval.agent.wall_s_per_card.p50",
+          "before": 11.55,
+          "after": 4.03
+        },
+        {
+          "metric": "Agent card p95 wall time, real LLM (s)",
+          "path": "cost_eval.agent.wall_s_per_card.p95",
+          "before": 14.2,
+          "after": 66.63
+        },
+        {
+          "metric": "Published card p95 wall time, real LLM (s), one LLM call",
+          "path": "cost_eval.summary.by_path.published.wall_s_per_card.p95",
+          "before": 7.14,
+          "after": 67.32
+        },
+        {
+          "metric": "Cost per agent card, real LLM (USD)",
+          "path": "cost_eval.agent.cost_usd_per_card.mean",
+          "before": 0.0014,
+          "after": 0.0009
+        }
+      ]
     }
   ],
   "improvements": [

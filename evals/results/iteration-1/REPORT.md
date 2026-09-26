@@ -1,6 +1,6 @@
 # iteration-1: findings, fixes, re-test
 
-Generated 2026-09-26T06:26:25+00:00 by `python -m evals.iteration` from `reports/baseline` and `reports/current`. Every number below comes from those run artifacts.
+Generated 2026-09-26T07:51:15+00:00 by `python -m evals.iteration` from `reports/baseline` and `reports/current`. Every number below comes from those run artifacts.
 
 ## Summary
 

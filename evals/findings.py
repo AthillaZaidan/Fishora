@@ -134,7 +134,9 @@ def _w6(a):
     first = get(a, "rag_eval.pipeline.plain.latency_ms_mean")
     if rep is None:
         return "not_measured", []
-    return ("open" if rep >= 50 else "resolved"), [f"repeat card {rep:.0f} ms vs first card {first:.0f} ms (no cache)"]
+    status = "open" if rep >= 50 else "resolved"
+    how = "no cache" if status == "open" else "served from the card cache"
+    return status, [f"repeat card {rep:.0f} ms vs first card {first:.0f} ms ({how})"]
 
 
 def _w7(a):
@@ -224,7 +226,8 @@ def _w14(a):
     s = test_status(a, "test_orchestrator_nodes", "test_expert_sees_the_whole_chunk")
     if s is None:
         return "not_measured", []
-    return ("resolved" if s == "passed" else "open"), [f"expert evidence cut at 300 chars; unit test: {s}"]
+    what = "experts receive whole chunks" if s == "passed" else "expert evidence cut at 300 chars"
+    return ("resolved" if s == "passed" else "open"), [f"{what}; unit test: {s}"]
 
 
 def _w18(a):
@@ -256,7 +259,7 @@ def _w20(a):
         return "not_measured", []
     return ("resolved" if h["sends_session_header"] else "open"), [
         f"client sends x-opencode-session: {h['sends_session_header']}; sets a user agent: {h['sets_user_agent']}",
-        "without it the gateway answers 400 MissingSessionID (the cost eval adds the header itself)"]
+        "without it the gateway answers 400 MissingSessionID"]
 
 
 def _w21(a):
@@ -267,8 +270,11 @@ def _w21(a):
     ev = [f"agent path as shipped, real LLM: {_pct(shipped['success_rate'])} cards completed of {shipped['cards']}"]
     if fixed:
         ev.append(f"same run, content read as text (eval-only): {_pct(fixed['success_rate'])} completed")
-    ev.append(f"spend on the failing path: ${shipped['cost_usd_per_card']['mean']:.5f} per card, all wasted")
-    return ("open" if shipped["success_rate"] < 0.5 else "resolved"), ev
+    status = "open" if shipped["success_rate"] < 0.5 else "resolved"
+    cost = shipped["cost_usd_per_card"]["mean"]
+    ev.append(f"spend on the failing path: ${cost:.5f} per card, all wasted" if status == "open"
+              else f"spend: ${cost:.5f} per completed card")
+    return status, ev
 
 
 def _w22(a):

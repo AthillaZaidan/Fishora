@@ -8,7 +8,8 @@ critique, CV* from species ID), the files it touched, and the tests and
 metrics that verify it. Every number in the report is read from the
 Python-generated artifacts of the two runs. Output:
 
-    evals/results/<name>/REPORT.md       findings -> fixes -> re-test, for people
+    evals/results/<name>/CYCLES.md       the three main cycles, one finding -> fix -> re-test story each
+    evals/results/<name>/REPORT.md       every fix, findings -> fixes -> re-test, for people
     evals/results/<name>/iteration.json  the same, for tools
 """
 
@@ -170,6 +171,75 @@ FIXES: tuple[Fix, ...] = (
 )
 
 
+@dataclass(frozen=True)
+class Cycle:
+    """One complete iteration story: the findings it starts from, the fixes on
+    both tracks, and the metrics that re-test it. Text here carries no measured
+    number; every number in CYCLES.md is read from the run artifacts."""
+    id: str
+    title: str
+    problem: str
+    findings: tuple[str, ...]
+    fixes: tuple[str, ...]
+    metrics: tuple[str, ...]  # "<label>|<artifact.path>"
+    note: str = ""
+
+
+CYCLES: tuple[Cycle, ...] = (
+    Cycle("C1", "The agent card path works against the real LLM",
+          "The card path the app ships (researcher, experts, critic, writer) had never completed a card on "
+          "OpenCode Go. The gateway rejected calls without a session header, and the experts could not read "
+          "Responses-API content blocks or JSON wrapped in code fences, so every expert failed and the spend "
+          "was wasted.",
+          ("W20", "W21", "W4", "W3"), ("F1", "F2", "F12", "E2"),
+          ("Agent card success, real LLM|cost_eval.summary.by_path.agent.success_rate",
+           "Fenced-JSON job success (scripted)|rag_eval.pipeline.fenced.job_success_rate",
+           "Published card success, real LLM|cost_eval.summary.by_path.published.success_rate",
+           "Spend per agent card, real LLM (USD)|cost_eval.summary.by_path.agent.cost_usd_per_card.mean"),
+          "Nothing in this cycle is open. Read the spend row with care: at baseline it bought no card. The "
+          "evaluation fix (E2) mattered as much as the product fixes: the cost run used to add the session header "
+          "itself, so it could not see that the app never sent it. Whether OpenCode Go may carry production "
+          "traffic is a separate open question (W23)."),
+    Cycle("C2", "Claims are checked against their evidence, across languages",
+          "The critic kept a claim when enough words overlapped with the cited chunk. The claims are Indonesian "
+          "and the evidence English, so it dropped most true claims and still passed some claims borrowed from "
+          "other species. The review (R2) also asked whether it catches negated or inverted claims.",
+          ("W1", "W13", "R2"), ("F3", "F18", "E3", "E4"),
+          ("Grounding F1, held-out test split|rag_eval.grounding.test.f1",
+           "Grounding precision, test split|rag_eval.grounding.test.precision",
+           "Grounding recall, test split|rag_eval.grounding.test.recall",
+           "False support rate, all pairs|rag_eval.grounding.all.false_support_rate",
+           "True-claim retention in cards (scripted)|rag_eval.pipeline.plain.claim_retention",
+           "Hallucinated claims reaching cards (scripted)|rag_eval.pipeline.plain.hallucination_leakage",
+           "Negation/scope traps accepted (of 14)|experiment_nli_grounding.variants.A_e5_exact.traps_accepted"),
+          "The threshold was chosen on the dev split and is reported on the held-out test split, which is small, "
+          "so its perfect score has a wide interval. The false support left on the full set is a claim borrowed "
+          "from another species' processing chunk (`rag_eval.grounding.errors`). R2 stays partial: the shipped "
+          "verifier still accepts part of the negation/scope traps. The LLM judge was measured and removed (F18) "
+          "because it cut recall; multilingual NLI rejects every trap but is too slow on CPU, so it is the next "
+          "candidate, to be confirmed on a fresh trap set. W13 stays partial because the number and taxon checks "
+          "mitigate the embedding overlap rather than remove it."),
+    Cycle("C3", "Each card sees all of its evidence, in fewer LLM rounds",
+          "The card took the ranked top 6 of a species slice of at most 7 chunks, so ranking errors decided "
+          "what the model saw, and the experts read only the first 300 characters of each chunk. A card took "
+          "several sequential LLM rounds and the same evidence was regenerated every time.",
+          ("R1", "W9", "W14", "W5", "W6"), ("F5", "F4", "F7", "F8", "E1"),
+          ("Card evidence completeness, min over species|rag_eval.retrieval.card_evidence_completeness.min",
+           "LLM calls per card (scripted)|rag_eval.pipeline.plain.llm_calls_per_card",
+           "LLM rounds per card (call timestamps)|rag_eval.pipeline.plain.llm_rounds",
+           "Repeat card latency (ms)|rag_eval.pipeline.plain.repeat_latency_ms_mean",
+           "Agent card p50 wall time, real LLM (s)|cost_eval.agent.wall_s_per_card.p50",
+           "Agent card p95 wall time, real LLM (s)|cost_eval.agent.wall_s_per_card.p95",
+           "Published card p95 wall time, real LLM (s), one LLM call|cost_eval.summary.by_path.published.wall_s_per_card.p95",
+           "Cost per agent card, real LLM (USD)|cost_eval.agent.cost_usd_per_card.mean"),
+          "The shipped agent path completed no card at baseline (C1), so its real-LLM baseline latency and cost "
+          "come from the eval-only run that read the replies correctly. Cache hits are excluded from the "
+          "real-LLM statistics. The p95 got worse. The published path, a single LLM call, shows the same p95 in "
+          "the same run, which points to provider stalls rather than the pipeline; a repeat cost run would "
+          "confirm it."),
+)
+
+
 def _fmt(v) -> str:
     if v is None:
         return "n/a"
@@ -202,6 +272,20 @@ def build(name: str, baseline: str, current: str) -> dict:
                          "before": _metric(base, m.split("|")[1]), "after": _metric(cur, m.split("|")[1])}
                         for m in fx.metrics],
         })
+    by_fix = {fx["id"]: fx for fx in fixes}
+    cycles = []
+    for c in CYCLES:
+        cycles.append({
+            "id": c.id, "title": c.title, "problem": c.problem, "note": c.note,
+            "findings": [{"id": s, "title": f_base[s]["title"], "severity": f_base[s]["severity"],
+                          "before": f_base[s]["status"], "after": f_cur[s]["status"],
+                          "evidence_before": f_base[s]["evidence"], "evidence_after": f_cur[s]["evidence"]}
+                         for s in c.findings if s in f_base and s in f_cur],
+            "fixes": [by_fix[i] for i in c.fixes],
+            "metrics": [{"metric": m.split("|")[0], "path": m.split("|")[1],
+                         "before": _metric(base, m.split("|")[1]), "after": _metric(cur, m.split("|")[1])}
+                        for m in c.metrics],
+        })
     cited = {s for fx in FIXES for s in fx.sources}
     carried = [f for f in f_cur.values() if f["status"] in ("open", "partial") ]
     return {
@@ -211,6 +295,7 @@ def build(name: str, baseline: str, current: str) -> dict:
                   "coverage_rag": [get(base, "tests.coverage.rag_percent"), get(cur, "tests.coverage.rag_percent")]},
         "findings_status": {"baseline": _count(f_base), "current": _count(f_cur)},
         "fixes": fixes,
+        "cycles": cycles,
         "improvements": improvements(baseline, current),
         "experiments": {
             "passage_prefix": get(cur, "experiment_passage_prefix"),
@@ -289,6 +374,63 @@ def render_markdown(r: dict) -> str:
     return "\n".join(L) + "\n"
 
 
+def render_cycles(r: dict) -> str:
+    L = [f"# {r['name']}: three complete iteration cycles",
+         "",
+         "Checkpoint requirement: *Progres perbaikan pada Evaluation Track dan Product Track. Minimal satu "
+         "siklus iterasi lengkap terdokumentasi: temuan, perbaikan, lalu hasil uji ulang.*",
+         "",
+         "Each cycle below runs finding (temuan) -> fix (perbaikan) -> re-test (hasil uji ulang), with changes on "
+         "both the product track (`apps/main_api`) and the evaluation track (`evals/`). These are the three "
+         "largest RAG cycles of this iteration; [`REPORT.md`](REPORT.md) lists every fix.",
+         "",
+         f"Generated {r['generated_at']} by `python -m evals.iteration` from `reports/{r['baseline']}` (baseline, "
+         f"tag `checkpoint-1-baseline`) and `reports/{r['current']}` (after the fixes). Every number is read from "
+         "those run artifacts, which are archived in this folder.",
+         "",
+         "| Cycle | Starts from | Fixes | Headline re-test | Findings now |",
+         "|---|---|---|---|---|"]
+    for c in r["cycles"]:
+        m = c["metrics"][0]
+        status = ", ".join(f"{f['id']} {f['after']}" for f in c["findings"])
+        L.append(f"| [{c['id']}](#{c['id'].lower()}) {c['title']} | {', '.join(f['id'] for f in c['findings'])} | "
+                 f"{', '.join(fx['id'] for fx in c['fixes'])} | {m['metric']}: {_fmt(m['before'])} -> {_fmt(m['after'])} | {status} |")
+    t_b, t_c = r["tests"]["baseline"], r["tests"]["current"]
+    L += ["", f"Whole suite: {t_b.get('passed')}/{t_b.get('total')} tests passing at baseline, "
+              f"{t_c.get('passed')}/{t_c.get('total')} after the fixes.", ""]
+    for c in r["cycles"]:
+        L += [f"## {c['id']}", "", f"### {c['title']}", "", c["problem"], "",
+              "#### 1. Finding (temuan, baseline run)", ""]
+        for f in c["findings"]:
+            L.append(f"- **{f['id']}** ({f['severity']}): {f['title']}.")
+            for e in f["evidence_before"] or ["not measured at baseline: this finding came from the review"]:
+                L.append(f"  - {e}")
+        L += ["", "#### 2. Fix (perbaikan)", "", "| Fix | Track | Source | Change | Files |", "|---|---|---|---|---|"]
+        for fx in c["fixes"]:
+            files = "<br>".join(f"`{f}`" for f in fx["files"])
+            L.append(f"| {fx['id']} {fx['title']} | {fx['track']} | {', '.join(fx['sources'])} | {fx['change']} | {files} |")
+        L += ["", "#### 3. Re-test (hasil uji ulang)", "", "| Metric | Baseline | After | Artifact |", "|---|---:|---:|---|"]
+        for m in c["metrics"]:
+            L.append(f"| {m['metric']} | {_fmt(m['before'])} | {_fmt(m['after'])} | `{m['path']}` |")
+        tests = [t for fx in c["fixes"] for t in fx["tests"]]
+        if tests:
+            L += ["", "| Test | Baseline | After |", "|---|---|---|"]
+            L += [f"| `{t['test']}` | {t['before']} | {t['after']} |" for t in tests]
+        L += ["", "| Finding | Baseline | After | Evidence after |", "|---|---|---|---|"]
+        for f in c["findings"]:
+            L.append(f"| {f['id']} | {f['before']} | {f['after']} | {'; '.join(f['evidence_after'])} |")
+        L += ["", f"**Reading the result, and what remains.** {c['note']}", ""]
+    L += ["## Reproduce", "",
+          "```bash",
+          "HF_HUB_OFFLINE=1 .venv/Scripts/python.exe -m scripts.quality --label current            # tests, evals, findings, dashboard",
+          "HF_HUB_OFFLINE=1 .venv/Scripts/python.exe -m evals.cost_eval --label current --repeat 2   # real LLM, needs OPENCODE_GO_API_KEY",
+          "HF_HUB_OFFLINE=1 .venv/Scripts/python.exe -m evals.calibrate_grounding --label current",
+          "HF_HUB_OFFLINE=1 .venv/Scripts/python.exe -m evals.experiment_nli_grounding --label current --with-llm",
+          ".venv/Scripts/python.exe -m evals.iteration --name iteration-1                              # this file and REPORT.md",
+          "```", ""]
+    return "\n".join(L)
+
+
 def main(argv: list[str] | None = None):
     parser = argparse.ArgumentParser(prog="python -m evals.iteration")
     parser.add_argument("--name", default="iteration-1")
@@ -300,6 +442,7 @@ def main(argv: list[str] | None = None):
     out.mkdir(parents=True, exist_ok=True)
     (out / "iteration.json").write_text(json.dumps(report, indent=2, ensure_ascii=False, default=_jsonable), encoding="utf-8")
     (out / "REPORT.md").write_text(render_markdown(report), encoding="utf-8")
+    (out / "CYCLES.md").write_text(render_cycles(report), encoding="utf-8")
     print(f"[iteration] {len(report['fixes'])} fixes; findings now {report['findings_status']['current']} -> {out}")
     return out
 
