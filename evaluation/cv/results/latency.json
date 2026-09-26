@@ -1,0 +1,82 @@
+{
+  "machine": "x86_64 x86_64 Linux-6.12.90+-x86_64-with-glibc2.35",
+  "device": "cpu",
+  "threads": 4,
+  "warmup": 10,
+  "runs": 100,
+  "image": "evaluation/cv/data/dataset/cleaned/bandeng/IMG_20190930_070347.tif",
+  "models": {
+    "lp_vit_l": {
+      "load_seconds": 8.51,
+      "p50_ms": 896.2,
+      "p95_ms": 969.6,
+      "mean_ms": 902.9,
+      "params_m": 303.09,
+      "weights_mb": 1156.3,
+      "peak_rss_mb": 3030.0
+    },
+    "lp_vit_b": {
+      "load_seconds": 4.74,
+      "p50_ms": 267.0,
+      "p95_ms": 276.7,
+      "mean_ms": 269.2,
+      "params_m": 85.65,
+      "weights_mb": 326.8,
+      "peak_rss_mb": 1369.0
+    },
+    "lp_vit_s": {
+      "load_seconds": 3.53,
+      "p50_ms": 97.1,
+      "p95_ms": 102.7,
+      "mean_ms": 98.1,
+      "params_m": 21.59,
+      "weights_mb": 82.4,
+      "peak_rss_mb": 881.0
+    },
+    "lp_convnext_t": {
+      "load_seconds": 3.66,
+      "p50_ms": 103.3,
+      "p95_ms": 112.2,
+      "mean_ms": 104.6,
+      "params_m": 27.83,
+      "weights_mb": 106.2,
+      "peak_rss_mb": 927.0
+    },
+    "lp_efficientnet_b0": {
+      "load_seconds": 3.25,
+      "p50_ms": 52.9,
+      "p95_ms": 61.2,
+      "mean_ms": 54.5,
+      "params_m": 4.02,
+      "weights_mb": 15.6,
+      "peak_rss_mb": 792.0
+    },
+    "lp_mobilenetv3_l": {
+      "load_seconds": 3.15,
+      "p50_ms": 35.8,
+      "p95_ms": 38.8,
+      "mean_ms": 36.1,
+      "params_m": 4.22,
+      "weights_mb": 16.3,
+      "peak_rss_mb": 780.0
+    },
+    "final_vit_b": {
+      "load_seconds": 4.87,
+      "p50_ms": 257.8,
+      "p95_ms": 295.3,
+      "mean_ms": 263.1,
+      "params_m": 85.65,
+      "weights_mb": 326.8,
+      "peak_rss_mb": 1369.0
+    },
+    "gated_vit_b_final": {
+      "load_seconds": 4.58,
+      "p50_ms": 255.7,
+      "p95_ms": 311.3,
+      "mean_ms": 264.8,
+      "params_m": 85.65,
+      "weights_mb": 326.8,
+      "peak_rss_mb": 1387.0
+    }
+  }
+}
