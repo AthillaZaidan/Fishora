@@ -36,12 +36,29 @@ class LotService:
         auction_hours: int = DEFAULT_AUCTION_HOURS,
         landing_point_repo=None,
         knowledge_service=None,
+        job_repo=None,
     ):
         self._prediction_repo = prediction_repo
         self._lot_repo = lot_repo
         self._auction_hours = auction_hours
         self._landing_point_repo = landing_point_repo
         self._knowledge_service = knowledge_service
+        self._job_repo = job_repo
+
+    def _graded_card(self, prediction_id: str, species_id: str) -> dict | None:
+        """The critic-graded card the operator was shown, if its job completed
+        for the species the prediction is verified as now. Publishing it keeps
+        the lot, the QR page and buyer matching on the same checked card (W19)."""
+        if self._job_repo is None:
+            return None
+        try:
+            jobs = self._job_repo.list_by_prediction(prediction_id)
+        except Exception:
+            return None
+        for job in reversed(jobs):
+            if job.status == "completed" and job.final_card and job.species_id == species_id:
+                return job.final_card
+        return None
 
     def publish(
         self,
@@ -76,8 +93,8 @@ class LotService:
         starts = now or datetime.now(timezone.utc)
         lot_id = uuid4().hex
         label = record.verified_species_id.removeprefix("species_")
-        snapshot = None
-        if self._knowledge_service is not None:
+        snapshot = self._graded_card(prediction_id, record.verified_species_id)
+        if snapshot is None and self._knowledge_service is not None:
             # Best effort. The catch is landed and the auction has to open; a
             # knowledge card that cannot be generated is a degraded listing, not
             # a reason to refuse publication. The lot page and the discover page

@@ -1,3 +1,5 @@
+import logging
+import threading
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
@@ -11,6 +13,7 @@ from apps.main_api.api.discover import router as discover_router
 from apps.main_api.api.fish import knowledge_router, router as fish_router
 from apps.main_api.api.jobs import router as jobs_router
 from apps.main_api.api.lots import router as lots_router
+from apps.main_api.api.quality import router as quality_router
 from apps.main_api.api.reviews import router as reviews_router
 from apps.main_api.api.species import router as species_router
 from apps.main_api.config import DEFAULT_CORS_ALLOW_ORIGINS, MainSettings, parse_origins
@@ -76,13 +79,33 @@ def create_main_app(settings: MainSettings | None = None, deps: AppDependencies 
     app.include_router(reviews_router)
     app.include_router(jobs_router)
     app.include_router(species_router)
+    app.include_router(quality_router)
     return app
 
 
 @asynccontextmanager
 async def _lifespan(app: FastAPI):
     _ensure_production_deps(app)
+    _warm_embedder(app)
     yield
+
+
+def _warm_embedder(app: FastAPI) -> None:
+    """Load the embedding model in the background at startup, so the first
+    knowledge request does not wait for it (about 11 s cold, W7). Startup does
+    not block, and a failure only means the first request loads it instead."""
+    embedder = getattr(app.state.deps, "embedder", None)
+    warmup = getattr(embedder, "warmup", None)
+    if not callable(warmup):
+        return
+
+    def run():
+        try:
+            warmup()
+        except Exception:
+            logging.getLogger(__name__).warning("embedder warmup failed; the first request will load it", exc_info=True)
+
+    threading.Thread(target=run, name="embedder-warmup", daemon=True).start()
 
 
 def _ensure_production_deps(app: FastAPI) -> None:

@@ -125,3 +125,6 @@ class AppDependencies:
     session_service: object | None = None
     review_repo: object | None = None  # ReviewRepository
     job_repo: KnowledgeJobRepository | None = None
+    # Chat model for the agent graph (LangChain-style ``invoke``). None builds
+    # the OpenCode Go client from settings per card (api/fish.py::_card_llm).
+    llm: object | None = None

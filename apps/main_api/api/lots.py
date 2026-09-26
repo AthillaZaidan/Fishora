@@ -85,6 +85,7 @@ def _service(request: Request) -> LotService:
         lot_repo=deps.lot_repo,
         landing_point_repo=deps.landing_point_repo,
         knowledge_service=knowledge_service,
+        job_repo=getattr(deps, "job_repo", None),
     )
 
 
