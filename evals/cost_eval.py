@@ -72,7 +72,7 @@ EVAL_USER_AGENT = "fishora-rag-eval/0.1"
 
 
 def make_llm(settings, session_id: str, model: str | None = None,
-             timeout: float | None = None, max_retries: int | None = None):
+             timeout: float | None = None, max_retries: int | None = None, reasoning_effort: str | None = None):
     """Eval client for the model comparison (any model, bounded timeouts).
     Baseline runs also used it for the production model, because the shipped
     factory sent no session header then (W20); it now does, so the cost run
@@ -87,6 +87,7 @@ def make_llm(settings, session_id: str, model: str | None = None,
         timeout=timeout or settings.opencode_go_timeout_seconds,
         **({"max_retries": max_retries} if max_retries is not None else {}),
         use_responses_api=model in RESPONSES_API,
+        **({"reasoning": {"effort": reasoning_effort}} if reasoning_effort else {}),
         default_headers={"x-opencode-session": session_id, "User-Agent": EVAL_USER_AGENT},
     )
 
