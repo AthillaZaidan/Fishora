@@ -1,0 +1,39 @@
+{
+  "run": "lp_vit_s",
+  "export": "/kaggle/input/datasets/athillazaidan/fishora-models/fishora_lp_vit_s_dinov3/vit_s_dinov3/export",
+  "model_name": "vit_small_patch16_dinov3.lvd1689m",
+  "temperature": 0.05000000074505806,
+  "abstain_threshold": 0.0,
+  "device": "cuda",
+  "items": 21674,
+  "slice_counts": {
+    "clean": 849,
+    "dark": 2547,
+    "bright": 2547,
+    "blur": 2547,
+    "jpeg": 2547,
+    "lowres": 2547,
+    "rotate": 2547,
+    "occlusion": 2547,
+    "bg_removed": 848,
+    "fish_erased": 848,
+    "bg_swap": 848,
+    "field": 258,
+    "ood_unknown_fish": 89,
+    "ood_nonfish": 83,
+    "ood_synthetic": 22
+  },
+  "plates": {
+    "ROBOFLOW": 24,
+    "FISH_GRES": 24
+  },
+  "load_seconds": 4.59,
+  "inference_seconds": 203.77,
+  "screening_sha256": "9a072b7a739c81800afb1861b0284b0caa463610d45e653297873842b6d8ed28",
+  "masks_used": true,
+  "out_of_scope": {
+    "field_live": "out of operational scope: Fishora classifies fish after landing, not live fish under water"
+  },
+  "limit": 0,
+  "seed": 1234
+}

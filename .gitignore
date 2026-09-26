@@ -36,3 +36,8 @@ __pycache__/
 
 # create-next-app boilerplate; the root README is the real setup guide.
 /apps/frontend/README.md
+
+# CV evaluation: third-party test photos, the training dataset copy, and Kaggle
+# outputs with model weights (~9 GB). Code, protocol locks and results are tracked.
+/evaluation/cv/data/
+/evaluation/cv/kaggle_outputs/
