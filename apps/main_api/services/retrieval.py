@@ -15,6 +15,15 @@ import math
 from apps.main_api.contracts import RetrievedChunk
 from apps.main_api.services.embeddings import E5_DIMENSION, E5_MODEL_NAME
 
+# Knowledge-card evidence (R1, W9, W8). A species slice is 1 to 7 chunks and
+# about 1,000 tokens at most, so the whole verified slice fits one prompt and
+# semantic ranking can only lose evidence: the 6-chunk cap dropped tuna's
+# seventh chunk and name-biased ranking decided what the model saw. Up to
+# FULL_CONTEXT_MAX chunks the card gets the whole slice; above it, the
+# category-first ranked selection with CARD_MAX_CHUNKS applies.
+FULL_CONTEXT_MAX = 20
+CARD_MAX_CHUNKS = 10
+
 CATEGORY_ORDER = [
     "identity",
     "physical_characteristics",
@@ -56,6 +65,24 @@ class VerifiedRetriever:
             species_id, query_vector, E5_MODEL_NAME, limit=max_chunks * len(CATEGORY_ORDER)
         )
         return _category_first_selection(candidates, max_chunks)
+
+    def card_evidence(self, species_id: str, query: str) -> list[RetrievedChunk]:
+        """Evidence for one knowledge card: the whole verified species slice when
+        it has at most FULL_CONTEXT_MAX chunks, ordered by category then
+        distance; otherwise the ranked, category-first selection."""
+        if self._embedder.model_name != E5_MODEL_NAME:
+            raise ValueError(
+                f"embedder model must be {E5_MODEL_NAME!r}, got {self._embedder.model_name!r}"
+            )
+        query_vector = self._embedder.embed_query(query)
+        _validate_query_vector(query_vector)
+        candidates = self._repo.search_verified(
+            species_id, query_vector, E5_MODEL_NAME, limit=FULL_CONTEXT_MAX + 1
+        )
+        if len(candidates) <= FULL_CONTEXT_MAX:
+            rank = {category: i for i, category in enumerate(CATEGORY_ORDER)}
+            return sorted(candidates, key=lambda c: (rank.get(c.category, len(rank)), c.distance, c.chunk_id))
+        return self.retrieve(species_id, query, max_chunks=CARD_MAX_CHUNKS)
 
 
 def _validate_query_vector(vector: list[float]) -> None:
