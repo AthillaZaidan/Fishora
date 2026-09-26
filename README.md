@@ -138,6 +138,40 @@ Even with all three, cards come back empty with the limitation `No information a
 approved corpus is ingested: generation is fail-closed and will not assert anything it cannot cite.
 That approval requires a human attestation and is deliberately not automated.
 
+To load the corpus into a database (the 49 candidate chunks in `artifacts/knowledge_sources/`,
+reviewed and approved by Jason Edward Salim on 2026-09-26):
+
+```bash
+export FISHORA_CORPUS_APPROVAL_KEY=$("$PY" -c "import secrets; print(secrets.token_hex(32))")
+"$PY" -m scripts.corpus_pipeline approve --candidate-dir artifacts/knowledge_sources/candidates \
+  --review-file artifacts/knowledge_sources/review/approval.json \
+  --approved-dir artifacts/knowledge_sources/approved \
+  --approval-manifest artifacts/knowledge_sources/approval-manifest.json \
+  --reviewer "<your name>" --confirmation APPROVE
+"$PY" -m scripts.corpus_pipeline ingest --approved-dir artifacts/knowledge_sources/approved \
+  --approval-manifest artifacts/knowledge_sources/approval-manifest.json
+```
+
+### Knowledge sources
+
+Every card claim cites one of 28 sources behind the 49 approved chunks, covering all 11 species.
+Most come from three reference databases; the rest are peer-reviewed papers, each linked by DOI.
+
+| Source | Used for | Where |
+|---|---|---|
+| **FishBase** (14 species pages) | Identity, physical traits, size, commercial status for every species | [fishbase.se](https://www.fishbase.se), one summary page per scientific name |
+| **FAO** (4 documents) | Tuna and mackerel catalogue, Nile tilapia fact sheet, tilapia in Asia | [FAO Species Catalogue Vol. 2: Scombrids](https://www.fao.org/4/ac478e/ac478e00.htm), [Nile tilapia fact sheet](https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm), [Tilapias in Asia and the Pacific](https://www.fao.org/4/y5728e/y5728e05.htm) |
+| **NOAA Fisheries** | Yellowfin tuna taste, texture and marketing | [Pacific yellowfin tuna](https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna) |
+| **Peer-reviewed papers** (9) | Processing, products and local market uses | Food Chemistry [10.1016/j.foodchem.2008.09.078](https://doi.org/10.1016/j.foodchem.2008.09.078); Food Research [10.26656/fr.2017.7(S3).12](https://doi.org/10.26656/fr.2017.7(S3).12); J. Bangladesh Agric. Univ. [10.5455/JBAU.86202](https://doi.org/10.5455/JBAU.86202); Coastal and Ocean Journal [10.29244/coj.5.1.1-8](https://doi.org/10.29244/coj.5.1.1-8); Jurnal Manajemen dan Agribisnis [10.17358/jma.22.2.210](https://doi.org/10.17358/jma.22.2.210); Jurnal IPTEKS PSP [10.20956/jipsp.v6i12.7801](https://doi.org/10.20956/jipsp.v6i12.7801); J. Pharmaceutical and Sciences [10.36490/journal-jps.com.v8i2.936](https://doi.org/10.36490/journal-jps.com.v8i2.936); Manfish Journal [10.31573/manfish.v2i3.489](https://doi.org/10.31573/manfish.v2i3.489); Marinade [10.31629/marinade.v5i02.4962](https://doi.org/10.31629/marinade.v5i02.4962) |
+
+Protein per 100 g on the card comes from published food-composition tables, cited on the card
+itself and listed in `apps/frontend/lib/nutrition.ts` (TKPI 2017 by Kemenkes RI, the Malaysian
+Food Composition Database, the Thai FCD, and the ASEAN tables via FAO/INFOODS).
+
+Gaps: no source covers substitute species for any fish, and taste/texture sources are missing for
+six species, so those card fields stay empty rather than guessed
+(`python -m evals.corpus_gaps` lists every empty cell).
+
 ## System at a Glance
 
 | Service | Port | Runs on | Responsibility |
