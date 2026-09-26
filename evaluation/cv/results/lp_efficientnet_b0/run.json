@@ -1,0 +1,39 @@
+{
+  "run": "lp_efficientnet_b0",
+  "export": "/kaggle/input/datasets/athillazaidan/fishora-models/fishora_lp_efficientnet_b0/efficientnet_b0/export",
+  "model_name": "efficientnet_b0.ra_in1k",
+  "temperature": 0.4957823157310486,
+  "abstain_threshold": 0.0,
+  "device": "cuda",
+  "items": 21674,
+  "slice_counts": {
+    "clean": 849,
+    "dark": 2547,
+    "bright": 2547,
+    "blur": 2547,
+    "jpeg": 2547,
+    "lowres": 2547,
+    "rotate": 2547,
+    "occlusion": 2547,
+    "bg_removed": 848,
+    "fish_erased": 848,
+    "bg_swap": 848,
+    "field": 258,
+    "ood_unknown_fish": 89,
+    "ood_nonfish": 83,
+    "ood_synthetic": 22
+  },
+  "plates": {
+    "ROBOFLOW": 24,
+    "FISH_GRES": 24
+  },
+  "load_seconds": 3.59,
+  "inference_seconds": 127.26,
+  "screening_sha256": "9a072b7a739c81800afb1861b0284b0caa463610d45e653297873842b6d8ed28",
+  "masks_used": true,
+  "out_of_scope": {
+    "field_live": "out of operational scope: Fishora classifies fish after landing, not live fish under water"
+  },
+  "limit": 0,
+  "seed": 1234
+}
