@@ -1,0 +1,686 @@
+{
+  "exit_code": 0,
+  "duration_s": 44.0,
+  "totals": {
+    "passed": 71,
+    "failed": 0,
+    "error": 0,
+    "skipped": 0,
+    "total": 71
+  },
+  "layers": {
+    "unit": {
+      "passed": 44,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "total": 44
+    },
+    "retrieval": {
+      "passed": 7,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "total": 7
+    },
+    "generation": {
+      "passed": 13,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "total": 13
+    },
+    "integration": {
+      "passed": 5,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "total": 5
+    },
+    "e2e": {
+      "passed": 2,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "total": 2
+    }
+  },
+  "tests": [
+    {
+      "layer": "e2e",
+      "module": "test_operator_flow",
+      "name": "test_photo_to_grounded_card",
+      "status": "passed",
+      "time_s": 24.135,
+      "message": ""
+    },
+    {
+      "layer": "e2e",
+      "module": "test_operator_flow",
+      "name": "test_quality_dashboard_is_served",
+      "status": "passed",
+      "time_s": 0.121,
+      "message": ""
+    },
+    {
+      "layer": "generation",
+      "module": "test_grounding_and_pipeline",
+      "name": "test_indonesian_claim_is_grounded_in_english_evidence",
+      "status": "passed",
+      "time_s": 0.164,
+      "message": ""
+    },
+    {
+      "layer": "generation",
+      "module": "test_grounding_and_pipeline",
+      "name": "test_shared_token_does_not_ground_a_borrowed_claim",
+      "status": "passed",
+      "time_s": 0.003,
+      "message": ""
+    },
+    {
+      "layer": "generation",
+      "module": "test_grounding_and_pipeline",
+      "name": "test_wrong_numbers_are_not_grounded",
+      "status": "passed",
+      "time_s": 0.004,
+      "message": ""
+    },
+    {
+      "layer": "generation",
+      "module": "test_grounding_and_pipeline",
+      "name": "test_grounding_test_split_f1",
+      "status": "passed",
+      "time_s": 5.069,
+      "message": ""
+    },
+    {
+      "layer": "generation",
+      "module": "test_grounding_and_pipeline",
+      "name": "test_grounding_false_support_rate",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "generation",
+      "module": "test_grounding_and_pipeline",
+      "name": "test_every_card_job_completes",
+      "status": "passed",
+      "time_s": 1.86,
+      "message": ""
+    },
+    {
+      "layer": "generation",
+      "module": "test_grounding_and_pipeline",
+      "name": "test_true_claims_survive_into_the_card",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "generation",
+      "module": "test_grounding_and_pipeline",
+      "name": "test_borrowed_claims_do_not_leak",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "generation",
+      "module": "test_grounding_and_pipeline",
+      "name": "test_every_citation_belongs_to_the_species",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "generation",
+      "module": "test_grounding_and_pipeline",
+      "name": "test_card_needs_at_most_two_sequential_llm_rounds",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "generation",
+      "module": "test_grounding_and_pipeline",
+      "name": "test_repeat_card_is_served_from_cache",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "generation",
+      "module": "test_grounding_and_pipeline",
+      "name": "test_markdown_fenced_llm_output_still_completes",
+      "status": "passed",
+      "time_s": 1.287,
+      "message": ""
+    },
+    {
+      "layer": "generation",
+      "module": "test_grounding_and_pipeline",
+      "name": "test_llm_outage_fails_the_job_cleanly",
+      "status": "passed",
+      "time_s": 0.043,
+      "message": ""
+    },
+    {
+      "layer": "integration",
+      "module": "test_knowledge_api",
+      "name": "test_health_reports_seeded_taxonomy",
+      "status": "passed",
+      "time_s": 0.029,
+      "message": ""
+    },
+    {
+      "layer": "integration",
+      "module": "test_knowledge_api",
+      "name": "test_pending_prediction_gets_no_knowledge",
+      "status": "passed",
+      "time_s": 0.038,
+      "message": ""
+    },
+    {
+      "layer": "integration",
+      "module": "test_knowledge_api",
+      "name": "test_verification_schedules_a_job_that_completes",
+      "status": "passed",
+      "time_s": 0.229,
+      "message": ""
+    },
+    {
+      "layer": "integration",
+      "module": "test_knowledge_api",
+      "name": "test_correction_retrieves_for_the_corrected_species",
+      "status": "passed",
+      "time_s": 0.195,
+      "message": ""
+    },
+    {
+      "layer": "integration",
+      "module": "test_knowledge_api",
+      "name": "test_embedder_is_warmed_at_startup",
+      "status": "passed",
+      "time_s": 0.011,
+      "message": ""
+    },
+    {
+      "layer": "retrieval",
+      "module": "test_retrieval_quality",
+      "name": "test_gold_set_covers_every_cell_in_both_languages",
+      "status": "passed",
+      "time_s": 0.004,
+      "message": ""
+    },
+    {
+      "layer": "retrieval",
+      "module": "test_retrieval_quality",
+      "name": "test_scoped_retrieval_never_leaks_other_species",
+      "status": "passed",
+      "time_s": 2.932,
+      "message": ""
+    },
+    {
+      "layer": "retrieval",
+      "module": "test_retrieval_quality",
+      "name": "test_scoped_recall_at_6",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "retrieval",
+      "module": "test_retrieval_quality",
+      "name": "test_card_query_covers_every_available_category",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "retrieval",
+      "module": "test_retrieval_quality",
+      "name": "test_embedding_separates_species_without_the_filter",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "retrieval",
+      "module": "test_retrieval_quality",
+      "name": "test_warm_query_latency",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "retrieval",
+      "module": "test_retrieval_quality",
+      "name": "test_unverified_rows_are_never_returned",
+      "status": "passed",
+      "time_s": 0.016,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_chunking",
+      "name": "test_short_record_is_kept_whole",
+      "status": "passed",
+      "time_s": 0.005,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_chunking",
+      "name": "test_long_record_splits_within_limit_on_sentences",
+      "status": "passed",
+      "time_s": 0.005,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_chunking",
+      "name": "test_oversized_sentence_is_windowed_with_overlap",
+      "status": "passed",
+      "time_s": 0.003,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_chunking",
+      "name": "test_default_chunk_limit_fits_the_e5_window",
+      "status": "passed",
+      "time_s": 0.003,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_generation_guards",
+      "name": "test_empty_evidence_never_builds_the_llm_client",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_generation_guards",
+      "name": "test_relational_identity_overrides_generated_text",
+      "status": "passed",
+      "time_s": 0.003,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_generation_guards",
+      "name": "test_citation_to_unretrieved_source_is_rejected",
+      "status": "passed",
+      "time_s": 0.005,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_generation_guards",
+      "name": "test_uncited_card_with_evidence_is_rejected",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_generation_guards",
+      "name": "test_tuna_taxonomy_guardrail_pins_genus",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_llm_output",
+      "name": "test_responses_api_content_blocks",
+      "status": "passed",
+      "time_s": 0.003,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_llm_output",
+      "name": "test_plain_string_and_message",
+      "status": "passed",
+      "time_s": 0.003,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_llm_output",
+      "name": "test_fenced_or_prose_wrapped_json[```json\\n{\"taste\": \"Rasa ringan\", \"sources\": []}\\n```]",
+      "status": "passed",
+      "time_s": 0.004,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_llm_output",
+      "name": "test_fenced_or_prose_wrapped_json[```\\n{\"taste\": \"Rasa ringan\", \"sources\": []}\\n```]",
+      "status": "passed",
+      "time_s": 0.003,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_llm_output",
+      "name": "test_fenced_or_prose_wrapped_json[Berikut jawabannya:\\n{\"taste\": \"Rasa ringan\", \"sources\": []}\\nSemoga membantu.]",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_llm_output",
+      "name": "test_no_json_raises",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_lot_publication",
+      "name": "test_published_snapshot_is_the_graded_job_card",
+      "status": "passed",
+      "time_s": 0.003,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_lot_publication",
+      "name": "test_graded_card_for_another_species_is_not_published",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_iteration",
+      "name": "test_expert_reads_responses_api_blocks",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_iteration",
+      "name": "test_expert_without_evidence_is_not_called",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_iteration",
+      "name": "test_expert_prompt_requires_indonesian",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_iteration",
+      "name": "test_no_groundable_claim_gives_a_limitation_card",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_iteration",
+      "name": "test_every_expert_failing_is_an_error_not_an_empty_card",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_iteration",
+      "name": "test_critic_llm_pass_reads_the_whole_chunk",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_iteration",
+      "name": "test_llm_judge_pass_is_off_in_production",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_iteration",
+      "name": "test_substitute_claim_needs_substitute_evidence",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_iteration",
+      "name": "test_missing_evidence_is_named_on_the_card",
+      "status": "passed",
+      "time_s": 0.004,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_iteration",
+      "name": "test_cache_key_follows_the_evidence",
+      "status": "passed",
+      "time_s": 0.003,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_nodes",
+      "name": "test_expert_parses_markdown_fenced_json",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_nodes",
+      "name": "test_expert_sees_the_whole_chunk",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_nodes",
+      "name": "test_expert_without_llm_claims_nothing",
+      "status": "passed",
+      "time_s": 0.003,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_nodes",
+      "name": "test_expert_citation_outside_its_evidence_is_dropped",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_nodes",
+      "name": "test_critic_llm_outage_never_upgrades",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_nodes",
+      "name": "test_writer_with_no_evidence_returns_empty_card",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_orchestrator_nodes",
+      "name": "test_writer_keeps_only_supported_claims",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_provider_client",
+      "name": "test_client_sends_session_and_user_agent",
+      "status": "passed",
+      "time_s": 0.561,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_provider_client",
+      "name": "test_client_without_session_gets_a_fresh_one",
+      "status": "passed",
+      "time_s": 0.006,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_provider_client",
+      "name": "test_blank_key_is_a_provider_outage_not_a_crash",
+      "status": "passed",
+      "time_s": 0.003,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_retrieval_selection",
+      "name": "test_one_per_category_first_then_nearest_fill",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_retrieval_selection",
+      "name": "test_selection_respects_max_chunks",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_retrieval_selection",
+      "name": "test_zero_and_negative_max_chunks",
+      "status": "passed",
+      "time_s": 0.003,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_retrieval_selection",
+      "name": "test_rejects_foreign_embedding_model",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_retrieval_selection",
+      "name": "test_malformed_query_vectors_rejected[vector0]",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_retrieval_selection",
+      "name": "test_malformed_query_vectors_rejected[vector1]",
+      "status": "passed",
+      "time_s": 0.002,
+      "message": ""
+    },
+    {
+      "layer": "unit",
+      "module": "test_retrieval_selection",
+      "name": "test_malformed_query_vectors_rejected[vector2]",
+      "status": "passed",
+      "time_s": 0.003,
+      "message": ""
+    }
+  ],
+  "coverage": {
+    "all_main_api_percent": 63.4,
+    "rag_percent": 83.4,
+    "rag_modules": {
+      "chunking.py": {
+        "percent": 96.7,
+        "missing_lines": 2,
+        "statements": 60
+      },
+      "retrieval.py": {
+        "percent": 96.7,
+        "missing_lines": 2,
+        "statements": 61
+      },
+      "embeddings.py": {
+        "percent": 87.8,
+        "missing_lines": 5,
+        "statements": 41
+      },
+      "generation.py": {
+        "percent": 79.2,
+        "missing_lines": 26,
+        "statements": 125
+      },
+      "orchestrator.py": {
+        "percent": 88.1,
+        "missing_lines": 37,
+        "statements": 311
+      },
+      "knowledge.py": {
+        "percent": 60.9,
+        "missing_lines": 9,
+        "statements": 23
+      },
+      "verification.py": {
+        "percent": 90.9,
+        "missing_lines": 2,
+        "statements": 22
+      },
+      "identification.py": {
+        "percent": 89.6,
+        "missing_lines": 5,
+        "statements": 48
+      },
+      "fish.py": {
+        "percent": 81.1,
+        "missing_lines": 20,
+        "statements": 106
+      },
+      "jobs.py": {
+        "percent": 90.9,
+        "missing_lines": 2,
+        "statements": 22
+      },
+      "quality.py": {
+        "percent": 91.4,
+        "missing_lines": 3,
+        "statements": 35
+      },
+      "main.py": {
+        "percent": 67.4,
+        "missing_lines": 58,
+        "statements": 178
+      }
+    }
+  },
+  "label": "current",
+  "generated_at": "2026-09-26T06:15:40+00:00"
+}

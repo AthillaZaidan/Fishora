@@ -1,0 +1,4297 @@
+{
+  "label": "current",
+  "generated_at": "2026-09-26T06:24:50+00:00",
+  "git": {
+    "commit": "f2633dc",
+    "dirty": true
+  },
+  "model": "gpt-5.6-luna",
+  "prices_usd_per_1m": {
+    "input": 0.2,
+    "output": 1.2,
+    "cached_input": 0.02
+  },
+  "allowance_usd": {
+    "5h": 3.0,
+    "week": 7.5,
+    "month": 15.0
+  },
+  "wall_time_s": 499.9,
+  "summary": {
+    "by_path": {
+      "published": {
+        "cards": 22,
+        "success_rate": 1.0,
+        "cost_usd_per_card": {
+          "mean": 0.0007,
+          "p50": 0.0007,
+          "p95": 0.0009,
+          "max": 0.0009,
+          "n": 22
+        },
+        "wall_s_per_card": {
+          "mean": 17.86,
+          "p50": 8.86,
+          "p95": 67.32,
+          "max": 69.13,
+          "n": 22
+        },
+        "llm_calls_per_card": {
+          "mean": 1.0,
+          "p50": 1,
+          "p95": 1,
+          "max": 1,
+          "n": 22
+        },
+        "input_tokens_per_card": {
+          "mean": 1062.6364,
+          "p50": 1089,
+          "p95": 1242,
+          "max": 1242,
+          "n": 22
+        },
+        "output_tokens_per_card": {
+          "mean": 427.5909,
+          "p50": 426,
+          "p95": 548,
+          "max": 560,
+          "n": 22
+        },
+        "reasoning_share_of_output": 0.3102,
+        "cache_hit_share_of_input": 0.3818,
+        "output_share_of_cost": 0.7861,
+        "english_leak_rate": 0.0,
+        "cards_per_allowance": {
+          "5h": 4596,
+          "week": 11490,
+          "month": 22980
+        },
+        "cost_usd_per_1000_cards": 0.65,
+        "cache_hits": 0,
+        "cache_hit_wall_s": {},
+        "fields_filled_rate": {
+          "physical_characteristics": 0.909,
+          "taste": 0.364,
+          "texture": 0.318,
+          "processing_methods": 0.818,
+          "commercial_uses": 0.727,
+          "similar_or_substitute_species": 0.091,
+          "potential_buyer_segments": 0.136
+        }
+      },
+      "agent": {
+        "cards": 11,
+        "success_rate": 1.0,
+        "cost_usd_per_card": {
+          "mean": 0.0009,
+          "p50": 0.001,
+          "p95": 0.0012,
+          "max": 0.0012,
+          "n": 11
+        },
+        "wall_s_per_card": {
+          "mean": 9.6418,
+          "p50": 4.03,
+          "p95": 66.63,
+          "max": 66.63,
+          "n": 11
+        },
+        "llm_calls_per_card": {
+          "mean": 3.2727,
+          "p50": 3,
+          "p95": 4,
+          "max": 4,
+          "n": 11
+        },
+        "input_tokens_per_card": {
+          "mean": 663.3636,
+          "p50": 728,
+          "p95": 894,
+          "max": 894,
+          "n": 11
+        },
+        "output_tokens_per_card": {
+          "mean": 643.2727,
+          "p50": 734,
+          "p95": 835,
+          "max": 835,
+          "n": 11
+        },
+        "reasoning_share_of_output": 0.3834,
+        "cache_hit_share_of_input": 0.0,
+        "output_share_of_cost": 0.8533,
+        "english_leak_rate": 0.0,
+        "cards_per_allowance": {
+          "5h": 3316,
+          "week": 8290,
+          "month": 16581
+        },
+        "cost_usd_per_1000_cards": 0.9,
+        "cache_hits": 11,
+        "cache_hit_wall_s": {
+          "mean": 0.01,
+          "p50": 0.01,
+          "p95": 0.01,
+          "max": 0.01,
+          "n": 11
+        },
+        "fields_filled_rate": {
+          "physical_characteristics": 0.727,
+          "taste": 0.091,
+          "texture": 0.182,
+          "processing_methods": 0.727,
+          "commercial_uses": 0.818,
+          "similar_or_substitute_species": 0.0,
+          "potential_buyer_segments": 0.727
+        }
+      }
+    },
+    "by_stage": {
+      "agent:expert_commercial": {
+        "calls": 10,
+        "errors": 0,
+        "latency_s": {
+          "mean": 9.6409,
+          "p50": 3.447,
+          "p95": 66.274,
+          "max": 66.274,
+          "n": 10
+        },
+        "input_tokens": {
+          "mean": 218.0,
+          "p50": 203,
+          "p95": 273,
+          "max": 273,
+          "n": 10
+        },
+        "output_tokens": {
+          "mean": 251.3,
+          "p50": 241,
+          "p95": 311,
+          "max": 311,
+          "n": 10
+        },
+        "reasoning_tokens": {
+          "mean": 77.3,
+          "p50": 75,
+          "p95": 118,
+          "max": 118,
+          "n": 10
+        },
+        "cost_usd_total": 0.003452
+      },
+      "agent:expert_physical": {
+        "calls": 11,
+        "errors": 0,
+        "latency_s": {
+          "mean": 3.3321,
+          "p50": 3.432,
+          "p95": 5.267,
+          "max": 5.267,
+          "n": 11
+        },
+        "input_tokens": {
+          "mean": 259.0909,
+          "p50": 254,
+          "p95": 437,
+          "max": 437,
+          "n": 11
+        },
+        "output_tokens": {
+          "mean": 192.7273,
+          "p50": 218,
+          "p95": 319,
+          "max": 319,
+          "n": 11
+        },
+        "reasoning_tokens": {
+          "mean": 75.0909,
+          "p50": 67,
+          "p95": 161,
+          "max": 161,
+          "n": 11
+        },
+        "cost_usd_total": 0.003114
+      },
+      "agent:expert_substitute": {
+        "calls": 10,
+        "errors": 0,
+        "latency_s": {
+          "mean": 2.8637,
+          "p50": 2.744,
+          "p95": 3.492,
+          "max": 3.492,
+          "n": 10
+        },
+        "input_tokens": {
+          "mean": 157.7,
+          "p50": 149,
+          "p95": 204,
+          "max": 204,
+          "n": 10
+        },
+        "output_tokens": {
+          "mean": 195.0,
+          "p50": 197,
+          "p95": 300,
+          "max": 300,
+          "n": 10
+        },
+        "reasoning_tokens": {
+          "mean": 89.1,
+          "p50": 83,
+          "p95": 186,
+          "max": 186,
+          "n": 10
+        },
+        "cost_usd_total": 0.002655
+      },
+      "agent:expert_taste": {
+        "calls": 5,
+        "errors": 0,
+        "latency_s": {
+          "mean": 2.3088,
+          "p50": 2.378,
+          "p95": 2.429,
+          "max": 2.429,
+          "n": 5
+        },
+        "input_tokens": {
+          "mean": 138.0,
+          "p50": 140,
+          "p95": 145,
+          "max": 145,
+          "n": 5
+        },
+        "output_tokens": {
+          "mean": 98.6,
+          "p50": 99,
+          "p95": 113,
+          "max": 113,
+          "n": 5
+        },
+        "reasoning_tokens": {
+          "mean": 44.6,
+          "p50": 42,
+          "p95": 55,
+          "max": 55,
+          "n": 5
+        },
+        "cost_usd_total": 0.00073
+      },
+      "published:sync_generate": {
+        "calls": 22,
+        "errors": 0,
+        "latency_s": {
+          "mean": 17.8104,
+          "p50": 8.809,
+          "p95": 67.267,
+          "max": 69.085,
+          "n": 22
+        },
+        "input_tokens": {
+          "mean": 1062.6364,
+          "p50": 1089,
+          "p95": 1242,
+          "max": 1242,
+          "n": 22
+        },
+        "output_tokens": {
+          "mean": 427.5909,
+          "p50": 426,
+          "p95": 548,
+          "max": 560,
+          "n": 22
+        },
+        "reasoning_tokens": {
+          "mean": 132.6364,
+          "p50": 123,
+          "p95": 209,
+          "max": 229,
+          "n": 22
+        },
+        "cost_usd_total": 0.014357
+      }
+    },
+    "stage_cost_share": {
+      "agent:expert_commercial": 0.142,
+      "agent:expert_physical": 0.1281,
+      "agent:expert_substitute": 0.1092,
+      "agent:expert_taste": 0.03,
+      "published:sync_generate": 0.5906
+    },
+    "run_total_cost_usd": 0.02431
+  },
+  "cards": [
+    {
+      "path": "published",
+      "species": "bandeng",
+      "status": "completed",
+      "wall_s": 8.32,
+      "retrieval_ms": 38.3,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 8.28,
+      "input_tokens": 1089,
+      "cached_tokens": 0,
+      "output_tokens": 426,
+      "reasoning_tokens": 118,
+      "cost_usd": 0.000729,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": true,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Bandeng",
+        "scientific_name": "Chanos chanos",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Tubuh memanjang dan agak pipih, mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar dan bercagak dalam. Bagian punggung berwarna hijau zaitun dengan sisi tubuh keperakan. Dewasa dapat mencapai panjang standar 180 cm dan bobot 14 kg.",
+        "taste": null,
+        "texture": "Produk bandeng yang dimasak dengan tekanan memiliki tekstur paling keras di antara metode pemasakan yang diuji; informasi ini berlaku untuk produk bandeng yang dimasak dengan tekanan, bukan bandeng mentah.",
+        "processing_methods": [
+          "Bandeng presto atau pemrosesan dengan tekanan"
+        ],
+        "commercial_uses": [
+          "Perikanan tangkap",
+          "Akuakultur",
+          "Dijual segar",
+          "Diasap",
+          "Dikalengkan",
+          "Dibekukan",
+          "Pemeliharaan dan pemijahan induk dalam penangkaran"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Informasi rasa belum tersedia.",
+          "Informasi tekstur yang tersedia hanya berlaku untuk bandeng yang dimasak dengan tekanan, bukan bandeng mentah."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_chanos_chanos",
+            "title": "Chanos chanos, Milkfish: fisheries, aquaculture, gamefish, bait",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Chanos-chanos.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "foodresearch_7s3_12",
+            "title": "Product characteristics, amino acid and fatty acid profiles of milkfish (Chanos chanos) with different cooking methods",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.26656/fr.2017.7(S3).12",
+            "publisher": "Food Research",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "marinade_4962",
+            "title": "Karakteristik Proses Pengolahan Bandeng (Chanos chanos) Presto Skala UMKM di Kecamatan Juwana, Kabupaten Pati",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.31629/marinade.v5i02.4962",
+            "publisher": "Marinade (jurnal pengolahan produk perikanan)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 3,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "gelama_bunga",
+      "status": "completed",
+      "wall_s": 8.52,
+      "retrieval_ms": 50.7,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 8.47,
+      "input_tokens": 1025,
+      "cached_tokens": 0,
+      "output_tokens": 503,
+      "reasoning_tokens": 153,
+      "cost_usd": 0.000809,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": true,
+        "texture": true,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Gelama Bunga",
+        "scientific_name": "Nibea albiflora",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Spesies benthopelagik beriklim sedang di Pasifik Barat Laut, termasuk perairan Jepang selatan dan Laut Cina Timur; dapat mencapai panjang standar 43,5 cm dan bobot 1,5 kg. Ditemukan dekat pantai pada dasar berlumpur hingga lumpur berpasir di wilayah laut semi-tertutup.",
+        "taste": "Sosis yang dibuat dari 100% Nibea albiflora memperoleh skor rasa 5,40; informasi ini berlaku untuk produk sosis olahan, bukan ikan segar.",
+        "texture": "Sosis yang dibuat dari 100% Nibea albiflora memperoleh skor tekstur 5,00; informasi ini berlaku untuk produk sosis olahan.",
+        "processing_methods": [
+          "Diolah menjadi sosis ikan berbahan 100% Nibea albiflora",
+          "Diolah menjadi formulasi sosis dengan 30% daging ayam"
+        ],
+        "commercial_uses": [
+          "Perikanan komersial",
+          "Bahan sosis ikan",
+          "Digunakan dalam pengobatan tradisional Tiongkok"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Informasi rasa dan tekstur yang tersedia hanya menggambarkan sosis olahan, bukan karakteristik ikan segar.",
+          "Bukti yang tersedia tidak memuat spesies pengganti atau segmen pembeli potensial."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_nibea_albiflora",
+            "title": "Nibea albiflora, Yellow drum: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Nibea-albiflora.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jipsp_6_12_7801",
+            "title": "Karakteristik Nilai Gizi dan Mutu Sensori Sosis Ikan Gulamah (Nibea albiflora) dengan Penambahan Daging Ayam",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.20956/jipsp.v6i12.7801",
+            "publisher": "Jurnal IPTEKS Pemanfaatan Sumberdaya Perikanan, Universitas Hasanuddin",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "gembolo",
+      "status": "completed",
+      "wall_s": 64.97,
+      "retrieval_ms": 50.1,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 64.92,
+      "input_tokens": 797,
+      "cached_tokens": 0,
+      "output_tokens": 215,
+      "reasoning_tokens": 71,
+      "cost_usd": 0.000417,
+      "fields_filled": {
+        "physical_characteristics": false,
+        "taste": false,
+        "texture": false,
+        "processing_methods": false,
+        "commercial_uses": false,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": null,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Gembolo",
+        "scientific_name": null,
+        "taxonomy_status": "TAXONOMY_REVIEW_REQUIRED",
+        "physical_characteristics": null,
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Label \"Gembolo\" belum teridentifikasi; pencarian nama umum \"Gembolo\" di FishBase tidak menghasilkan entri yang cocok, sehingga identitas ilmiah tidak dapat ditetapkan dan klaim identitas atau kuliner memerlukan konfirmasi ahli.",
+          "Nama umum 'gembolo' ambigu: merujuk spesies berbeda menurut daerah (Rastrelliger spp., Selaroides leptolepis, Caranx spp.); nama ilmiah tidak dapat dipastikan tanpa identifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_gembolo_search",
+            "title": "FishBase Common Names search: 'Gembolo' (no results)",
+            "source_type": "common_name_search",
+            "url": "https://www.fishbase.se/ComNames/CommonNameSearchList.cfm?CommonName=gembolo",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 1,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "gulamah",
+      "status": "completed",
+      "wall_s": 17.43,
+      "retrieval_ms": 50.1,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 17.38,
+      "input_tokens": 1101,
+      "cached_tokens": 0,
+      "output_tokens": 467,
+      "reasoning_tokens": 115,
+      "cost_usd": 0.000781,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Gulamah",
+        "scientific_name": "Johnius trachycephalus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Ikan kecil dari famili Sciaenidae, mencapai panjang baku 13 cm. Memiliki 9–10 duri sirip punggung, 24–27 jari-jari lunak sirip punggung, dua duri sirip anal, dan 6–7 jari-jari lunak sirip anal. Hidup di perairan pantai dangkal, estuari, dan sungai.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Ikan asin"
+        ],
+        "commercial_uses": [
+          "Ikan pangan",
+          "Bahan baku potensial untuk surimi dan produk daging ikan olahan; penggunaannya masih dalam tahap penelitian dan bukan bukti adopsi industri",
+          "Gelatin dari tulang untuk aplikasi permen jeli; penggunaannya masih eksperimental"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Informasi tentang rasa dan tekstur belum tersedia.",
+          "Bukti penggunaan sebagai bahan baku surimi, produk daging ikan olahan, dan gelatin untuk permen jeli menunjukkan potensi atau penggunaan eksperimental, bukan adopsi industri yang telah terbukti.",
+          "Informasi tentang spesies pengganti dan segmen pembeli potensial belum tersedia."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_johnius_trachycephalus",
+            "title": "Johnius trachycephalus, Leaftail croaker: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Johnius-trachycephalus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "coj_5_1_1",
+            "title": "Business Analysis of Gulamah (Johnius trachycephalus) Salted Fish Small and Medium Enterprises (SMEs) in Perlis, Berandan Barat, Langkat, North Sumatera",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.29244/coj.5.1.1-8",
+            "publisher": "Coastal and Ocean Journal (COJ)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "manfish_2_3_489",
+            "title": "Studi Potensi Ikan Gulamah (Johnius trachycephalus) Sebagai Bahan Baku Surimi dan Produk Olahan Berbasis Daging Ikan",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.31573/manfish.v2i3.489",
+            "publisher": "Manfish Journal, Politeknik Negeri Pontianak",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jps_8_2_936",
+            "title": "Isolasi Gelatin dari Tulang Ikan Gulamah (Johnius trachycephalus) dan Aplikasinya Pada Permen Jelly",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.36490/journal-jps.com.v8i2.936",
+            "publisher": "Journal of Pharmaceutical and Sciences",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 4,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "kembung",
+      "status": "completed",
+      "wall_s": 69.13,
+      "retrieval_ms": 49.9,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 69.08,
+      "input_tokens": 995,
+      "cached_tokens": 0,
+      "output_tokens": 458,
+      "reasoning_tokens": 209,
+      "cost_usd": 0.000749,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": false,
+        "commercial_uses": false,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Kembung",
+        "scientific_name": "Rastrelliger faughni",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Ikan epipelagis neritik yang dapat mencapai panjang cagak 24 cm dan bobot 750 g. Kepala lebih panjang daripada kedalaman tubuh, memiliki 2–6 bintik besar di pangkal sirip punggung pertama, bercak hitam di belakang pangkal sirip dada, perut kuning keperakan, dan gelembung renang. Hidup berkelompok dengan individu berukuran serupa di perairan dengan suhu permukaan tidak kurang dari 17°C.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Bukti yang tersedia tidak menjelaskan rasa, tekstur, metode pengolahan, penggunaan komersial spesifik, spesies pengganti, atau segmen pembeli."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_rastrelliger_faughni",
+            "title": "Rastrelliger faughni, Island mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Rastrelliger-faughni.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jma_22_2_210",
+            "title": "Value Chain Analysis of Island Mackerel (Rastrelliger faughni) in Selected Coastal Municipalities in Lagonoy Gulf, Philippines",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.17358/jma.22.2.210",
+            "publisher": "Jurnal Manajemen dan Agribisnis",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "kuniran",
+      "status": "completed",
+      "wall_s": 6.85,
+      "retrieval_ms": 50.4,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 6.8,
+      "input_tokens": 1015,
+      "cached_tokens": 0,
+      "output_tokens": 355,
+      "reasoning_tokens": 91,
+      "cost_usd": 0.000629,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Kuniran",
+        "scientific_name": "Upeneus moluccensis",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Panjang maksimum mencapai 22,5 cm TL, dengan panjang umum 18 cm TL. Membentuk kawanan besar di perairan pesisir bersubstrat berlumpur dan biasanya berenang cepat dengan jeda singkat untuk mencari makan. Memiliki garis lateral tengah berwarna kuning atau emas dari mata hingga pangkal bagian atas sirip ekor, sungut putih, dan garis merah pada sirip ekor.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Penyimpanan dalam es; batas penerimaan sensoris tercatat 8 hari."
+        ],
+        "commercial_uses": [
+          "Ikan pangan komersial yang dijual segar di pasar",
+          "Bahan baku tepung ikan",
+          "Dimanfaatkan karena telurnya"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Informasi tentang rasa, tekstur, spesies pengganti atau serupa, dan segmen pembeli potensial belum tersedia."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_upeneus_moluccensis",
+            "title": "Upeneus moluccensis, Goldband goatfish: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Upeneus-moluccensis.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "foodchem_2008",
+            "title": "Sensory, microbiological and chemical assessment of the freshness of red mullet (Mullus barbatus) and goldband goatfish (Upeneus moluccensis) during storage in ice",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.1016/j.foodchem.2008.09.078",
+            "publisher": "Food Chemistry (Elsevier)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "mujair",
+      "status": "completed",
+      "wall_s": 67.32,
+      "retrieval_ms": 50.2,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 67.27,
+      "input_tokens": 1093,
+      "cached_tokens": 1090,
+      "output_tokens": 398,
+      "reasoning_tokens": 72,
+      "cost_usd": 0.0005,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": true,
+        "texture": true,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Mujair",
+        "scientific_name": "Oreochromis mossambicus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Spesies ini memiliki kepala kecil dan bobot bagian tubuh setelah dressing yang besar. Populasi Gascoyne-Lyons dilaporkan sangat kerdil, dengan panjang baku rata-rata saat matang 9 cm, dibandingkan sekitar 18 cm pada populasi lain; karakteristik ini bersifat spesifik populasi.",
+        "taste": "Memiliki palatabilitas yang sangat baik.",
+        "texture": "Fillet tidak memiliki tulang-tulang kecil.",
+        "processing_methods": [
+          "Diolah menjadi daging ikan cincang.",
+          "Diolah menjadi burger ikan.",
+          "Dapat disimpan beku pada suhu -18°C hingga 75 hari dalam evaluasi mutu."
+        ],
+        "commercial_uses": [
+          "Mendukung perikanan artisanal penting di dataran banjir Sungai Sepik, Papua Nugini, dan menyumbang sekitar setengah dari perkiraan hasil tangkapan tahunan."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Informasi tentang ukuran tubuh kerdil hanya berlaku untuk populasi Gascoyne-Lyons dan tidak dapat digeneralisasi ke semua populasi.",
+          "Spesies ini dapat mengungguli spesies lokal ketika lepas ke alam liar."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_oreochromis_mossambicus",
+            "title": "Oreochromis mossambicus, Mozambique tilapia: fisheries, aquaculture, gamefish, aquarium",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-mossambicus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_y5728e",
+            "title": "Tilapias as Alien Aquatics in Asia and the Pacific: A Review",
+            "source_type": "fisheries_technical_paper",
+            "url": "https://www.fao.org/4/y5728e/y5728e05.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jbau_86202",
+            "title": "Quality evaluation of fish burger from tilapia (Oreochromis mossambicus) during frozen storage (-18°C)",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.5455/JBAU.86202",
+            "publisher": "Journal of Bangladesh Agricultural University",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 3,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "nila",
+      "status": "completed",
+      "wall_s": 6.78,
+      "retrieval_ms": 49.9,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 6.73,
+      "input_tokens": 1122,
+      "cached_tokens": 0,
+      "output_tokens": 395,
+      "reasoning_tokens": 103,
+      "cost_usd": 0.000698,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": true,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Nila",
+        "scientific_name": "Oreochromis niloticus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Ikan nila bertubuh besar dan dalam, dengan kepala relatif kecil. Ciri paling khasnya adalah garis-garis vertikal teratur di seluruh bagian dalam sirip ekor pada semua tahap kehidupan. Panjang baku dapat mencapai 60 cm dan bobot 4,3 kg.",
+        "taste": "Fillet nila memiliki cita rasa ringan dan lezat.",
+        "texture": null,
+        "processing_methods": [
+          "Diolah menjadi fillet tanpa kulit; rendemen fillet tanpa kulit yang dilaporkan adalah 33% untuk ikan dengan faktor kondisi 3,11."
+        ],
+        "commercial_uses": [
+          "Budidaya ikan konsumsi skala global; nila merupakan kelompok ikan budidaya terpenting kedua setelah karper dan ikan budidaya yang paling banyak dikembangkan.",
+          "Diolah dan dipasarkan sebagai fillet nila untuk menu makanan."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Rantai restoran kasual"
+        ],
+        "limitations": [
+          "Informasi tentang tekstur daging, spesies pengganti atau serupa, dan segmen pembeli lainnya belum tersedia dalam bukti yang diberikan."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_en_niletilapia",
+            "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+            "source_type": "species_fact_sheet",
+            "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_oreochromis_niloticus",
+            "title": "Oreochromis niloticus, Nile tilapia: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-niloticus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "senangin",
+      "status": "completed",
+      "wall_s": 7.01,
+      "retrieval_ms": 51.5,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 6.96,
+      "input_tokens": 1041,
+      "cached_tokens": 0,
+      "output_tokens": 370,
+      "reasoning_tokens": 123,
+      "cost_usd": 0.000652,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Senangin",
+        "scientific_name": "Eleutheronema tetradactylum",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Dapat tumbuh hingga panjang total 200 cm dan berat 145 kg, dengan panjang umum 50 cm. Membran sirip dada berwarna kuning cerah saat hidup, atau kuning kusam pada spesimen besar, dan filamen sirip dada berwarna putih. Memiliki empat filamen sirip dada bebas serta bersifat hermafrodit protandri.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Dipasarkan segar",
+          "Dibekukan",
+          "Dikeringkan",
+          "Diasinkan"
+        ],
+        "commercial_uses": [
+          "Ikan pangan komersial",
+          "Akuakultur komersial"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pasar ikan konsumsi",
+          "Usaha akuakultur komersial"
+        ],
+        "limitations": [
+          "Informasi tentang rasa, tekstur, dan spesies pengganti belum tersedia dalam bukti yang disediakan."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_eleutheronema_tetradactylum",
+            "title": "Eleutheronema tetradactylum, Fourfinger threadfin: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Eleutheronema-tetradactylum.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 1,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "tenggiri",
+      "status": "completed",
+      "wall_s": 10.63,
+      "retrieval_ms": 49.7,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 10.58,
+      "input_tokens": 1242,
+      "cached_tokens": 0,
+      "output_tokens": 491,
+      "reasoning_tokens": 166,
+      "cost_usd": 0.000838,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": true,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Tenggiri",
+        "scientific_name": "Scomberomorus commerson",
+        "taxonomy_status": "MEDIUM_CONFIDENCE_LABEL_AMBIGUITY",
+        "physical_characteristics": "Memiliki 15–18 duri sirip punggung; spesies ini merupakan ikan pelagis besar dengan punggung biru-kelabu berkilau dan banyak pita vertikal tipis bergelombang, serta dapat mencapai panjang cagak 240 cm.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Dipasarkan segar",
+          "Dikeringkan dan diasinkan",
+          "Diolah menjadi bakso ikan",
+          "Dibekukan",
+          "Diasap",
+          "Dikalengkan"
+        ],
+        "commercial_uses": [
+          "Penjualan segar",
+          "Produk kering-asin",
+          "Produk beku",
+          "Produk asap",
+          "Produk kaleng"
+        ],
+        "similar_or_substitute_species": [
+          "Sarda orientalis",
+          "Scomberomorus guttatus",
+          "Scomberomorus koreanus",
+          "Scomberomorus lineolatus"
+        ],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Nama umum “tenggiri” digunakan bersama oleh lima spesies sehingga identifikasi tidak pasti tanpa penetapan spesies.",
+          "Toksin mirip ciguatoksin yang larut dalam lipid ditemukan pada daging spesimen dari pantai timur Queensland, Australia.",
+          "Label 'tenggiri' juga dipakai untuk Scomberomorus guttatus (tenggiri papan); kartu ini mengikuti nama vernakular utama Scomberomorus commerson."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_tenggiri_common_name",
+            "title": "FishBase Common Names search: 'Tenggiri'",
+            "source_type": "common_name_page",
+            "url": "https://www.fishbase.se/ComNames/CommonNameSearchList.cfm?CommonName=tenggiri",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_scomberomorus_commerson",
+            "title": "Scomberomorus commerson, Narrow-barred Spanish mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-commerson.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_scomberomorus_guttatus",
+            "title": "Scomberomorus guttatus, Indo-Pacific king mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-guttatus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 3,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "tuna",
+      "status": "completed",
+      "wall_s": 10.53,
+      "retrieval_ms": 50.2,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 10.48,
+      "input_tokens": 1169,
+      "cached_tokens": 0,
+      "output_tokens": 548,
+      "reasoning_tokens": 162,
+      "cost_usd": 0.000891,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": true,
+        "texture": true,
+        "processing_methods": true,
+        "commercial_uses": false,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Tuna",
+        "scientific_name": "Thunnus spp.",
+        "taxonomy_status": "MIXED_TAXONOMY",
+        "physical_characteristics": "Bervariasi menurut spesies. Pada tuna sirip kuning Pasifik (Thunnus albacares), tubuh berbentuk torpedo, berwarna biru tua metalik di bagian atas dan kuning hingga perak di bagian bawah, dengan sirip punggung, sirip anal, dan finlet berwarna kuning cerah.",
+        "taste": "Pada tuna sirip kuning Pasifik (Thunnus albacares), rasanya ringan dan berdaging.",
+        "texture": "Pada tuna sirip kuning Pasifik (Thunnus albacares), dagingnya padat, lembap, dan memiliki serpihan besar.",
+        "processing_methods": [
+          "Segar",
+          "Beku",
+          "Beku mendalam",
+          "Kaleng",
+          "Asap"
+        ],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Label tuna digunakan pada tingkat genus Thunnus dan mencakup tujuh spesies menurut katalog FAO, sehingga karakteristik rasa, tekstur, dan pengolahan tidak dapat digeneralisasi untuk semua tuna.",
+          "Bukti karakteristik fisik, rasa, dan tekstur terutama merujuk pada tuna sirip kuning Pasifik (Thunnus albacares), sedangkan bukti pengolahan juga mencakup albakor (Thunnus alalunga).",
+          "Bukti yang tersedia tidak merinci penggunaan komersial, spesies pengganti, atau segmen pembeli.",
+          "Nama umum 'tuna' mencakup beberapa spesies (mungkin juga cakalang/bonito, Katsuwonus/Euthynnus); taksonomi dikunci pada tingkat genus Thunnus spp. sampai verifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_ac478e00",
+            "title": "FAO Species Catalogue Vol. 2: Scombrids of the World (tunas, mackerels, bonitos)",
+            "source_type": "species_catalogue",
+            "url": "https://www.fao.org/4/ac478e/ac478e00.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "noaa_pacific_yellowfin",
+            "title": "Pacific Yellowfin Tuna",
+            "source_type": "government_species_profile",
+            "url": "https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna",
+            "publisher": "NOAA Fisheries",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_albacares",
+            "title": "Thunnus albacares, Yellowfin tuna",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-albacares.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_alalunga",
+            "title": "Thunnus alalunga, Albacore",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-alalunga.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 4,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "bandeng",
+      "status": "completed",
+      "wall_s": 9.1,
+      "retrieval_ms": 54.0,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 9.05,
+      "input_tokens": 1089,
+      "cached_tokens": 1086,
+      "output_tokens": 513,
+      "reasoning_tokens": 165,
+      "cost_usd": 0.000638,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": true,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Bandeng",
+        "scientific_name": "Chanos chanos",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Tubuh memanjang dan agak pipih, mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar dan bercagak dalam. Bagian punggung berwarna hijau zaitun dengan sisi tubuh keperakan. Individu dewasa dapat mencapai panjang baku 180 cm dan bobot 14 kg.",
+        "taste": null,
+        "texture": "Produk bandeng yang dimasak dengan tekanan memiliki tekstur paling keras dibandingkan metode pemasakan yang diuji; keterangan ini berlaku untuk produk yang dimasak dengan tekanan, bukan bandeng mentah.",
+        "processing_methods": [
+          "Bandeng presto atau pemasakan bertekanan"
+        ],
+        "commercial_uses": [
+          "Dipasarkan dalam keadaan segar",
+          "Diasap",
+          "Dikalengkan",
+          "Dibekukan",
+          "Dibudidayakan di tambak hingga ukuran juvenil untuk pemasaran",
+          "Digunakan dalam perikanan tangkap dan akuakultur"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Informasi tentang rasa tidak tersedia.",
+          "Keterangan tekstur hanya berlaku untuk bandeng yang dimasak dengan tekanan, bukan bandeng mentah.",
+          "Spesies pengganti atau serupa tidak disebutkan dalam bukti yang tersedia.",
+          "Segmen pembeli potensial tidak disebutkan dalam bukti yang tersedia."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_chanos_chanos",
+            "title": "Chanos chanos, Milkfish: fisheries, aquaculture, gamefish, bait",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Chanos-chanos.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "foodresearch_7s3_12",
+            "title": "Product characteristics, amino acid and fatty acid profiles of milkfish (Chanos chanos) with different cooking methods",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.26656/fr.2017.7(S3).12",
+            "publisher": "Food Research",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "marinade_4962",
+            "title": "Karakteristik Proses Pengolahan Bandeng (Chanos chanos) Presto Skala UMKM di Kecamatan Juwana, Kabupaten Pati",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.31629/marinade.v5i02.4962",
+            "publisher": "Marinade (jurnal pengolahan produk perikanan)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 3,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "gelama_bunga",
+      "status": "completed",
+      "wall_s": 9.56,
+      "retrieval_ms": 50.3,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 9.51,
+      "input_tokens": 1025,
+      "cached_tokens": 0,
+      "output_tokens": 560,
+      "reasoning_tokens": 229,
+      "cost_usd": 0.000877,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": true,
+        "texture": true,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Gelama Bunga",
+        "scientific_name": "Nibea albiflora",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Spesies benthopelagik beriklim sedang yang ditemukan di Pasifik Barat Laut, termasuk Jepang bagian selatan dan Laut Tiongkok Timur. Dapat mencapai panjang standar 43,5 cm dan bobot 1,5 kg; ditemukan di dekat pantai pada dasar berlumpur hingga lumpur berpasir di area laut semi-tertutup.",
+        "taste": "Sosis yang dibuat dari 100% Nibea albiflora memperoleh skor rasa 5,40.",
+        "texture": "Sosis yang dibuat dari 100% Nibea albiflora memperoleh skor tekstur 5,00.",
+        "processing_methods": [
+          "Diolah menjadi sosis ikan berbahan 100% Nibea albiflora",
+          "Diformulasikan dengan 30% daging ayam untuk pengujian sensori dan proksimat"
+        ],
+        "commercial_uses": [
+          "Ditangkap secara komersial",
+          "Digunakan dalam pengobatan tradisional Tiongkok"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Informasi rasa dan tekstur yang tersedia berlaku untuk produk sosis olahan, bukan ikan segar.",
+          "Bukti yang tersedia tidak memberikan informasi tentang karakteristik fisik rinci selain habitat, panjang standar, dan bobot maksimum."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_nibea_albiflora",
+            "title": "Nibea albiflora, Yellow drum: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Nibea-albiflora.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jipsp_6_12_7801",
+            "title": "Karakteristik Nilai Gizi dan Mutu Sensori Sosis Ikan Gulamah (Nibea albiflora) dengan Penambahan Daging Ayam",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.20956/jipsp.v6i12.7801",
+            "publisher": "Jurnal IPTEKS Pemanfaatan Sumberdaya Perikanan, Universitas Hasanuddin",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "gembolo",
+      "status": "completed",
+      "wall_s": 14.17,
+      "retrieval_ms": 49.9,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 14.12,
+      "input_tokens": 797,
+      "cached_tokens": 0,
+      "output_tokens": 191,
+      "reasoning_tokens": 47,
+      "cost_usd": 0.000389,
+      "fields_filled": {
+        "physical_characteristics": false,
+        "taste": false,
+        "texture": false,
+        "processing_methods": false,
+        "commercial_uses": false,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": null,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Gembolo",
+        "scientific_name": null,
+        "taxonomy_status": "TAXONOMY_REVIEW_REQUIRED",
+        "physical_characteristics": null,
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Label “Gembolo” belum terpecahkan; pencarian nama umum “Gembolo” di FishBase tidak menemukan entri yang cocok, sehingga identitas ilmiah tidak dapat ditetapkan dan klaim identitas atau kuliner memerlukan konfirmasi ahli.",
+          "Nama umum 'gembolo' ambigu: merujuk spesies berbeda menurut daerah (Rastrelliger spp., Selaroides leptolepis, Caranx spp.); nama ilmiah tidak dapat dipastikan tanpa identifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_gembolo_search",
+            "title": "FishBase Common Names search: 'Gembolo' (no results)",
+            "source_type": "common_name_search",
+            "url": "https://www.fishbase.se/ComNames/CommonNameSearchList.cfm?CommonName=gembolo",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 1,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "gulamah",
+      "status": "completed",
+      "wall_s": 7.47,
+      "retrieval_ms": 51.0,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 7.42,
+      "input_tokens": 1101,
+      "cached_tokens": 1098,
+      "output_tokens": 405,
+      "reasoning_tokens": 108,
+      "cost_usd": 0.000509,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Gulamah",
+        "scientific_name": "Johnius trachycephalus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Ikan kecil dengan panjang maksimum 13 cm SL; memiliki 9–10 duri sirip punggung, 24–27 jari-jari lunak sirip punggung, dua duri sirip anal, dan 6–7 jari-jari lunak sirip anal.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Ikan asin"
+        ],
+        "commercial_uses": [
+          "Bahan baku potensial untuk surimi dan produk olahan daging ikan, berdasarkan penelitian; belum membuktikan adopsi industri.",
+          "Gelatin dari tulang dipelajari untuk aplikasi permen jeli secara eksperimental."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Informasi tentang rasa dan tekstur belum tersedia.",
+          "Penggunaan sebagai bahan baku surimi, produk olahan daging ikan, dan gelatin permen jeli masih berupa potensi atau penggunaan eksperimental, bukan bukti adopsi industri."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_johnius_trachycephalus",
+            "title": "Johnius trachycephalus, Leaftail croaker: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Johnius-trachycephalus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "coj_5_1_1",
+            "title": "Business Analysis of Gulamah (Johnius trachycephalus) Salted Fish Small and Medium Enterprises (SMEs) in Perlis, Berandan Barat, Langkat, North Sumatera",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.29244/coj.5.1.1-8",
+            "publisher": "Coastal and Ocean Journal (COJ)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "manfish_2_3_489",
+            "title": "Studi Potensi Ikan Gulamah (Johnius trachycephalus) Sebagai Bahan Baku Surimi dan Produk Olahan Berbasis Daging Ikan",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.31573/manfish.v2i3.489",
+            "publisher": "Manfish Journal, Politeknik Negeri Pontianak",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jps_8_2_936",
+            "title": "Isolasi Gelatin dari Tulang Ikan Gulamah (Johnius trachycephalus) dan Aplikasinya Pada Permen Jelly",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.36490/journal-jps.com.v8i2.936",
+            "publisher": "Journal of Pharmaceutical and Sciences",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 4,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "kembung",
+      "status": "completed",
+      "wall_s": 8.49,
+      "retrieval_ms": 49.9,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 8.44,
+      "input_tokens": 995,
+      "cached_tokens": 0,
+      "output_tokens": 438,
+      "reasoning_tokens": 125,
+      "cost_usd": 0.000725,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": false,
+        "commercial_uses": false,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Kembung",
+        "scientific_name": "Rastrelliger faughni",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Spesies epipelagis neritik dari Indo-Pasifik Barat, dikenali dari bercak hitam di belakang pangkal sirip dada dan perut berwarna keperakan kekuningan. Dapat mencapai panjang cagak 24 cm dan bobot 750 g; kepalanya lebih panjang daripada kedalaman tubuh, memiliki 2–6 bercak besar di pangkal sirip punggung pertama, serta gelembung renang. Membentuk kawanan yang terdiri atas individu berukuran sama di perairan dengan suhu permukaan tidak kurang dari 17°C.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Bukti yang tersedia tidak memuat informasi tentang rasa, tekstur, metode pengolahan, penggunaan komersial spesifik, spesies pengganti, atau segmen pembeli.",
+          "Bukti hanya menyebutkan bahwa rantai nilai island mackerel dianalisis di beberapa munisipalitas pesisir sekitar Teluk Lagonoy, Filipina, tanpa merinci hasil analisis atau penggunaan produknya."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_rastrelliger_faughni",
+            "title": "Rastrelliger faughni, Island mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Rastrelliger-faughni.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jma_22_2_210",
+            "title": "Value Chain Analysis of Island Mackerel (Rastrelliger faughni) in Selected Coastal Municipalities in Lagonoy Gulf, Philippines",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.17358/jma.22.2.210",
+            "publisher": "Jurnal Manajemen dan Agribisnis",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "kuniran",
+      "status": "completed",
+      "wall_s": 8.03,
+      "retrieval_ms": 49.6,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 7.98,
+      "input_tokens": 1015,
+      "cached_tokens": 0,
+      "output_tokens": 396,
+      "reasoning_tokens": 143,
+      "cost_usd": 0.000678,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Kuniran",
+        "scientific_name": "Upeneus moluccensis",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Dapat mencapai panjang total 22,5 cm, dengan panjang umum 18 cm. Membentuk gerombolan besar di perairan pesisir bersubstrat berlumpur. Memiliki garis kuning atau keemasan di sisi tengah tubuh dari mata hingga pangkal bagian atas sirip ekor, sungut putih, dan garis merah pada sirip ekor.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Penyimpanan dalam es; batas penerimaan sensoris tercatat 8 hari."
+        ],
+        "commercial_uses": [
+          "Ikan pangan komersial yang dijual segar di pasar",
+          "Bahan baku tepung ikan",
+          "Dimanfaatkan karena telurnya"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Informasi tentang rasa, tekstur, spesies substitusi, dan segmen pembeli belum tersedia dalam bukti yang disediakan."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_upeneus_moluccensis",
+            "title": "Upeneus moluccensis, Goldband goatfish: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Upeneus-moluccensis.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "foodchem_2008",
+            "title": "Sensory, microbiological and chemical assessment of the freshness of red mullet (Mullus barbatus) and goldband goatfish (Upeneus moluccensis) during storage in ice",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.1016/j.foodchem.2008.09.078",
+            "publisher": "Food Chemistry (Elsevier)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "mujair",
+      "status": "completed",
+      "wall_s": 8.17,
+      "retrieval_ms": 50.1,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 8.12,
+      "input_tokens": 1093,
+      "cached_tokens": 1090,
+      "output_tokens": 471,
+      "reasoning_tokens": 165,
+      "cost_usd": 0.000588,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": true,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Mujair",
+        "scientific_name": "Oreochromis mossambicus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Mujair memiliki kepala kecil, bobot setelah penyiangan yang besar, dan fillet tanpa tulang-tulang kecil. Populasi Gascoyne-Lyons dilaporkan sangat kerdil, dengan panjang baku rata-rata saat matang 9 cm, dibandingkan sekitar 18 cm pada populasi lain; ukuran ini bersifat spesifik populasi.",
+        "taste": "Memiliki palatabilitas yang sangat baik.",
+        "texture": null,
+        "processing_methods": [
+          "Diolah menjadi daging ikan cincang.",
+          "Diolah menjadi burger."
+        ],
+        "commercial_uses": [
+          "Mendukung perikanan artisanal di dataran banjir Sungai Sepik, Papua Nugini, dan menyumbang sekitar setengah dari perkiraan hasil tangkapan tahunan."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Informasi ukuran tubuh yang tersedia bersifat spesifik populasi dan tidak dapat digeneralisasi ke seluruh populasi mujair.",
+          "Mujair telah banyak diperkenalkan untuk akuakultur dan dapat mengungguli spesies lokal apabila lepas ke alam."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_oreochromis_mossambicus",
+            "title": "Oreochromis mossambicus, Mozambique tilapia: fisheries, aquaculture, gamefish, aquarium",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-mossambicus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_y5728e",
+            "title": "Tilapias as Alien Aquatics in Asia and the Pacific: A Review",
+            "source_type": "fisheries_technical_paper",
+            "url": "https://www.fao.org/4/y5728e/y5728e05.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jbau_86202",
+            "title": "Quality evaluation of fish burger from tilapia (Oreochromis mossambicus) during frozen storage (-18°C)",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.5455/JBAU.86202",
+            "publisher": "Journal of Bangladesh Agricultural University",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 3,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "nila",
+      "status": "completed",
+      "wall_s": 6.99,
+      "retrieval_ms": 51.9,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 6.94,
+      "input_tokens": 1122,
+      "cached_tokens": 1119,
+      "output_tokens": 383,
+      "reasoning_tokens": 111,
+      "cost_usd": 0.000483,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": true,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Nila",
+        "scientific_name": "Oreochromis niloticus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Tubuh besar dan dalam, kepala relatif kecil, dengan garis-garis vertikal teratur pada seluruh kedalaman sirip ekor pada semua tahap kehidupan; dapat mencapai panjang standar 60 cm dan bobot 4,3 kg.",
+        "taste": "Fillet memiliki cita rasa ringan dan lezat.",
+        "texture": null,
+        "processing_methods": [
+          "Diolah menjadi fillet tanpa kulit; rendemennya dilaporkan sebesar 33% pada ikan dengan faktor kondisi 3,11."
+        ],
+        "commercial_uses": [
+          "Budidaya ikan; nila merupakan spesies tilapia yang paling dominan dibudidayakan.",
+          "Bahan menu restoran dan produk fillet tanpa kulit."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Rantai restoran kasual"
+        ],
+        "limitations": [
+          "Informasi tekstur tidak tersedia.",
+          "Rendemen fillet 33% berlaku untuk ikan dengan faktor kondisi 3,11.",
+          "Proyeksi produksi global yang disediakan merujuk pada periode hingga 2010."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_en_niletilapia",
+            "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+            "source_type": "species_fact_sheet",
+            "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_oreochromis_niloticus",
+            "title": "Oreochromis niloticus, Nile tilapia: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-niloticus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "senangin",
+      "status": "completed",
+      "wall_s": 16.35,
+      "retrieval_ms": 49.9,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 16.3,
+      "input_tokens": 1041,
+      "cached_tokens": 1038,
+      "output_tokens": 371,
+      "reasoning_tokens": 112,
+      "cost_usd": 0.000467,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Senangin",
+        "scientific_name": "Eleutheronema tetradactylum",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Dapat tumbuh hingga panjang total 200 cm dan berat 145 kg, dengan panjang umum 50 cm. Membran sirip dada berwarna kuning cerah saat hidup, atau kuning kusam pada spesimen besar, sedangkan filamen sirip dada berwarna putih. Merupakan hermafrodit protandri.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Dipasarkan segar",
+          "Dibekukan",
+          "Dikeringkan",
+          "Diasinkan"
+        ],
+        "commercial_uses": [
+          "Ikan pangan komersial bernilai tinggi",
+          "Dibudidayakan secara komersial",
+          "Dipasarkan segar, beku, kering, atau asin"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Informasi tentang rasa, tekstur, spesies pengganti, segmen pembeli potensial, dan keterbatasan penanganan tidak tersedia dalam bukti yang disediakan."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_eleutheronema_tetradactylum",
+            "title": "Eleutheronema tetradactylum, Fourfinger threadfin: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Eleutheronema-tetradactylum.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 1,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "tenggiri",
+      "status": "completed",
+      "wall_s": 8.86,
+      "retrieval_ms": 49.8,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 8.81,
+      "input_tokens": 1242,
+      "cached_tokens": 1239,
+      "output_tokens": 528,
+      "reasoning_tokens": 171,
+      "cost_usd": 0.000659,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": true,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Tenggiri",
+        "scientific_name": "Scomberomorus commerson",
+        "taxonomy_status": "MEDIUM_CONFIDENCE_LABEL_AMBIGUITY",
+        "physical_characteristics": "Scomberomorus commerson merupakan ikan pelagis besar dari kelompok scombrid di Indo-Pasifik Barat, dapat mencapai panjang cagak 240 cm, dengan punggung biru-abu-abu berkilau dan banyak pita vertikal tipis bergelombang; memiliki 15–18 duri sirip punggung.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Dipasarkan segar",
+          "Diasinkan dan dikeringkan",
+          "Dibuat menjadi bakso ikan",
+          "Dibekukan",
+          "Diasap",
+          "Dikalengkan"
+        ],
+        "commercial_uses": [
+          "Penjualan dalam keadaan segar",
+          "Produk asin-kering",
+          "Produk beku",
+          "Produk asap",
+          "Produk kaleng"
+        ],
+        "similar_or_substitute_species": [
+          "Sarda orientalis",
+          "Scomberomorus guttatus",
+          "Scomberomorus koreanus",
+          "Scomberomorus lineolatus"
+        ],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Nama umum “Tenggiri” digunakan bersama oleh lima spesies, sehingga labelnya ambigu tanpa penetapan spesies.",
+          "Toksin mirip ciguatoksin yang larut dalam lipid ditemukan pada daging spesimen dari pantai timur Queensland, Australia; bukti yang tersedia tidak menetapkan keberlakuannya pada semua populasi.",
+          "Label 'tenggiri' juga dipakai untuk Scomberomorus guttatus (tenggiri papan); kartu ini mengikuti nama vernakular utama Scomberomorus commerson."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_tenggiri_common_name",
+            "title": "FishBase Common Names search: 'Tenggiri'",
+            "source_type": "common_name_page",
+            "url": "https://www.fishbase.se/ComNames/CommonNameSearchList.cfm?CommonName=tenggiri",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_scomberomorus_commerson",
+            "title": "Scomberomorus commerson, Narrow-barred Spanish mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-commerson.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_scomberomorus_guttatus",
+            "title": "Scomberomorus guttatus, Indo-Pacific king mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-guttatus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 3,
+      "error": null
+    },
+    {
+      "path": "published",
+      "species": "tuna",
+      "status": "completed",
+      "wall_s": 18.24,
+      "retrieval_ms": 49.7,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 18.19,
+      "input_tokens": 1169,
+      "cached_tokens": 1166,
+      "output_tokens": 525,
+      "reasoning_tokens": 159,
+      "cost_usd": 0.000654,
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": true,
+        "texture": true,
+        "processing_methods": true,
+        "commercial_uses": false,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "model": "gpt-5.6-luna",
+      "card": {
+        "common_name": "Tuna",
+        "scientific_name": "Thunnus spp.",
+        "taxonomy_status": "MIXED_TAXONOMY",
+        "physical_characteristics": "Untuk tuna sirip kuning Pasifik (Thunnus albacares), tubuh berbentuk torpedo, berwarna biru tua metalik di bagian atas dan kuning hingga perak di bagian bawah, dengan sirip punggung, sirip anal, dan finlet berwarna kuning cerah.",
+        "taste": "Untuk tuna sirip kuning Pasifik (Thunnus albacares), rasanya ringan dan berdaging.",
+        "texture": "Untuk tuna sirip kuning Pasifik (Thunnus albacares), dagingnya padat, lembap, dan memiliki serpihan besar.",
+        "processing_methods": [
+          "Dipasarkan segar",
+          "Dibekukan",
+          "Dikalengkan",
+          "Diasap",
+          "Dibekukan secara mendalam"
+        ],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Label tuna ditetapkan pada tingkat genus Thunnus dan mencakup tujuh spesies, sehingga karakteristik fisik, rasa, tekstur, dan metode pengolahan yang tersedia tidak dapat digeneralisasi untuk seluruh genus.",
+          "Bukti metode pengolahan terutama merujuk pada tuna sirip kuning (Thunnus albacares) dan albakor (Thunnus alalunga).",
+          "Informasi penggunaan komersial spesifik dan segmen pembeli belum tersedia.",
+          "Nama umum 'tuna' mencakup beberapa spesies (mungkin juga cakalang/bonito, Katsuwonus/Euthynnus); taksonomi dikunci pada tingkat genus Thunnus spp. sampai verifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_ac478e00",
+            "title": "FAO Species Catalogue Vol. 2: Scombrids of the World (tunas, mackerels, bonitos)",
+            "source_type": "species_catalogue",
+            "url": "https://www.fao.org/4/ac478e/ac478e00.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "noaa_pacific_yellowfin",
+            "title": "Pacific Yellowfin Tuna",
+            "source_type": "government_species_profile",
+            "url": "https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna",
+            "publisher": "NOAA Fisheries",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_albacares",
+            "title": "Thunnus albacares, Yellowfin tuna",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-albacares.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_alalunga",
+            "title": "Thunnus alalunga, Albacore",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-alalunga.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 4,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "bandeng",
+      "status": "completed",
+      "wall_s": 4.03,
+      "llm_calls": 4,
+      "llm_errors": 0,
+      "llm_time_s": 12.19,
+      "input_tokens": 745,
+      "cached_tokens": 0,
+      "output_tokens": 812,
+      "reasoning_tokens": 329,
+      "cost_usd": 0.001123,
+      "critic_feedback": "physical_characteristics=supported; taste=no_evidence; texture=supported; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": true,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Bandeng",
+        "scientific_name": "Chanos chanos",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Tubuh memanjang dan agak pipih, dengan mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar yang bercagak dalam. Bagian punggung berwarna hijau zaitun dan sisi tubuh berwarna keperakan. Individu dewasa dapat mencapai panjang standar 180 cm dan berat 14 kg.",
+        "taste": null,
+        "texture": "Paling keras (pada bandeng yang dikukus bertekanan)",
+        "processing_methods": [
+          "Bandeng presto (pemrosesan bertekanan)"
+        ],
+        "commercial_uses": [
+          "Perikanan tangkap",
+          "Budidaya",
+          "Dipasarkan dalam keadaan segar",
+          "Produk asap",
+          "Produk kalengan",
+          "Produk beku",
+          "Pemeliharaan dan pemijahan induk dalam penangkaran"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pembeli ikan segar",
+          "Pembeli ikan asap",
+          "Pembeli ikan kaleng",
+          "Pembeli ikan beku",
+          "Pembudidaya ikan yang membutuhkan larva atau benih",
+          "Hatcheri atau pembenih yang membutuhkan induk untuk pemijahan"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_chanos_chanos",
+            "title": "Chanos chanos, Milkfish: fisheries, aquaculture, gamefish, bait",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Chanos-chanos.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "foodresearch_7s3_12",
+            "title": "Product characteristics, amino acid and fatty acid profiles of milkfish (Chanos chanos) with different cooking methods",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.26656/fr.2017.7(S3).12",
+            "publisher": "Food Research",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "marinade_4962",
+            "title": "Karakteristik Proses Pengolahan Bandeng (Chanos chanos) Presto Skala UMKM di Kecamatan Juwana, Kabupaten Pati",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.31629/marinade.v5i02.4962",
+            "publisher": "Marinade (jurnal pengolahan produk perikanan)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 3,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "gelama_bunga",
+      "status": "completed",
+      "wall_s": 3.76,
+      "llm_calls": 4,
+      "llm_errors": 0,
+      "llm_time_s": 10.58,
+      "input_tokens": 668,
+      "cached_tokens": 0,
+      "output_tokens": 621,
+      "reasoning_tokens": 226,
+      "cost_usd": 0.000879,
+      "critic_feedback": "physical_characteristics=unsupported; taste=supported; texture=supported; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "fields_filled": {
+        "physical_characteristics": false,
+        "taste": true,
+        "texture": true,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Gelama Bunga",
+        "scientific_name": "Nibea albiflora",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": null,
+        "taste": "Skor rasa 5,40",
+        "texture": "Skor tekstur 5,00",
+        "processing_methods": [
+          "Diolah menjadi sosis ikan 100%",
+          "Diolah menjadi formulasi dengan 30% daging ayam untuk pengujian sensoris dan proksimat"
+        ],
+        "commercial_uses": [
+          "Ditangkap secara komersial",
+          "Digunakan dalam pengobatan tradisional Tiongkok"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pembeli dan pedagang ikan komersial",
+          "Industri obat tradisional Tiongkok",
+          "Praktisi pengobatan tradisional Tiongkok"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "jipsp_6_12_7801",
+            "title": "Karakteristik Nilai Gizi dan Mutu Sensori Sosis Ikan Gulamah (Nibea albiflora) dengan Penambahan Daging Ayam",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.20956/jipsp.v6i12.7801",
+            "publisher": "Jurnal IPTEKS Pemanfaatan Sumberdaya Perikanan, Universitas Hasanuddin",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_nibea_albiflora",
+            "title": "Nibea albiflora, Yellow drum: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Nibea-albiflora.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "gembolo",
+      "status": "completed",
+      "wall_s": 1.89,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 1.86,
+      "input_tokens": 147,
+      "cached_tokens": 0,
+      "output_tokens": 52,
+      "reasoning_tokens": 36,
+      "cost_usd": 9.2e-05,
+      "critic_feedback": "physical_characteristics=no_evidence; taste=no_evidence; texture=no_evidence; processing_methods=no_evidence; commercial_uses=no_evidence; similar_or_substitute_species=no_evidence; potential_buyer_segments=no_evidence",
+      "fields_filled": {
+        "physical_characteristics": false,
+        "taste": false,
+        "texture": false,
+        "processing_methods": false,
+        "commercial_uses": false,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": null,
+      "card": {
+        "common_name": "Gembolo",
+        "scientific_name": null,
+        "taxonomy_status": "TAXONOMY_REVIEW_REQUIRED",
+        "physical_characteristics": null,
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada klaim yang dapat diverifikasi dari bukti yang tersedia.",
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, cara pengolahan, penggunaan komersial, spesies pengganti, segmen pembeli.",
+          "Nama umum 'gembolo' ambigu: merujuk spesies berbeda menurut daerah (Rastrelliger spp., Selaroides leptolepis, Caranx spp.); nama ilmiah tidak dapat dipastikan tanpa identifikasi ahli."
+        ],
+        "sources": []
+      },
+      "sources": 0,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "gulamah",
+      "status": "completed",
+      "wall_s": 3.96,
+      "llm_calls": 3,
+      "llm_errors": 0,
+      "llm_time_s": 9.16,
+      "input_tokens": 728,
+      "cached_tokens": 0,
+      "output_tokens": 663,
+      "reasoning_tokens": 165,
+      "cost_usd": 0.000941,
+      "critic_feedback": "physical_characteristics=supported; taste=no_evidence; texture=no_evidence; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Gulamah",
+        "scientific_name": "Johnius trachycephalus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Memiliki 9–10 duri sirip punggung, 24–27 jari-jari lunak sirip punggung, dua duri sirip dubur, dan 6–7 jari-jari lunak sirip dubur.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Diolah menjadi ikan asin; kelayakan pengolahan ikan gulamah asin telah dianalisis pada usaha skala menengah dan mikro di Desa Perlis, Kabupaten Langkat."
+        ],
+        "commercial_uses": [
+          "Berpotensi digunakan sebagai bahan baku surimi dan produk daging ikan olahan; penggunaannya masih pada tahap penelitian dan belum menunjukkan adopsi industri.",
+          "Gelatin yang diekstraksi dari tulang gulamah telah diteliti untuk digunakan dalam pembuatan permen jeli; penggunaannya masih bersifat eksperimental."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Produsen surimi dan produk olahan daging ikan",
+          "Industri gelatin dan permen jeli",
+          "Perusahaan pengolahan hasil perikanan yang mengembangkan bahan baku alternatif",
+          "Lembaga penelitian dan pengembangan produk pangan berbasis ikan"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_johnius_trachycephalus",
+            "title": "Johnius trachycephalus, Leaftail croaker: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Johnius-trachycephalus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "coj_5_1_1",
+            "title": "Business Analysis of Gulamah (Johnius trachycephalus) Salted Fish Small and Medium Enterprises (SMEs) in Perlis, Berandan Barat, Langkat, North Sumatera",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.29244/coj.5.1.1-8",
+            "publisher": "Coastal and Ocean Journal (COJ)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "manfish_2_3_489",
+            "title": "Studi Potensi Ikan Gulamah (Johnius trachycephalus) Sebagai Bahan Baku Surimi dan Produk Olahan Berbasis Daging Ikan",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.31573/manfish.v2i3.489",
+            "publisher": "Manfish Journal, Politeknik Negeri Pontianak",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jps_8_2_936",
+            "title": "Isolasi Gelatin dari Tulang Ikan Gulamah (Johnius trachycephalus) dan Aplikasinya Pada Permen Jelly",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.36490/journal-jps.com.v8i2.936",
+            "publisher": "Journal of Pharmaceutical and Sciences",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 4,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "kembung",
+      "status": "completed",
+      "wall_s": 2.94,
+      "llm_calls": 3,
+      "llm_errors": 0,
+      "llm_time_s": 7.07,
+      "input_tokens": 570,
+      "cached_tokens": 0,
+      "output_tokens": 422,
+      "reasoning_tokens": 166,
+      "cost_usd": 0.00062,
+      "critic_feedback": "physical_characteristics=supported; taste=no_evidence; texture=no_evidence; processing_methods=no_evidence; commercial_uses=no_evidence; similar_or_substitute_species=no_evidence; potential_buyer_segments=no_evidence",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": false,
+        "commercial_uses": false,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Kembung",
+        "scientific_name": "Rastrelliger faughni",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Mencapai panjang cagak 24 cm dan berat 750 g; kepala lebih panjang daripada kedalaman tubuh; memiliki 2–6 bintik besar di pangkal sirip punggung pertama, bercak hitam di belakang pangkal sirip dada, perut berwarna kuning keperakan, dan gelembung renang. Hidup berkelompok dengan individu berukuran sama di perairan yang suhu permukaannya tidak turun di bawah 17 °C.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, cara pengolahan, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_rastrelliger_faughni",
+            "title": "Rastrelliger faughni, Island mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Rastrelliger-faughni.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 1,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "kuniran",
+      "status": "completed",
+      "wall_s": 66.63,
+      "llm_calls": 3,
+      "llm_errors": 0,
+      "llm_time_s": 72.71,
+      "input_tokens": 579,
+      "cached_tokens": 0,
+      "output_tokens": 754,
+      "reasoning_tokens": 296,
+      "cost_usd": 0.001021,
+      "critic_feedback": "physical_characteristics=supported; taste=no_evidence; texture=no_evidence; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Kuniran",
+        "scientific_name": "Upeneus moluccensis",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Kuniran dapat mencapai panjang total 22,5 cm, dengan panjang umum sekitar 18 cm. Ciri khasnya adalah garis kuning atau keemasan di sisi tengah tubuh, dari mata hingga pangkal sirip ekor bagian atas, sungut berwarna putih, dan garis-garis merah pada sirip ekor. Ikan ini membentuk kawanan besar di perairan pantai berlumpur dan biasanya berenang cepat dengan jeda singkat untuk mencari makan.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Disimpan dalam es; batas penerimaan sensoris ikan biji nangka kuniran (Upeneus moluccensis) adalah 8 hari, ditentukan melalui penilaian kesegaran secara sensoris, mikrobiologis, dan kimiawi."
+        ],
+        "commercial_uses": [
+          "Dijual segar di pasar sebagai ikan pangan komersial.",
+          "Dimanfaatkan untuk pembuatan tepung ikan.",
+          "Telurnya memiliki nilai komersial."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Konsumen ikan segar",
+          "Pedagang atau pasar ikan segar",
+          "Produsen tepung ikan",
+          "Pembeli dan pengolah telur ikan"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_upeneus_moluccensis",
+            "title": "Upeneus moluccensis, Goldband goatfish: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Upeneus-moluccensis.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "foodchem_2008",
+            "title": "Sensory, microbiological and chemical assessment of the freshness of red mullet (Mullus barbatus) and goldband goatfish (Upeneus moluccensis) during storage in ice",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.1016/j.foodchem.2008.09.078",
+            "publisher": "Food Chemistry (Elsevier)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "mujair",
+      "status": "completed",
+      "wall_s": 4.29,
+      "llm_calls": 4,
+      "llm_errors": 0,
+      "llm_time_s": 13.1,
+      "input_tokens": 733,
+      "cached_tokens": 0,
+      "output_tokens": 768,
+      "reasoning_tokens": 339,
+      "cost_usd": 0.001068,
+      "critic_feedback": "physical_characteristics=supported; taste=unsupported; texture=no_evidence; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Mujair",
+        "scientific_name": "Oreochromis mossambicus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Populasi Gascoyne-Lyons dilaporkan mengalami pertumbuhan sangat terhambat, dengan kematangan pada panjang standar rata-rata 9 cm dibandingkan sekitar 18 cm pada populasi lainnya; karakteristik ini spesifik untuk populasi tersebut.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Diolah menjadi daging ikan cincang.",
+          "Diolah menjadi burger ikan.",
+          "Disimpan dalam kondisi beku pada suhu -18 °C hingga 75 hari."
+        ],
+        "commercial_uses": [
+          "Mendukung perikanan artisanal di dataran banjir Sungai Sepik, Papua Nugini.",
+          "Dimanfaatkan sebagai hasil tangkapan perikanan dan menyumbang sekitar setengah dari perkiraan pendaratan tahunan."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pelaku perikanan tangkap artisanal di dataran banjir",
+          "Pasar ikan yang bergantung pada hasil tangkapan Sungai Sepik, Papua Nugini"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_y5728e",
+            "title": "Tilapias as Alien Aquatics in Asia and the Pacific: A Review",
+            "source_type": "fisheries_technical_paper",
+            "url": "https://www.fao.org/4/y5728e/y5728e05.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jbau_86202",
+            "title": "Quality evaluation of fish burger from tilapia (Oreochromis mossambicus) during frozen storage (-18°C)",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.5455/JBAU.86202",
+            "publisher": "Journal of Bangladesh Agricultural University",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "nila",
+      "status": "completed",
+      "wall_s": 3.92,
+      "llm_calls": 4,
+      "llm_errors": 0,
+      "llm_time_s": 12.01,
+      "input_tokens": 803,
+      "cached_tokens": 0,
+      "output_tokens": 761,
+      "reasoning_tokens": 299,
+      "cost_usd": 0.001074,
+      "critic_feedback": "physical_characteristics=supported; taste=unsupported; texture=no_evidence; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=unsupported; potential_buyer_segments=supported",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Nila",
+        "scientific_name": "Oreochromis niloticus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Nila adalah ikan tilapia bertubuh besar dan dalam dengan kepala yang relatif kecil. Ciri pembeda utamanya adalah garis-garis vertikal teratur di seluruh bagian sirip ekor pada semua tahap kehidupan. Panjang standar dapat mencapai 60 cm dan berat 4,3 kg.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Diolah menjadi filet tanpa kulit dengan rendemen sekitar 33% pada ikan dengan faktor kondisi 3,11."
+        ],
+        "commercial_uses": [
+          "Dibudidayakan dan dipasarkan sebagai salah satu ikan konsumsi utama secara global.",
+          "Merupakan kelompok ikan budidaya terpenting kedua setelah ikan mas dan jenis ikan budidaya yang paling banyak dibudidayakan.",
+          "Berkontribusi pada produksi global ikan nila dan nilai penjualan lebih dari USD 5 miliar, yang sebagian besar berasal dari nila Nil."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pembeli ikan budidaya",
+          "Pedagang dan distributor ikan",
+          "Pelaku industri pengolahan ikan",
+          "Pasar ikan konsumsi"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_oreochromis_niloticus",
+            "title": "Oreochromis niloticus, Nile tilapia: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-niloticus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_en_niletilapia",
+            "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+            "source_type": "species_fact_sheet",
+            "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "senangin",
+      "status": "completed",
+      "wall_s": 4.4,
+      "llm_calls": 3,
+      "llm_errors": 0,
+      "llm_time_s": 9.88,
+      "input_tokens": 617,
+      "cached_tokens": 0,
+      "output_tokens": 654,
+      "reasoning_tokens": 228,
+      "cost_usd": 0.000908,
+      "critic_feedback": "physical_characteristics=supported; taste=no_evidence; texture=no_evidence; processing_methods=unsupported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": false,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Senangin",
+        "scientific_name": "Eleutheronema tetradactylum",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Memiliki empat filamen sirip dada bebas. Dapat tumbuh hingga panjang total 200 cm dan berat 145 kg, dengan panjang umum sekitar 50 cm. Membran sirip dada berwarna kuning cerah saat hidup, menjadi kuning kusam pada spesimen besar, sedangkan filamen sirip dada berwarna putih. Merupakan hermafrodit protandri.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [
+          "Ikan pangan komersial bernilai tinggi",
+          "Dibudidayakan dalam akuakultur komersial"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pembeli ikan konsumsi segar",
+          "Pedagang atau distributor ikan beku",
+          "Pengolah ikan kering atau asin",
+          "Pelaku usaha akuakultur komersial"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_eleutheronema_tetradactylum",
+            "title": "Eleutheronema tetradactylum, Fourfinger threadfin: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Eleutheronema-tetradactylum.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 1,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "tenggiri",
+      "status": "completed",
+      "wall_s": 4.68,
+      "llm_calls": 3,
+      "llm_errors": 0,
+      "llm_time_s": 11.15,
+      "input_tokens": 813,
+      "cached_tokens": 0,
+      "output_tokens": 835,
+      "reasoning_tokens": 263,
+      "cost_usd": 0.001165,
+      "critic_feedback": "physical_characteristics=unsupported; taste=no_evidence; texture=no_evidence; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "fields_filled": {
+        "physical_characteristics": false,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Tenggiri",
+        "scientific_name": "Scomberomorus commerson",
+        "taxonomy_status": "MEDIUM_CONFIDENCE_LABEL_AMBIGUITY",
+        "physical_characteristics": null,
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Dipasarkan dalam keadaan segar",
+          "Diasinkan dan dikeringkan",
+          "Diolah menjadi bakso ikan",
+          "Dibekukan",
+          "Diasap",
+          "Dikalengkan"
+        ],
+        "commercial_uses": [
+          "Dijual terutama dalam keadaan segar",
+          "Dijual dalam bentuk asin-kering",
+          "Dijual dalam bentuk beku",
+          "Dijual dalam bentuk asap",
+          "Dijual dalam bentuk kalengan"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pedagang dan pengecer ikan segar",
+          "Restoran dan usaha jasa boga",
+          "Produsen ikan asin atau ikan kering",
+          "Distributor dan pengecer makanan beku",
+          "Produsen ikan asap",
+          "Produsen makanan kaleng berbahan ikan"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti.",
+          "Label 'tenggiri' juga dipakai untuk Scomberomorus guttatus (tenggiri papan); kartu ini mengikuti nama vernakular utama Scomberomorus commerson."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_scomberomorus_commerson",
+            "title": "Scomberomorus commerson, Narrow-barred Spanish mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-commerson.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 1,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "tuna",
+      "status": "completed",
+      "wall_s": 5.56,
+      "llm_calls": 4,
+      "llm_errors": 0,
+      "llm_time_s": 13.54,
+      "input_tokens": 894,
+      "cached_tokens": 0,
+      "output_tokens": 734,
+      "reasoning_tokens": 366,
+      "cost_usd": 0.00106,
+      "critic_feedback": "physical_characteristics=supported; taste=unsupported; texture=unsupported; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=no_evidence",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Tuna",
+        "scientific_name": "Thunnus spp.",
+        "taxonomy_status": "MIXED_TAXONOMY",
+        "physical_characteristics": "Berbentuk torpedo, berwarna biru tua metalik di bagian atas dan kuning hingga keperakan di bagian bawah, dengan sirip punggung, sirip dubur, dan finlet berwarna kuning cerah.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Dipasarkan segar",
+          "Dibekukan",
+          "Dibekukan secara mendalam",
+          "Dikalengkan",
+          "Diasap"
+        ],
+        "commercial_uses": [
+          "Sashimi",
+          "Perikanan tuna dan makarel"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti.",
+          "Nama umum 'tuna' mencakup beberapa spesies (mungkin juga cakalang/bonito, Katsuwonus/Euthynnus); taksonomi dikunci pada tingkat genus Thunnus spp. sampai verifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "noaa_pacific_yellowfin",
+            "title": "Pacific Yellowfin Tuna",
+            "source_type": "government_species_profile",
+            "url": "https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna",
+            "publisher": "NOAA Fisheries",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_alalunga",
+            "title": "Thunnus alalunga, Albacore",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-alalunga.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_ac478e00",
+            "title": "FAO Species Catalogue Vol. 2: Scombrids of the World (tunas, mackerels, bonitos)",
+            "source_type": "species_catalogue",
+            "url": "https://www.fao.org/4/ac478e/ac478e00.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 3,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "bandeng",
+      "status": "completed",
+      "wall_s": 0.01,
+      "llm_calls": 0,
+      "llm_errors": 0,
+      "llm_time_s": 0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "cost_usd": 0,
+      "critic_feedback": "cache hit",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": true,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Bandeng",
+        "scientific_name": "Chanos chanos",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Tubuh memanjang dan agak pipih, dengan mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar yang bercagak dalam. Bagian punggung berwarna hijau zaitun dan sisi tubuh berwarna keperakan. Individu dewasa dapat mencapai panjang standar 180 cm dan berat 14 kg.",
+        "taste": null,
+        "texture": "Paling keras (pada bandeng yang dikukus bertekanan)",
+        "processing_methods": [
+          "Bandeng presto (pemrosesan bertekanan)"
+        ],
+        "commercial_uses": [
+          "Perikanan tangkap",
+          "Budidaya",
+          "Dipasarkan dalam keadaan segar",
+          "Produk asap",
+          "Produk kalengan",
+          "Produk beku",
+          "Pemeliharaan dan pemijahan induk dalam penangkaran"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pembeli ikan segar",
+          "Pembeli ikan asap",
+          "Pembeli ikan kaleng",
+          "Pembeli ikan beku",
+          "Pembudidaya ikan yang membutuhkan larva atau benih",
+          "Hatcheri atau pembenih yang membutuhkan induk untuk pemijahan"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_chanos_chanos",
+            "title": "Chanos chanos, Milkfish: fisheries, aquaculture, gamefish, bait",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Chanos-chanos.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "foodresearch_7s3_12",
+            "title": "Product characteristics, amino acid and fatty acid profiles of milkfish (Chanos chanos) with different cooking methods",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.26656/fr.2017.7(S3).12",
+            "publisher": "Food Research",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "marinade_4962",
+            "title": "Karakteristik Proses Pengolahan Bandeng (Chanos chanos) Presto Skala UMKM di Kecamatan Juwana, Kabupaten Pati",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.31629/marinade.v5i02.4962",
+            "publisher": "Marinade (jurnal pengolahan produk perikanan)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 3,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "gelama_bunga",
+      "status": "completed",
+      "wall_s": 0.01,
+      "llm_calls": 0,
+      "llm_errors": 0,
+      "llm_time_s": 0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "cost_usd": 0,
+      "critic_feedback": "cache hit",
+      "fields_filled": {
+        "physical_characteristics": false,
+        "taste": true,
+        "texture": true,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Gelama Bunga",
+        "scientific_name": "Nibea albiflora",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": null,
+        "taste": "Skor rasa 5,40",
+        "texture": "Skor tekstur 5,00",
+        "processing_methods": [
+          "Diolah menjadi sosis ikan 100%",
+          "Diolah menjadi formulasi dengan 30% daging ayam untuk pengujian sensoris dan proksimat"
+        ],
+        "commercial_uses": [
+          "Ditangkap secara komersial",
+          "Digunakan dalam pengobatan tradisional Tiongkok"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pembeli dan pedagang ikan komersial",
+          "Industri obat tradisional Tiongkok",
+          "Praktisi pengobatan tradisional Tiongkok"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "jipsp_6_12_7801",
+            "title": "Karakteristik Nilai Gizi dan Mutu Sensori Sosis Ikan Gulamah (Nibea albiflora) dengan Penambahan Daging Ayam",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.20956/jipsp.v6i12.7801",
+            "publisher": "Jurnal IPTEKS Pemanfaatan Sumberdaya Perikanan, Universitas Hasanuddin",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_nibea_albiflora",
+            "title": "Nibea albiflora, Yellow drum: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Nibea-albiflora.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "gembolo",
+      "status": "completed",
+      "wall_s": 0.01,
+      "llm_calls": 0,
+      "llm_errors": 0,
+      "llm_time_s": 0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "cost_usd": 0,
+      "critic_feedback": "cache hit",
+      "fields_filled": {
+        "physical_characteristics": false,
+        "taste": false,
+        "texture": false,
+        "processing_methods": false,
+        "commercial_uses": false,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": null,
+      "card": {
+        "common_name": "Gembolo",
+        "scientific_name": null,
+        "taxonomy_status": "TAXONOMY_REVIEW_REQUIRED",
+        "physical_characteristics": null,
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada klaim yang dapat diverifikasi dari bukti yang tersedia.",
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, cara pengolahan, penggunaan komersial, spesies pengganti, segmen pembeli.",
+          "Nama umum 'gembolo' ambigu: merujuk spesies berbeda menurut daerah (Rastrelliger spp., Selaroides leptolepis, Caranx spp.); nama ilmiah tidak dapat dipastikan tanpa identifikasi ahli."
+        ],
+        "sources": []
+      },
+      "sources": 0,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "gulamah",
+      "status": "completed",
+      "wall_s": 0.01,
+      "llm_calls": 0,
+      "llm_errors": 0,
+      "llm_time_s": 0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "cost_usd": 0,
+      "critic_feedback": "cache hit",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Gulamah",
+        "scientific_name": "Johnius trachycephalus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Memiliki 9–10 duri sirip punggung, 24–27 jari-jari lunak sirip punggung, dua duri sirip dubur, dan 6–7 jari-jari lunak sirip dubur.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Diolah menjadi ikan asin; kelayakan pengolahan ikan gulamah asin telah dianalisis pada usaha skala menengah dan mikro di Desa Perlis, Kabupaten Langkat."
+        ],
+        "commercial_uses": [
+          "Berpotensi digunakan sebagai bahan baku surimi dan produk daging ikan olahan; penggunaannya masih pada tahap penelitian dan belum menunjukkan adopsi industri.",
+          "Gelatin yang diekstraksi dari tulang gulamah telah diteliti untuk digunakan dalam pembuatan permen jeli; penggunaannya masih bersifat eksperimental."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Produsen surimi dan produk olahan daging ikan",
+          "Industri gelatin dan permen jeli",
+          "Perusahaan pengolahan hasil perikanan yang mengembangkan bahan baku alternatif",
+          "Lembaga penelitian dan pengembangan produk pangan berbasis ikan"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_johnius_trachycephalus",
+            "title": "Johnius trachycephalus, Leaftail croaker: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Johnius-trachycephalus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "coj_5_1_1",
+            "title": "Business Analysis of Gulamah (Johnius trachycephalus) Salted Fish Small and Medium Enterprises (SMEs) in Perlis, Berandan Barat, Langkat, North Sumatera",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.29244/coj.5.1.1-8",
+            "publisher": "Coastal and Ocean Journal (COJ)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "manfish_2_3_489",
+            "title": "Studi Potensi Ikan Gulamah (Johnius trachycephalus) Sebagai Bahan Baku Surimi dan Produk Olahan Berbasis Daging Ikan",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.31573/manfish.v2i3.489",
+            "publisher": "Manfish Journal, Politeknik Negeri Pontianak",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jps_8_2_936",
+            "title": "Isolasi Gelatin dari Tulang Ikan Gulamah (Johnius trachycephalus) dan Aplikasinya Pada Permen Jelly",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.36490/journal-jps.com.v8i2.936",
+            "publisher": "Journal of Pharmaceutical and Sciences",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 4,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "kembung",
+      "status": "completed",
+      "wall_s": 0.01,
+      "llm_calls": 0,
+      "llm_errors": 0,
+      "llm_time_s": 0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "cost_usd": 0,
+      "critic_feedback": "cache hit",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": false,
+        "commercial_uses": false,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Kembung",
+        "scientific_name": "Rastrelliger faughni",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Mencapai panjang cagak 24 cm dan berat 750 g; kepala lebih panjang daripada kedalaman tubuh; memiliki 2–6 bintik besar di pangkal sirip punggung pertama, bercak hitam di belakang pangkal sirip dada, perut berwarna kuning keperakan, dan gelembung renang. Hidup berkelompok dengan individu berukuran sama di perairan yang suhu permukaannya tidak turun di bawah 17 °C.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, cara pengolahan, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_rastrelliger_faughni",
+            "title": "Rastrelliger faughni, Island mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Rastrelliger-faughni.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 1,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "kuniran",
+      "status": "completed",
+      "wall_s": 0.01,
+      "llm_calls": 0,
+      "llm_errors": 0,
+      "llm_time_s": 0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "cost_usd": 0,
+      "critic_feedback": "cache hit",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Kuniran",
+        "scientific_name": "Upeneus moluccensis",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Kuniran dapat mencapai panjang total 22,5 cm, dengan panjang umum sekitar 18 cm. Ciri khasnya adalah garis kuning atau keemasan di sisi tengah tubuh, dari mata hingga pangkal sirip ekor bagian atas, sungut berwarna putih, dan garis-garis merah pada sirip ekor. Ikan ini membentuk kawanan besar di perairan pantai berlumpur dan biasanya berenang cepat dengan jeda singkat untuk mencari makan.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Disimpan dalam es; batas penerimaan sensoris ikan biji nangka kuniran (Upeneus moluccensis) adalah 8 hari, ditentukan melalui penilaian kesegaran secara sensoris, mikrobiologis, dan kimiawi."
+        ],
+        "commercial_uses": [
+          "Dijual segar di pasar sebagai ikan pangan komersial.",
+          "Dimanfaatkan untuk pembuatan tepung ikan.",
+          "Telurnya memiliki nilai komersial."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Konsumen ikan segar",
+          "Pedagang atau pasar ikan segar",
+          "Produsen tepung ikan",
+          "Pembeli dan pengolah telur ikan"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_upeneus_moluccensis",
+            "title": "Upeneus moluccensis, Goldband goatfish: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Upeneus-moluccensis.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "foodchem_2008",
+            "title": "Sensory, microbiological and chemical assessment of the freshness of red mullet (Mullus barbatus) and goldband goatfish (Upeneus moluccensis) during storage in ice",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.1016/j.foodchem.2008.09.078",
+            "publisher": "Food Chemistry (Elsevier)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "mujair",
+      "status": "completed",
+      "wall_s": 0.01,
+      "llm_calls": 0,
+      "llm_errors": 0,
+      "llm_time_s": 0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "cost_usd": 0,
+      "critic_feedback": "cache hit",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Mujair",
+        "scientific_name": "Oreochromis mossambicus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Populasi Gascoyne-Lyons dilaporkan mengalami pertumbuhan sangat terhambat, dengan kematangan pada panjang standar rata-rata 9 cm dibandingkan sekitar 18 cm pada populasi lainnya; karakteristik ini spesifik untuk populasi tersebut.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Diolah menjadi daging ikan cincang.",
+          "Diolah menjadi burger ikan.",
+          "Disimpan dalam kondisi beku pada suhu -18 °C hingga 75 hari."
+        ],
+        "commercial_uses": [
+          "Mendukung perikanan artisanal di dataran banjir Sungai Sepik, Papua Nugini.",
+          "Dimanfaatkan sebagai hasil tangkapan perikanan dan menyumbang sekitar setengah dari perkiraan pendaratan tahunan."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pelaku perikanan tangkap artisanal di dataran banjir",
+          "Pasar ikan yang bergantung pada hasil tangkapan Sungai Sepik, Papua Nugini"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_y5728e",
+            "title": "Tilapias as Alien Aquatics in Asia and the Pacific: A Review",
+            "source_type": "fisheries_technical_paper",
+            "url": "https://www.fao.org/4/y5728e/y5728e05.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jbau_86202",
+            "title": "Quality evaluation of fish burger from tilapia (Oreochromis mossambicus) during frozen storage (-18°C)",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.5455/JBAU.86202",
+            "publisher": "Journal of Bangladesh Agricultural University",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "nila",
+      "status": "completed",
+      "wall_s": 0.01,
+      "llm_calls": 0,
+      "llm_errors": 0,
+      "llm_time_s": 0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "cost_usd": 0,
+      "critic_feedback": "cache hit",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Nila",
+        "scientific_name": "Oreochromis niloticus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Nila adalah ikan tilapia bertubuh besar dan dalam dengan kepala yang relatif kecil. Ciri pembeda utamanya adalah garis-garis vertikal teratur di seluruh bagian sirip ekor pada semua tahap kehidupan. Panjang standar dapat mencapai 60 cm dan berat 4,3 kg.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Diolah menjadi filet tanpa kulit dengan rendemen sekitar 33% pada ikan dengan faktor kondisi 3,11."
+        ],
+        "commercial_uses": [
+          "Dibudidayakan dan dipasarkan sebagai salah satu ikan konsumsi utama secara global.",
+          "Merupakan kelompok ikan budidaya terpenting kedua setelah ikan mas dan jenis ikan budidaya yang paling banyak dibudidayakan.",
+          "Berkontribusi pada produksi global ikan nila dan nilai penjualan lebih dari USD 5 miliar, yang sebagian besar berasal dari nila Nil."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pembeli ikan budidaya",
+          "Pedagang dan distributor ikan",
+          "Pelaku industri pengolahan ikan",
+          "Pasar ikan konsumsi"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_oreochromis_niloticus",
+            "title": "Oreochromis niloticus, Nile tilapia: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-niloticus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_en_niletilapia",
+            "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+            "source_type": "species_fact_sheet",
+            "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "senangin",
+      "status": "completed",
+      "wall_s": 0.01,
+      "llm_calls": 0,
+      "llm_errors": 0,
+      "llm_time_s": 0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "cost_usd": 0,
+      "critic_feedback": "cache hit",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": false,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Senangin",
+        "scientific_name": "Eleutheronema tetradactylum",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Memiliki empat filamen sirip dada bebas. Dapat tumbuh hingga panjang total 200 cm dan berat 145 kg, dengan panjang umum sekitar 50 cm. Membran sirip dada berwarna kuning cerah saat hidup, menjadi kuning kusam pada spesimen besar, sedangkan filamen sirip dada berwarna putih. Merupakan hermafrodit protandri.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [
+          "Ikan pangan komersial bernilai tinggi",
+          "Dibudidayakan dalam akuakultur komersial"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pembeli ikan konsumsi segar",
+          "Pedagang atau distributor ikan beku",
+          "Pengolah ikan kering atau asin",
+          "Pelaku usaha akuakultur komersial"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_eleutheronema_tetradactylum",
+            "title": "Eleutheronema tetradactylum, Fourfinger threadfin: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Eleutheronema-tetradactylum.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 1,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "tenggiri",
+      "status": "completed",
+      "wall_s": 0.01,
+      "llm_calls": 0,
+      "llm_errors": 0,
+      "llm_time_s": 0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "cost_usd": 0,
+      "critic_feedback": "cache hit",
+      "fields_filled": {
+        "physical_characteristics": false,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Tenggiri",
+        "scientific_name": "Scomberomorus commerson",
+        "taxonomy_status": "MEDIUM_CONFIDENCE_LABEL_AMBIGUITY",
+        "physical_characteristics": null,
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Dipasarkan dalam keadaan segar",
+          "Diasinkan dan dikeringkan",
+          "Diolah menjadi bakso ikan",
+          "Dibekukan",
+          "Diasap",
+          "Dikalengkan"
+        ],
+        "commercial_uses": [
+          "Dijual terutama dalam keadaan segar",
+          "Dijual dalam bentuk asin-kering",
+          "Dijual dalam bentuk beku",
+          "Dijual dalam bentuk asap",
+          "Dijual dalam bentuk kalengan"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pedagang dan pengecer ikan segar",
+          "Restoran dan usaha jasa boga",
+          "Produsen ikan asin atau ikan kering",
+          "Distributor dan pengecer makanan beku",
+          "Produsen ikan asap",
+          "Produsen makanan kaleng berbahan ikan"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti.",
+          "Label 'tenggiri' juga dipakai untuk Scomberomorus guttatus (tenggiri papan); kartu ini mengikuti nama vernakular utama Scomberomorus commerson."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_scomberomorus_commerson",
+            "title": "Scomberomorus commerson, Narrow-barred Spanish mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-commerson.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 1,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "tuna",
+      "status": "completed",
+      "wall_s": 0.01,
+      "llm_calls": 0,
+      "llm_errors": 0,
+      "llm_time_s": 0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "cost_usd": 0,
+      "critic_feedback": "cache hit",
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Tuna",
+        "scientific_name": "Thunnus spp.",
+        "taxonomy_status": "MIXED_TAXONOMY",
+        "physical_characteristics": "Berbentuk torpedo, berwarna biru tua metalik di bagian atas dan kuning hingga keperakan di bagian bawah, dengan sirip punggung, sirip dubur, dan finlet berwarna kuning cerah.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Dipasarkan segar",
+          "Dibekukan",
+          "Dibekukan secara mendalam",
+          "Dikalengkan",
+          "Diasap"
+        ],
+        "commercial_uses": [
+          "Sashimi",
+          "Perikanan tuna dan makarel"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti.",
+          "Nama umum 'tuna' mencakup beberapa spesies (mungkin juga cakalang/bonito, Katsuwonus/Euthynnus); taksonomi dikunci pada tingkat genus Thunnus spp. sampai verifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "noaa_pacific_yellowfin",
+            "title": "Pacific Yellowfin Tuna",
+            "source_type": "government_species_profile",
+            "url": "https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna",
+            "publisher": "NOAA Fisheries",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_alalunga",
+            "title": "Thunnus alalunga, Albacore",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-alalunga.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_ac478e00",
+            "title": "FAO Species Catalogue Vol. 2: Scombrids of the World (tunas, mackerels, bonitos)",
+            "source_type": "species_catalogue",
+            "url": "https://www.fao.org/4/ac478e/ac478e00.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 3,
+      "error": null
+    }
+  ],
+  "calls": [
+    {
+      "path": "published",
+      "species": "bandeng",
+      "stage": "sync_generate",
+      "started_s": 0.038,
+      "latency_s": 8.284,
+      "input_tokens": 1089,
+      "cached_tokens": 0,
+      "output_tokens": 426,
+      "reasoning_tokens": 118,
+      "error": null,
+      "cost_usd": 0.000729
+    },
+    {
+      "path": "published",
+      "species": "gelama_bunga",
+      "stage": "sync_generate",
+      "started_s": 8.373,
+      "latency_s": 8.466,
+      "input_tokens": 1025,
+      "cached_tokens": 0,
+      "output_tokens": 503,
+      "reasoning_tokens": 153,
+      "error": null,
+      "cost_usd": 0.0008086
+    },
+    {
+      "path": "published",
+      "species": "gembolo",
+      "stage": "sync_generate",
+      "started_s": 16.89,
+      "latency_s": 64.916,
+      "input_tokens": 797,
+      "cached_tokens": 0,
+      "output_tokens": 215,
+      "reasoning_tokens": 71,
+      "error": null,
+      "cost_usd": 0.00041739999999999995
+    },
+    {
+      "path": "published",
+      "species": "gulamah",
+      "stage": "sync_generate",
+      "started_s": 81.855,
+      "latency_s": 17.379,
+      "input_tokens": 1101,
+      "cached_tokens": 0,
+      "output_tokens": 467,
+      "reasoning_tokens": 115,
+      "error": null,
+      "cost_usd": 0.0007806
+    },
+    {
+      "path": "published",
+      "species": "kembung",
+      "stage": "sync_generate",
+      "started_s": 99.285,
+      "latency_s": 69.085,
+      "input_tokens": 995,
+      "cached_tokens": 0,
+      "output_tokens": 458,
+      "reasoning_tokens": 209,
+      "error": null,
+      "cost_usd": 0.0007486
+    },
+    {
+      "path": "published",
+      "species": "kuniran",
+      "stage": "sync_generate",
+      "started_s": 168.42,
+      "latency_s": 6.8,
+      "input_tokens": 1015,
+      "cached_tokens": 0,
+      "output_tokens": 355,
+      "reasoning_tokens": 91,
+      "error": null,
+      "cost_usd": 0.000629
+    },
+    {
+      "path": "published",
+      "species": "mujair",
+      "stage": "sync_generate",
+      "started_s": 175.27,
+      "latency_s": 67.267,
+      "input_tokens": 1093,
+      "cached_tokens": 1090,
+      "output_tokens": 398,
+      "reasoning_tokens": 72,
+      "error": null,
+      "cost_usd": 0.0004999999999999999
+    },
+    {
+      "path": "published",
+      "species": "nila",
+      "stage": "sync_generate",
+      "started_s": 242.587,
+      "latency_s": 6.729,
+      "input_tokens": 1122,
+      "cached_tokens": 0,
+      "output_tokens": 395,
+      "reasoning_tokens": 103,
+      "error": null,
+      "cost_usd": 0.0006984
+    },
+    {
+      "path": "published",
+      "species": "senangin",
+      "stage": "sync_generate",
+      "started_s": 249.368,
+      "latency_s": 6.956,
+      "input_tokens": 1041,
+      "cached_tokens": 0,
+      "output_tokens": 370,
+      "reasoning_tokens": 123,
+      "error": null,
+      "cost_usd": 0.0006522
+    },
+    {
+      "path": "published",
+      "species": "tenggiri",
+      "stage": "sync_generate",
+      "started_s": 256.373,
+      "latency_s": 10.579,
+      "input_tokens": 1242,
+      "cached_tokens": 0,
+      "output_tokens": 491,
+      "reasoning_tokens": 166,
+      "error": null,
+      "cost_usd": 0.0008375999999999999
+    },
+    {
+      "path": "published",
+      "species": "tuna",
+      "stage": "sync_generate",
+      "started_s": 267.003,
+      "latency_s": 10.482,
+      "input_tokens": 1169,
+      "cached_tokens": 0,
+      "output_tokens": 548,
+      "reasoning_tokens": 162,
+      "error": null,
+      "cost_usd": 0.0008914000000000001
+    },
+    {
+      "path": "published",
+      "species": "bandeng",
+      "stage": "sync_generate",
+      "started_s": 277.539,
+      "latency_s": 9.049,
+      "input_tokens": 1089,
+      "cached_tokens": 1086,
+      "output_tokens": 513,
+      "reasoning_tokens": 165,
+      "error": null,
+      "cost_usd": 0.00063792
+    },
+    {
+      "path": "published",
+      "species": "gelama_bunga",
+      "stage": "sync_generate",
+      "started_s": 286.639,
+      "latency_s": 9.507,
+      "input_tokens": 1025,
+      "cached_tokens": 0,
+      "output_tokens": 560,
+      "reasoning_tokens": 229,
+      "error": null,
+      "cost_usd": 0.000877
+    },
+    {
+      "path": "published",
+      "species": "gembolo",
+      "stage": "sync_generate",
+      "started_s": 296.195,
+      "latency_s": 14.12,
+      "input_tokens": 797,
+      "cached_tokens": 0,
+      "output_tokens": 191,
+      "reasoning_tokens": 47,
+      "error": null,
+      "cost_usd": 0.0003886
+    },
+    {
+      "path": "published",
+      "species": "gulamah",
+      "stage": "sync_generate",
+      "started_s": 310.366,
+      "latency_s": 7.422,
+      "input_tokens": 1101,
+      "cached_tokens": 1098,
+      "output_tokens": 405,
+      "reasoning_tokens": 108,
+      "error": null,
+      "cost_usd": 0.00050856
+    },
+    {
+      "path": "published",
+      "species": "kembung",
+      "stage": "sync_generate",
+      "started_s": 317.838,
+      "latency_s": 8.439,
+      "input_tokens": 995,
+      "cached_tokens": 0,
+      "output_tokens": 438,
+      "reasoning_tokens": 125,
+      "error": null,
+      "cost_usd": 0.0007246
+    },
+    {
+      "path": "published",
+      "species": "kuniran",
+      "stage": "sync_generate",
+      "started_s": 326.326,
+      "latency_s": 7.983,
+      "input_tokens": 1015,
+      "cached_tokens": 0,
+      "output_tokens": 396,
+      "reasoning_tokens": 143,
+      "error": null,
+      "cost_usd": 0.0006782
+    },
+    {
+      "path": "published",
+      "species": "mujair",
+      "stage": "sync_generate",
+      "started_s": 334.36,
+      "latency_s": 8.123,
+      "input_tokens": 1093,
+      "cached_tokens": 1090,
+      "output_tokens": 471,
+      "reasoning_tokens": 165,
+      "error": null,
+      "cost_usd": 0.0005875999999999999
+    },
+    {
+      "path": "published",
+      "species": "nila",
+      "stage": "sync_generate",
+      "started_s": 342.535,
+      "latency_s": 6.94,
+      "input_tokens": 1122,
+      "cached_tokens": 1119,
+      "output_tokens": 383,
+      "reasoning_tokens": 111,
+      "error": null,
+      "cost_usd": 0.00048258
+    },
+    {
+      "path": "published",
+      "species": "senangin",
+      "stage": "sync_generate",
+      "started_s": 349.525,
+      "latency_s": 16.301,
+      "input_tokens": 1041,
+      "cached_tokens": 1038,
+      "output_tokens": 371,
+      "reasoning_tokens": 112,
+      "error": null,
+      "cost_usd": 0.00046656
+    },
+    {
+      "path": "published",
+      "species": "tenggiri",
+      "stage": "sync_generate",
+      "started_s": 365.876,
+      "latency_s": 8.809,
+      "input_tokens": 1242,
+      "cached_tokens": 1239,
+      "output_tokens": 528,
+      "reasoning_tokens": 171,
+      "error": null,
+      "cost_usd": 0.00065898
+    },
+    {
+      "path": "published",
+      "species": "tuna",
+      "stage": "sync_generate",
+      "started_s": 374.734,
+      "latency_s": 18.193,
+      "input_tokens": 1169,
+      "cached_tokens": 1166,
+      "output_tokens": 525,
+      "reasoning_tokens": 159,
+      "error": null,
+      "cost_usd": 0.00065392
+    },
+    {
+      "path": "agent",
+      "species": "bandeng",
+      "stage": "expert_taste",
+      "started_s": 0.055,
+      "latency_s": 2.429,
+      "input_tokens": 131,
+      "cached_tokens": 0,
+      "output_tokens": 113,
+      "reasoning_tokens": 55,
+      "error": null,
+      "cost_usd": 0.0001618
+    },
+    {
+      "path": "agent",
+      "species": "bandeng",
+      "stage": "expert_substitute",
+      "started_s": 0.06,
+      "latency_s": 2.954,
+      "input_tokens": 154,
+      "cached_tokens": 0,
+      "output_tokens": 195,
+      "reasoning_tokens": 66,
+      "error": null,
+      "cost_usd": 0.0002648
+    },
+    {
+      "path": "agent",
+      "species": "bandeng",
+      "stage": "expert_commercial",
+      "started_s": 0.057,
+      "latency_s": 3.204,
+      "input_tokens": 220,
+      "cached_tokens": 0,
+      "output_tokens": 240,
+      "reasoning_tokens": 75,
+      "error": null,
+      "cost_usd": 0.000332
+    },
+    {
+      "path": "agent",
+      "species": "bandeng",
+      "stage": "expert_physical",
+      "started_s": 0.052,
+      "latency_s": 3.604,
+      "input_tokens": 240,
+      "cached_tokens": 0,
+      "output_tokens": 264,
+      "reasoning_tokens": 133,
+      "error": null,
+      "cost_usd": 0.00036480000000000003
+    },
+    {
+      "path": "agent",
+      "species": "gelama_bunga",
+      "stage": "expert_physical",
+      "started_s": 4.043,
+      "latency_s": 2.175,
+      "input_tokens": 174,
+      "cached_tokens": 0,
+      "output_tokens": 95,
+      "reasoning_tokens": 35,
+      "error": null,
+      "cost_usd": 0.0001488
+    },
+    {
+      "path": "agent",
+      "species": "gelama_bunga",
+      "stage": "expert_taste",
+      "started_s": 4.045,
+      "latency_s": 2.22,
+      "input_tokens": 144,
+      "cached_tokens": 0,
+      "output_tokens": 109,
+      "reasoning_tokens": 49,
+      "error": null,
+      "cost_usd": 0.0001596
+    },
+    {
+      "path": "agent",
+      "species": "gelama_bunga",
+      "stage": "expert_substitute",
+      "started_s": 4.048,
+      "latency_s": 2.734,
+      "input_tokens": 147,
+      "cached_tokens": 0,
+      "output_tokens": 203,
+      "reasoning_tokens": 95,
+      "error": null,
+      "cost_usd": 0.000273
+    },
+    {
+      "path": "agent",
+      "species": "gelama_bunga",
+      "stage": "expert_commercial",
+      "started_s": 4.046,
+      "latency_s": 3.447,
+      "input_tokens": 203,
+      "cached_tokens": 0,
+      "output_tokens": 214,
+      "reasoning_tokens": 47,
+      "error": null,
+      "cost_usd": 0.0002974
+    },
+    {
+      "path": "agent",
+      "species": "gembolo",
+      "stage": "expert_physical",
+      "started_s": 7.82,
+      "latency_s": 1.857,
+      "input_tokens": 147,
+      "cached_tokens": 0,
+      "output_tokens": 52,
+      "reasoning_tokens": 36,
+      "error": null,
+      "cost_usd": 9.18e-05
+    },
+    {
+      "path": "agent",
+      "species": "gulamah",
+      "stage": "expert_physical",
+      "started_s": 9.699,
+      "latency_s": 2.201,
+      "input_tokens": 254,
+      "cached_tokens": 0,
+      "output_tokens": 94,
+      "reasoning_tokens": 0,
+      "error": null,
+      "cost_usd": 0.0001636
+    },
+    {
+      "path": "agent",
+      "species": "gulamah",
+      "stage": "expert_substitute",
+      "started_s": 9.702,
+      "latency_s": 3.367,
+      "input_tokens": 204,
+      "cached_tokens": 0,
+      "output_tokens": 258,
+      "reasoning_tokens": 97,
+      "error": null,
+      "cost_usd": 0.00035039999999999995
+    },
+    {
+      "path": "agent",
+      "species": "gulamah",
+      "stage": "expert_commercial",
+      "started_s": 9.701,
+      "latency_s": 3.588,
+      "input_tokens": 270,
+      "cached_tokens": 0,
+      "output_tokens": 311,
+      "reasoning_tokens": 68,
+      "error": null,
+      "cost_usd": 0.0004272
+    },
+    {
+      "path": "agent",
+      "species": "kembung",
+      "stage": "expert_substitute",
+      "started_s": 13.651,
+      "latency_s": 2.098,
+      "input_tokens": 152,
+      "cached_tokens": 0,
+      "output_tokens": 102,
+      "reasoning_tokens": 54,
+      "error": null,
+      "cost_usd": 0.00015279999999999997
+    },
+    {
+      "path": "agent",
+      "species": "kembung",
+      "stage": "expert_commercial",
+      "started_s": 13.65,
+      "latency_s": 2.117,
+      "input_tokens": 145,
+      "cached_tokens": 0,
+      "output_tokens": 97,
+      "reasoning_tokens": 53,
+      "error": null,
+      "cost_usd": 0.00014539999999999998
+    },
+    {
+      "path": "agent",
+      "species": "kembung",
+      "stage": "expert_physical",
+      "started_s": 13.648,
+      "latency_s": 2.859,
+      "input_tokens": 273,
+      "cached_tokens": 0,
+      "output_tokens": 223,
+      "reasoning_tokens": 59,
+      "error": null,
+      "cost_usd": 0.00032219999999999997
+    },
+    {
+      "path": "agent",
+      "species": "kuniran",
+      "stage": "expert_substitute",
+      "started_s": 16.602,
+      "latency_s": 2.617,
+      "input_tokens": 139,
+      "cached_tokens": 0,
+      "output_tokens": 198,
+      "reasoning_tokens": 92,
+      "error": null,
+      "cost_usd": 0.0002654
+    },
+    {
+      "path": "agent",
+      "species": "kuniran",
+      "stage": "expert_physical",
+      "started_s": 16.599,
+      "latency_s": 3.823,
+      "input_tokens": 238,
+      "cached_tokens": 0,
+      "output_tokens": 247,
+      "reasoning_tokens": 86,
+      "error": null,
+      "cost_usd": 0.000344
+    },
+    {
+      "path": "agent",
+      "species": "kuniran",
+      "stage": "expert_commercial",
+      "started_s": 16.601,
+      "latency_s": 66.274,
+      "input_tokens": 202,
+      "cached_tokens": 0,
+      "output_tokens": 309,
+      "reasoning_tokens": 118,
+      "error": null,
+      "cost_usd": 0.0004112
+    },
+    {
+      "path": "agent",
+      "species": "mujair",
+      "stage": "expert_taste",
+      "started_s": 83.224,
+      "latency_s": 2.38,
+      "input_tokens": 130,
+      "cached_tokens": 0,
+      "output_tokens": 89,
+      "reasoning_tokens": 40,
+      "error": null,
+      "cost_usd": 0.0001328
+    },
+    {
+      "path": "agent",
+      "species": "mujair",
+      "stage": "expert_substitute",
+      "started_s": 83.228,
+      "latency_s": 3.282,
+      "input_tokens": 144,
+      "cached_tokens": 0,
+      "output_tokens": 195,
+      "reasoning_tokens": 90,
+      "error": null,
+      "cost_usd": 0.0002628
+    },
+    {
+      "path": "agent",
+      "species": "mujair",
+      "stage": "expert_physical",
+      "started_s": 83.222,
+      "latency_s": 3.432,
+      "input_tokens": 259,
+      "cached_tokens": 0,
+      "output_tokens": 218,
+      "reasoning_tokens": 127,
+      "error": null,
+      "cost_usd": 0.0003134
+    },
+    {
+      "path": "agent",
+      "species": "mujair",
+      "stage": "expert_commercial",
+      "started_s": 83.227,
+      "latency_s": 4.006,
+      "input_tokens": 200,
+      "cached_tokens": 0,
+      "output_tokens": 266,
+      "reasoning_tokens": 82,
+      "error": null,
+      "cost_usd": 0.0003592
+    },
+    {
+      "path": "agent",
+      "species": "nila",
+      "stage": "expert_taste",
+      "started_s": 87.525,
+      "latency_s": 2.137,
+      "input_tokens": 145,
+      "cached_tokens": 0,
+      "output_tokens": 83,
+      "reasoning_tokens": 37,
+      "error": null,
+      "cost_usd": 0.00012859999999999998
+    },
+    {
+      "path": "agent",
+      "species": "nila",
+      "stage": "expert_physical",
+      "started_s": 87.523,
+      "latency_s": 2.876,
+      "input_tokens": 232,
+      "cached_tokens": 0,
+      "output_tokens": 145,
+      "reasoning_tokens": 45,
+      "error": null,
+      "cost_usd": 0.00022040000000000002
+    },
+    {
+      "path": "agent",
+      "species": "nila",
+      "stage": "expert_substitute",
+      "started_s": 87.528,
+      "latency_s": 3.492,
+      "input_tokens": 185,
+      "cached_tokens": 0,
+      "output_tokens": 300,
+      "reasoning_tokens": 186,
+      "error": null,
+      "cost_usd": 0.000397
+    },
+    {
+      "path": "agent",
+      "species": "nila",
+      "stage": "expert_commercial",
+      "started_s": 87.527,
+      "latency_s": 3.502,
+      "input_tokens": 241,
+      "cached_tokens": 0,
+      "output_tokens": 233,
+      "reasoning_tokens": 31,
+      "error": null,
+      "cost_usd": 0.00032779999999999994
+    },
+    {
+      "path": "agent",
+      "species": "senangin",
+      "stage": "expert_substitute",
+      "started_s": 91.432,
+      "latency_s": 2.744,
+      "input_tokens": 154,
+      "cached_tokens": 0,
+      "output_tokens": 197,
+      "reasoning_tokens": 83,
+      "error": null,
+      "cost_usd": 0.0002672
+    },
+    {
+      "path": "agent",
+      "species": "senangin",
+      "stage": "expert_commercial",
+      "started_s": 91.431,
+      "latency_s": 3.077,
+      "input_tokens": 199,
+      "cached_tokens": 0,
+      "output_tokens": 241,
+      "reasoning_tokens": 78,
+      "error": null,
+      "cost_usd": 0.000329
+    },
+    {
+      "path": "agent",
+      "species": "senangin",
+      "stage": "expert_physical",
+      "started_s": 91.428,
+      "latency_s": 4.062,
+      "input_tokens": 264,
+      "cached_tokens": 0,
+      "output_tokens": 216,
+      "reasoning_tokens": 67,
+      "error": null,
+      "cost_usd": 0.000312
+    },
+    {
+      "path": "agent",
+      "species": "tenggiri",
+      "stage": "expert_substitute",
+      "started_s": 95.829,
+      "latency_s": 2.873,
+      "input_tokens": 149,
+      "cached_tokens": 0,
+      "output_tokens": 209,
+      "reasoning_tokens": 80,
+      "error": null,
+      "cost_usd": 0.0002806
+    },
+    {
+      "path": "agent",
+      "species": "tenggiri",
+      "stage": "expert_commercial",
+      "started_s": 95.828,
+      "latency_s": 3.778,
+      "input_tokens": 227,
+      "cached_tokens": 0,
+      "output_tokens": 307,
+      "reasoning_tokens": 106,
+      "error": null,
+      "cost_usd": 0.0004138
+    },
+    {
+      "path": "agent",
+      "species": "tenggiri",
+      "stage": "expert_physical",
+      "started_s": 95.826,
+      "latency_s": 4.497,
+      "input_tokens": 437,
+      "cached_tokens": 0,
+      "output_tokens": 319,
+      "reasoning_tokens": 77,
+      "error": null,
+      "cost_usd": 0.00047020000000000005
+    },
+    {
+      "path": "agent",
+      "species": "tuna",
+      "stage": "expert_taste",
+      "started_s": 100.528,
+      "latency_s": 2.378,
+      "input_tokens": 140,
+      "cached_tokens": 0,
+      "output_tokens": 99,
+      "reasoning_tokens": 42,
+      "error": null,
+      "cost_usd": 0.00014680000000000002
+    },
+    {
+      "path": "agent",
+      "species": "tuna",
+      "stage": "expert_substitute",
+      "started_s": 100.53,
+      "latency_s": 2.476,
+      "input_tokens": 149,
+      "cached_tokens": 0,
+      "output_tokens": 93,
+      "reasoning_tokens": 48,
+      "error": null,
+      "cost_usd": 0.0001414
+    },
+    {
+      "path": "agent",
+      "species": "tuna",
+      "stage": "expert_commercial",
+      "started_s": 100.529,
+      "latency_s": 3.416,
+      "input_tokens": 273,
+      "cached_tokens": 0,
+      "output_tokens": 295,
+      "reasoning_tokens": 115,
+      "error": null,
+      "cost_usd": 0.0004086
+    },
+    {
+      "path": "agent",
+      "species": "tuna",
+      "stage": "expert_physical",
+      "started_s": 100.526,
+      "latency_s": 5.267,
+      "input_tokens": 332,
+      "cached_tokens": 0,
+      "output_tokens": 247,
+      "reasoning_tokens": 161,
+      "error": null,
+      "cost_usd": 0.00036279999999999993
+    }
+  ]
+}

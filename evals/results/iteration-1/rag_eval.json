@@ -1,0 +1,706 @@
+{
+  "label": "current",
+  "generated_at": "2026-09-26T06:16:07+00:00",
+  "git": {
+    "commit": "f2633dc",
+    "dirty": true
+  },
+  "environment": {
+    "python": "3.12.8",
+    "embedding_model": "intfloat/multilingual-e5-base",
+    "embedder_cold_load_s": 15.38,
+    "llm": "scripted (no OPENCODE_GO_API_KEY): measures guardrails, not model prose",
+    "store": "in-memory exact cosine, same filters as SqlKnowledgeRepository.search_verified"
+  },
+  "timings_s": {
+    "corpus": 0.01,
+    "retrieval": 2.33,
+    "grounding": 3.12,
+    "pipeline": 4.18
+  },
+  "corpus": {
+    "chunks": 49,
+    "species": 11,
+    "tokens_max": 89,
+    "tokens_mean": 53.8,
+    "chunks_over_e5_limit": 0,
+    "chunker_max_tokens": 480,
+    "chunker_fits_e5": true,
+    "category_counts": {
+      "identity": 14,
+      "physical_characteristics": 9,
+      "taste_texture": 5,
+      "processing_methods": 10,
+      "commercial_uses": 11,
+      "substitutes": 0
+    }
+  },
+  "retrieval": {
+    "queries": 88,
+    "k": 6,
+    "scoped": {
+      "recall@1": 0.2235,
+      "recall@3": 0.678,
+      "recall@6": 0.9886,
+      "mrr": 0.5087,
+      "ndcg@6": 0.6201,
+      "precision@6": 0.25,
+      "species_purity": 1.0
+    },
+    "global": {
+      "recall@1": 0.3485,
+      "recall@3": 0.5133,
+      "recall@6": 0.6932,
+      "mrr": 0.4778,
+      "ndcg@6": 0.5263,
+      "species_hit@1": 0.9318,
+      "species_share@6": 0.3769
+    },
+    "global_by_lang": {
+      "en": {
+        "recall@1": 0.3371,
+        "recall@3": 0.5227,
+        "recall@6": 0.7386,
+        "mrr": 0.4807,
+        "ndcg@6": 0.5421,
+        "species_hit@1": 0.9545,
+        "species_share@6": 0.3977
+      },
+      "id": {
+        "recall@1": 0.3598,
+        "recall@3": 0.5038,
+        "recall@6": 0.6477,
+        "mrr": 0.475,
+        "ndcg@6": 0.5105,
+        "species_hit@1": 0.9091,
+        "species_share@6": 0.3561
+      }
+    },
+    "by_category": {
+      "identity": {
+        "queries": 22,
+        "scoped_mrr": 1.0,
+        "global_species_hit@1": 1.0
+      },
+      "physical_characteristics": {
+        "queries": 18,
+        "scoped_mrr": 0.5,
+        "global_species_hit@1": 0.9444
+      },
+      "taste_texture": {
+        "queries": 10,
+        "scoped_mrr": 0.3667,
+        "global_species_hit@1": 0.9
+      },
+      "processing_methods": {
+        "queries": 18,
+        "scoped_mrr": 0.2963,
+        "global_species_hit@1": 0.8333
+      },
+      "commercial_uses": {
+        "queries": 20,
+        "scoped_mrr": 0.2383,
+        "global_species_hit@1": 0.95
+      }
+    },
+    "card_evidence_completeness": {
+      "mean": 1.0,
+      "min": 1.0
+    },
+    "card_query_coverage": {
+      "mean": 1.0,
+      "per_species": [
+        {
+          "species_label": "bandeng",
+          "available_categories": 5,
+          "covered_categories": 5,
+          "coverage": 1.0,
+          "retrieved": 5
+        },
+        {
+          "species_label": "gelama_bunga",
+          "available_categories": 4,
+          "covered_categories": 4,
+          "coverage": 1.0,
+          "retrieved": 4
+        },
+        {
+          "species_label": "gembolo",
+          "available_categories": 1,
+          "covered_categories": 1,
+          "coverage": 1.0,
+          "retrieved": 1
+        },
+        {
+          "species_label": "gulamah",
+          "available_categories": 4,
+          "covered_categories": 4,
+          "coverage": 1.0,
+          "retrieved": 5
+        },
+        {
+          "species_label": "kembung",
+          "available_categories": 3,
+          "covered_categories": 3,
+          "coverage": 1.0,
+          "retrieved": 3
+        },
+        {
+          "species_label": "kuniran",
+          "available_categories": 4,
+          "covered_categories": 4,
+          "coverage": 1.0,
+          "retrieved": 4
+        },
+        {
+          "species_label": "mujair",
+          "available_categories": 5,
+          "covered_categories": 5,
+          "coverage": 1.0,
+          "retrieved": 5
+        },
+        {
+          "species_label": "nila",
+          "available_categories": 5,
+          "covered_categories": 5,
+          "coverage": 1.0,
+          "retrieved": 5
+        },
+        {
+          "species_label": "senangin",
+          "available_categories": 4,
+          "covered_categories": 4,
+          "coverage": 1.0,
+          "retrieved": 4
+        },
+        {
+          "species_label": "tenggiri",
+          "available_categories": 4,
+          "covered_categories": 4,
+          "coverage": 1.0,
+          "retrieved": 6
+        },
+        {
+          "species_label": "tuna",
+          "available_categories": 5,
+          "covered_categories": 5,
+          "coverage": 1.0,
+          "retrieved": 6
+        }
+      ]
+    },
+    "latency_ms": {
+      "p50": 8.03,
+      "p95": 25.39,
+      "max": 49.91
+    },
+    "worst_global_queries": [
+      {
+        "query": "Apa nilai komersial dan pemanfaatan pasar ikan Bandeng?",
+        "species": "bandeng",
+        "category": "commercial_uses",
+        "mrr": 0.0
+      },
+      {
+        "query": "What is the commercial importance of Bandeng?",
+        "species": "bandeng",
+        "category": "commercial_uses",
+        "mrr": 0.0
+      },
+      {
+        "query": "Bagaimana ciri fisik, ukuran dan warna tubuh ikan Bandeng?",
+        "species": "bandeng",
+        "category": "physical_characteristics",
+        "mrr": 0.0
+      },
+      {
+        "query": "What does Bandeng look like and how large does it grow?",
+        "species": "bandeng",
+        "category": "physical_characteristics",
+        "mrr": 0.0
+      },
+      {
+        "query": "Apa nilai komersial dan pemanfaatan pasar ikan Gelama Bunga?",
+        "species": "gelama_bunga",
+        "category": "commercial_uses",
+        "mrr": 0.0
+      },
+      {
+        "query": "What is the commercial importance of Gelama Bunga?",
+        "species": "gelama_bunga",
+        "category": "commercial_uses",
+        "mrr": 0.0
+      },
+      {
+        "query": "Apa nilai komersial dan pemanfaatan pasar ikan Gulamah?",
+        "species": "gulamah",
+        "category": "commercial_uses",
+        "mrr": 0.0
+      },
+      {
+        "query": "What is the commercial importance of Gulamah?",
+        "species": "gulamah",
+        "category": "commercial_uses",
+        "mrr": 0.0
+      }
+    ]
+  },
+  "grounding": {
+    "pairs": 98,
+    "grader": "E5 cosine + numbers",
+    "test": {
+      "n": 48,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "false_support_rate": 0.0,
+      "tp": 24,
+      "fp": 0,
+      "fn": 0,
+      "tn": 24
+    },
+    "dev": {
+      "n": 50,
+      "precision": 0.9615,
+      "recall": 1.0,
+      "f1": 0.9804,
+      "accuracy": 0.98,
+      "false_support_rate": 0.04,
+      "tp": 25,
+      "fp": 1,
+      "fn": 0,
+      "tn": 24
+    },
+    "all": {
+      "n": 98,
+      "precision": 0.98,
+      "recall": 1.0,
+      "f1": 0.9899,
+      "accuracy": 0.9898,
+      "false_support_rate": 0.0204,
+      "tp": 49,
+      "fp": 1,
+      "fn": 0,
+      "tn": 48
+    },
+    "errors": [
+      {
+        "chunk_id": "chunk_gulamah_processing_001",
+        "label": "unsupported",
+        "predicted": "supported",
+        "claim": "Diolah menjadi bandeng presto (dimasak bertekanan), produk terkenal Kabupaten Pati, Jawa Tengah, di tingkat usaha kecil dan menengah."
+      }
+    ],
+    "similarity": {
+      "positive_mean": 0.8562,
+      "negative_mean": 0.7931,
+      "positive_min": 0.8111,
+      "negative_max": 0.8299,
+      "dev_best_threshold": 0.82,
+      "dev_best": {
+        "n": 50,
+        "precision": 0.913,
+        "recall": 0.84,
+        "f1": 0.875,
+        "accuracy": 0.88,
+        "false_support_rate": 0.08,
+        "tp": 21,
+        "fp": 2,
+        "fn": 4,
+        "tn": 23
+      },
+      "histogram": {
+        "bins": [
+          0.6,
+          0.62,
+          0.64,
+          0.66,
+          0.68,
+          0.7,
+          0.72,
+          0.74,
+          0.76,
+          0.78,
+          0.8,
+          0.82,
+          0.84,
+          0.86,
+          0.88,
+          0.9,
+          0.92,
+          0.94,
+          0.96,
+          0.98,
+          1.0
+        ],
+        "positive": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          12,
+          12,
+          7,
+          8,
+          4,
+          1,
+          0,
+          0,
+          0
+        ],
+        "negative": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          10,
+          18,
+          16,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "pipeline": {
+    "plain": {
+      "delay_s": 0.2,
+      "fenced_json": false,
+      "cards": 11,
+      "job_success_rate": 1.0,
+      "claim_retention": 1.0,
+      "hallucination_leakage": 0.0,
+      "citation_validity": 1.0,
+      "llm_calls_per_card": 3.27,
+      "latency_ms_mean": 280.2,
+      "latency_ms_max": 317.4,
+      "sequential_rounds": 1.4,
+      "llm_rounds": 1.0,
+      "repeat_latency_ms_mean": 11.3,
+      "per_card": [
+        {
+          "species_label": "bandeng",
+          "status": "completed",
+          "latency_ms": 286.3,
+          "llm_calls": 4,
+          "llm_rounds": 1,
+          "true_emitted": 6,
+          "true_kept": 6,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 3,
+          "citations_valid": 3
+        },
+        {
+          "species_label": "gelama_bunga",
+          "status": "completed",
+          "latency_ms": 278.1,
+          "llm_calls": 4,
+          "llm_rounds": 1,
+          "true_emitted": 6,
+          "true_kept": 6,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 2,
+          "citations_valid": 2
+        },
+        {
+          "species_label": "gembolo",
+          "status": "completed",
+          "latency_ms": 228.1,
+          "llm_calls": 1,
+          "llm_rounds": 1,
+          "true_emitted": 1,
+          "true_kept": 1,
+          "halluc_emitted": 0,
+          "halluc_kept": 0,
+          "citations": 1,
+          "citations_valid": 1
+        },
+        {
+          "species_label": "gulamah",
+          "status": "completed",
+          "latency_ms": 265.7,
+          "llm_calls": 3,
+          "llm_rounds": 1,
+          "true_emitted": 4,
+          "true_kept": 4,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 3,
+          "citations_valid": 3
+        },
+        {
+          "species_label": "kembung",
+          "status": "completed",
+          "latency_ms": 249.7,
+          "llm_calls": 3,
+          "llm_rounds": 1,
+          "true_emitted": 3,
+          "true_kept": 3,
+          "halluc_emitted": 2,
+          "halluc_kept": 0,
+          "citations": 2,
+          "citations_valid": 2
+        },
+        {
+          "species_label": "kuniran",
+          "status": "completed",
+          "latency_ms": 270.7,
+          "llm_calls": 3,
+          "llm_rounds": 1,
+          "true_emitted": 4,
+          "true_kept": 4,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 2,
+          "citations_valid": 2
+        },
+        {
+          "species_label": "mujair",
+          "status": "completed",
+          "latency_ms": 295.1,
+          "llm_calls": 4,
+          "llm_rounds": 1,
+          "true_emitted": 6,
+          "true_kept": 6,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 3,
+          "citations_valid": 3
+        },
+        {
+          "species_label": "nila",
+          "status": "completed",
+          "latency_ms": 312.8,
+          "llm_calls": 4,
+          "llm_rounds": 1,
+          "true_emitted": 6,
+          "true_kept": 6,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 1,
+          "citations_valid": 1
+        },
+        {
+          "species_label": "senangin",
+          "status": "completed",
+          "latency_ms": 282.3,
+          "llm_calls": 3,
+          "llm_rounds": 1,
+          "true_emitted": 4,
+          "true_kept": 4,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 1,
+          "citations_valid": 1
+        },
+        {
+          "species_label": "tenggiri",
+          "status": "completed",
+          "latency_ms": 296.0,
+          "llm_calls": 3,
+          "llm_rounds": 1,
+          "true_emitted": 4,
+          "true_kept": 4,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 2,
+          "citations_valid": 2
+        },
+        {
+          "species_label": "tuna",
+          "status": "completed",
+          "latency_ms": 317.4,
+          "llm_calls": 4,
+          "llm_rounds": 1,
+          "true_emitted": 6,
+          "true_kept": 6,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 3,
+          "citations_valid": 3
+        }
+      ]
+    },
+    "fenced": {
+      "delay_s": 0.0,
+      "fenced_json": true,
+      "cards": 11,
+      "job_success_rate": 1.0,
+      "claim_retention": 1.0,
+      "hallucination_leakage": 0.0,
+      "citation_validity": 1.0,
+      "llm_calls_per_card": 3.27,
+      "latency_ms_mean": 88.0,
+      "latency_ms_max": 129.5,
+      "sequential_rounds": null,
+      "llm_rounds": 3.27,
+      "repeat_latency_ms_mean": null,
+      "per_card": [
+        {
+          "species_label": "bandeng",
+          "status": "completed",
+          "latency_ms": 129.5,
+          "llm_calls": 4,
+          "llm_rounds": 4,
+          "true_emitted": 6,
+          "true_kept": 6,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 3,
+          "citations_valid": 3
+        },
+        {
+          "species_label": "gelama_bunga",
+          "status": "completed",
+          "latency_ms": 110.4,
+          "llm_calls": 4,
+          "llm_rounds": 4,
+          "true_emitted": 6,
+          "true_kept": 6,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 2,
+          "citations_valid": 2
+        },
+        {
+          "species_label": "gembolo",
+          "status": "completed",
+          "latency_ms": 37.9,
+          "llm_calls": 1,
+          "llm_rounds": 1,
+          "true_emitted": 1,
+          "true_kept": 1,
+          "halluc_emitted": 0,
+          "halluc_kept": 0,
+          "citations": 1,
+          "citations_valid": 1
+        },
+        {
+          "species_label": "gulamah",
+          "status": "completed",
+          "latency_ms": 85.2,
+          "llm_calls": 3,
+          "llm_rounds": 3,
+          "true_emitted": 4,
+          "true_kept": 4,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 3,
+          "citations_valid": 3
+        },
+        {
+          "species_label": "kembung",
+          "status": "completed",
+          "latency_ms": 59.9,
+          "llm_calls": 3,
+          "llm_rounds": 3,
+          "true_emitted": 3,
+          "true_kept": 3,
+          "halluc_emitted": 2,
+          "halluc_kept": 0,
+          "citations": 2,
+          "citations_valid": 2
+        },
+        {
+          "species_label": "kuniran",
+          "status": "completed",
+          "latency_ms": 99.3,
+          "llm_calls": 3,
+          "llm_rounds": 3,
+          "true_emitted": 4,
+          "true_kept": 4,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 2,
+          "citations_valid": 2
+        },
+        {
+          "species_label": "mujair",
+          "status": "completed",
+          "latency_ms": 100.4,
+          "llm_calls": 4,
+          "llm_rounds": 4,
+          "true_emitted": 6,
+          "true_kept": 6,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 3,
+          "citations_valid": 3
+        },
+        {
+          "species_label": "nila",
+          "status": "completed",
+          "latency_ms": 103.1,
+          "llm_calls": 4,
+          "llm_rounds": 4,
+          "true_emitted": 6,
+          "true_kept": 6,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 1,
+          "citations_valid": 1
+        },
+        {
+          "species_label": "senangin",
+          "status": "completed",
+          "latency_ms": 80.8,
+          "llm_calls": 3,
+          "llm_rounds": 3,
+          "true_emitted": 4,
+          "true_kept": 4,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 1,
+          "citations_valid": 1
+        },
+        {
+          "species_label": "tenggiri",
+          "status": "completed",
+          "latency_ms": 81.8,
+          "llm_calls": 3,
+          "llm_rounds": 3,
+          "true_emitted": 4,
+          "true_kept": 4,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 2,
+          "citations_valid": 2
+        },
+        {
+          "species_label": "tuna",
+          "status": "completed",
+          "latency_ms": 80.2,
+          "llm_calls": 4,
+          "llm_rounds": 4,
+          "true_emitted": 6,
+          "true_kept": 6,
+          "halluc_emitted": 1,
+          "halluc_kept": 0,
+          "citations": 3,
+          "citations_valid": 3
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1827 @@
+{
+  "name": "iteration-1",
+  "baseline": "baseline",
+  "current": "current",
+  "generated_at": "2026-09-26T06:26:25+00:00",
+  "tests": {
+    "baseline": {
+      "passed": 35,
+      "failed": 15,
+      "error": 0,
+      "skipped": 0,
+      "total": 50
+    },
+    "current": {
+      "passed": 71,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "total": 71
+    },
+    "coverage_rag": [
+      80.5,
+      83.4
+    ]
+  },
+  "findings_status": {
+    "baseline": {
+      "open": 28,
+      "not_measured": 1,
+      "not_observed": 1,
+      "info": 2
+    },
+    "current": {
+      "open": 9,
+      "partial": 3,
+      "resolved": 16,
+      "not_measured": 1,
+      "not_observed": 1,
+      "info": 2
+    }
+  },
+  "fixes": [
+    {
+      "id": "F1",
+      "track": "product",
+      "title": "OpenCode Go session header and user agent",
+      "sources": [
+        "W20"
+      ],
+      "change": "make_opencode_go_llm sends x-opencode-session (one id per card) and a descriptive User-Agent.",
+      "files": [
+        "apps/main_api/services/generation.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W20",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_provider_client::test_client_sends_session_and_user_agent",
+          "before": "absent",
+          "after": "passed"
+        },
+        {
+          "test": "test_provider_client::test_client_without_session_gets_a_fresh_one",
+          "before": "absent",
+          "after": "passed"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "Agent card success, real LLM",
+          "path": "cost_eval.summary.by_path.agent.success_rate",
+          "before": 0.0,
+          "after": 1.0
+        },
+        {
+          "metric": "Published card success, real LLM",
+          "path": "cost_eval.summary.by_path.published.success_rate",
+          "before": 0.9545,
+          "after": 1.0
+        }
+      ]
+    },
+    {
+      "id": "F2",
+      "track": "product",
+      "title": "Read Responses-API content blocks and fenced JSON",
+      "sources": [
+        "W21",
+        "W4"
+      ],
+      "change": "llm_output.reply_text/reply_json read every reply; experts, critic and judge use them.",
+      "files": [
+        "apps/main_api/services/llm_output.py",
+        "apps/main_api/services/orchestrator.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W21",
+          "before": "open",
+          "after": "resolved"
+        },
+        {
+          "id": "W4",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_llm_output::test_responses_api_content_blocks",
+          "before": "absent",
+          "after": "passed"
+        },
+        {
+          "test": "test_orchestrator_nodes::test_expert_parses_markdown_fenced_json",
+          "before": "failed",
+          "after": "passed"
+        },
+        {
+          "test": "test_orchestrator_iteration::test_expert_reads_responses_api_blocks",
+          "before": "absent",
+          "after": "passed"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "Fenced-JSON job success",
+          "path": "rag_eval.pipeline.fenced.job_success_rate",
+          "before": 0.0,
+          "after": 1.0
+        },
+        {
+          "metric": "Agent card success, real LLM",
+          "path": "cost_eval.summary.by_path.agent.success_rate",
+          "before": 0.0,
+          "after": 1.0
+        }
+      ]
+    },
+    {
+      "id": "F3",
+      "track": "product",
+      "title": "Cross-lingual claim verifier replaces lexical overlap",
+      "sources": [
+        "W1",
+        "W13",
+        "R2",
+        "W26"
+      ],
+      "change": "Critic grades each claim with E5 symmetric cosine >= tau (0.805, chosen on the dev split) AND every number and taxon (family names, supported binomials) in the claim appearing in the cited chunk (the LLM judge pass is off, see F18).",
+      "files": [
+        "apps/main_api/services/orchestrator.py",
+        "evals/calibrate_grounding.py"
+      ],
+      "note": "Tau sits in a narrow band (0.795 admits 12% false support on dev): recalibrate when the corpus changes.",
+      "findings": [
+        {
+          "id": "W1",
+          "before": "open",
+          "after": "resolved"
+        },
+        {
+          "id": "W13",
+          "before": "open",
+          "after": "partial"
+        },
+        {
+          "id": "R2",
+          "before": "not_measured",
+          "after": "partial"
+        },
+        {
+          "id": "W26",
+          "before": "open",
+          "after": "open"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_grounding_and_pipeline::test_indonesian_claim_is_grounded_in_english_evidence",
+          "before": "failed",
+          "after": "passed"
+        },
+        {
+          "test": "test_grounding_and_pipeline::test_shared_token_does_not_ground_a_borrowed_claim",
+          "before": "failed",
+          "after": "passed"
+        },
+        {
+          "test": "test_grounding_and_pipeline::test_grounding_test_split_f1",
+          "before": "failed",
+          "after": "passed"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "Grounding F1 (test split)",
+          "path": "rag_eval.grounding.test.f1",
+          "before": 0.7907,
+          "after": 1.0
+        },
+        {
+          "metric": "Grounding false support (all pairs)",
+          "path": "rag_eval.grounding.all.false_support_rate",
+          "before": 0.102,
+          "after": 0.0204
+        },
+        {
+          "metric": "True-claim retention (scripted)",
+          "path": "rag_eval.pipeline.plain.claim_retention",
+          "before": 0.56,
+          "after": 1.0
+        }
+      ]
+    },
+    {
+      "id": "F4",
+      "track": "product",
+      "title": "Experts and the critic judge read whole chunks",
+      "sources": [
+        "W14",
+        "R3"
+      ],
+      "change": "Removed both 300-character cuts (expert payload and critic LLM pass).",
+      "files": [
+        "apps/main_api/services/orchestrator.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W14",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_orchestrator_nodes::test_expert_sees_the_whole_chunk",
+          "before": "failed",
+          "after": "passed"
+        },
+        {
+          "test": "test_orchestrator_iteration::test_critic_llm_pass_reads_the_whole_chunk",
+          "before": "absent",
+          "after": "passed"
+        }
+      ],
+      "metrics": []
+    },
+    {
+      "id": "F5",
+      "track": "product",
+      "title": "The whole species slice is the card's evidence",
+      "sources": [
+        "R1",
+        "W9",
+        "W8"
+      ],
+      "change": "VerifiedRetriever.card_evidence returns every verified chunk of the species when there are at most 20, ordered by category; ranked category-first selection only above that.",
+      "files": [
+        "apps/main_api/services/retrieval.py",
+        "apps/main_api/services/knowledge.py",
+        "apps/main_api/services/orchestrator.py"
+      ],
+      "note": "W8 (name-biased ranking) no longer decides what a card sees; the ranking itself is unchanged, and a canonical-name passage prefix did not improve it (experiment_passage_prefix).",
+      "findings": [
+        {
+          "id": "R1",
+          "before": "open",
+          "after": "resolved"
+        },
+        {
+          "id": "W9",
+          "before": "open",
+          "after": "resolved"
+        },
+        {
+          "id": "W8",
+          "before": "open",
+          "after": "open"
+        }
+      ],
+      "tests": [],
+      "metrics": [
+        {
+          "metric": "Card evidence completeness (min)",
+          "path": "rag_eval.retrieval.card_evidence_completeness.min",
+          "before": null,
+          "after": 1.0
+        }
+      ]
+    },
+    {
+      "id": "F6",
+      "track": "product",
+      "title": "Fields are grounded only by their own evidence category; gaps are named",
+      "sources": [
+        "R4",
+        "W11"
+      ],
+      "change": "Critic accepts a citation only from the field's categories (substitutes need substitute evidence); experts with no evidence are not called; the card lists fields with no verified evidence.",
+      "files": [
+        "apps/main_api/services/orchestrator.py",
+        "evals/corpus_gaps.py"
+      ],
+      "note": "The data gap itself (22 of 66 cells, all 11 substitute cells) needs new sourced chunks and human approval: see corpus_gaps.json.",
+      "findings": [
+        {
+          "id": "W11",
+          "before": "open",
+          "after": "open"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_orchestrator_iteration::test_substitute_claim_needs_substitute_evidence",
+          "before": "absent",
+          "after": "passed"
+        },
+        {
+          "test": "test_orchestrator_iteration::test_expert_without_evidence_is_not_called",
+          "before": "absent",
+          "after": "passed"
+        },
+        {
+          "test": "test_orchestrator_iteration::test_missing_evidence_is_named_on_the_card",
+          "before": "absent",
+          "after": "passed"
+        }
+      ],
+      "metrics": []
+    },
+    {
+      "id": "F7",
+      "track": "product",
+      "title": "Two LLM rounds per card",
+      "sources": [
+        "W5"
+      ],
+      "change": "Removed the researcher's LLM sub-query and the writer's post-verification polish.",
+      "files": [
+        "apps/main_api/services/orchestrator.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W5",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_grounding_and_pipeline::test_card_needs_at_most_two_sequential_llm_rounds",
+          "before": "failed",
+          "after": "passed"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "LLM calls per card (scripted)",
+          "path": "rag_eval.pipeline.plain.llm_calls_per_card",
+          "before": 6.82,
+          "after": 3.27
+        },
+        {
+          "metric": "Agent card p50 wall time, real LLM (s)",
+          "path": "cost_eval.summary.by_path.agent.wall_s_per_card.p50",
+          "before": 6.04,
+          "after": 4.03
+        }
+      ]
+    },
+    {
+      "id": "F8",
+      "track": "product",
+      "title": "Card cache keyed by the evidence",
+      "sources": [
+        "W6"
+      ],
+      "change": "Species + evidence ids and contents + model + pipeline version; invalidates itself on corpus change.",
+      "files": [
+        "apps/main_api/services/orchestrator.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W6",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_grounding_and_pipeline::test_repeat_card_is_served_from_cache",
+          "before": "failed",
+          "after": "passed"
+        },
+        {
+          "test": "test_orchestrator_iteration::test_cache_key_follows_the_evidence",
+          "before": "absent",
+          "after": "passed"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "Repeat card latency (ms)",
+          "path": "rag_eval.pipeline.plain.repeat_latency_ms_mean",
+          "before": 832.7,
+          "after": 11.3
+        }
+      ]
+    },
+    {
+      "id": "F9",
+      "track": "product",
+      "title": "Embedder warmed at startup",
+      "sources": [
+        "W7"
+      ],
+      "change": "Lifespan starts a background warmup, so the first request does not load the model.",
+      "files": [
+        "apps/main_api/main.py",
+        "apps/main_api/services/embeddings.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W7",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_knowledge_api::test_embedder_is_warmed_at_startup",
+          "before": "failed",
+          "after": "passed"
+        }
+      ],
+      "metrics": []
+    },
+    {
+      "id": "F10",
+      "track": "product",
+      "title": "Chunk limit fits the E5 window",
+      "sources": [
+        "W10"
+      ],
+      "change": "chunk_candidate max_tokens 600 -> 480.",
+      "files": [
+        "apps/main_api/services/chunking.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W10",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_chunking::test_default_chunk_limit_fits_the_e5_window",
+          "before": "failed",
+          "after": "passed"
+        }
+      ],
+      "metrics": []
+    },
+    {
+      "id": "F11",
+      "track": "product",
+      "title": "LLM is an injectable port; scheduling errors are logged",
+      "sources": [
+        "W2",
+        "W12"
+      ],
+      "change": "AppDependencies.llm; verify builds the per-card client or uses the port; broad excepts log.",
+      "files": [
+        "apps/main_api/ports.py",
+        "apps/main_api/api/fish.py",
+        "apps/main_api/services/orchestrator.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W2",
+          "before": "open",
+          "after": "resolved"
+        },
+        {
+          "id": "W12",
+          "before": "open",
+          "after": "open"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_knowledge_api::test_verification_schedules_a_job_that_completes",
+          "before": "failed",
+          "after": "passed"
+        },
+        {
+          "test": "test_operator_flow::test_photo_to_grounded_card",
+          "before": "failed",
+          "after": "passed"
+        }
+      ],
+      "metrics": []
+    },
+    {
+      "id": "F12",
+      "track": "product",
+      "title": "A blank key is a provider outage, not a crash",
+      "sources": [
+        "W3"
+      ],
+      "change": "KnowledgeGenerator maps client-construction ValueError to OpenCodeUnavailable (HTTP 502).",
+      "files": [
+        "apps/main_api/services/generation.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W3",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_provider_client::test_blank_key_is_a_provider_outage_not_a_crash",
+          "before": "absent",
+          "after": "passed"
+        }
+      ],
+      "metrics": []
+    },
+    {
+      "id": "F13",
+      "track": "product",
+      "title": "Publication freezes the graded card",
+      "sources": [
+        "W19"
+      ],
+      "change": "LotService publishes the completed job card for the verified species; the one-call path is only a fallback.",
+      "files": [
+        "apps/main_api/services/lots.py",
+        "apps/main_api/api/lots.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W19",
+          "before": "open",
+          "after": "partial"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_lot_publication::test_published_snapshot_is_the_graded_job_card",
+          "before": "absent",
+          "after": "passed"
+        },
+        {
+          "test": "test_lot_publication::test_graded_card_for_another_species_is_not_published",
+          "before": "absent",
+          "after": "passed"
+        }
+      ],
+      "metrics": []
+    },
+    {
+      "id": "F14",
+      "track": "product",
+      "title": "Nothing groundable yields an honest card, not a failed job",
+      "sources": [
+        "W24"
+      ],
+      "change": "Writer returns an empty card with a limitation when experts ran but no claim was grounded; an all-expert outage still fails.",
+      "files": [
+        "apps/main_api/services/orchestrator.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W24",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_orchestrator_iteration::test_no_groundable_claim_gives_a_limitation_card",
+          "before": "absent",
+          "after": "passed"
+        },
+        {
+          "test": "test_orchestrator_iteration::test_every_expert_failing_is_an_error_not_an_empty_card",
+          "before": "absent",
+          "after": "passed"
+        },
+        {
+          "test": "test_grounding_and_pipeline::test_llm_outage_fails_the_job_cleanly",
+          "before": "passed",
+          "after": "passed"
+        }
+      ],
+      "metrics": []
+    },
+    {
+      "id": "F15",
+      "track": "product",
+      "title": "Expert prompts require Indonesian",
+      "sources": [
+        "W22"
+      ],
+      "change": "Every expert prompt states the output language.",
+      "files": [
+        "apps/main_api/services/orchestrator.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W22",
+          "before": "not_observed",
+          "after": "not_observed"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_orchestrator_iteration::test_expert_prompt_requires_indonesian",
+          "before": "absent",
+          "after": "passed"
+        }
+      ],
+      "metrics": []
+    },
+    {
+      "id": "F16",
+      "track": "product",
+      "title": "Dev taxonomy agrees with the corpus",
+      "sources": [
+        "W18"
+      ],
+      "change": "Synthetic taxonomy fixture uses the corpus identity binomials for 4 species.",
+      "files": [
+        "scripts/make_synthetic_taxonomy.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W18",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [],
+      "metrics": []
+    },
+    {
+      "id": "F17",
+      "track": "product",
+      "title": "Quality dashboard served by the API",
+      "sources": [
+        "baseline e2e spec"
+      ],
+      "change": "GET /quality and /api/v1/quality/summary serve generated artifacts.",
+      "files": [
+        "apps/main_api/api/quality.py",
+        "apps/main_api/main.py"
+      ],
+      "note": "Serves evaluation results; gate behind operator auth before a public deployment.",
+      "findings": [],
+      "tests": [
+        {
+          "test": "test_operator_flow::test_quality_dashboard_is_served",
+          "before": "failed",
+          "after": "passed"
+        }
+      ],
+      "metrics": []
+    },
+    {
+      "id": "F18",
+      "track": "product",
+      "title": "Critic's LLM judge pass removed",
+      "sources": [
+        "R2",
+        "W5"
+      ],
+      "change": "USE_LLM_JUDGE = False: measured with gpt-5.6-luna, the downgrade-only judge halved held-out recall (1.0 -> 0.5) and still accepted 3 of 14 traps; the verifier alone scores higher on the dev split.",
+      "files": [
+        "apps/main_api/services/orchestrator.py"
+      ],
+      "note": "R2 stays partial: the shipped verifier accepts 7 of 14 negation/scope traps. Multilingual NLI rejects all 14 but costs ~1.1 s per pair on CPU and loses recall (0.917); confirm on a fresh trap set, on GPU/ONNX, before adopting.",
+      "findings": [
+        {
+          "id": "R2",
+          "before": "not_measured",
+          "after": "partial"
+        },
+        {
+          "id": "W5",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [
+        {
+          "test": "test_orchestrator_iteration::test_llm_judge_pass_is_off_in_production",
+          "before": "absent",
+          "after": "passed"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "LLM rounds per card (timestamps)",
+          "path": "rag_eval.pipeline.plain.llm_rounds",
+          "before": null,
+          "after": 1.0
+        }
+      ]
+    },
+    {
+      "id": "E1",
+      "track": "evaluation",
+      "title": "LLM rounds counted from call timestamps",
+      "sources": [
+        "W5"
+      ],
+      "change": "The wall-time/delay proxy counted verifier compute as rounds; overlapping calls now form one round. The old proxy is still reported.",
+      "files": [
+        "evals/fakes.py",
+        "evals/pipeline_eval.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W5",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [],
+      "metrics": [
+        {
+          "metric": "LLM rounds per card (timestamps)",
+          "path": "rag_eval.pipeline.plain.llm_rounds",
+          "before": null,
+          "after": 1.0
+        }
+      ]
+    },
+    {
+      "id": "E2",
+      "track": "evaluation",
+      "title": "Real-LLM runs use the production client",
+      "sources": [
+        "W20"
+      ],
+      "change": "cost_eval drives make_opencode_go_llm instead of adding the header itself.",
+      "files": [
+        "evals/cost_eval.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W20",
+          "before": "open",
+          "after": "resolved"
+        }
+      ],
+      "tests": [],
+      "metrics": []
+    },
+    {
+      "id": "E3",
+      "track": "evaluation",
+      "title": "Threshold calibration on the dev split",
+      "sources": [
+        "W1",
+        "W13"
+      ],
+      "change": "calibrate_grounding sweeps tau for the shipped rule and reports the held-out split.",
+      "files": [
+        "evals/calibrate_grounding.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W1",
+          "before": "open",
+          "after": "resolved"
+        },
+        {
+          "id": "W13",
+          "before": "open",
+          "after": "partial"
+        }
+      ],
+      "tests": [],
+      "metrics": [
+        {
+          "metric": "Calibrated tau",
+          "path": "grounding_calibration.chosen.tau",
+          "before": null,
+          "after": 0.805
+        }
+      ]
+    },
+    {
+      "id": "E4",
+      "track": "evaluation",
+      "title": "Negation/scope trap set and verifier comparison",
+      "sources": [
+        "R2"
+      ],
+      "change": "14 traps; E5+exact vs multilingual NLI vs the production LLM judge, pre-registered selection rule.",
+      "files": [
+        "evals/datasets/grounding_traps.json",
+        "evals/experiment_nli_grounding.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "R2",
+          "before": "not_measured",
+          "after": "partial"
+        }
+      ],
+      "tests": [],
+      "metrics": []
+    },
+    {
+      "id": "E5",
+      "track": "evaluation",
+      "title": "Passage-prefix experiment",
+      "sources": [
+        "W8"
+      ],
+      "change": "Tests whether a canonical-name prefix fixes within-species ranking.",
+      "files": [
+        "evals/experiment_passage_prefix.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W8",
+          "before": "open",
+          "after": "open"
+        }
+      ],
+      "tests": [],
+      "metrics": []
+    },
+    {
+      "id": "E6",
+      "track": "evaluation",
+      "title": "Corpus gap task list",
+      "sources": [
+        "R4",
+        "W11"
+      ],
+      "change": "Lists every species x category cell without evidence for the data team.",
+      "files": [
+        "evals/corpus_gaps.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "W11",
+          "before": "open",
+          "after": "open"
+        }
+      ],
+      "tests": [],
+      "metrics": []
+    },
+    {
+      "id": "E7",
+      "track": "evaluation",
+      "title": "Registry covers the review critique",
+      "sources": [
+        "R1",
+        "R2"
+      ],
+      "change": "Computed R1/R2 checks; 'partial' status for mitigated findings; W9/W19/W13 checks follow the new design.",
+      "files": [
+        "evals/findings.py",
+        "evals/probes.py"
+      ],
+      "note": "",
+      "findings": [
+        {
+          "id": "R1",
+          "before": "open",
+          "after": "resolved"
+        },
+        {
+          "id": "R2",
+          "before": "not_measured",
+          "after": "partial"
+        }
+      ],
+      "tests": [],
+      "metrics": []
+    }
+  ],
+  "improvements": [
+    {
+      "metric": "Test suite pass rate",
+      "path": "tests.totals",
+      "baseline": 0.7,
+      "current": 1.0,
+      "target": 1.0,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "W1",
+        "W2",
+        "W4"
+      ]
+    },
+    {
+      "metric": "Grounding F1 (test split)",
+      "path": "rag_eval.grounding.test.f1",
+      "baseline": 0.7907,
+      "current": 1.0,
+      "target": 0.85,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "W1",
+        "W13"
+      ]
+    },
+    {
+      "metric": "Grounding false support",
+      "path": "rag_eval.grounding.all.false_support_rate",
+      "baseline": 0.102,
+      "current": 0.0204,
+      "target": 0.1,
+      "higher_is_better": false,
+      "baseline_meets_target": false,
+      "findings": [
+        "W1"
+      ]
+    },
+    {
+      "metric": "True-claim retention (scripted)",
+      "path": "rag_eval.pipeline.plain.claim_retention",
+      "baseline": 0.56,
+      "current": 1.0,
+      "target": 0.8,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "W1"
+      ]
+    },
+    {
+      "metric": "Fenced-JSON job success",
+      "path": "rag_eval.pipeline.fenced.job_success_rate",
+      "baseline": 0.0,
+      "current": 1.0,
+      "target": 1.0,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "W4"
+      ]
+    },
+    {
+      "metric": "LLM rounds / card",
+      "path": "rag_eval.pipeline.plain.llm_rounds",
+      "baseline": null,
+      "current": 1.0,
+      "target": 2.5,
+      "higher_is_better": false,
+      "baseline_meets_target": null,
+      "findings": [
+        "W5"
+      ]
+    },
+    {
+      "metric": "Repeat card latency (ms)",
+      "path": "rag_eval.pipeline.plain.repeat_latency_ms_mean",
+      "baseline": 832.7,
+      "current": 11.3,
+      "target": 50,
+      "higher_is_better": false,
+      "baseline_meets_target": false,
+      "findings": [
+        "W6"
+      ]
+    },
+    {
+      "metric": "Embedder cold load (s)",
+      "path": "rag_eval.environment.embedder_cold_load_s",
+      "baseline": 10.97,
+      "current": 15.38,
+      "target": null,
+      "higher_is_better": false,
+      "baseline_meets_target": null,
+      "findings": [
+        "W7"
+      ]
+    },
+    {
+      "metric": "Scoped retrieval MRR",
+      "path": "rag_eval.retrieval.scoped.mrr",
+      "baseline": 0.5087,
+      "current": 0.5087,
+      "target": 0.7,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "W8"
+      ]
+    },
+    {
+      "metric": "Scoped recall@6",
+      "path": "rag_eval.retrieval.scoped.recall@6",
+      "baseline": 0.9886,
+      "current": 0.9886,
+      "target": 1.0,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "W9"
+      ]
+    },
+    {
+      "metric": "Agent card success, real LLM",
+      "path": "cost_eval.summary.by_path.agent.success_rate",
+      "baseline": 0.0,
+      "current": 1.0,
+      "target": 0.9,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "W20",
+        "W21"
+      ]
+    },
+    {
+      "metric": "Published card success, real LLM",
+      "path": "cost_eval.summary.by_path.published.success_rate",
+      "baseline": 0.9545,
+      "current": 1.0,
+      "target": 1.0,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "W25"
+      ]
+    },
+    {
+      "metric": "Agent card p50 wall time (s)",
+      "path": "cost_eval.agent.wall_s_per_card.p50",
+      "baseline": 11.55,
+      "current": 4.03,
+      "target": 6.0,
+      "higher_is_better": false,
+      "baseline_meets_target": false,
+      "findings": [
+        "W5"
+      ]
+    },
+    {
+      "metric": "Cost per published card (USD)",
+      "path": "cost_eval.summary.by_path.published.cost_usd_per_card.mean",
+      "baseline": 0.0006,
+      "current": 0.0007,
+      "target": null,
+      "higher_is_better": false,
+      "baseline_meets_target": null,
+      "findings": [
+        "W27"
+      ]
+    },
+    {
+      "metric": "Cost per agent card (USD)",
+      "path": "cost_eval.agent.cost_usd_per_card.mean",
+      "baseline": 0.0014,
+      "current": 0.0009,
+      "target": null,
+      "higher_is_better": false,
+      "baseline_meets_target": null,
+      "findings": [
+        "W5",
+        "W27"
+      ]
+    },
+    {
+      "metric": "Species ID: field accuracy",
+      "path": "cv_eval.prod.field_accuracy",
+      "baseline": 0.8178294573643411,
+      "current": 0.8178294573643411,
+      "target": 0.9,
+      "higher_is_better": true,
+      "baseline_meets_target": false,
+      "findings": [
+        "CV1"
+      ]
+    },
+    {
+      "metric": "Species ID: wrong and confident (field)",
+      "path": "cv_eval.prod.field_wrong_confident",
+      "baseline": 0.1511627906976744,
+      "current": 0.1511627906976744,
+      "target": 0.05,
+      "higher_is_better": false,
+      "baseline_meets_target": false,
+      "findings": [
+        "CV2"
+      ]
+    },
+    {
+      "metric": "Species ID: OOD images accepted",
+      "path": "cv_eval.prod.ood_accepted_at_threshold",
+      "baseline": 1.0,
+      "current": 1.0,
+      "target": 0.1,
+      "higher_is_better": false,
+      "baseline_meets_target": false,
+      "findings": [
+        "CV3"
+      ]
+    },
+    {
+      "metric": "Species ID: background shortcut rate",
+      "path": "cv_eval.prod.shortcut_rate",
+      "baseline": 0.42452830188679247,
+      "current": 0.42452830188679247,
+      "target": 0.18,
+      "higher_is_better": false,
+      "baseline_meets_target": false,
+      "findings": [
+        "CV4"
+      ]
+    }
+  ],
+  "experiments": {
+    "passage_prefix": {
+      "label": "current",
+      "generated_at": "2026-09-26T05:57:53+00:00",
+      "hypothesis": "canonical-name passage prefix lifts within-species per-category MRR (W8)",
+      "arms": {
+        "control": {
+          "scoped": {
+            "recall@1": 0.2235,
+            "recall@3": 0.678,
+            "recall@6": 0.9886,
+            "mrr": 0.5087,
+            "ndcg@6": 0.6201,
+            "precision@6": 0.25,
+            "species_purity": 1.0
+          },
+          "global_species_hit@1": 0.9318,
+          "card_query_coverage": 1.0,
+          "mrr_by_category": {
+            "identity": 1.0,
+            "physical_characteristics": 0.5,
+            "taste_texture": 0.3667,
+            "processing_methods": 0.2963,
+            "commercial_uses": 0.2383
+          }
+        },
+        "prefix": {
+          "scoped": {
+            "recall@1": 0.2235,
+            "recall@3": 0.678,
+            "recall@6": 0.9943,
+            "mrr": 0.5087,
+            "ndcg@6": 0.6226,
+            "precision@6": 0.2519,
+            "species_purity": 1.0
+          },
+          "global_species_hit@1": 0.9773,
+          "card_query_coverage": 1.0,
+          "mrr_by_category": {
+            "identity": 1.0,
+            "physical_characteristics": 0.5,
+            "taste_texture": 0.3667,
+            "processing_methods": 0.2963,
+            "commercial_uses": 0.2383
+          }
+        }
+      },
+      "mrr_delta_by_category": {
+        "identity": 0.0,
+        "physical_characteristics": 0.0,
+        "taste_texture": 0.0,
+        "processing_methods": 0.0,
+        "commercial_uses": 0.0
+      },
+      "supported": false
+    },
+    "verifier_comparison": {
+      "label": "current",
+      "generated_at": "2026-09-26T06:13:55+00:00",
+      "nli_model": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+      "nli_ms_per_pair_cpu": 1095.4,
+      "rule": "highest dev F1 at dev FSR <= 0.10; within 0.02, fewer traps accepted",
+      "variants": {
+        "A_e5_exact": {
+          "threshold": 0.805,
+          "dev": {
+            "n": 50,
+            "precision": 0.9615,
+            "recall": 1.0,
+            "f1": 0.9804,
+            "accuracy": 0.98,
+            "false_support_rate": 0.04,
+            "tp": 25,
+            "fp": 1,
+            "fn": 0,
+            "tn": 24
+          },
+          "test": {
+            "n": 48,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "accuracy": 1.0,
+            "false_support_rate": 0.0,
+            "tp": 24,
+            "fp": 0,
+            "fn": 0,
+            "tn": 24
+          },
+          "traps_accepted": 7,
+          "traps_total": 14,
+          "traps_accepted_ids": [
+            "chunk_bandeng_taste_001:antonym",
+            "chunk_bandeng_taste_001:scope",
+            "chunk_mujair_taste_001:negation",
+            "chunk_nila_taste_001:antonym",
+            "chunk_gulamah_commercial_002:scope",
+            "chunk_senangin_physical_001:antonym",
+            "chunk_nila_identity_001:antonym"
+          ]
+        },
+        "B_nli": {
+          "threshold": 0.3,
+          "dev": {
+            "n": 50,
+            "precision": 0.9583,
+            "recall": 0.92,
+            "f1": 0.9388,
+            "accuracy": 0.94,
+            "false_support_rate": 0.04,
+            "tp": 23,
+            "fp": 1,
+            "fn": 2,
+            "tn": 24
+          },
+          "test": {
+            "n": 48,
+            "precision": 0.9167,
+            "recall": 0.9167,
+            "f1": 0.9167,
+            "accuracy": 0.9167,
+            "false_support_rate": 0.0833,
+            "tp": 22,
+            "fp": 2,
+            "fn": 2,
+            "tn": 22
+          },
+          "traps_accepted": 0,
+          "traps_total": 14,
+          "traps_accepted_ids": []
+        },
+        "C_nli_exact": {
+          "threshold": 0.25,
+          "dev": {
+            "n": 50,
+            "precision": 0.9583,
+            "recall": 0.92,
+            "f1": 0.9388,
+            "accuracy": 0.94,
+            "false_support_rate": 0.04,
+            "tp": 23,
+            "fp": 1,
+            "fn": 2,
+            "tn": 24
+          },
+          "test": {
+            "n": 48,
+            "precision": 0.9565,
+            "recall": 0.9167,
+            "f1": 0.9362,
+            "accuracy": 0.9375,
+            "false_support_rate": 0.0417,
+            "tp": 22,
+            "fp": 1,
+            "fn": 2,
+            "tn": 23
+          },
+          "traps_accepted": 0,
+          "traps_total": 14,
+          "traps_accepted_ids": []
+        },
+        "D_e5_exact_llm_judge": {
+          "threshold": 0.805,
+          "dev": {
+            "n": 50,
+            "precision": 1.0,
+            "recall": 0.64,
+            "f1": 0.7805,
+            "accuracy": 0.82,
+            "false_support_rate": 0.0,
+            "tp": 16,
+            "fp": 0,
+            "fn": 9,
+            "tn": 25
+          },
+          "test": {
+            "n": 48,
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6667,
+            "accuracy": 0.75,
+            "false_support_rate": 0.0,
+            "tp": 12,
+            "fp": 0,
+            "fn": 12,
+            "tn": 24
+          },
+          "traps_accepted": 3,
+          "traps_total": 14,
+          "traps_accepted_ids": [
+            "chunk_mujair_taste_001:negation",
+            "chunk_nila_taste_001:antonym",
+            "chunk_senangin_physical_001:antonym"
+          ],
+          "judge_model": "gpt-5.6-luna"
+        }
+      },
+      "winner": "A_e5_exact"
+    },
+    "calibration": {
+      "label": "current",
+      "generated_at": "2026-09-26T06:02:34+00:00",
+      "rule": "E5 symmetric cosine >= tau AND numbers(claim) subset of numbers(chunk)",
+      "max_dev_false_support": 0.1,
+      "chosen": {
+        "tau": 0.805,
+        "dev": {
+          "n": 50,
+          "precision": 0.9615,
+          "recall": 1.0,
+          "f1": 0.9804,
+          "accuracy": 0.98,
+          "false_support_rate": 0.04,
+          "tp": 25,
+          "fp": 1,
+          "fn": 0,
+          "tn": 24
+        },
+        "test": {
+          "n": 48,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "accuracy": 1.0,
+          "false_support_rate": 0.0,
+          "tp": 24,
+          "fp": 0,
+          "fn": 0,
+          "tn": 24
+        }
+      },
+      "shipped": {
+        "tau": 0.805,
+        "dev": {
+          "n": 50,
+          "precision": 0.9615,
+          "recall": 1.0,
+          "f1": 0.9804,
+          "accuracy": 0.98,
+          "false_support_rate": 0.04,
+          "tp": 25,
+          "fp": 1,
+          "fn": 0,
+          "tn": 24
+        },
+        "test": {
+          "n": 48,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "accuracy": 1.0,
+          "false_support_rate": 0.0,
+          "tp": 24,
+          "fp": 0,
+          "fn": 0,
+          "tn": 24
+        }
+      },
+      "shipped_matches_choice": true,
+      "sweep": [
+        {
+          "tau": 0.75,
+          "dev_f1": 0.7937,
+          "dev_false_support": 0.52
+        },
+        {
+          "tau": 0.755,
+          "dev_f1": 0.8065,
+          "dev_false_support": 0.48
+        },
+        {
+          "tau": 0.76,
+          "dev_f1": 0.8065,
+          "dev_false_support": 0.48
+        },
+        {
+          "tau": 0.765,
+          "dev_f1": 0.8333,
+          "dev_false_support": 0.4
+        },
+        {
+          "tau": 0.77,
+          "dev_f1": 0.8333,
+          "dev_false_support": 0.4
+        },
+        {
+          "tau": 0.775,
+          "dev_f1": 0.8475,
+          "dev_false_support": 0.36
+        },
+        {
+          "tau": 0.78,
+          "dev_f1": 0.8621,
+          "dev_false_support": 0.32
+        },
+        {
+          "tau": 0.785,
+          "dev_f1": 0.9091,
+          "dev_false_support": 0.2
+        },
+        {
+          "tau": 0.79,
+          "dev_f1": 0.9259,
+          "dev_false_support": 0.16
+        },
+        {
+          "tau": 0.795,
+          "dev_f1": 0.9434,
+          "dev_false_support": 0.12
+        },
+        {
+          "tau": 0.8,
+          "dev_f1": 0.9615,
+          "dev_false_support": 0.08
+        },
+        {
+          "tau": 0.805,
+          "dev_f1": 0.9804,
+          "dev_false_support": 0.04
+        },
+        {
+          "tau": 0.81,
+          "dev_f1": 0.9804,
+          "dev_false_support": 0.04
+        },
+        {
+          "tau": 0.815,
+          "dev_f1": 0.9362,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.82,
+          "dev_f1": 0.913,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.825,
+          "dev_f1": 0.8889,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.83,
+          "dev_f1": 0.8095,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.835,
+          "dev_f1": 0.8095,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.84,
+          "dev_f1": 0.7805,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.845,
+          "dev_f1": 0.6842,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.85,
+          "dev_f1": 0.6842,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.855,
+          "dev_f1": 0.6486,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.86,
+          "dev_f1": 0.5714,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.865,
+          "dev_f1": 0.5294,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.87,
+          "dev_f1": 0.5294,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.875,
+          "dev_f1": 0.5294,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.88,
+          "dev_f1": 0.4375,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.885,
+          "dev_f1": 0.2143,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.89,
+          "dev_f1": 0.2143,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.895,
+          "dev_f1": 0.1481,
+          "dev_false_support": 0.0
+        },
+        {
+          "tau": 0.9,
+          "dev_f1": 0.1481,
+          "dev_false_support": 0.0
+        }
+      ]
+    }
+  },
+  "corpus_gaps": {
+    "label": "current",
+    "generated_at": "2026-09-26T06:04:58+00:00",
+    "cells": 66,
+    "missing_cells": 22,
+    "missing_by_category": {
+      "substitutes": 11,
+      "taste_texture": 6,
+      "physical_characteristics": 2,
+      "processing_methods": 2,
+      "commercial_uses": 1
+    },
+    "gaps": [
+      {
+        "species": "bandeng",
+        "category": "substitutes",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "gelama_bunga",
+        "category": "physical_characteristics",
+        "reason": "accepted_source_not_accessible"
+      },
+      {
+        "species": "gelama_bunga",
+        "category": "substitutes",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "gembolo",
+        "category": "physical_characteristics",
+        "reason": "taxonomy_unresolved"
+      },
+      {
+        "species": "gembolo",
+        "category": "taste_texture",
+        "reason": "taxonomy_unresolved"
+      },
+      {
+        "species": "gembolo",
+        "category": "processing_methods",
+        "reason": "taxonomy_unresolved"
+      },
+      {
+        "species": "gembolo",
+        "category": "commercial_uses",
+        "reason": "taxonomy_unresolved"
+      },
+      {
+        "species": "gembolo",
+        "category": "substitutes",
+        "reason": "taxonomy_unresolved"
+      },
+      {
+        "species": "gulamah",
+        "category": "taste_texture",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "gulamah",
+        "category": "substitutes",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "kembung",
+        "category": "taste_texture",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "kembung",
+        "category": "processing_methods",
+        "reason": "source_quote_not_direct"
+      },
+      {
+        "species": "kembung",
+        "category": "substitutes",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "kuniran",
+        "category": "taste_texture",
+        "reason": "accepted_source_text_not_accessible"
+      },
+      {
+        "species": "kuniran",
+        "category": "substitutes",
+        "reason": "only_market_misidentification_evidence_found"
+      },
+      {
+        "species": "mujair",
+        "category": "substitutes",
+        "reason": "only_fisheries_replacement_evidence_found"
+      },
+      {
+        "species": "nila",
+        "category": "substitutes",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "senangin",
+        "category": "taste_texture",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "senangin",
+        "category": "substitutes",
+        "reason": "no_direct_evidence_found"
+      },
+      {
+        "species": "tenggiri",
+        "category": "taste_texture",
+        "reason": "vernacular_scope_not_supported"
+      },
+      {
+        "species": "tenggiri",
+        "category": "substitutes",
+        "reason": "vernacular_scope_not_supported"
+      },
+      {
+        "species": "tuna",
+        "category": "substitutes",
+        "reason": "only_non_fish_recipe_alternative_found"
+      }
+    ],
+    "how_to_fill": "research agents -> candidate chunk with a verbatim source quote -> scripts.corpus_pipeline collect -> human review -> approve (signed) -> ingest"
+  },
+  "still_open": [
+    {
+      "id": "CV1",
+      "severity": "high",
+      "status": "open",
+      "title": "Field photos are misidentified far more often than clean photos",
+      "addressed_this_iteration": false,
+      "evidence": [
+        "lp_vit_l: clean photos 100.0%, field photos 81.8% (95% CI 76.7% to 86.0%, n = 258)",
+        "field macro-F1 0.667"
+      ]
+    },
+    {
+      "id": "CV2",
+      "severity": "high",
+      "status": "open",
+      "title": "Confidently wrong on field photos (confidence >= 0.9)",
+      "addressed_this_iteration": false,
+      "evidence": [
+        "lp_vit_l: field photos wrong at confidence >= 0.9: 15.1%; ECE 0.166"
+      ]
+    },
+    {
+      "id": "CV3",
+      "severity": "high",
+      "status": "open",
+      "title": "Abstain threshold 0.0 accepts every unknown fish and non-fish image",
+      "addressed_this_iteration": false,
+      "evidence": [
+        "production abstain threshold 0.0: accepts 100% of out-of-distribution images as a species",
+        "unknown_fish: AUROC 0.778, FPR at 95% TPR 56% (n = 89)"
+      ]
+    },
+    {
+      "id": "R2",
+      "severity": "high",
+      "status": "partial",
+      "title": "Grounding must catch negated and inverted claims, not only borrowed ones",
+      "addressed_this_iteration": true,
+      "evidence": [
+        "shipped verifier (E5 + exact checks): held-out F1 1.0, false support 0.0, traps accepted 7/14",
+        "with the LLM judge (removed): held-out F1 0.6667, traps accepted 3/14"
+      ]
+    },
+    {
+      "id": "W19",
+      "severity": "high",
+      "status": "partial",
+      "title": "The published card (QR page, buyer matching) bypasses the per-claim critic",
+      "addressed_this_iteration": true,
+      "evidence": [
+        "publication freezes the graded job card when one exists: True",
+        "lot publication uses the sync KnowledgeService: True"
+      ]
+    },
+    {
+      "id": "CV4",
+      "severity": "medium",
+      "status": "open",
+      "title": "Background shortcut: species predicted with the fish erased",
+      "addressed_this_iteration": false,
+      "evidence": [
+        "lp_vit_l: with the fish erased, the true species is still predicted 42.5% of the time (chance 9.1%)"
+      ]
+    },
+    {
+      "id": "CV5",
+      "severity": "medium",
+      "status": "open",
+      "title": "Accuracy drop under image corruption",
+      "addressed_this_iteration": false,
+      "evidence": [
+        "lp_vit_l: worst corruption blur 95.3%; mean over 7 corruptions 98.4%"
+      ]
+    },
+    {
+      "id": "W8",
+      "severity": "medium",
+      "status": "open",
+      "title": "Ranking follows the species name, not the requested category",
+      "addressed_this_iteration": true,
+      "evidence": [
+        "scoped MRR by category: identity 1.00, physical_characteristics 0.50, taste_texture 0.37, processing_methods 0.30, commercial_uses 0.24",
+        "overall scoped MRR 0.509; unfiltered recall@6 0.693"
+      ]
+    },
+    {
+      "id": "W11",
+      "severity": "medium",
+      "status": "open",
+      "title": "Categories with no evidence at all",
+      "addressed_this_iteration": true,
+      "evidence": [
+        "categories with no chunks: ['substitutes']",
+        "published-card field fill rate: physical_characteristics 91%, taste 36%, texture 32%, processing_methods 82%, commercial_uses 73%, similar_or_substitute_species 9%, potential_buyer_segments 14%"
+      ]
+    },
+    {
+      "id": "W12",
+      "severity": "medium",
+      "status": "open",
+      "title": "Broad exception handlers swallow errors silently",
+      "addressed_this_iteration": true,
+      "evidence": [
+        "5 broad except handlers that neither log nor re-raise: {'fish.py': 2, 'orchestrator.py': 1, 'lots.py': 2}"
+      ]
+    },
+    {
+      "id": "W13",
+      "severity": "medium",
+      "status": "partial",
+      "title": "Embedding similarity alone separates supported from borrowed claims poorly",
+      "addressed_this_iteration": true,
+      "evidence": [
+        "E5 claim-evidence cosine: supported mean 0.8562, borrowed mean 0.7931",
+        "supported min 0.8111 vs borrowed max 0.8299 (overlap: True)"
+      ]
+    },
+    {
+      "id": "W26",
+      "severity": "medium",
+      "status": "open",
+      "title": "Critic-guarded agent cards are emptier than published cards",
+      "addressed_this_iteration": true,
+      "evidence": [
+        "fields where the critic-guarded agent card is emptier: 5/7",
+        "physical_characteristics: published 91% vs agent 73%"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "label": "current",
+  "generated_at": "2026-09-26T05:57:53+00:00",
+  "hypothesis": "canonical-name passage prefix lifts within-species per-category MRR (W8)",
+  "arms": {
+    "control": {
+      "scoped": {
+        "recall@1": 0.2235,
+        "recall@3": 0.678,
+        "recall@6": 0.9886,
+        "mrr": 0.5087,
+        "ndcg@6": 0.6201,
+        "precision@6": 0.25,
+        "species_purity": 1.0
+      },
+      "global_species_hit@1": 0.9318,
+      "card_query_coverage": 1.0,
+      "mrr_by_category": {
+        "identity": 1.0,
+        "physical_characteristics": 0.5,
+        "taste_texture": 0.3667,
+        "processing_methods": 0.2963,
+        "commercial_uses": 0.2383
+      }
+    },
+    "prefix": {
+      "scoped": {
+        "recall@1": 0.2235,
+        "recall@3": 0.678,
+        "recall@6": 0.9943,
+        "mrr": 0.5087,
+        "ndcg@6": 0.6226,
+        "precision@6": 0.2519,
+        "species_purity": 1.0
+      },
+      "global_species_hit@1": 0.9773,
+      "card_query_coverage": 1.0,
+      "mrr_by_category": {
+        "identity": 1.0,
+        "physical_characteristics": 0.5,
+        "taste_texture": 0.3667,
+        "processing_methods": 0.2963,
+        "commercial_uses": 0.2383
+      }
+    }
+  },
+  "mrr_delta_by_category": {
+    "identity": 0.0,
+    "physical_characteristics": 0.0,
+    "taste_texture": 0.0,
+    "processing_methods": 0.0,
+    "commercial_uses": 0.0
+  },
+  "supported": false
+}

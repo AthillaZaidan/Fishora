@@ -1,0 +1,237 @@
+{
+  "generated_at": "2026-09-26T06:16:07+00:00",
+  "baseline_commit": "da6f8e9",
+  "current_commit": "f2633dc",
+  "metrics": [
+    {
+      "metric": "Retrieval recall@6 (species-scoped)",
+      "section": "retrieval",
+      "path": "scoped.recall@6",
+      "before": 0.9886,
+      "after": 0.9886,
+      "delta": 0.0,
+      "higher_is_better": true,
+      "improved": null
+    },
+    {
+      "metric": "Retrieval MRR (species-scoped)",
+      "section": "retrieval",
+      "path": "scoped.mrr",
+      "before": 0.5087,
+      "after": 0.5087,
+      "delta": 0.0,
+      "higher_is_better": true,
+      "improved": null
+    },
+    {
+      "metric": "Species hit@1 without filter",
+      "section": "retrieval",
+      "path": "global.species_hit@1",
+      "before": 0.9318,
+      "after": 0.9318,
+      "delta": 0.0,
+      "higher_is_better": true,
+      "improved": null
+    },
+    {
+      "metric": "Card query category coverage",
+      "section": "retrieval",
+      "path": "card_query_coverage.mean",
+      "before": 1.0,
+      "after": 1.0,
+      "delta": 0.0,
+      "higher_is_better": true,
+      "improved": null
+    },
+    {
+      "metric": "Retrieval p95 latency (ms)",
+      "section": "retrieval",
+      "path": "latency_ms.p95",
+      "before": 38.45,
+      "after": 25.39,
+      "delta": -13.06,
+      "higher_is_better": false,
+      "improved": true
+    },
+    {
+      "metric": "Grounding F1 (test split)",
+      "section": "grounding",
+      "path": "test.f1",
+      "before": 0.7907,
+      "after": 1.0,
+      "delta": 0.2093,
+      "higher_is_better": true,
+      "improved": true
+    },
+    {
+      "metric": "Grounding recall (test split)",
+      "section": "grounding",
+      "path": "test.recall",
+      "before": 0.7083,
+      "after": 1.0,
+      "delta": 0.2917,
+      "higher_is_better": true,
+      "improved": true
+    },
+    {
+      "metric": "Grounding false-support rate",
+      "section": "grounding",
+      "path": "test.false_support_rate",
+      "before": 0.0833,
+      "after": 0.0,
+      "delta": -0.0833,
+      "higher_is_better": false,
+      "improved": true
+    },
+    {
+      "metric": "Card job success rate",
+      "section": "pipeline",
+      "path": "plain.job_success_rate",
+      "before": 1.0,
+      "after": 1.0,
+      "delta": 0.0,
+      "higher_is_better": true,
+      "improved": null
+    },
+    {
+      "metric": "Job success, fenced-JSON LLM",
+      "section": "pipeline",
+      "path": "fenced.job_success_rate",
+      "before": 0.0,
+      "after": 1.0,
+      "delta": 1.0,
+      "higher_is_better": true,
+      "improved": true
+    },
+    {
+      "metric": "True-claim retention",
+      "section": "pipeline",
+      "path": "plain.claim_retention",
+      "before": 0.56,
+      "after": 1.0,
+      "delta": 0.44,
+      "higher_is_better": true,
+      "improved": true
+    },
+    {
+      "metric": "Hallucination leakage",
+      "section": "pipeline",
+      "path": "plain.hallucination_leakage",
+      "before": 0.0,
+      "after": 0.0,
+      "delta": 0.0,
+      "higher_is_better": false,
+      "improved": null
+    },
+    {
+      "metric": "Citation validity",
+      "section": "pipeline",
+      "path": "plain.citation_validity",
+      "before": 1.0,
+      "after": 1.0,
+      "delta": 0.0,
+      "higher_is_better": true,
+      "improved": null
+    },
+    {
+      "metric": "LLM calls per card",
+      "section": "pipeline",
+      "path": "plain.llm_calls_per_card",
+      "before": 6.82,
+      "after": 3.27,
+      "delta": -3.55,
+      "higher_is_better": false,
+      "improved": true
+    },
+    {
+      "metric": "Wall time / call delay per card",
+      "section": "pipeline",
+      "path": "plain.sequential_rounds",
+      "before": 4.2,
+      "after": 1.4,
+      "delta": -2.8,
+      "higher_is_better": false,
+      "improved": true
+    },
+    {
+      "metric": "LLM rounds per card (call timestamps)",
+      "section": "pipeline",
+      "path": "plain.llm_rounds",
+      "before": null,
+      "after": 1.0,
+      "delta": null,
+      "higher_is_better": false,
+      "improved": null
+    },
+    {
+      "metric": "Repeat card latency (ms)",
+      "section": "pipeline",
+      "path": "plain.repeat_latency_ms_mean",
+      "before": 832.7,
+      "after": 11.3,
+      "delta": -821.4,
+      "higher_is_better": false,
+      "improved": true
+    },
+    {
+      "metric": "Embedder cold load (s)",
+      "section": "environment",
+      "path": "embedder_cold_load_s",
+      "before": 10.97,
+      "after": 15.38,
+      "delta": 4.41,
+      "higher_is_better": false,
+      "improved": false
+    },
+    {
+      "metric": "Chunker limit fits E5 window",
+      "section": "corpus",
+      "path": "chunker_fits_e5",
+      "before": false,
+      "after": true,
+      "delta": null,
+      "higher_is_better": true,
+      "improved": true
+    }
+  ],
+  "tests": {
+    "baseline": {
+      "passed": 35,
+      "failed": 15,
+      "error": 0,
+      "skipped": 0,
+      "total": 50
+    },
+    "current": {
+      "passed": 71,
+      "failed": 0,
+      "error": 0,
+      "skipped": 0,
+      "total": 71
+    },
+    "baseline_pass_rate": 0.7,
+    "current_pass_rate": 1.0,
+    "fixed": [
+      "test_operator_flow::test_photo_to_grounded_card",
+      "test_operator_flow::test_quality_dashboard_is_served",
+      "test_grounding_and_pipeline::test_indonesian_claim_is_grounded_in_english_evidence",
+      "test_grounding_and_pipeline::test_shared_token_does_not_ground_a_borrowed_claim",
+      "test_grounding_and_pipeline::test_grounding_test_split_f1",
+      "test_grounding_and_pipeline::test_true_claims_survive_into_the_card",
+      "test_grounding_and_pipeline::test_card_needs_at_most_two_sequential_llm_rounds",
+      "test_grounding_and_pipeline::test_repeat_card_is_served_from_cache",
+      "test_grounding_and_pipeline::test_markdown_fenced_llm_output_still_completes",
+      "test_knowledge_api::test_verification_schedules_a_job_that_completes",
+      "test_knowledge_api::test_correction_retrieves_for_the_corrected_species",
+      "test_knowledge_api::test_embedder_is_warmed_at_startup",
+      "test_chunking::test_default_chunk_limit_fits_the_e5_window",
+      "test_orchestrator_nodes::test_expert_parses_markdown_fenced_json",
+      "test_orchestrator_nodes::test_expert_sees_the_whole_chunk"
+    ],
+    "regressed": []
+  },
+  "coverage": {
+    "baseline_rag_percent": 80.5,
+    "current_rag_percent": 83.4
+  }
+}
