@@ -50,6 +50,16 @@ def gold_queries() -> list[dict]:
     return queries
 
 
+# Local names for the same fish: the corpus sources gembolo as the West Sumatran
+# name for kembung (Rastrelliger), so an unfiltered probe cannot and should not
+# separate them. Production retrieval always filters by the confirmed species.
+SAME_TAXON = {"species_gembolo": "species_kembung"}
+
+
+def _taxon(species_id: str) -> str:
+    return SAME_TAXON.get(species_id, species_id)
+
+
 def _dcg(hits: list[bool]) -> float:
     return sum(1.0 / math.log2(rank + 2) for rank, hit in enumerate(hits) if hit)
 
@@ -119,7 +129,7 @@ def evaluate(store, embedder, k: int = 6) -> dict:
 
         global_hits = store.search_global(embedder.embed_query(q["query"]), limit=k)
         grow = _rank_metrics([h.chunk_id for h in global_hits], relevant, k)
-        grow["species_hit@1"] = float(bool(global_hits) and global_hits[0].species_id == species_id)
+        grow["species_hit@1"] = float(bool(global_hits) and _taxon(global_hits[0].species_id) == _taxon(species_id))
         grow["species_share@6"] = sum(h.species_id == species_id for h in global_hits) / max(1, len(global_hits))
         global_rows.append({**q, **grow})
 
