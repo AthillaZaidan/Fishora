@@ -1,0 +1,48 @@
+{
+  "model_name": "vit_base_patch16_dinov3.lvd1689m",
+  "abstain_threshold": 0.0,
+  "device": "cuda",
+  "screening_sha256": "9a072b7a739c81800afb1861b0284b0caa463610d45e653297873842b6d8ed28",
+  "field_folds_sha256": "4a76358dd906185e8dd985eff866cd54c1d7112bd27368eeef4b1af1518c7a53",
+  "out_of_scope": {
+    "field_live": "out of operational scope: Fishora classifies fish after landing, not live fish under water"
+  },
+  "seed": 1234,
+  "run": "gated_vit_b",
+  "export": [
+    "/kaggle/input/datasets/athillazaidan/fishora-gated-output/fishora_gated/vit_b_gated_xfA/export",
+    "/kaggle/input/datasets/athillazaidan/fishora-gated-output/fishora_gated/vit_b_gated_xfB/export"
+  ],
+  "temperature": 0.3656209111213684,
+  "temperatures": {
+    "A": 0.32021504640579224,
+    "B": 0.4110267758369446
+  },
+  "cross_fit": "field = union of held-out folds (each photo scored by the model that did not train on it); other slices = both fold models pooled",
+  "field_items": 258,
+  "corruptions": false,
+  "gate": {
+    "A": {
+      "fish_head_file": "fish_head.pt",
+      "fish_threshold": 0.15066182087822666,
+      "fish_target_tpr": 0.99,
+      "knn_bank_file": "knn_bank.npy",
+      "knn_k": 1,
+      "knn_threshold": 0.4791685938835144,
+      "knn_target_tpr": 0.95,
+      "bank_size": 4061,
+      "embedding": "L2-normalised CLS pre-logits of the frozen backbone"
+    },
+    "B": {
+      "fish_head_file": "fish_head.pt",
+      "fish_threshold": 0.1464644685603931,
+      "fish_target_tpr": 0.99,
+      "knn_bank_file": "knn_bank.npy",
+      "knn_k": 1,
+      "knn_threshold": 0.45787715911865234,
+      "knn_target_tpr": 0.95,
+      "bank_size": 4061,
+      "embedding": "L2-normalised CLS pre-logits of the frozen backbone"
+    }
+  }
+}
