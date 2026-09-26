@@ -30,7 +30,8 @@ import time
 from collections import defaultdict
 from pathlib import Path
 
-from evals.corpus import build_store, species_records
+from evals.corpus import build_store, corpus_v1_ids, species_records
+from evals.fakes import new_id
 from evals.run import REPORTS_DIR
 
 PROTOCOL = Path(__file__).resolve().parent / "protocol"
@@ -78,6 +79,7 @@ def main(argv=None) -> None:
     ap.add_argument("--judges", default="deepseek-v4.1-flash,glm-5.3-flash")
     ap.add_argument("--timeout", type=float, default=45)
     ap.add_argument("--out", default="gold_graders.json")
+    ap.add_argument("--no-llm-only", action="store_true")
     args = ap.parse_args(argv)
 
     from apps.main_api.config import MainSettings
@@ -90,7 +92,7 @@ def main(argv=None) -> None:
     settings = MainSettings()
     embedder = LocalE5Embedder()
     embedder.embed_query("warmup")
-    store = build_store(embedder)
+    store = build_store(embedder, only=corpus_v1_ids())  # the evidence the gold labels were made against
     records = {s.normalized_label: s for s in species_records()}
     known = tuple(s.scientific_name for s in records.values() if s.scientific_name)
     from apps.main_api.services.orchestrator import CARD_QUERY
@@ -125,7 +127,9 @@ def main(argv=None) -> None:
     from concurrent.futures import ThreadPoolExecutor
 
     def run_species(name, model, use_embedder, sp, rows):
-        rec = RecordingLLM(make_llm(settings, f"fishora-gold-{name}-{sp}", model, timeout=args.timeout, max_retries=1), model, path=name)
+        model, _, effort = model.partition("@")
+        rec = RecordingLLM(make_llm(settings, f"fishora-gold-{sp}-{new_id()}", model, timeout=args.timeout, max_retries=1,
+                                    reasoning_effort=effort or None), model, path=name)
         cl = claims_for(rows)
         res = claim_verifier.verify(cl, evidence[sp], rec, known, embedder=embedder if use_embedder else None, attempts=2)
         failed = res.llm_error is not None
@@ -134,8 +138,8 @@ def main(argv=None) -> None:
         return {r["claim_id"]: (None if failed else (c.label or "unsupported")) for r, c in zip(rows, res.claims)}, rec.records
 
     jobs = [(f"verifier:{m}", m, True) for m in args.critic_models.split(",") if m]
-    jobs += [(f"llm_only:{m}", m, False) for m in args.critic_models.split(",") if m]
-    jobs += [(f"judge:{m}", m, False) for m in args.judges.split(",") if m and m in PRICES]
+    jobs += [] if args.no_llm_only else [(f"llm_only:{m}", m, False) for m in args.critic_models.split(",") if m]
+    jobs += [(f"judge:{m}", m, False) for m in args.judges.split(",") if m and m.partition("@")[0] in PRICES]
     t0 = time.perf_counter()
     with ThreadPoolExecutor(max_workers=16) as pool:
         futs = {(name, sp): pool.submit(run_species, name, model, emb, sp, rows)

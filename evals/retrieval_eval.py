@@ -62,6 +62,7 @@ def _rank_metrics(ranked_ids: list[str], relevant: set[str], k: int) -> dict:
         "recall@1": len(set(ranked_ids[:1]) & relevant) / len(relevant),
         "recall@3": len(set(ranked_ids[:3]) & relevant) / len(relevant),
         f"recall@{k}": len(set(ranked_ids[:k]) & relevant) / len(relevant),
+        f"hit@{k}": float(bool(set(ranked_ids[:k]) & relevant)),
         "mrr": 0.0 if first is None else 1.0 / (first + 1),
         f"ndcg@{k}": _dcg(hits) / ideal if ideal else 0.0,
         f"precision@{k}": sum(hits) / max(1, len(ranked_ids[:k])),
@@ -148,7 +149,7 @@ def evaluate(store, embedder, k: int = 6) -> dict:
     def summarize(rows, keys):
         return {key: _mean(rows, key) for key in keys}
 
-    scoped_keys = ["recall@1", "recall@3", f"recall@{k}", "mrr", f"ndcg@{k}", f"precision@{k}", "species_purity"]
+    scoped_keys = ["recall@1", "recall@3", f"recall@{k}", f"hit@{k}", "mrr", f"ndcg@{k}", f"precision@{k}", "species_purity"]
     global_keys = ["recall@1", "recall@3", f"recall@{k}", "mrr", f"ndcg@{k}", "species_hit@1", "species_share@6"]
     by_lang = {
         lang: summarize([r for r in global_rows if r["lang"] == lang], global_keys)

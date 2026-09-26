@@ -22,11 +22,13 @@ from evals.corpus import load_corpus, load_dataset
 
 
 def grounding_pairs() -> list[dict]:
-    corpus = {chunk.id: chunk for chunk in load_corpus()}
+    # The grounding set is frozen at the chunks the critic threshold was
+    # calibrated on; chunks added later do not move the dev/test split.
     claims = load_dataset("grounding_claims.json")["claims"]
-    missing = set(corpus) - set(claims)
+    corpus = {chunk.id: chunk for chunk in load_corpus() if chunk.id in claims}
+    missing = set(claims) - set(corpus)
     if missing:
-        raise ValueError(f"grounding dataset lacks claims for {sorted(missing)}")
+        raise ValueError(f"grounding dataset cites chunks missing from the corpus: {sorted(missing)}")
     ordered = sorted(corpus)
     pairs = []
     for index, chunk_id in enumerate(ordered):
