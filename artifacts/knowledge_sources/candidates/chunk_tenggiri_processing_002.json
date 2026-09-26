@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_tenggiri_processing_002",
+  "chunk": {
+    "id": "chunk_tenggiri_processing_002",
+    "species_label": "tenggiri",
+    "source_id": "sfm_spanish_mackerel",
+    "category": "processing_methods",
+    "content": "In the Australian market, S. commerson (one candidate species within the tenggiri label) is sold mainly as cutlets and steaks, usually skinned; the average yield is 40%.",
+    "source_quote": "Sold mainly as cutlets and steaks. ... Average yield is 40% ... The thin skin can be eaten, but it's usually sold skinned",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "sfm_spanish_mackerel",
+    "title": "Spanish Mackerel (Scomberomorus commerson): species information",
+    "source_type": "seafood_market_guide",
+    "url": "https://www.sydneyfishmarket.com.au/species/spanish-mackerel/",
+    "publisher": "Sydney Fish Market",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

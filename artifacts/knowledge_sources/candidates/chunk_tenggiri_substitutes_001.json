@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_tenggiri_substitutes_001",
+  "chunk": {
+    "id": "chunk_tenggiri_substitutes_001",
+    "species_label": "tenggiri",
+    "source_id": "sfm_spanish_mackerel",
+    "category": "substitutes",
+    "content": "Sydney Fish Market lists other mackerels, bonito, striped marlin, swordfish and tunas as alternatives to Spanish mackerel (S. commerson, one candidate species within the tenggiri label).",
+    "source_quote": "Alternatives: Other Mackerels, Bonito, Striped Marlin, Swordfish, Tunas",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "sfm_spanish_mackerel",
+    "title": "Spanish Mackerel (Scomberomorus commerson): species information",
+    "source_type": "seafood_market_guide",
+    "url": "https://www.sydneyfishmarket.com.au/species/spanish-mackerel/",
+    "publisher": "Sydney Fish Market",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

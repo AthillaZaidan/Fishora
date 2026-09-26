@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_tuna_processing_003",
+  "chunk": {
+    "id": "chunk_tuna_processing_003",
+    "species_label": "tuna",
+    "source_id": "sfm_yellowfin_tuna",
+    "category": "processing_methods",
+    "content": "Yellowfin tuna (Thunnus albacares), one species within the tuna label, is usually sold as steaks, cutlets or sliced as sashimi, with an average yield of 70-75%; only sashimi-grade fish should be served raw or rare.",
+    "source_quote": "Usually sold as steaks, cutlets or sliced as sashimi. ... Always buy sashimi-grade fish if it is to be served raw or rare. ... Average yield is 70-75%.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "sfm_yellowfin_tuna",
+    "title": "Yellowfin Tuna (Thunnus albacares): species information",
+    "source_type": "seafood_market_guide",
+    "url": "https://www.sydneyfishmarket.com.au/species/yellowfin-tuna/",
+    "publisher": "Sydney Fish Market",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

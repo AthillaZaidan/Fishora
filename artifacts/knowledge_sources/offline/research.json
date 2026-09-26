@@ -252,6 +252,51 @@
       "publisher": "Journal of Pharmaceutical and Sciences",
       "reviewed_at": null,
       "verification_status": "candidate"
+    },
+    {
+      "id": "fao_scombrids_1983",
+      "title": "FAO Species Catalogue Vol. 2. Scombrids of the World (Collette & Nauen, 1983), FAO Fisheries Synopsis No. 125",
+      "source_type": "species_catalogue",
+      "url": "https://www.vliz.be/imisdocs/publications/307984.pdf",
+      "publisher": "Food and Agriculture Organization of the United Nations",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "fao_threadfins_2004",
+      "title": "Threadfins of the World (Family Polynemidae), FAO Species Catalogue for Fishery Purposes No. 3 (Motomura, 2004), Eleutheronema accounts",
+      "source_type": "species_catalogue",
+      "url": "https://www.fao.org/4/y5398e/y5398e03.pdf",
+      "publisher": "Food and Agriculture Organization of the United Nations",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "fao_en_milkfish",
+      "title": "FAO Cultured Aquatic Species Fact Sheet: Chanos chanos (Milkfish)",
+      "source_type": "species_fact_sheet",
+      "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_milkfish.htm",
+      "publisher": "Food and Agriculture Organization of the United Nations",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "sfm_spanish_mackerel",
+      "title": "Spanish Mackerel (Scomberomorus commerson): species information",
+      "source_type": "seafood_market_guide",
+      "url": "https://www.sydneyfishmarket.com.au/species/spanish-mackerel/",
+      "publisher": "Sydney Fish Market",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "sfm_yellowfin_tuna",
+      "title": "Yellowfin Tuna (Thunnus albacares): species information",
+      "source_type": "seafood_market_guide",
+      "url": "https://www.sydneyfishmarket.com.au/species/yellowfin-tuna/",
+      "publisher": "Sydney Fish Market",
+      "reviewed_at": null,
+      "verification_status": "candidate"
     }
   ],
   "records": [
@@ -742,6 +787,176 @@
       "category": "commercial_uses",
       "content": "Scomberomorus commerson, one candidate species within the ambiguous tenggiri label, is marketed mainly fresh and also dried-salted, frozen, smoked, and canned.",
       "source_quote": "Marketed mainly fresh and also dried-salted, frozen, smoked and canned.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_kembung_physical_002",
+      "source_id": "fao_scombrids_1983",
+      "species_label": "kembung",
+      "category": "physical_characteristics",
+      "content": "Island mackerel (Rastrelliger faughni) has a moderately deep body with the head longer than the body depth, very long gillrakers visible when the mouth is open, narrow dark longitudinal bands on the upper body (golden in fresh specimens), a black spot near the lower margin of the pectoral fin, and yellowish dorsal fins with black tips.",
+      "source_quote": "Body moderately deep, its depth at margin of gill cover 4.3 to 5.2 times in fork length; head longer than body depth. ... gillrakers very long, visible when mouth is opened ... Colour: narrow dark longitudinal bands on upper part of body (golden in fresh specimens) and a black spot on body near lower margin of pectoral fin; dorsal fins yellowish with black tips, caudal and pectoral fins yellowish; other fins dusky.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_kembung_substitutes_001",
+      "source_id": "fao_scombrids_1983",
+      "species_label": "kembung",
+      "category": "substitutes",
+      "content": "The Indonesian name Kembung is also a local name of the Indian mackerel Rastrelliger kanagurta, a similar species of the same genus; island mackerel is caught along with the other Rastrelliger species, separate statistics are not reported for it, and some local names of the other two Rastrelliger species may apply to R. faughni.",
+      "source_quote": "Separate statistics are not reported for Island mackerel, but it is taken along with other species of Rastrelliger off Taiwan Island, the Philippines, Indonesia, and Malaysia. ... Local Names : INDONESIA: Kembung ... some of the local names here given for the other two species of Rastrelliger and for Scomber australasicus may apply to R. faughni in some localities. ... Rastrelliger kanagurta ... INDONESIA: Banjar, Kembung, Kembunglelaki",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tenggiri_taste_001",
+      "source_id": "sfm_spanish_mackerel",
+      "species_label": "tenggiri",
+      "category": "taste_texture",
+      "content": "Scomberomorus commerson (Spanish mackerel), one candidate species within the ambiguous tenggiri label, has a strong, distinctly fishy flavour, medium to very high oiliness, medium-dry firm flesh and few bones that are easily removed.",
+      "source_quote": "Has a strong, distinctly 'fishy' flavour, medium to very high oiliness and medium-dry, firm flesh ... has few bones, which are easily removed.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tenggiri_processing_002",
+      "source_id": "sfm_spanish_mackerel",
+      "species_label": "tenggiri",
+      "category": "processing_methods",
+      "content": "In the Australian market, S. commerson (one candidate species within the tenggiri label) is sold mainly as cutlets and steaks, usually skinned; the average yield is 40%.",
+      "source_quote": "Sold mainly as cutlets and steaks. ... Average yield is 40% ... The thin skin can be eaten, but it's usually sold skinned",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tenggiri_substitutes_001",
+      "source_id": "sfm_spanish_mackerel",
+      "species_label": "tenggiri",
+      "category": "substitutes",
+      "content": "Sydney Fish Market lists other mackerels, bonito, striped marlin, swordfish and tunas as alternatives to Spanish mackerel (S. commerson, one candidate species within the tenggiri label).",
+      "source_quote": "Alternatives: Other Mackerels, Bonito, Striped Marlin, Swordfish, Tunas",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tuna_taste_002",
+      "source_id": "sfm_yellowfin_tuna",
+      "species_label": "tuna",
+      "category": "taste_texture",
+      "content": "Yellowfin tuna (Thunnus albacares), one species within Fishora's genus-level tuna label, has a medium flavour, medium oiliness and moist flesh that quickly becomes dry if overcooked; the cooked flesh is creamy brown, breaks into large flakes and has very few bones.",
+      "source_quote": "Has a medium flavour, medium oiliness and moist flesh, which quickly becomes dry if overcooked. The cooked flesh is creamy brown in colour and breaks into large flakes; there are very few bones to worry about.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tuna_processing_003",
+      "source_id": "sfm_yellowfin_tuna",
+      "species_label": "tuna",
+      "category": "processing_methods",
+      "content": "Yellowfin tuna (Thunnus albacares), one species within the tuna label, is usually sold as steaks, cutlets or sliced as sashimi, with an average yield of 70-75%; only sashimi-grade fish should be served raw or rare.",
+      "source_quote": "Usually sold as steaks, cutlets or sliced as sashimi. ... Always buy sashimi-grade fish if it is to be served raw or rare. ... Average yield is 70-75%.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tuna_substitutes_001",
+      "source_id": "sfm_yellowfin_tuna",
+      "species_label": "tuna",
+      "category": "substitutes",
+      "content": "Sydney Fish Market lists Atlantic salmon, marlins, mackerels, swordfish, other tunas and yellowtail kingfish as alternatives to yellowfin tuna (Thunnus albacares, one species within the tuna label).",
+      "source_quote": "Alternatives: Atlantic Salmon, Marlins, Mackerels, Swordfish, other Tunas, Yellowtail Kingfish",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_senangin_commercial_002",
+      "source_id": "fao_threadfins_2004",
+      "species_label": "senangin",
+      "category": "commercial_uses",
+      "content": "Eleutheronema tetradactylum is one of the most important fisheries species for Kuwait, India, Thailand, Viet Nam, Malaysia, Singapore and Indonesia; it is mainly caught by gill net, sometimes by trawl, and is also an important sport fish in Australian waters.",
+      "source_quote": "One of the most important fisheries species for Kuwait, India, Thailand, Viet Nam, Malaysia, Singapore and Indonesia ... The species is mainly caught by gill net, sometimes by trawl ... The species is also an important sport fish in Australian waters",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_senangin_substitutes_001",
+      "source_id": "fao_threadfins_2004",
+      "species_label": "senangin",
+      "category": "substitutes",
+      "content": "Eleutheronema tetradactylum is not known from East Asia, where it is replaced by the endemic congener Eleutheronema rhadinum, a similar threadfin species.",
+      "source_quote": "The species is not known from East Asia (where it is replaced by the endemic E. rhadinum).",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_bandeng_taste_002",
+      "source_id": "fao_en_milkfish",
+      "species_label": "bandeng",
+      "category": "taste_texture",
+      "content": "Milkfish flesh is bony; FAO notes that the younger generation tends to avoid eating milkfish because of their bony flesh.",
+      "source_quote": "the younger generation tends to avoid eating milkfish because of their bony flesh",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_bandeng_processing_002",
+      "source_id": "fao_en_milkfish",
+      "species_label": "bandeng",
+      "category": "processing_methods",
+      "content": "Farmed milkfish of 200-400 g are marketed mostly fresh or chilled, whole or deboned, frozen, or processed (fresh frozen deboned, deboned and descaled, smoked deboned); value-added forms include smoked, dried, marinated, rice-fermented, and canned or bottled milkfish, and some Philippine companies produce frozen prime cuts of bellies and backs.",
+      "source_quote": "200-400 g milkfish are harvested and marketed mostly fresh or chilled, whole or deboned, frozen, or processed (e.g. fresh frozen deboned, fresh frozen deboned descaled, and smoked fish deboned). ... Increasingly, more of the milkfish harvest is processed into value-added forms: smoked, dried, marinated (brined, sweetened), fermented with rice, and canned or bottled in various styles ... Some companies in the Philippines now produce frozen prime cuts of milkfish bellies and backs",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_bandeng_commercial_002",
+      "source_id": "fao_en_milkfish",
+      "species_label": "bandeng",
+      "category": "commercial_uses",
+      "content": "Milkfish producers usually sell through cooperatives, brokers, dealers, collectors or wholesalers rather than directly to consumers, mostly via auction markets; milkfish is exported quick-frozen, dried, canned, smoked or marinated, and Indonesia's milkfish market includes seed production exports.",
+      "source_quote": "Producers of milkfish do not usually sell fish directly to consumers, but supply them through cooperatives, brokers, dealers, collectors or wholesalers, and retailers. In general, the majority of fish products are sold in auction markets ... Milkfish is exported in different product forms: quick-frozen, dried, canned, smoked or marinated. ... Indonesia with its seed production exports",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_nila_taste_002",
+      "source_id": "fao_en_niletilapia",
+      "species_label": "nila",
+      "category": "taste_texture",
+      "content": "Farmed tilapia can have an off-flavour: in developed countries a fillet is cooked unseasoned and tasted before processing, and off-flavour fish are purged in clean water for 3-7 days; in developing countries spicy seasonings in cooking conceal any off-flavour.",
+      "source_quote": "Tilapia must be tested for flavour before they will be accepted for processing and marketing in developed countries. ... If they are off-flavour, they are purged in clean water for 3-7 days in holding tanks or ponds. This procedure is generally not practised in developing countries where the use of spicy seasonings in the cooking process conceals any off-flavour.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_nila_processing_002",
+      "source_id": "fao_en_niletilapia",
+      "species_label": "nila",
+      "category": "processing_methods",
+      "content": "Tilapia are hauled live to processing plants, killed in ice water and processed manually or mechanically; fillets are sold fresh or frozen as skin-on, skin-off, deep skinned, individually quick frozen, smoked and sashimi grade, and whole or gutted tilapia are still available.",
+      "source_quote": "Tilapia are hauled live to processing plants, killed humanely in ice water and processed manually or mechanically. ... Today, fresh or frozen fillets are available in different sizes and packages, as skin-on, skin-off, deep skinned, individually quick frozen, smoked, and sashimi grade ... Whole or gutted tilapia are still available",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_nila_substitutes_001",
+      "source_id": "fao_en_niletilapia",
+      "species_label": "nila",
+      "category": "substitutes",
+      "content": "Several tilapia species are cultured commercially, with Nile tilapia the predominant one; FAO describes tilapia as ideally suited to replace carp as the staple of Chinese seafood.",
+      "source_quote": "Several species of tilapia are cultured commercially, but Nile tilapia is the predominant cultured species worldwide. ... Tilapia is ideally suited to replace carp as the staple of Chinese seafood.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_mujair_substitutes_001",
+      "source_id": "fao_en_niletilapia",
+      "species_label": "mujair",
+      "category": "substitutes",
+      "content": "Oreochromis mossambicus was the tilapia primarily distributed worldwide in the 1940s and 1950s; the Nile tilapia (O. niloticus), described by FAO as more desirable, was distributed from the 1960s to the 1980s.",
+      "source_quote": "While significant worldwide distribution of tilapias, primarily Oreochromis mossambicus, occurred during the 1940s and 1950s, distribution of the more desirable Nile tilapia occurred during the 1960s up to the 1980s.",
       "stage": "research",
       "verification_status": "candidate"
     }

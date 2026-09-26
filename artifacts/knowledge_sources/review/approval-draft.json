@@ -3,10 +3,13 @@
   "note": "Unsigned draft only. A human reviewer must create approval.json with explicit attestations.",
   "candidate_chunk_ids": [
     "chunk_bandeng_commercial_001",
+    "chunk_bandeng_commercial_002",
     "chunk_bandeng_identity_001",
     "chunk_bandeng_physical_001",
     "chunk_bandeng_processing_001",
+    "chunk_bandeng_processing_002",
     "chunk_bandeng_taste_001",
+    "chunk_bandeng_taste_002",
     "chunk_gelama_bunga_commercial_001",
     "chunk_gelama_bunga_identity_001",
     "chunk_gelama_bunga_processing_001",
@@ -20,6 +23,8 @@
     "chunk_kembung_commercial_001",
     "chunk_kembung_identity_001",
     "chunk_kembung_physical_001",
+    "chunk_kembung_physical_002",
+    "chunk_kembung_substitutes_001",
     "chunk_kuniran_commercial_001",
     "chunk_kuniran_identity_001",
     "chunk_kuniran_physical_001",
@@ -28,35 +33,50 @@
     "chunk_mujair_identity_001",
     "chunk_mujair_physical_001",
     "chunk_mujair_processing_001",
+    "chunk_mujair_substitutes_001",
     "chunk_mujair_taste_001",
     "chunk_nila_commercial_001",
     "chunk_nila_identity_001",
     "chunk_nila_physical_001",
     "chunk_nila_processing_001",
+    "chunk_nila_processing_002",
+    "chunk_nila_substitutes_001",
     "chunk_nila_taste_001",
+    "chunk_nila_taste_002",
     "chunk_senangin_commercial_001",
+    "chunk_senangin_commercial_002",
     "chunk_senangin_identity_001",
     "chunk_senangin_physical_001",
     "chunk_senangin_processing_001",
+    "chunk_senangin_substitutes_001",
     "chunk_tenggiri_commercial_001",
     "chunk_tenggiri_identity_001",
     "chunk_tenggiri_identity_002",
     "chunk_tenggiri_identity_003",
     "chunk_tenggiri_physical_001",
     "chunk_tenggiri_processing_001",
+    "chunk_tenggiri_processing_002",
+    "chunk_tenggiri_substitutes_001",
+    "chunk_tenggiri_taste_001",
     "chunk_tuna_commercial_001",
     "chunk_tuna_identity_001",
     "chunk_tuna_identity_002",
     "chunk_tuna_physical_001",
     "chunk_tuna_processing_001",
     "chunk_tuna_processing_002",
-    "chunk_tuna_taste_001"
+    "chunk_tuna_processing_003",
+    "chunk_tuna_substitutes_001",
+    "chunk_tuna_taste_001",
+    "chunk_tuna_taste_002"
   ],
   "candidate_source_ids": [
     "coj_5_1_1",
     "fao_ac478e00",
     "fao_ac478e11",
+    "fao_en_milkfish",
     "fao_en_niletilapia",
+    "fao_scombrids_1983",
+    "fao_threadfins_2004",
     "fao_y5728e",
     "fishbase_chanos_chanos",
     "fishbase_eleutheronema_tetradactylum",
@@ -80,7 +100,9 @@
     "jps_8_2_936",
     "manfish_2_3_489",
     "marinade_4962",
-    "noaa_pacific_yellowfin"
+    "noaa_pacific_yellowfin",
+    "sfm_spanish_mackerel",
+    "sfm_yellowfin_tuna"
   ],
   "unresolved": [
     {
@@ -144,11 +166,6 @@
       "reason": "source_quote_not_direct"
     },
     {
-      "species_label": "kembung",
-      "category": "substitutes",
-      "reason": "no_direct_evidence_found"
-    },
-    {
       "species_label": "kuniran",
       "category": "taste_texture",
       "reason": "accepted_source_text_not_accessible"
@@ -159,39 +176,9 @@
       "reason": "only_market_misidentification_evidence_found"
     },
     {
-      "species_label": "mujair",
-      "category": "substitutes",
-      "reason": "only_fisheries_replacement_evidence_found"
-    },
-    {
-      "species_label": "nila",
-      "category": "substitutes",
-      "reason": "no_direct_evidence_found"
-    },
-    {
       "species_label": "senangin",
       "category": "taste_texture",
       "reason": "no_direct_evidence_found"
-    },
-    {
-      "species_label": "senangin",
-      "category": "substitutes",
-      "reason": "no_direct_evidence_found"
-    },
-    {
-      "species_label": "tenggiri",
-      "category": "taste_texture",
-      "reason": "vernacular_scope_not_supported"
-    },
-    {
-      "species_label": "tenggiri",
-      "category": "substitutes",
-      "reason": "vernacular_scope_not_supported"
-    },
-    {
-      "species_label": "tuna",
-      "category": "substitutes",
-      "reason": "only_non_fish_recipe_alternative_found"
     }
   ]
 }

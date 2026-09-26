@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_mujair_substitutes_001",
+  "chunk": {
+    "id": "chunk_mujair_substitutes_001",
+    "species_label": "mujair",
+    "source_id": "fao_en_niletilapia",
+    "category": "substitutes",
+    "content": "Oreochromis mossambicus was the tilapia primarily distributed worldwide in the 1940s and 1950s; the Nile tilapia (O. niloticus), described by FAO as more desirable, was distributed from the 1960s to the 1980s.",
+    "source_quote": "While significant worldwide distribution of tilapias, primarily Oreochromis mossambicus, occurred during the 1940s and 1950s, distribution of the more desirable Nile tilapia occurred during the 1960s up to the 1980s.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_en_niletilapia",
+    "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+    "source_type": "species_fact_sheet",
+    "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_tuna_substitutes_001",
+  "chunk": {
+    "id": "chunk_tuna_substitutes_001",
+    "species_label": "tuna",
+    "source_id": "sfm_yellowfin_tuna",
+    "category": "substitutes",
+    "content": "Sydney Fish Market lists Atlantic salmon, marlins, mackerels, swordfish, other tunas and yellowtail kingfish as alternatives to yellowfin tuna (Thunnus albacares, one species within the tuna label).",
+    "source_quote": "Alternatives: Atlantic Salmon, Marlins, Mackerels, Swordfish, other Tunas, Yellowtail Kingfish",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "sfm_yellowfin_tuna",
+    "title": "Yellowfin Tuna (Thunnus albacares): species information",
+    "source_type": "seafood_market_guide",
+    "url": "https://www.sydneyfishmarket.com.au/species/yellowfin-tuna/",
+    "publisher": "Sydney Fish Market",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}
