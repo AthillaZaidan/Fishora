@@ -118,14 +118,14 @@ def app_factory(e5, store, species, scripted_llm):
         InMemorySpeciesRepository,
     )
 
-    def build(label: str = "nila", llm=scripted_llm):
+    def build(label: str = "nila", llm=scripted_llm, knowledge_repo=None):
         deps = AppDependencies(
             cv_client=FixedCVClient(label),
             species_repo=InMemorySpeciesRepository(species),
             prediction_repo=InMemoryPredictionRepository(),
             image_store=InMemoryImageStore(),
             embedder=e5,
-            knowledge_repo=store,
+            knowledge_repo=knowledge_repo or store,
             job_repo=InMemoryJobRepository(),
         )
         deps.llm = llm  # the LLM port; ignored by code that has none

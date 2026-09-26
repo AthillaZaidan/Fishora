@@ -1,0 +1,157 @@
+{
+  "judge": "claude (manual), same rules for every card",
+  "species": 10,
+  "excluded": "gembolo (no facts)",
+  "levels": {
+    "none": {
+      "covered": 182,
+      "facts": 243,
+      "coverage": 0.749,
+      "card_mean": 0.745,
+      "ci95": [
+        0.638,
+        0.84
+      ],
+      "cost_per_1k": 0.508,
+      "p50_s": 7.09,
+      "p95_s": 10.93,
+      "per_species": {
+        "bandeng": 43,
+        "gelama_bunga": 9,
+        "gulamah": 10,
+        "kembung": 15,
+        "kuniran": 12,
+        "mujair": 8,
+        "nila": 18,
+        "senangin": 26,
+        "tenggiri": 22,
+        "tuna": 19
+      }
+    },
+    "low": {
+      "covered": 204,
+      "facts": 243,
+      "coverage": 0.84,
+      "card_mean": 0.852,
+      "ci95": [
+        0.8,
+        0.911
+      ],
+      "cost_per_1k": 0.699,
+      "p50_s": 9.06,
+      "p95_s": 13.45,
+      "per_species": {
+        "bandeng": 37,
+        "gelama_bunga": 10,
+        "gulamah": 12,
+        "kembung": 18,
+        "kuniran": 12,
+        "mujair": 13,
+        "nila": 25,
+        "senangin": 23,
+        "tenggiri": 25,
+        "tuna": 29
+      }
+    },
+    "default": {
+      "covered": 187,
+      "facts": 243,
+      "coverage": 0.77,
+      "card_mean": 0.753,
+      "ci95": [
+        0.674,
+        0.83
+      ],
+      "cost_per_1k": 0.961,
+      "p50_s": 13.6,
+      "p95_s": 17.93,
+      "per_species": {
+        "bandeng": 37,
+        "gelama_bunga": 8,
+        "gulamah": 12,
+        "kembung": 20,
+        "kuniran": 6,
+        "mujair": 11,
+        "nila": 25,
+        "senangin": 23,
+        "tenggiri": 22,
+        "tuna": 23
+      }
+    },
+    "medium": {
+      "covered": 198,
+      "facts": 243,
+      "coverage": 0.815,
+      "card_mean": 0.803,
+      "ci95": [
+        0.715,
+        0.886
+      ],
+      "cost_per_1k": 0.951,
+      "p50_s": 12.85,
+      "p95_s": 28.15,
+      "per_species": {
+        "bandeng": 44,
+        "gelama_bunga": 7,
+        "gulamah": 9,
+        "kembung": 22,
+        "kuniran": 12,
+        "mujair": 14,
+        "nila": 23,
+        "senangin": 21,
+        "tenggiri": 21,
+        "tuna": 25
+      }
+    },
+    "high": {
+      "covered": 202,
+      "facts": 243,
+      "coverage": 0.831,
+      "card_mean": 0.845,
+      "ci95": [
+        0.773,
+        0.916
+      ],
+      "cost_per_1k": 1.304,
+      "p50_s": 18.24,
+      "p95_s": 28.34,
+      "per_species": {
+        "bandeng": 39,
+        "gelama_bunga": 8,
+        "gulamah": 13,
+        "kembung": 19,
+        "kuniran": 11,
+        "mujair": 18,
+        "nila": 24,
+        "senangin": 22,
+        "tenggiri": 21,
+        "tuna": 27
+      }
+    },
+    "xhigh": {
+      "covered": 199,
+      "facts": 243,
+      "coverage": 0.819,
+      "card_mean": 0.83,
+      "ci95": [
+        0.744,
+        0.913
+      ],
+      "cost_per_1k": 1.942,
+      "p50_s": 24.42,
+      "p95_s": 53.86,
+      "per_species": {
+        "bandeng": 37,
+        "gelama_bunga": 12,
+        "gulamah": 11,
+        "kembung": 14,
+        "kuniran": 12,
+        "mujair": 11,
+        "nila": 28,
+        "senangin": 19,
+        "tenggiri": 26,
+        "tuna": 29
+      }
+    }
+  }
+}
