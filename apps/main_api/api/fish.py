@@ -1,3 +1,4 @@
+import logging
 from dataclasses import asdict
 from typing import Literal
 
@@ -11,12 +12,30 @@ from apps.main_api.services.manual_entry import ManualEntryService
 from apps.main_api.services.knowledge import KnowledgeService
 from apps.main_api.services.verification import VerificationService
 
+logger = logging.getLogger(__name__)
+
 router = APIRouter(prefix="/api/v1/fish")
 knowledge_router = APIRouter(prefix="/api/v1")
 
 # ponytail: fallback limit when a complete fake bundle supplies no settings object;
 # reads the configured default without constructing MainSettings (no env required).
 DEFAULT_MAX_IMAGE_BYTES = MainSettings.model_fields["cv_max_image_bytes"].default
+
+
+def _card_llm(request: Request, session_id: str):
+    """The LLM for one card's agent graph: the injected port when present
+    (tests, alternative providers; W2), else the OpenCode Go client built from
+    settings with this card's session id. None when no key is configured, in
+    which case the experts claim nothing and the writer returns an empty card."""
+    deps = request.app.state.deps
+    if getattr(deps, "llm", None) is not None:
+        return deps.llm
+    settings = getattr(request.app.state, "settings", None)
+    if settings is None or not settings.opencode_go_api_key.get_secret_value().strip():
+        return None
+    from apps.main_api.services.generation import make_opencode_go_llm
+
+    return make_opencode_go_llm(settings, session_id=session_id)
 
 
 class VerifyRequest(BaseModel):
@@ -91,41 +110,27 @@ async def verify(payload: VerifyRequest, request: Request, background_tasks: Bac
     ).verify(payload.prediction_id, payload.verified_species_id)
     job_repo = getattr(deps, "job_repo", None)
     if job_repo is not None:
+        # Verification has already succeeded; a scheduling failure must not undo
+        # it, but it is logged instead of swallowed (W12).
         try:
+            from apps.main_api.services.orchestrator import run_graph
+
             job = job_repo.create(result.prediction_id, result.prediction_id, result.verified_species_id)
-            # Lazy import to avoid circular
-            try:
-                from apps.main_api.services.orchestrator import run_graph
-
-                embedder = getattr(deps, "embedder", None)
-                knowledge_repo = getattr(deps, "knowledge_repo", None)
-                species_repo = getattr(deps, "species_repo", None)
-                settings = getattr(request.app.state, "settings", None)
-                llm = None
-                if settings is not None and getattr(settings, "opencode_go_api_key", None):
-                    try:
-                        if settings.opencode_go_api_key.get_secret_value():
-                            from apps.main_api.services.generation import make_opencode_go_llm
-
-                            llm = make_opencode_go_llm(settings)
-                    except Exception:
-                        pass
-                background_tasks.add_task(
-                    run_graph,
-                    job.id,
-                    result.verified_species_id,
-                    result.prediction_id,
-                    knowledge_repo,
-                    embedder,
-                    llm,
-                    llm,
-                    species_repo,
-                    job_repo,
-                )
-            except Exception:
-                pass
+            llm = _card_llm(request, session_id=f"fishora-card-{job.id}")
+            background_tasks.add_task(
+                run_graph,
+                job.id,
+                result.verified_species_id,
+                result.prediction_id,
+                getattr(deps, "knowledge_repo", None),
+                getattr(deps, "embedder", None),
+                llm,
+                llm,
+                getattr(deps, "species_repo", None),
+                job_repo,
+            )
         except Exception:
-            pass
+            logger.exception("could not schedule the knowledge job for prediction %s", result.prediction_id)
     return VerificationResponse(
         prediction_id=result.prediction_id,
         predicted_species_id=result.predicted_species_id,

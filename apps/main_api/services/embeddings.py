@@ -72,6 +72,11 @@ class LocalE5Embedder:
             )
         return self._model
 
+    def warmup(self) -> None:
+        """Load the weights and run one query, so the first card request does
+        not pay the model load (about 11 s cold, W7)."""
+        self.embed_query("warmup")
+
     @property
     def tokenizer(self):
         """Real tokenizer (encode/decode) of the loaded model, for chunking."""

@@ -75,6 +75,7 @@ class ScriptedLLM:
     fenced: bool = False
     calls: int = 0
     prompts: list[str] = field(default_factory=list)
+    spans: list[tuple[float, float]] = field(default_factory=list)  # (start, end) per call
     emitted: list[EmittedClaim] = field(default_factory=list)
     _lock: threading.Lock = field(default_factory=threading.Lock)
 
@@ -83,8 +84,11 @@ class ScriptedLLM:
         with self._lock:
             self.calls += 1
             self.prompts.append(text)
+        started = time.perf_counter()
         if self.delay:
             time.sleep(self.delay)
+        with self._lock:
+            self.spans.append((started, time.perf_counter()))
         if text.startswith("Untuk spesies"):
             return "query tambahan untuk kategori yang kosong"
         if text.startswith("Untuk setiap field"):
@@ -232,6 +236,18 @@ class FixedCVClient:
             + [CVCandidate(label=lbl, confidence=0.03) for lbl in others],
             threshold=0.5,
         )
+
+
+def llm_rounds(spans: list[tuple[float, float]]) -> int:
+    """Sequential LLM rounds: calls that overlap in time form one round."""
+    rounds, end = 0, float("-inf")
+    for start, stop in sorted(spans):
+        if start >= end:
+            rounds += 1
+            end = stop
+        else:
+            end = max(end, stop)
+    return rounds
 
 
 def new_id() -> str:

@@ -88,6 +88,8 @@ section{display:flex;flex-direction:column;gap:30px;scroll-margin-top:72px}
 .chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
 .chip.high{color:var(--high)} .chip.medium{color:var(--medium)} .chip.low{color:var(--low)} .chip.info{color:var(--ink-muted)}
 .chip.open{color:var(--ink)} .chip.open::before{background:var(--high)}
+.chip.partial{color:var(--ink)} .chip.partial::before{background:var(--medium)}
+.chip.not_measured,.chip.not_observed{color:var(--ink-muted)}
 .chip.resolved,.chip.met{color:var(--success)} .chip.miss{color:var(--ink)} .chip.miss::before{background:var(--medium)}
 .chip.nochip::before{display:none}
 .list{display:flex;flex-direction:column}
@@ -510,14 +512,19 @@ def _kind(path: str) -> str:
 
 
 def render(baseline: str, current: str) -> tuple[str, str]:
-    a = load_artifacts(baseline)
     has_current = (REPORTS_DIR / current / "rag_eval.json").exists()
-    findings = evaluate(baseline)
+    base_a = load_artifacts(baseline)
+    cur_a = load_artifacts(current) if has_current else {}
+    # Latest data per artifact: the current run where it exists, else the baseline.
+    a = {k: (cur_a.get(k) if cur_a.get(k) is not None else base_a[k]) for k in base_a}
+    origin = {k: (current if cur_a.get(k) is not None else baseline) for k in base_a if a[k] is not None}
+    base_findings = {f["id"]: f for f in evaluate(baseline)}
+    findings = evaluate(current) if has_current else list(base_findings.values())
     tests, ev, cost, comp = a["tests"] or {}, a["rag_eval"] or {}, a["cost_eval"] or {}, a["model_compare"] or {}
     totals = tests.get("totals", {})
     by_path = get(cost, "summary.by_path") or {}
-    n_high = sum(f["status"] == "open" and f["severity"] == "high" for f in findings)
-    n_med = sum(f["status"] == "open" and f["severity"] == "medium" for f in findings)
+    n_high = sum(f["status"] in ("open", "partial") and f["severity"] == "high" for f in findings)
+    n_med = sum(f["status"] in ("open", "partial") and f["severity"] == "medium" for f in findings)
     commit = get(ev, "git.commit") or "?"
 
     nav = ('<nav class="top"><div class="in"><span class="brand">Fishora</span><div class="pills">'
@@ -553,10 +560,13 @@ def render(baseline: str, current: str) -> tuple[str, str]:
                 if rest else "")
         rows.append(f'<div class="row-f"><span class="id">{f["id"]}</span><div><div class="t">{escape(f["title"])}</div>'
                     f'<div class="e">{escape(first)}</div>{more}</div>'
-                    f'<div class="chips">{chip(f["severity"])}</div><div class="chips">{chip(f["status"])}</div></div>')
+                    f'<div class="chips">{chip(f["severity"])}</div><div class="chips">'
+                    + (f'{chip(base_findings[f["id"]]["status"])}<span class="cap">&rarr;</span>'
+                       if has_current and f["id"] in base_findings and base_findings[f["id"]]["status"] != f["status"] else "")
+                    + f'{chip(f["status"])}</div></div>')
     weaknesses = f"""
 <section id="weaknesses"><div class="head"><h2>Weaknesses</h2>
-<p class="cap">{len(findings)} checks computed from this run · open first</p></div>
+<p class="cap">{len(findings)} checks computed from the {"current run, with the baseline status where it changed" if has_current else "baseline run"} · open first</p></div>
 <div class="card"><div class="list">{"".join(rows)}</div></div></section>"""
 
     # Targets
@@ -750,7 +760,7 @@ def render(baseline: str, current: str) -> tuple[str, str]:
   <div class="card"><span class="cap">Coverage of RAG modules</span>{covb}</div>
 </div></section>"""
 
-    prov = " · ".join(f'{n}.json {"✓" if a[n] else "missing"}' for n in a)
+    prov = " · ".join(f'{n}.json ({origin[n]})' for n in a if n in origin)
     footer = (f'<footer><span>{prov}</span><span>Regenerate: <code>python -m scripts.quality --label {escape(baseline)}</code> · '
               f'<code>python -m evals.cost_eval</code> · <code>python -m evals.model_compare</code> · <code>python -m evals.dashboard</code></span></footer>')
 

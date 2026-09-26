@@ -43,7 +43,7 @@ def chunk_candidate(
     candidate: CandidateChunk,
     tokenizer: Tokenizer,
     min_tokens: int = 300,
-    max_tokens: int = 600,
+    max_tokens: int = 480,  # E5 truncates at 512 incl. prefix and CLS/SEP (W10)
     overlap_tokens: int = 50,
 ) -> list[ChunkPayload]:
     """Split one candidate into semantic chunks of at most ``max_tokens`` tokens.

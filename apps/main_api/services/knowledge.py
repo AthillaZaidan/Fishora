@@ -35,6 +35,9 @@ class KnowledgeService:
             raise UnsupportedSpecies(record.verified_species_id)
 
         query = CARD_QUERY.format(common_name=species.common_name_id)
-        evidence = self._retriever.retrieve(record.verified_species_id, query)
+        # The whole species slice when it is small (R1); see VerifiedRetriever.card_evidence.
+        card_evidence = getattr(self._retriever, "card_evidence", None)
+        evidence = (card_evidence(record.verified_species_id, query) if card_evidence
+                    else self._retriever.retrieve(record.verified_species_id, query))
         card = self._generator.generate(species, evidence)
         return KnowledgeResponse(prediction_id=record.id, species_id=species.id, card=card)

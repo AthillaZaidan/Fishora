@@ -14,7 +14,7 @@ import time
 
 from apps.main_api.services import orchestrator
 from evals.corpus import load_corpus, load_dataset, species_records
-from evals.fakes import InMemoryJobRepository, InMemorySpeciesRepository, ScriptedLLM, new_id
+from evals.fakes import InMemoryJobRepository, InMemorySpeciesRepository, ScriptedLLM, llm_rounds, new_id
 
 
 def _claim_in_card(card: dict, field: str, text: str) -> bool:
@@ -49,7 +49,7 @@ def run_scenario(store, embedder, *, delay: float, fenced: bool, repeat: bool = 
     per_card, repeat_ms = [], []
     llm = _scripted_llm(delay, fenced)
     for record in species:
-        calls_before, emitted_before = llm.calls, len(llm.emitted)
+        calls_before, emitted_before, spans_before = llm.calls, len(llm.emitted), len(llm.spans)
         job_id = new_id()
         job_repo.create(job_id, job_id, record.id)
         started = time.perf_counter()
@@ -64,6 +64,7 @@ def run_scenario(store, embedder, *, delay: float, fenced: bool, repeat: bool = 
             "status": job.status,
             "latency_ms": round(elapsed * 1000, 1),
             "llm_calls": llm.calls - calls_before,
+            "llm_rounds": llm_rounds(llm.spans[spans_before:]),
             "true_emitted": sum(c.kind == "true" for c in emitted),
             "true_kept": sum(c.kind == "true" and _claim_in_card(card, c.field, c.text) for c in emitted),
             "halluc_emitted": sum(c.kind == "hallucination" for c in emitted),
@@ -93,7 +94,10 @@ def run_scenario(store, embedder, *, delay: float, fenced: bool, repeat: bool = 
         "llm_calls_per_card": round(total("llm_calls") / len(per_card), 2),
         "latency_ms_mean": round(statistics.fmean(latencies), 1),
         "latency_ms_max": round(max(latencies), 1),
+        # wall time / per-call delay: includes retrieval and verifier compute
         "sequential_rounds": round(statistics.fmean(latencies) / 1000 / delay, 2) if delay else None,
+        # counted from call timestamps: overlapping calls are one round
+        "llm_rounds": round(statistics.fmean(row["llm_rounds"] for row in per_card), 2),
         "repeat_latency_ms_mean": round(statistics.fmean(repeat_ms), 1) if repeat_ms else None,
         "per_card": per_card,
     }

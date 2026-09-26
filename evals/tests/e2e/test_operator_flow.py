@@ -33,7 +33,9 @@ def test_quality_dashboard_is_served(app_factory):
     app, _ = app_factory()
     with TestClient(app) as client:
         page = client.get("/quality")
-        assert page.status_code == 200 and "Fishora RAG quality" in page.text
+        from evals.dashboard import TITLE
+
+        assert page.status_code == 200 and TITLE in page.text
         summary = client.get("/api/v1/quality/summary")
         assert summary.status_code == 200
         assert {"runs", "comparison"} <= set(summary.json())

@@ -11,6 +11,7 @@ so empty-evidence requests never touch it.
 from __future__ import annotations
 
 import json
+import uuid
 from datetime import datetime
 from pathlib import Path
 from typing import Literal
@@ -57,8 +58,8 @@ class GeneratedKnowledgeCard(BaseModel):
 class OpenCodeGoClient:
     """LangChain client making one OpenCode Go Responses API call per generation."""
 
-    def __init__(self, settings):
-        llm = make_opencode_go_llm(settings)
+    def __init__(self, settings, session_id: str | None = None):
+        llm = make_opencode_go_llm(settings, session_id=session_id)
         self._structured_llm = llm.with_structured_output(
             GeneratedKnowledgeCard,
             method="json_schema",
@@ -93,8 +94,17 @@ class OpenCodeGoClient:
             ) from exc
 
 
-def make_opencode_go_llm(settings, timeout: float | None = None):
-    """Create the shared Luna client used by every orchestration agent."""
+USER_AGENT = "fishora-knowledge-cards/0.1"
+
+
+def make_opencode_go_llm(settings, timeout: float | None = None, session_id: str | None = None):
+    """Create the shared Luna client used by every orchestration agent.
+
+    OpenCode Go rejects requests without a stable ``x-opencode-session`` header
+    (400 MissingSessionID) and asks clients to identify themselves with their
+    own user agent (finding W20). One session id per card keeps the calls of
+    that card together; callers that do not pass one get a fresh id.
+    """
     api_key = settings.opencode_go_api_key.get_secret_value()
     if not api_key.strip():
         raise ValueError("OPENCODE_GO_API_KEY must be set to construct the production client")
@@ -104,6 +114,10 @@ def make_opencode_go_llm(settings, timeout: float | None = None):
         api_key=api_key,
         timeout=timeout if timeout is not None else settings.opencode_go_timeout_seconds,
         use_responses_api=True,
+        default_headers={
+            "x-opencode-session": session_id or f"fishora-{uuid.uuid4().hex}",
+            "User-Agent": USER_AGENT,
+        },
     )
 
 
@@ -221,7 +235,14 @@ class KnowledgeGenerator:
     def generate(self, species: SpeciesRecord, evidence: list[RetrievedChunk]) -> KnowledgeCard:
         if not evidence:
             return self.empty_card(species)
-        client = self._generator() if callable(self._generator) else self._generator
+        try:
+            client = self._generator() if callable(self._generator) else self._generator
+        except ValueError as exc:
+            # A blank key used to escape as an unhandled 500 (finding W3); it is
+            # the same condition as an unreachable provider.
+            raise OpenCodeUnavailable(
+                "opencode go generation unavailable", [chunk.chunk_id for chunk in evidence]
+            ) from exc
         generated = client.generate(SYSTEM_PROMPT, evidence, species)
         return self.build_card(species, evidence, generated)
 
