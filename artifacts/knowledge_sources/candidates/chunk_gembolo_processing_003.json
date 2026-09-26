@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_gembolo_processing_003",
+  "chunk": {
+    "id": "chunk_gembolo_processing_003",
+    "species_label": "gembolo",
+    "source_id": "enwiki_short_mackerel",
+    "category": "processing_methods",
+    "content": "Rastrelliger brachysoma (short mackerel), one of the fishes sold as gembolo, is typically fried in Thailand and eaten with nam phrik kapi.",
+    "source_quote": "is typically fried and eaten with",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "enwiki_short_mackerel",
+    "title": "Short mackerel - Wikipedia",
+    "source_type": "encyclopedia",
+    "url": "https://en.wikipedia.org/wiki/Short_mackerel",
+    "publisher": "Wikipedia",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

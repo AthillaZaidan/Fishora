@@ -11,6 +11,8 @@ export type ApiErrorKind =
   | 'unsupported_species'
   | 'cv_label_unsupported'
   | 'cv_unavailable'
+  | 'photo_not_fish'
+  | 'photo_unknown_species'
   | 'generation_unavailable'
   | 'generation_invalid'
   | 'outbid'
@@ -18,21 +20,24 @@ export type ApiErrorKind =
 
 // Kept separate from the server's `detail`, which can carry internal hostnames.
 const MESSAGES: Record<ApiErrorKind, string> = {
-  offline: 'Tidak ada koneksi. Data yang sudah diisi tetap tersimpan.',
-  timeout: 'Permintaan terlalu lama. Coba lagi.',
-  image_invalid: 'Format gambar tidak didukung. Gunakan JPG atau PNG.',
-  image_too_large: 'Gambar terlalu besar. Maksimum 10 MB.',
-  not_found: 'Data tidak ditemukan.',
-  not_verified: 'Spesies belum diverifikasi. Konfirmasi dulu sebelum lanjut.',
-  forbidden: 'Tindakan ini tidak diizinkan untuk akun Anda.',
-  lot_not_allocated: 'Lot ini belum dialokasikan.',
-  unsupported_species: 'Spesies ini belum didukung.',
-  cv_label_unsupported: 'Model mengembalikan spesies yang belum didukung.',
-  cv_unavailable: 'Layanan identifikasi sedang tidak tersedia.',
-  generation_unavailable: 'Pembuatan kartu pengetahuan sedang tidak tersedia.',
-  generation_invalid: 'Kartu pengetahuan gagal divalidasi.',
-  outbid: 'Penawaran harus lebih tinggi dari harga tertinggi saat ini.',
-  server: 'Terjadi kesalahan. Coba lagi.',
+  offline: 'No connection. What you have entered is still saved.',
+  timeout: 'The request took too long. Try again.',
+  image_invalid: 'Image format not supported. Use JPG or PNG.',
+  image_too_large: 'Image is too large. The maximum is 10 MB.',
+  not_found: 'Not found.',
+  not_verified: 'The species has not been verified yet. Confirm it before continuing.',
+  forbidden: 'Your account is not allowed to do this.',
+  lot_not_allocated: 'This lot has not been allocated yet.',
+  unsupported_species: 'This species is not supported yet.',
+  cv_label_unsupported: 'The model returned a species that is not supported yet.',
+  cv_unavailable: 'The identification service is unavailable right now.',
+  photo_not_fish: 'This photo does not look like a fish. Retake it: whole fish, plain background, enough light.',
+  photo_unknown_species:
+    'This fish was not recognised as one of the 11 supported species. Retake the photo, or pick the species if it is in the list.',
+  generation_unavailable: 'Knowledge card generation is unavailable right now.',
+  generation_invalid: 'The knowledge card failed validation.',
+  outbid: 'Your bid must be higher than the current highest bid.',
+  server: 'Something went wrong. Try again.',
 }
 
 /** The user-facing copy for a kind, for callers that build an error locally. */
@@ -81,7 +86,11 @@ export function kindFromResponse(
     case 413: return 'image_too_large'
     case 404: return 'not_found'
     case 409: return currentHighestPerKg ? 'outbid' : 'not_verified'
-    case 422: return 'unsupported_species'
+    case 422:
+      // The CV gates refused the photo; the detail text says which gate.
+      if (detail.includes('photo rejected: not a fish')) return 'photo_not_fish'
+      if (detail.includes('photo rejected: unknown species')) return 'photo_unknown_species'
+      return 'unsupported_species'
     case 503: return 'cv_unavailable'
     case 502:
       // Three 502s share the status; detail text is the only discriminator.

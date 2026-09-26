@@ -97,13 +97,19 @@ def png_bytes() -> bytes:
     return buffer.getvalue()
 
 
+def sign_in(client, username: str = "rian", password: str = "demo"):
+    """Sign a TestClient in (the operator by default): the fish, jobs and
+    quality routes answer 401 without a session."""
+    response = client.post("/api/v1/auth/login", json={"username": username, "password": password})
+    assert response.status_code == 200, response.text
+    return client
+
+
 @pytest.fixture
 def app_factory(e5, store, species, scripted_llm):
     """Build the real FastAPI app with every external port in memory."""
     from apps.main_api.main import create_main_app
     from apps.main_api.ports import AppDependencies
-    from apps.main_api.services.generation import KnowledgeGenerator
-    from apps.main_api.services.retrieval import VerifiedRetriever
     from evals.fakes import (
         FixedCVClient,
         InMemoryImageStore,
@@ -113,9 +119,6 @@ def app_factory(e5, store, species, scripted_llm):
     )
 
     def build(label: str = "nila", llm=scripted_llm):
-        def no_sync_llm():
-            raise AssertionError("the sync generator must not be called in these tests")
-
         deps = AppDependencies(
             cv_client=FixedCVClient(label),
             species_repo=InMemorySpeciesRepository(species),
@@ -123,8 +126,6 @@ def app_factory(e5, store, species, scripted_llm):
             image_store=InMemoryImageStore(),
             embedder=e5,
             knowledge_repo=store,
-            retriever=VerifiedRetriever(store, e5),
-            generator=KnowledgeGenerator(no_sync_llm),
             job_repo=InMemoryJobRepository(),
         )
         deps.llm = llm  # the LLM port; ignored by code that has none

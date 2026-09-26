@@ -1,0 +1,404 @@
+{
+  "approved_chunk_ids": [
+    "chunk_bandeng_commercial_001",
+    "chunk_bandeng_commercial_002",
+    "chunk_bandeng_identity_001",
+    "chunk_bandeng_physical_001",
+    "chunk_bandeng_processing_001",
+    "chunk_bandeng_processing_002",
+    "chunk_bandeng_substitutes_001",
+    "chunk_bandeng_substitutes_002",
+    "chunk_bandeng_taste_001",
+    "chunk_bandeng_taste_002",
+    "chunk_gelama_bunga_commercial_001",
+    "chunk_gelama_bunga_identity_001",
+    "chunk_gelama_bunga_physical_001",
+    "chunk_gelama_bunga_physical_002",
+    "chunk_gelama_bunga_processing_001",
+    "chunk_gelama_bunga_substitutes_001",
+    "chunk_gelama_bunga_substitutes_002",
+    "chunk_gelama_bunga_substitutes_003",
+    "chunk_gelama_bunga_taste_001",
+    "chunk_gembolo_commercial_001",
+    "chunk_gembolo_commercial_002",
+    "chunk_gembolo_commercial_003",
+    "chunk_gembolo_identity_001",
+    "chunk_gembolo_physical_001",
+    "chunk_gembolo_physical_002",
+    "chunk_gembolo_physical_003",
+    "chunk_gembolo_processing_001",
+    "chunk_gembolo_processing_002",
+    "chunk_gembolo_processing_003",
+    "chunk_gembolo_substitutes_001",
+    "chunk_gembolo_substitutes_002",
+    "chunk_gembolo_taste_001",
+    "chunk_gulamah_commercial_001",
+    "chunk_gulamah_commercial_002",
+    "chunk_gulamah_identity_001",
+    "chunk_gulamah_physical_001",
+    "chunk_gulamah_processing_001",
+    "chunk_gulamah_substitutes_001",
+    "chunk_gulamah_taste_001",
+    "chunk_gulamah_taste_002",
+    "chunk_gulamah_taste_003",
+    "chunk_kembung_commercial_001",
+    "chunk_kembung_identity_001",
+    "chunk_kembung_physical_001",
+    "chunk_kembung_physical_002",
+    "chunk_kembung_processing_001",
+    "chunk_kembung_processing_002",
+    "chunk_kembung_substitutes_001",
+    "chunk_kembung_substitutes_002",
+    "chunk_kembung_taste_001",
+    "chunk_kembung_taste_002",
+    "chunk_kuniran_commercial_001",
+    "chunk_kuniran_identity_001",
+    "chunk_kuniran_physical_001",
+    "chunk_kuniran_processing_001",
+    "chunk_kuniran_substitutes_001",
+    "chunk_kuniran_taste_001",
+    "chunk_mujair_commercial_001",
+    "chunk_mujair_identity_001",
+    "chunk_mujair_physical_001",
+    "chunk_mujair_processing_001",
+    "chunk_mujair_substitutes_001",
+    "chunk_mujair_substitutes_002",
+    "chunk_mujair_substitutes_003",
+    "chunk_mujair_substitutes_004",
+    "chunk_mujair_taste_001",
+    "chunk_nila_commercial_001",
+    "chunk_nila_identity_001",
+    "chunk_nila_physical_001",
+    "chunk_nila_processing_001",
+    "chunk_nila_processing_002",
+    "chunk_nila_substitutes_001",
+    "chunk_nila_substitutes_002",
+    "chunk_nila_substitutes_003",
+    "chunk_nila_substitutes_004",
+    "chunk_nila_taste_001",
+    "chunk_nila_taste_002",
+    "chunk_senangin_commercial_001",
+    "chunk_senangin_commercial_002",
+    "chunk_senangin_identity_001",
+    "chunk_senangin_physical_001",
+    "chunk_senangin_processing_001",
+    "chunk_senangin_substitutes_001",
+    "chunk_senangin_substitutes_002",
+    "chunk_senangin_substitutes_003",
+    "chunk_senangin_taste_001",
+    "chunk_senangin_taste_002",
+    "chunk_senangin_taste_003",
+    "chunk_tenggiri_commercial_001",
+    "chunk_tenggiri_identity_001",
+    "chunk_tenggiri_identity_002",
+    "chunk_tenggiri_identity_003",
+    "chunk_tenggiri_physical_001",
+    "chunk_tenggiri_processing_001",
+    "chunk_tenggiri_processing_002",
+    "chunk_tenggiri_substitutes_001",
+    "chunk_tenggiri_substitutes_002",
+    "chunk_tenggiri_substitutes_003",
+    "chunk_tenggiri_substitutes_004",
+    "chunk_tenggiri_taste_001",
+    "chunk_tenggiri_taste_002",
+    "chunk_tenggiri_taste_003",
+    "chunk_tenggiri_taste_004",
+    "chunk_tuna_commercial_001",
+    "chunk_tuna_identity_001",
+    "chunk_tuna_identity_002",
+    "chunk_tuna_physical_001",
+    "chunk_tuna_processing_001",
+    "chunk_tuna_processing_002",
+    "chunk_tuna_processing_003",
+    "chunk_tuna_substitutes_001",
+    "chunk_tuna_substitutes_002",
+    "chunk_tuna_substitutes_003",
+    "chunk_tuna_substitutes_004",
+    "chunk_tuna_taste_001",
+    "chunk_tuna_taste_002"
+  ],
+  "approved_source_ids": [
+    "afs_red_hybrid_tilapia_malaysia",
+    "coj_5_1_1",
+    "ece_yellow_drum_genome_2019",
+    "enwiki_island_mackerel",
+    "enwiki_short_mackerel",
+    "fao_ac478e00",
+    "fao_ac478e11",
+    "fao_en_milkfish",
+    "fao_en_niletilapia",
+    "fao_scombrids_1983",
+    "fao_scombrids_rastrelliger",
+    "fao_sheets_mullidae_upeneus_moluccensis",
+    "fao_sheets_sciaenidae_johnius_trachycephalus",
+    "fao_species_catalogue_scombrids",
+    "fao_threadfins_2004",
+    "fao_threadfins_of_the_world_eleutheronema",
+    "fao_wcp_mullidae_randall",
+    "fao_y5728e",
+    "fishbase_chanos_chanos",
+    "fishbase_eleutheronema_tetradactylum",
+    "fishbase_gembolo_search",
+    "fishbase_johnius_trachycephalus",
+    "fishbase_nibea_albiflora",
+    "fishbase_oreochromis_mossambicus",
+    "fishbase_oreochromis_niloticus",
+    "fishbase_rastrelliger_brachysoma",
+    "fishbase_rastrelliger_faughni",
+    "fishbase_rastrelliger_kanagurta",
+    "fishbase_scomberomorus_commerson",
+    "fishbase_scomberomorus_guttatus",
+    "fishbase_tenggiri_common_name",
+    "fishbase_thunnus_alalunga",
+    "fishbase_thunnus_albacares",
+    "fishbase_upeneus_moluccensis",
+    "foodchem_2008",
+    "foodresearch_7s3_12",
+    "frdc_fishfiles_blue_threadfin",
+    "heliyon_taiwan_surimi_metabarcoding",
+    "idwiki_ikan_kembung",
+    "ijfs_southern_italy_fish_fraud",
+    "jbau_86202",
+    "jipsp_6_12_7801",
+    "jma_22_2_210",
+    "jps_8_2_936",
+    "manfish_2_3_489",
+    "manfish_gulamah_surimi_2022",
+    "marinade_4962",
+    "minwiki_gambolo",
+    "noaa_pacific_yellowfin",
+    "scidata_eleutheronema_rhadinum_genome_2025",
+    "scidata_yellow_drum_genome_2021",
+    "scirep_taiwan_seafood_substitution",
+    "sfm_spanish_mackerel",
+    "sfm_yellowfin_tuna",
+    "siswanti_kembung_snack_stick",
+    "wa_fact_sheet_blue_threadfin"
+  ],
+  "source_reviews": {
+    "afs_red_hybrid_tilapia_malaysia": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "coj_5_1_1": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "ece_yellow_drum_genome_2019": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "enwiki_island_mackerel": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "enwiki_short_mackerel": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "fao_ac478e00": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fao_ac478e11": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fao_en_milkfish": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "fao_en_niletilapia": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fao_scombrids_1983": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "fao_scombrids_rastrelliger": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "fao_sheets_mullidae_upeneus_moluccensis": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "fao_sheets_sciaenidae_johnius_trachycephalus": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "fao_species_catalogue_scombrids": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "fao_threadfins_2004": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "fao_threadfins_of_the_world_eleutheronema": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "fao_wcp_mullidae_randall": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "fao_y5728e": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_chanos_chanos": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_eleutheronema_tetradactylum": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_gembolo_search": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_johnius_trachycephalus": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_nibea_albiflora": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_oreochromis_mossambicus": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_oreochromis_niloticus": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_rastrelliger_brachysoma": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "fishbase_rastrelliger_faughni": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_rastrelliger_kanagurta": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "fishbase_scomberomorus_commerson": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_scomberomorus_guttatus": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_tenggiri_common_name": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_thunnus_alalunga": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_thunnus_albacares": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "fishbase_upeneus_moluccensis": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "foodchem_2008": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "foodresearch_7s3_12": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "frdc_fishfiles_blue_threadfin": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "heliyon_taiwan_surimi_metabarcoding": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "idwiki_ikan_kembung": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "ijfs_southern_italy_fish_fraud": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "jbau_86202": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "jipsp_6_12_7801": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "jma_22_2_210": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "jps_8_2_936": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "manfish_2_3_489": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "manfish_gulamah_surimi_2022": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "marinade_4962": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "minwiki_gambolo": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "noaa_pacific_yellowfin": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:33:23Z"
+    },
+    "scidata_eleutheronema_rhadinum_genome_2025": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "scidata_yellow_drum_genome_2021": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "scirep_taiwan_seafood_substitution": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "sfm_spanish_mackerel": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "sfm_yellowfin_tuna": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "siswanti_kembung_snack_stick": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    },
+    "wa_fact_sheet_blue_threadfin": {
+      "reviewer": "Jason Edward Salim",
+      "reviewed_at": "2026-09-26T11:49:19Z"
+    }
+  }
+}

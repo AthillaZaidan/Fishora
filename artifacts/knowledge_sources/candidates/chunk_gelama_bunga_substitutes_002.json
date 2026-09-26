@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_gelama_bunga_substitutes_002",
+  "chunk": {
+    "id": "chunk_gelama_bunga_substitutes_002",
+    "species_label": "gelama_bunga",
+    "source_id": "ece_yellow_drum_genome_2019",
+    "category": "substitutes",
+    "content": "The yellow drum is expected to partly replace the large yellow croaker in the market, because large yellow croaker supply suffers from overfishing and disease in aquaculture.",
+    "source_quote": "Now, yellow drum is expected to partially replace the market of the large yellow croaker, which suffers from the shortage of germplasm resource due to overfishing and severe bacterial and virus diseases in aquaculture",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "ece_yellow_drum_genome_2019",
+    "title": "Near-complete genome assembly and annotation of the yellow drum (Nibea albiflora) provide insights into population and evolutionary characteristics of this species (Ecology and Evolution; doi:10.1002/ece3.4778)",
+    "source_type": "paper",
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6342179/fullTextXML",
+    "publisher": "Ecology and Evolution (Wiley), via Europe PMC",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

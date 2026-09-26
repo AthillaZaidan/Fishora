@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_kembung_substitutes_002",
+  "chunk": {
+    "id": "chunk_kembung_substitutes_002",
+    "species_label": "kembung",
+    "source_id": "enwiki_island_mackerel",
+    "category": "substitutes",
+    "content": "Island mackerel (Rastrelliger faughni) is reported together with the other Rastrelliger species (Indian and short mackerel) in landings statistics.",
+    "source_quote": "in the landings statistics, it is reported together with the other",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "enwiki_island_mackerel",
+    "title": "Island mackerel - Wikipedia",
+    "source_type": "encyclopedia",
+    "url": "https://en.wikipedia.org/wiki/Island_mackerel",
+    "publisher": "Wikipedia",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

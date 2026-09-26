@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_gembolo_commercial_003",
+  "chunk": {
+    "id": "chunk_gembolo_commercial_003",
+    "species_label": "gembolo",
+    "source_id": "fishbase_rastrelliger_brachysoma",
+    "category": "commercial_uses",
+    "content": "Rastrelliger brachysoma (short mackerel), one of the fishes sold as gembolo, is a highly commercial fisheries species and also a gamefish.",
+    "source_quote": "Fisheries: highly commercial; gamefish: yes",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fishbase_rastrelliger_brachysoma",
+    "title": "Rastrelliger brachysoma, Short mackerel",
+    "source_type": "species_summary",
+    "url": "https://www.fishbase.se/summary/Rastrelliger-brachysoma.html",
+    "publisher": "FishBase",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

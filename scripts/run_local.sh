@@ -22,8 +22,8 @@ if [[ -f .env ]]; then
   set +a
 fi
 
-export FISHORA_CV_EXPORT_DIR="${FISHORA_CV_EXPORT_DIR:-ai/results/fishora_dinov3_large_frozen/export}"
-export FISHORA_CV_MODEL_VERSION="${FISHORA_CV_MODEL_VERSION:-fishora-dinov3-export}"
+export FISHORA_CV_EXPORT_DIR="${FISHORA_CV_EXPORT_DIR:-ai/results/fishora_vit_b_gated/export}"
+export FISHORA_CV_MODEL_VERSION="${FISHORA_CV_MODEL_VERSION:-fishora-vit-b-gated}"
 export FISHORA_CV_DEVICE="${FISHORA_CV_DEVICE:-cuda}"
 export FISHORA_EMBEDDING_DEVICE="${FISHORA_EMBEDDING_DEVICE:-cpu}"
 

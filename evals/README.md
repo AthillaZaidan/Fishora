@@ -8,7 +8,9 @@ LLM key. The same code produces the test results and the evaluation artifact.
 evals/
 ├── datasets/
 │   ├── retrieval_queries.json   gold query templates, Indonesian + English, per category
-│   └── grounding_claims.json    one Indonesian card-style claim per chunk (98 graded pairs)
+│   ├── grounding_claims.json    one Indonesian card-style claim per chunk (98 graded pairs)
+│   ├── grounding_traps.json     14 negation/scope traps (iteration 1)
+│   └── grounding_real_claims.json  345 real expert claim atoms + 23 fresh traps (iteration 2)
 ├── corpus.py                    corpus loader + InMemoryKnowledgeRepository (same filters as pgvector)
 ├── fakes.py                     in-memory ports + ScriptedLLM (deterministic, latency-simulating)
 ├── retrieval_eval.py            recall@k, MRR, nDCG, species purity, card coverage, latency
@@ -66,3 +68,7 @@ Failing tests are the specification the fix phase has to meet. Each failure maps
 - **The gold data is small and hand-made:** 88 templated retrieval queries and 98 grounding pairs.
   The grounding claims were written by the same agent that built the harness. Treat the numbers as
   regression signals with wide error bars, not as benchmarks.
+- **Synthetic claims flattered the verifier.** On them the shipped verifier scored perfectly; on the
+  real expert claims of `grounding_real_claims.json` it both drops true claims and keeps false ones
+  (finding W29, `experiment_verifier.py`). Those real claims came from the production model, but
+  their labels are an AI assistant's and have not been reviewed by a person yet.

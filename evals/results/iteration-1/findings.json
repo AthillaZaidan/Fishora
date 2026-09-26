@@ -1,6 +1,6 @@
 {
   "label": "current",
-  "generated_at": "2026-09-26T06:26:20+00:00",
+  "generated_at": "2026-09-26T07:50:42+00:00",
   "findings": [
     {
       "id": "CV1",
@@ -213,7 +213,7 @@
       "status": "resolved",
       "evidence": [
         "client sends x-opencode-session: True; sets a user agent: True",
-        "without it the gateway answers 400 MissingSessionID (the cost eval adds the header itself)"
+        "without it the gateway answers 400 MissingSessionID"
       ]
     },
     {
@@ -225,7 +225,7 @@
       "status": "resolved",
       "evidence": [
         "agent path as shipped, real LLM: 100% cards completed of 11",
-        "spend on the failing path: $0.00090 per card, all wasted"
+        "spend: $0.00090 per completed card"
       ]
     },
     {
@@ -260,7 +260,7 @@
       "target": "repeat card < 50 ms",
       "status": "resolved",
       "evidence": [
-        "repeat card 11 ms vs first card 280 ms (no cache)"
+        "repeat card 11 ms vs first card 280 ms (served from the card cache)"
       ]
     },
     {
@@ -350,7 +350,7 @@
       "target": "experts see whole chunks",
       "status": "resolved",
       "evidence": [
-        "expert evidence cut at 300 chars; unit test: passed"
+        "experts receive whole chunks; unit test: passed"
       ]
     },
     {

@@ -123,6 +123,7 @@ class SqlKnowledgeJobRepository:
                 existing.critic_feedback = None
                 existing.final_card = None
                 existing.error = None
+                existing.trace = None
                 existing.completed_at = None
                 session.commit()
                 return self._to_record(existing)
@@ -170,4 +171,5 @@ class SqlKnowledgeJobRepository:
             critic_feedback=row.critic_feedback,
             final_card=row.final_card,
             error=row.error,
+            trace=row.trace,
         )

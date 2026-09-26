@@ -5,7 +5,7 @@ from decimal import Decimal
 from typing import Callable
 from uuid import uuid4
 
-from sqlalchemy import func, select
+from sqlalchemy import func, select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -25,7 +25,26 @@ class SqlLotRepository:
         self._session_factory = session_factory
 
     def create(self, lot: LotRecord) -> LotRecord:
-        row = Lot(
+        return self.create_many([lot])[0]
+
+    def create_many(self, lots: list[LotRecord]) -> list[LotRecord]:
+        """One transaction: a batch is published whole or not at all."""
+        with self._session_factory() as session:
+            session.add_all([self._to_row(lot) for lot in lots])
+            try:
+                session.commit()
+            except IntegrityError as exc:
+                # The service pre-checks, so reaching here means two publishes
+                # raced. Same domain error either way, never a 500.
+                session.rollback()
+                if "uq_lots_prediction_batch" not in str(exc.orig):
+                    raise
+                raise LotAlreadyPublished(lots[0].prediction_id) from exc
+        return lots
+
+    @staticmethod
+    def _to_row(lot: LotRecord) -> Lot:
+        return Lot(
             id=lot.id,
             prediction_id=lot.prediction_id,
             operator_id=lot.operator_id,
@@ -41,19 +60,9 @@ class SqlLotRepository:
             public_slug=lot.public_slug,
             allocated_buyer_id=lot.allocated_buyer_id,
             seller_fisher_group=lot.seller_fisher_group,
+            batch_index=lot.batch_index,
+            batch_size=lot.batch_size,
         )
-        with self._session_factory() as session:
-            session.add(row)
-            try:
-                session.commit()
-            except IntegrityError as exc:
-                # The service pre-checks, so reaching here means two publishes
-                # raced. Same domain error either way, never a 500.
-                session.rollback()
-                if "uq_lots_prediction_id" not in str(exc.orig):
-                    raise
-                raise LotAlreadyPublished(lot.prediction_id) from exc
-        return lot
 
     def get(self, lot_id: str) -> LotRecord | None:
         with self._session_factory() as session:
@@ -66,13 +75,34 @@ class SqlLotRepository:
 
     def get_by_prediction(self, prediction_id: str) -> LotRecord | None:
         with self._session_factory() as session:
-            row = session.scalar(select(Lot).where(Lot.prediction_id == prediction_id))
+            # The first lot of the batch: a catch publishes as lots 1..N.
+            row = session.scalar(
+                select(Lot).where(Lot.prediction_id == prediction_id).order_by(Lot.batch_index).limit(1)
+            )
             return self._to_lot(row)
 
     def all(self) -> list[LotRecord]:
         with self._session_factory() as session:
             rows = session.scalars(select(Lot).order_by(Lot.created_at.desc())).all()
             return [self._to_lot(row) for row in rows]
+
+    def close_expired(self, now: datetime | None = None) -> int:
+        """Close every active lot whose auction has ended; returns how many.
+
+        Nothing else would: there is no sweeper process, and a lot's status
+        otherwise only changes inside place_bid and allocate. Readers call this
+        first, so a lot past its end is never listed, searched or recommended
+        as live. One indexed UPDATE, and a no-op when nothing has expired.
+        """
+        clock = now or datetime.now(timezone.utc)
+        with self._session_factory() as session:
+            result = session.execute(
+                update(Lot)
+                .where(Lot.status == "active", Lot.auction_ends_at <= clock)
+                .values(status="closed")
+            )
+            session.commit()
+            return result.rowcount or 0
 
     def highest(self, lot_id: str) -> Decimal | None:
         with self._session_factory() as session:
@@ -175,6 +205,8 @@ class SqlLotRepository:
             knowledge_snapshot=row.knowledge_snapshot,
             allocated_buyer_id=row.allocated_buyer_id,
             seller_fisher_group=row.seller_fisher_group,
+            batch_index=row.batch_index,
+            batch_size=row.batch_size,
         )
 
     @staticmethod

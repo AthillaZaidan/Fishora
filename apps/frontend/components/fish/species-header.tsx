@@ -16,6 +16,8 @@ export function SpeciesHeader({
 }: SpeciesHeaderProps) {
   const resolved = resolveSpecies(label)
   const sci = scientificName === undefined ? resolved.scientificName : scientificName
+  // The market name the catch is sold under, beside the English one.
+  const local = resolved.localName !== resolved.commonName ? resolved.localName : null
 
   return (
     <header className="flex flex-col gap-1">
@@ -24,12 +26,16 @@ export function SpeciesHeader({
         {verified && (
           <span className="text-body-sm inline-flex items-center gap-1.5 text-verified">
             <ShieldCheck className="size-4" weight="fill" aria-hidden />
-            Terverifikasi
+            Verified
           </span>
         )}
       </div>
-      {sci && (
-        <p className="text-body max-w-[65ch] text-ink-muted italic">{sci}</p>
+      {(local || sci) && (
+        <p className="text-body max-w-[65ch] text-ink-muted">
+          {local && <span>{local}</span>}
+          {local && sci && ' · '}
+          {sci && <span className="italic">{sci}</span>}
+        </p>
       )}
     </header>
   )

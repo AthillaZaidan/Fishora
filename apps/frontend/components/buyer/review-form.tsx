@@ -1,6 +1,7 @@
 'use client'
 
 import { useId, useState } from 'react'
+import { Star } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components/common/button'
 import { Field } from '@/components/common/field'
 import { ApiError } from '@/lib/api/errors'
@@ -11,12 +12,12 @@ const MAX_USE = 120
 const MAX_COMMENT = 2000
 
 // ApiError's shared copy answers bidding and identification, so the statuses
-// this endpoint owns get their own lines instead of "Terjadi kesalahan".
+// this endpoint owns get their own lines instead of a generic failure.
 const BY_STATUS: Record<number, string> = {
-  401: 'Masuk sebagai pembeli dulu untuk menulis ulasan.',
-  403: 'Ulasan hanya bisa ditulis oleh pembeli yang mendapat alokasi lot ini.',
-  409: 'Lot ini belum dialokasikan. Ulasan bisa ditulis setelah alokasi selesai.',
-  422: 'Nilai kesesuaian olahan harus antara 1 dan 5.',
+  401: 'Sign in as a buyer to write a review.',
+  403: 'Only the buyer this lot was allocated to can review it.',
+  409: 'This lot has not been allocated yet. Reviews open once it is.',
+  422: 'The rating must be between 1 and 5 stars.',
 }
 
 export function ReviewForm({
@@ -40,7 +41,7 @@ export function ReviewForm({
     event.preventDefault()
     const trimmedUse = actualUse.trim()
     if (!trimmedUse) {
-      setUseError('Tulis dulu penggunaan ikan ini.')
+      setUseError('Say what you used this fish for.')
       return
     }
     const trimmedComment = comment.trim()
@@ -64,7 +65,7 @@ export function ReviewForm({
       if (cause instanceof ApiError) {
         setError(BY_STATUS[cause.status] ?? cause.userMessage)
       } else {
-        setError('Gagal mengirim ulasan. Coba lagi.')
+        setError('Could not send the review. Try again.')
       }
     } finally {
       setBusy(false)
@@ -74,16 +75,16 @@ export function ReviewForm({
   return (
     <form className="flex flex-col gap-4 rounded-2xl bg-bg-sunken px-5 py-5" onSubmit={submit}>
       <div>
-        <h2 className="text-h3 text-ink">Tulis ulasan</h2>
+        <h2 className="text-h3 text-ink">Write a review</h2>
         <p className="text-body-sm mt-1 text-ink-muted">
-          Pengalaman Anda memakai ikan ini. Terbaca oleh pembeli lain, bukan sebagai pengetahuan
-          terverifikasi.
+          Your experience using this fish. Other buyers can read it; it is not shown as verified
+          knowledge.
         </p>
       </div>
 
       <Field
-        label="Dipakai untuk apa"
-        placeholder="Digoreng utuh"
+        label="What did you use it for?"
+        placeholder="Fried whole"
         maxLength={MAX_USE}
         value={actualUse}
         onChange={(event) => {
@@ -94,15 +95,15 @@ export function ReviewForm({
       />
 
       <fieldset>
-        <legend className="text-label text-ink">Kesesuaian olahan</legend>
-        {/* Five discrete options. DESIGN.md 8.5 bans a filled track here. */}
-        <div className="mt-2 flex flex-wrap gap-2">
+        {/* Stored in the existing processing_suitability field (1 to 5); the
+            form now asks for it as an overall star rating. */}
+        <legend className="text-label text-ink">Rating</legend>
+        <div className="mt-2 flex flex-wrap gap-1">
           {RATINGS.map((value) => (
             <label
               key={value}
-              className={`text-num-sm flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full border px-4 tabular-nums ${
-                suitability === value ? 'border-ink bg-surface text-ink' : 'border-line text-ink-muted'
-              }`}
+              aria-label={`${value} ${value === 1 ? 'star' : 'stars'}`}
+              className="flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full has-[:focus-visible]:outline-2"
             >
               <input
                 type="radio"
@@ -115,11 +116,16 @@ export function ReviewForm({
                   setSaved(false)
                 }}
               />
-              {value}
+              <Star
+                size={28}
+                weight={value <= suitability ? 'fill' : 'regular'}
+                className={value <= suitability ? 'text-accent' : 'text-ink-faint'}
+                aria-hidden
+              />
             </label>
           ))}
         </div>
-        <p className="text-body-sm mt-2 text-ink-muted">1 kurang sesuai, 5 sangat sesuai.</p>
+        <p className="text-body-sm mt-2 text-ink-muted">1 star: not satisfied. 5 stars: very satisfied.</p>
       </fieldset>
 
       <label className="flex min-h-11 items-center gap-3 text-body-sm text-ink">
@@ -132,14 +138,14 @@ export function ReviewForm({
             setSaved(false)
           }}
         />
-        Bisa dipakai sebagai pengganti spesies lain
+        Works as a substitute for another species
       </label>
 
       <Field
         multiline
         rows={4}
-        label="Catatan (opsional)"
-        placeholder="Catatan singkat untuk pembeli lain"
+        label="Notes (optional)"
+        placeholder="A short note for other buyers"
         maxLength={MAX_COMMENT}
         value={comment}
         onChange={(event) => {
@@ -150,10 +156,10 @@ export function ReviewForm({
 
       <div className="flex flex-col gap-2">
         <Button block type="submit" loading={busy}>
-          Kirim ulasan
+          Send review
         </Button>
         <p className="text-body-sm min-h-5 text-ink-muted" aria-live="polite">
-          {error ? <span className="text-state-error">{error}</span> : saved ? 'Ulasan terkirim.' : ' '}
+          {error ? <span className="text-state-error">{error}</span> : saved ? 'Review sent.' : ' '}
         </p>
       </div>
     </form>

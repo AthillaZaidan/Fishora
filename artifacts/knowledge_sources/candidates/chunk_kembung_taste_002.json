@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_kembung_taste_002",
+  "chunk": {
+    "id": "chunk_kembung_taste_002",
+    "species_label": "kembung",
+    "source_id": "siswanti_kembung_snack_stick",
+    "category": "taste_texture",
+    "content": "In snack sticks made from kembung (Rastrelliger kanagurta), the stick made from the fish meat was preferred for texture.",
+    "source_quote": "Fish meat stick favored in texture",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "siswanti_kembung_snack_stick",
+    "title": "Pemanfaatan Daging dan Tulang Ikan Kembung (Rastrelliger kanagurta) dalam Pembuatan Camilan Stik (Jurnal Teknologi Hasil Pertanian, doi:10.20961/jthp.v10i1.17492)",
+    "source_type": "paper",
+    "url": "https://jurnal.uns.ac.id/ilmupangan/article/view/17492",
+    "publisher": "Universitas Sebelas Maret",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

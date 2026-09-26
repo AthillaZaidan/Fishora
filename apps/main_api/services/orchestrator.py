@@ -1,10 +1,11 @@
-"""Background LangGraph-style orchestration for Fishora.
+"""Card orchestration for Fishora: researcher, four experts, critic, writer.
 
-Ponytail: no hard dependency on langgraph library. The graph is plain
-Python + asyncio fan-out, but exposes a LangGraph-compatible `make_graph`
-that falls back to a dict-based executor if langgraph is absent. Either way
-the four experts really overlap (asyncio.gather over worker threads, since
-the LLM calls block on I/O).
+The graph is plain Python with an asyncio fan-out, so the four experts really
+overlap (asyncio.gather over worker threads, since the LLM calls block on I/O).
+``grade_card`` is the only way a card is made: the background job and the
+synchronous path (manual entry, publication fallback) both run it (W19).
+Every run records a stage trace (evidence, what each expert saw, prompt
+hashes, verdicts, timings, tokens) that the job row keeps (W12).
 
 Grounding is fail-closed and centralised: the critic grades every claim
 against the specific chunk it cites, the writer keeps only ``supported``
@@ -16,8 +17,8 @@ cross-lingual grounding instead of lexical overlap (W1); replies read through
 ``llm_output`` so content blocks and fenced JSON parse (W21, W4); no LLM
 sub-query and no post-grading polish, two LLM rounds instead of four (W5);
 a card cache keyed by the evidence (W6); experts with no evidence are not
-called (W11); whole chunks, not 300 characters (W14); Indonesian output is
-required (W22); a card with nothing groundable is an honest empty card rather
+called (W11); whole chunks, not 300 characters (W14); the output language is
+stated (W22; Indonesian then, English since the app became English-only); a card with nothing groundable is an honest empty card rather
 than a failed job (W24); and failures are logged, not swallowed (W12).
 """
 
@@ -30,6 +31,7 @@ import logging
 import math
 import re
 import threading
+import time
 from typing import Annotated, Literal, TypedDict
 
 from pydantic import BaseModel, ValidationError
@@ -47,20 +49,10 @@ from apps.main_api.services.retrieval import CATEGORY_ORDER, VerifiedRetriever
 
 logger = logging.getLogger(__name__)
 
-# ponytail: try langgraph, fallback to simple executor if not installed
-try:
-    from langgraph.graph import StateGraph, START, END  # type: ignore
-    _HAS_LANGGRAPH = True
-except Exception:
-    StateGraph = None  # type: ignore
-    START = "START"  # type: ignore
-    END = "END"  # type: ignore
-    _HAS_LANGGRAPH = False
-
 EXPERT_NAMES = ("physical", "taste", "commercial", "substitute")
 
 # Bump when a prompt or grading rule changes: it is part of the card cache key.
-PIPELINE_VERSION = "iteration-2"
+PIPELINE_VERSION = "iteration-2-en"
 
 # Cross-lingual grounding threshold on E5 symmetric cosine (query:/query:).
 # Chosen on the dev split of evals/datasets/grounding_claims.json together
@@ -77,16 +69,16 @@ USE_LLM_JUDGE = False
 # keeps only supported items; "e5" is the iteration-1 cosine critic, kept for
 # the 2x2 comparison (evals/iteration2.py).
 CRITIC_MODE = "verifier"
-NO_GROUNDED_CLAIM = "Belum ada klaim yang dapat diverifikasi dari bukti yang tersedia."
-# Indonesian field names for the missing-evidence limitation (R4).
+NO_GROUNDED_CLAIM = "No claim could be verified against the available evidence yet."
+# Reader-facing field names for the missing-evidence limitation (R4).
 _FIELD_LABELS = {
-    "physical_characteristics": "ciri fisik",
-    "taste": "rasa",
-    "texture": "tekstur",
-    "processing_methods": "cara pengolahan",
-    "commercial_uses": "penggunaan komersial",
-    "similar_or_substitute_species": "spesies pengganti",
-    "potential_buyer_segments": "segmen pembeli",
+    "physical_characteristics": "physical characteristics",
+    "taste": "taste",
+    "texture": "texture",
+    "processing_methods": "processing methods",
+    "commercial_uses": "commercial uses",
+    "similar_or_substitute_species": "substitute species",
+    "potential_buyer_segments": "buyer segments",
 }
 
 
@@ -95,7 +87,7 @@ def missing_evidence_limitation(evidence) -> str | None:
     so an empty field reads as missing evidence rather than as nothing to say."""
     present = {chunk.category for chunk in evidence}
     missing = [label for field, label in _FIELD_LABELS.items() if not (FIELD_EVIDENCE[field] & present)]
-    return f"Belum ada bukti terverifikasi untuk: {', '.join(missing)}." if missing else None
+    return f"No verified evidence yet for: {', '.join(missing)}." if missing else None
 
 
 class ClaimStatus(BaseModel):
@@ -128,6 +120,7 @@ class FishoraState(TypedDict, total=False):
     error: str | None
     cache_hit: bool
     known_binomials: tuple
+    trace: dict
     expert_outputs_verified: dict
     claim_verdicts: list
     verifier_error: str | None
@@ -136,9 +129,9 @@ class FishoraState(TypedDict, total=False):
 # ---- Researcher -----------------------------------------------------------
 
 CARD_QUERY = (
-    "Buat kartu pengetahuan bahasa Indonesia untuk {common_name}: identitas, "
-    "ciri fisik, rasa dan tekstur, cara pengolahan, penggunaan komersial, dan "
-    "spesies pengganti."
+    "Build an English knowledge card for {common_name}: identity, physical "
+    "characteristics, taste and texture, processing methods, commercial uses, "
+    "and substitute species."
 )
 
 
@@ -158,18 +151,18 @@ def hybrid_researcher(state: FishoraState, knowledge_repo, embedder, llm_medium=
 
 # ---- Expert nodes (luna) -----------------------------------------------
 
-_INDONESIAN = " Tulis semua nilai dalam bahasa Indonesia, walaupun buktinya berbahasa Inggris."
+_ENGLISH = " Write every value in plain English."
 # Iteration 2: the same scope rule the writer-critic workflow uses, so the 2x2
 # compares architectures, not prompts.
-_SCOPE_RULE = (" Pertahankan cakupan bukti: jika bukti menyebut produk olahan, populasi tertentu, proyeksi,"
-               " atau satu spesies dari label multi-spesies, nilai harus menyebutnya juga. Jangan menyimpulkan"
-               " hal yang tidak tertulis; lebih baik kosong daripada menebak.")
+_SCOPE_RULE = (" Keep the scope of the evidence: if the evidence is about a processed product, a specific population,"
+               " a projection, or one species of a multi-species label, the value must say so too. Do not infer"
+               " anything that is not written; an empty value is better than a guess.")
 
 _EXPERT_PROMPTS = {
-    "physical": "Tulis physical_characteristics dari bukti kategori physical_characteristics dan identity. Jika tidak ada, null. Jawab JSON {\"physical_characteristics\": str|null, \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN + _SCOPE_RULE,
-    "taste": "Tulis taste dan texture dari bukti taste_texture. Jika tidak ada, null. JSON {\"taste\": str|null, \"texture\": str|null, \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN + _SCOPE_RULE,
-    "commercial": "Tulis processing_methods dan commercial_uses dari bukti processing_methods dan commercial_uses. JSON {\"processing_methods\": [], \"commercial_uses\": [], \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN + _SCOPE_RULE,
-    "substitute": "Tulis similar_or_substitute_species dan potential_buyer_segments dari bukti substitutes dan commercial_uses. JSON {\"similar_or_substitute_species\": [], \"potential_buyer_segments\": [], \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN + _SCOPE_RULE,
+    "physical": "Write physical_characteristics from the evidence of categories physical_characteristics and identity. If there is none, null. Answer JSON {\"physical_characteristics\": str|null, \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _ENGLISH + _SCOPE_RULE,
+    "taste": "Write taste and texture from the taste_texture evidence. If there is none, null. JSON {\"taste\": str|null, \"texture\": str|null, \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _ENGLISH + _SCOPE_RULE,
+    "commercial": "Write processing_methods and commercial_uses from the processing_methods and commercial_uses evidence. JSON {\"processing_methods\": [], \"commercial_uses\": [], \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _ENGLISH + _SCOPE_RULE,
+    "substitute": "Write similar_or_substitute_species and potential_buyer_segments from the substitutes and commercial_uses evidence. JSON {\"similar_or_substitute_species\": [], \"potential_buyer_segments\": [], \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _ENGLISH + _SCOPE_RULE,
 }
 
 _EXPERT_CATEGORIES = {
@@ -254,14 +247,36 @@ def _expert_node(category: str, state: FishoraState, llm_luna) -> dict:
         f"[chunk_id: {c.chunk_id}] [source_id: {c.source_id}] [{c.category}] {c.content}"
         for c in subset
     )
-    prompt = _EXPERT_PROMPTS[category] + f"\nBukti:\n{payload}"
+    prompt = _EXPERT_PROMPTS[category] + f"\nEvidence:\n{payload}"
+    trace = {"chunk_ids": [c.chunk_id for c in subset],
+             "prompt_sha256": hashlib.sha256(_EXPERT_PROMPTS[category].encode("utf-8")).hexdigest()[:16]}
+    started = time.perf_counter()
     try:
-        data = reply_json(llm_luna.invoke(prompt))
+        reply = llm_luna.invoke(prompt)
+        trace["tokens"] = _usage(reply)
+        data = reply_json(reply)
         data["sources"] = _bind_citations(data.get("sources"), subset)
     except Exception as exc:
-        logger.warning("expert %s failed: %s: %s", category, type(exc).__name__, exc)
+        logger.warning("job %s: expert %s failed: %s: %s", state.get("job_id"), category, type(exc).__name__, exc)
         data = {**_EMPTY_EXPERT_CLAIMS[category], "error": "expert generation failed", "sources": []}
+    trace["latency_ms"] = round((time.perf_counter() - started) * 1000, 1)
+    # Carried out under a private key; the executor moves it into the stage
+    # trace, so it never reaches the stored expert outputs.
+    data[_TRACE_KEY] = trace
     return data
+
+
+_TRACE_KEY = "_trace"
+
+
+def _usage(reply) -> dict:
+    """Token counts from a LangChain reply's usage_metadata, when the provider sends them."""
+    usage = getattr(reply, "usage_metadata", None) or {}
+    out = {key: usage[key] for key in ("input_tokens", "output_tokens", "total_tokens") if isinstance(usage.get(key), int)}
+    reasoning = (usage.get("output_token_details") or {}).get("reasoning")
+    if isinstance(reasoning, int):
+        out["reasoning_tokens"] = reasoning
+    return out
 
 
 def physical_expert(state: FishoraState, llm_luna) -> dict:
@@ -285,14 +300,14 @@ def substitute_expert(state: FishoraState, llm_luna) -> dict:
 # Function words carry no grounding signal, so overlap on them would let any
 # citation pass the content check.
 _STOPWORDS = frozenset({
-    "adalah", "akan", "atau", "bagi", "banyak", "bisa", "dalam", "dapat",
-    "dari", "dengan", "hingga", "ikan", "itu", "juga", "karena", "kemudian",
-    "lain", "lebih", "namun", "oleh", "pada", "paling", "sangat", "sebagai",
-    "serta", "setelah", "sudah", "telah", "terhadap", "tetapi", "tidak",
-    "untuk", "yang",
+    "about", "also", "after", "because", "been", "being", "between", "both",
+    "can", "could", "fish", "from", "have", "into", "more", "most", "other",
+    "over", "such", "than", "that", "their", "them", "then", "there", "these",
+    "they", "this", "under", "used", "very", "when", "where", "which", "while",
+    "will", "with", "without",
 })
 _NUMBER = re.compile(r"\d+(?:[.,]\d+)?")
-# Latin family and order names; Indonesian words never end like this.
+# Latin family and order names; English words almost never end like this.
 _TAXON = re.compile(r"\b[A-Z][a-z]+(?:idae|inae|iformes)\b")
 
 
@@ -301,7 +316,7 @@ def _tokens(text: str) -> set[str]:
 
 
 def _numbers(text: str) -> set[str]:
-    """Numbers normalised across the Indonesian decimal comma (43,5 == 43.5)."""
+    """Numbers normalised across a decimal comma (43,5 == 43.5), as some sources write them."""
     return {m.group().replace(",", ".") for m in _NUMBER.finditer(text)}
 
 
@@ -363,7 +378,7 @@ def _grade_claim(field: str, value, citations, by_chunk: dict, verifier: _Verifi
     """Grade one claim against the verified chunks it cites."""
     text = _claim_text(value).strip()
     if not text:
-        return ClaimStatus(field=field, status="no_evidence", chunk_ids=[], reason="tidak ada klaim")
+        return ClaimStatus(field=field, status="no_evidence", chunk_ids=[], reason="no claim")
     allowed = FIELD_EVIDENCE.get(field)
     cited = [c["chunk_id"] for c in citations
              if _is_verified(by_chunk.get(c.get("chunk_id")))
@@ -371,7 +386,7 @@ def _grade_claim(field: str, value, citations, by_chunk: dict, verifier: _Verifi
     if not cited:
         return ClaimStatus(
             field=field, status="unsupported", chunk_ids=[],
-            reason="klaim tidak terikat pada chunk terverifikasi",
+            reason="claim is not bound to a verified chunk",
         )
     if verifier is not None:
         grounded = [cid for cid in cited if verifier.supports(text, by_chunk[cid])]
@@ -381,11 +396,11 @@ def _grade_claim(field: str, value, citations, by_chunk: dict, verifier: _Verifi
     if not grounded:
         return ClaimStatus(
             field=field, status="unsupported", chunk_ids=[],
-            reason="isi chunk yang disitasi tidak mendukung klaim",
+            reason="the cited chunk does not support the claim",
         )
     return ClaimStatus(
         field=field, status="supported", chunk_ids=grounded,
-        reason="didukung isi chunk terverifikasi",
+        reason="supported by a verified chunk",
     )
 
 
@@ -401,9 +416,9 @@ def _llm_downgrade(statuses: list[ClaimStatus], by_chunk: dict, llm_medium) -> l
     import json
 
     prompt = (
-        "Untuk setiap field, tentukan apakah kutipan bukti mendukung klaim. "
-        "Jawab JSON {field: \"supported\"|\"unsupported\"}.\n"
-        f"Klaim dan bukti: {json.dumps(claims, ensure_ascii=False)}"
+        "For each field, decide whether the evidence excerpts support the claim. "
+        "Answer JSON {field: \"supported\"|\"unsupported\"}.\n"
+        f"Claims and evidence: {json.dumps(claims, ensure_ascii=False)}"
     )
     try:
         verdicts = reply_json(llm_medium.invoke(prompt))
@@ -411,7 +426,7 @@ def _llm_downgrade(statuses: list[ClaimStatus], by_chunk: dict, llm_medium) -> l
         logger.warning("critic downgrade pass skipped: %s", type(exc).__name__)
         return statuses
     return [
-        s.model_copy(update={"chunk_ids": [], "status": "unsupported", "reason": "ditolak critic LLM"})
+        s.model_copy(update={"chunk_ids": [], "status": "unsupported", "reason": "rejected by the LLM critic"})
         if s.status == "supported" and verdicts.get(s.field) == "unsupported"
         else s
         for s in statuses
@@ -445,11 +460,11 @@ def verified_critic_node(state: FishoraState, llm, embedder=None) -> dict:
                     data[fld] = " ".join(c.text for c in kept) or None
             if kept:
                 ids = sorted({cid for c in kept for cid in c.chunk_ids})
-                statuses.append(ClaimStatus(field=fld, status="supported", chunk_ids=ids, reason="diverifikasi per klaim"))
+                statuses.append(ClaimStatus(field=fld, status="supported", chunk_ids=ids, reason="verified claim by claim"))
             else:
                 any_claim = any(c.field == fld for c in result.claims)
                 statuses.append(ClaimStatus(field=fld, status="unsupported" if any_claim else "no_evidence",
-                                            chunk_ids=[], reason="tidak ada klaim yang lolos verifikasi"))
+                                            chunk_ids=[], reason="no claim passed verification"))
     feedback = "; ".join(f"{s.field}={s.status}" for s in statuses)
     update = {"claim_statuses": statuses, "critic_feedback": feedback, "expert_outputs_verified": outputs,
               "claim_verdicts": [c.__dict__ for c in result.claims], "verifier_error": result.llm_error}
@@ -585,50 +600,71 @@ def clear_card_cache() -> None:
 # ---- Graph factory -----------------------------------------------------
 
 def make_graph(knowledge_repo=None, embedder=None, llm_luna=None, llm_medium=None):
-    """Return a graph-like object with .invoke(state) and .ainvoke(state).
+    """Return the card graph: an object with .invoke(state) and .ainvoke(state).
 
-    If langgraph is installed, build a real StateGraph; otherwise return an
-    executor that mirrors the same node order and the same expert fan-out.
+    Researcher, then the four experts in parallel, then the critic and the
+    writer. The result carries ``trace``, the stage trace of this run (W12).
+    The former optional LangGraph build is gone: langgraph was never installed,
+    so that branch never ran and was never tested.
     """
-    if _HAS_LANGGRAPH and knowledge_repo is not None:
-        graph = StateGraph(FishoraState)
-        graph.add_node("researcher", lambda s: hybrid_researcher(s, knowledge_repo, embedder, llm_medium))
-        graph.add_node("physical", lambda s: physical_expert(s, llm_luna))
-        graph.add_node("taste", lambda s: taste_expert(s, llm_luna))
-        graph.add_node("commercial", lambda s: commercial_expert(s, llm_luna))
-        graph.add_node("substitute", lambda s: substitute_expert(s, llm_luna))
-        graph.add_node("critic", lambda s: critic_node(s, llm_medium, embedder))
-        graph.add_node("writer", lambda s: writer_node(s, llm_luna, s.get("species")))
-        graph.add_edge(START, "researcher")
-        for n in EXPERT_NAMES:
-            graph.add_edge("researcher", n)
-            graph.add_edge(n, "critic")
-        graph.add_edge("critic", "writer")
-        graph.add_edge("writer", END)
-        return graph.compile()
 
-    # Fallback simple executor (ponytail: no langgraph dependency)
     class SimpleGraph:
         async def ainvoke(self, state: FishoraState) -> FishoraState:
             s = dict(state)
+            timings: dict[str, float] = {}
+            started = time.perf_counter()
+
+            def lap(stage: str, since: float) -> float:
+                now = time.perf_counter()
+                timings[stage] = round((now - since) * 1000, 1)
+                return now
+
             s.update(hybrid_researcher(s, knowledge_repo, embedder, llm_medium))
-            key = card_cache_key(s["species_id"], s.get("refined_evidence", []), llm_luna)
+            mark = lap("research", started)
+            evidence = s.get("refined_evidence", [])
+            trace: dict = {
+                "pipeline_version": PIPELINE_VERSION,
+                "model": _model_name(llm_luna),
+                "evidence": [{"chunk_id": c.chunk_id, "category": c.category,
+                              "distance": None if c.distance is None else round(float(c.distance), 4)}
+                             for c in evidence],
+            }
+            key = card_cache_key(s["species_id"], evidence, llm_luna)
             with _CARD_CACHE_LOCK:
                 cached = _CARD_CACHE.get(key)
             if cached is not None:
+                lap("total", started)
                 s.update({"final_card": copy.deepcopy(cached), "cache_hit": True,
-                          "critic_feedback": "cache hit"})
+                          "critic_feedback": "cache hit",
+                          "trace": {**trace, "cache_hit": True, "timings_ms": timings}})
                 return s
             # Expert LLM calls block on network I/O, so real overlap needs
             # threads; gather also keeps the single merge point for the reducer.
             results = await asyncio.gather(
                 *(asyncio.to_thread(_expert_node, name, s, llm_luna) for name in EXPERT_NAMES)
             )
+            experts = {}
+            for name, result in zip(EXPERT_NAMES, results):
+                expert_trace = result.pop(_TRACE_KEY, {})
+                experts[name] = {**expert_trace, "skipped": bool(result.get("skipped")),
+                                 "error": bool(result.get("error"))}
             s["expert_outputs"] = merge_expert_outputs(
                 s.get("expert_outputs"), dict(zip(EXPERT_NAMES, results))
             )
+            mark = lap("experts", mark)
             s.update(critic_node(s, llm_medium, embedder))
+            mark = lap("critic", mark)
             s.update(writer_node(s, llm_luna, s.get("species")))
+            lap("writer", mark)
+            lap("total", started)
+            s["trace"] = {
+                **trace,
+                "cache_hit": False,
+                "experts": experts,
+                "claims": [status.model_dump() for status in s.get("claim_statuses") or []],
+                "error": s.get("error"),
+                "timings_ms": timings,
+            }
             final = s.get("final_card")
             if final is not None and not s.get("error") and llm_luna is not None:
                 with _CARD_CACHE_LOCK:
@@ -636,32 +672,69 @@ def make_graph(knowledge_repo=None, embedder=None, llm_luna=None, llm_medium=Non
             return s
 
         def invoke(self, state: FishoraState) -> FishoraState:
-            # run_graph is sync (BackgroundTasks worker thread), so there is no
-            # loop to reuse here.
+            # Callers are sync (a BackgroundTasks worker thread, or a threadpool
+            # request handler), so there is no loop to reuse here.
             return asyncio.run(self.ainvoke(state))
 
     return SimpleGraph()
 
 
+def _model_name(llm) -> str | None:
+    if llm is None:
+        return None
+    return getattr(llm, "model_name", None) or getattr(llm, "model", None) or type(llm).__name__
+
+
+def known_binomials(species_repo) -> tuple[str, ...]:
+    """Scientific names the critic's taxon check accepts in a claim."""
+    if species_repo is None or not hasattr(species_repo, "list_all"):
+        return ()
+    return tuple(s.scientific_name for s in species_repo.list_all() if s.scientific_name)
+
+
+def grade_card(species_id: str, *, prediction_id: str, knowledge_repo, embedder, llm,
+               species_repo, job_id: str | None = None) -> FishoraState:
+    """One card through researcher, experts, critic and writer.
+
+    The only way a card is made (W19): the background job and the synchronous
+    path both call this, so every published claim has passed the per-claim
+    critic. Returns the final state; ``final_card`` and ``error`` say how it went
+    and ``trace`` records the run.
+    """
+    species = species_repo.get_by_id(species_id) if species_repo else None
+    graph = make_graph(knowledge_repo, embedder, llm, llm)
+    state: FishoraState = {"job_id": job_id or f"sync-{prediction_id}", "prediction_id": prediction_id,
+                           "species_id": species_id, "species": species, "expert_outputs": {},
+                           "known_binomials": known_binomials(species_repo)}
+    result = graph.invoke(state)
+    trace = result.get("trace") or {}
+    logger.info("card %s species=%s cache_hit=%s error=%s timings_ms=%s", state["job_id"], species_id,
+                trace.get("cache_hit"), result.get("error"), trace.get("timings_ms"))
+    return result
+
+
 def run_graph(job_id: str, species_id: str, prediction_id: str, knowledge_repo, embedder, llm_luna, llm_medium, species_repo, job_repo):
-    """Background entry: loads species, runs graph, persists result. Sync for BackgroundTasks."""
+    """Background entry: grades the card and persists it with its trace. Sync for BackgroundTasks.
+
+    ``llm_medium`` is accepted for the existing call signature; the critic's LLM
+    judge pass is off (USE_LLM_JUDGE), so one LLM serves the whole graph.
+    """
     try:
-        species = species_repo.get_by_id(species_id) if species_repo else None
-        graph = make_graph(knowledge_repo, embedder, llm_luna, llm_medium)
-        known = tuple(s.scientific_name for s in species_repo.list_all() if s.scientific_name) if species_repo is not None and hasattr(species_repo, "list_all") else ()
-        state: FishoraState = {"job_id": job_id, "prediction_id": prediction_id, "species_id": species_id,
-                               "species": species, "expert_outputs": {}, "known_binomials": known}
-        result = graph.invoke(state)
+        result = grade_card(species_id, prediction_id=prediction_id, knowledge_repo=knowledge_repo,
+                            embedder=embedder, llm=llm_luna, species_repo=species_repo, job_id=job_id)
         final = result.get("final_card")
         err = result.get("error")
+        trace = result.get("trace")
         if final is not None and err is None:
             data = final.model_dump(mode="json") if hasattr(final, "model_dump") else final
-            job_repo.update(job_id, status="completed", final_card=data, expert_outputs=result.get("expert_outputs"), critic_feedback=result.get("critic_feedback"))
+            job_repo.update(job_id, status="completed", final_card=data, expert_outputs=result.get("expert_outputs"),
+                            critic_feedback=result.get("critic_feedback"), trace=trace)
         else:
             logger.warning("knowledge job %s failed: %s", job_id, err)
-            # generic error in the response; expert outputs and critic verdicts kept for debugging
+            # generic error in the response; expert outputs, verdicts and trace kept for debugging
             job_repo.update(job_id, status="failed", error="knowledge generation failed",
-                            expert_outputs=result.get("expert_outputs"), critic_feedback=result.get("critic_feedback"))
+                            expert_outputs=result.get("expert_outputs"), critic_feedback=result.get("critic_feedback"),
+                            trace=trace)
     except Exception:
         logger.exception("knowledge job %s crashed", job_id)
         try:

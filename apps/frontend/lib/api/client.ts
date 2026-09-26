@@ -3,7 +3,13 @@ import { ApiError, kindFromResponse } from './errors'
 export { ApiError }
 export type { ApiErrorKind } from './errors'
 
-const BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8000'
+const PUBLIC_BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8000'
+// A server render inside a container cannot use the browser's URL (localhost is
+// the container itself), so the server may read an internal one at runtime.
+const BASE =
+  typeof window === 'undefined'
+    ? (process.env.FISHORA_INTERNAL_API_BASE_URL ?? PUBLIC_BASE)
+    : PUBLIC_BASE
 const DEFAULT_TIMEOUT_MS = 35_000 // above the backend's 30s CV timeout
 
 export interface ApiFetchOptions extends RequestInit {

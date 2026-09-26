@@ -297,6 +297,213 @@
       "publisher": "Sydney Fish Market",
       "reviewed_at": null,
       "verification_status": "candidate"
+    },
+    {
+      "id": "idwiki_ikan_kembung",
+      "title": "Ikan kembung - Wikipedia bahasa Indonesia",
+      "source_type": "encyclopedia",
+      "url": "https://id.wikipedia.org/wiki/Ikan_kembung",
+      "publisher": "Wikipedia",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "minwiki_gambolo",
+      "title": "Gambolo - Wikipedia baso Minang",
+      "source_type": "encyclopedia",
+      "url": "https://min.wikipedia.org/wiki/Gambolo",
+      "publisher": "Wikipedia",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "fao_scombrids_rastrelliger",
+      "title": "FAO Species Catalogue Vol. 2. Scombrids of the World (Collette & Nauen 1983), section incl. Rastrelliger",
+      "source_type": "catalogue",
+      "url": "https://www.fao.org/4/ac478e/ac478e07.pdf",
+      "publisher": "FAO",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "fishbase_rastrelliger_brachysoma",
+      "title": "Rastrelliger brachysoma, Short mackerel",
+      "source_type": "species_summary",
+      "url": "https://www.fishbase.se/summary/Rastrelliger-brachysoma.html",
+      "publisher": "FishBase",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "fishbase_rastrelliger_kanagurta",
+      "title": "Rastrelliger kanagurta, Indian mackerel",
+      "source_type": "species_summary",
+      "url": "https://www.fishbase.se/summary/Rastrelliger-kanagurta.html",
+      "publisher": "FishBase",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "siswanti_kembung_snack_stick",
+      "title": "Pemanfaatan Daging dan Tulang Ikan Kembung (Rastrelliger kanagurta) dalam Pembuatan Camilan Stik (Jurnal Teknologi Hasil Pertanian, doi:10.20961/jthp.v10i1.17492)",
+      "source_type": "paper",
+      "url": "https://jurnal.uns.ac.id/ilmupangan/article/view/17492",
+      "publisher": "Universitas Sebelas Maret",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "enwiki_short_mackerel",
+      "title": "Short mackerel - Wikipedia",
+      "source_type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/Short_mackerel",
+      "publisher": "Wikipedia",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "enwiki_island_mackerel",
+      "title": "Island mackerel - Wikipedia",
+      "source_type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/Island_mackerel",
+      "publisher": "Wikipedia",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "manfish_gulamah_surimi_2022",
+      "title": "Studi Potensi Ikan Gulamah (Johnius trachycephalus) Sebagai Bahan Baku Surimi dan Produk Olahan Berbasis Daging Ikan (Manfish Journal 2(3), 2022; doi:10.31573/manfish.v2i3.489)",
+      "source_type": "paper",
+      "url": "https://ejurnal.polnep.ac.id/index.php/manfish/article/download/489/320",
+      "publisher": "Politeknik Negeri Pontianak (Manfish Journal)",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "fao_sheets_sciaenidae_johnius_trachycephalus",
+      "title": "FAO Species Identification Sheets, Fishing Areas 57 and 71: Sciaenidae, Johnius trachycephalus (SCIAEN John 5)",
+      "source_type": "catalogue",
+      "url": "https://www.fao.org/4/e9163e/E9163e3n.pdf",
+      "publisher": "FAO",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "ece_yellow_drum_genome_2019",
+      "title": "Near-complete genome assembly and annotation of the yellow drum (Nibea albiflora) provide insights into population and evolutionary characteristics of this species (Ecology and Evolution; doi:10.1002/ece3.4778)",
+      "source_type": "paper",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6342179/fullTextXML",
+      "publisher": "Ecology and Evolution (Wiley), via Europe PMC",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "scidata_yellow_drum_genome_2021",
+      "title": "Chromosome-scale assembly and high-density genetic map of the yellow drum, Nibea albiflora (Scientific Data; doi:10.1038/s41597-021-01045-z)",
+      "source_type": "paper",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8521588/",
+      "publisher": "Scientific Data (Nature), via PubMed Central",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "fao_wcp_mullidae_randall",
+      "title": "MULLIDAE Goatfishes (surmullets) by J.E. Randall, FAO Species Identification Guide for Fishery Purposes: The Living Marine Resources of the Western Central Pacific",
+      "source_type": "catalogue",
+      "url": "https://www.fao.org/4/y0770e/y0770e39.pdf",
+      "publisher": "FAO",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "fao_sheets_mullidae_upeneus_moluccensis",
+      "title": "FAO Species Identification Sheets, Fishing Areas 57 and 71: Mullidae, Upeneus moluccensis (MULL Upen 1)",
+      "source_type": "catalogue",
+      "url": "https://www.fao.org/4/e9163e/E9163e3e.pdf",
+      "publisher": "FAO",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "frdc_fishfiles_blue_threadfin",
+      "title": "Blue Threadfin (Fish Files, Choosing Species)",
+      "source_type": "fact_sheet",
+      "url": "https://www.fishfiles.com.au/Consuming/Buying/Choosing-Species/Blue-Threadfin-143",
+      "publisher": "Fisheries Research and Development Corporation (FRDC)",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "wa_fact_sheet_blue_threadfin",
+      "title": "Fact Sheet: Blue Threadfin",
+      "source_type": "fact_sheet",
+      "url": "https://marinewaters.fish.wa.gov.au/resource/fact-sheet-blue-threadfin/?pdf_export=1",
+      "publisher": "Government of Western Australia, Department of Primary Industries and Regional Development",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "scidata_eleutheronema_rhadinum_genome_2025",
+      "title": "A chromosome-level genome assembly of the East Asian fourfinger threadfin, Eleutheronema rhadinum (Jordan & Evermann, 1902) (Scientific Data; doi:10.1038/s41597-025-06303-y)",
+      "source_type": "paper",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12748941/",
+      "publisher": "Scientific Data (Nature), via PubMed Central",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "fao_threadfins_of_the_world_eleutheronema",
+      "title": "Threadfins of the World (Family Polynemidae), FAO Species Catalogue for Fishery Purposes No. 3 (Motomura 2004): Eleutheronema",
+      "source_type": "catalogue",
+      "url": "https://www.fao.org/4/y5398e/y5398e03.pdf",
+      "publisher": "FAO",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "fao_species_catalogue_scombrids",
+      "title": "FAO Species Catalogue Vol. 2 Scombrids of the World (FAO Fisheries Synopsis No. 125)",
+      "source_type": "catalogue",
+      "url": "https://www.vliz.be/imisdocs/publications/307984.pdf",
+      "publisher": "FAO",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "afs_red_hybrid_tilapia_malaysia",
+      "title": "Red Hybrid Tilapia (Oreochromis spp.) Broodstock Development Programme in Malaysia: Status, Challenges and Prospects for Future Development (doi:10.33997/j.afs.2021.34.1.008)",
+      "source_type": "paper",
+      "url": "https://www.asianfisheriessociety.org/publication/downloadfile.php?id=1352&file=Y0dSbUx6QXhORFU0TlRFd01ERTJNVGN4TkRZMU16WXVjR1Jt",
+      "publisher": "Asian Fisheries Society",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "scirep_taiwan_seafood_substitution",
+      "title": "Investigating seafood substitution problems and consequences in Taiwan using molecular barcoding and deep microbiome profiling (doi:10.1038/s41598-020-79070-y)",
+      "source_type": "paper",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7738519/",
+      "publisher": "Scientific Reports",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "ijfs_southern_italy_fish_fraud",
+      "title": "A retail market survey on fish fraud from Southern Italy using DNA barcoding (doi:10.4081/ijfs.2025.13376)",
+      "source_type": "paper",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12715670/",
+      "publisher": "Italian Journal of Food Safety",
+      "reviewed_at": null,
+      "verification_status": "candidate"
+    },
+    {
+      "id": "heliyon_taiwan_surimi_metabarcoding",
+      "title": "DNA metabarcoding unveils the hidden species composition in fish surimi: Implications for the management of unlabeled and mixed seafood products (doi:10.1016/j.heliyon.2024.e36287)",
+      "source_type": "paper",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11378893/",
+      "publisher": "Heliyon",
+      "reviewed_at": null,
+      "verification_status": "candidate"
     }
   ],
   "records": [
@@ -957,6 +1164,506 @@
       "category": "substitutes",
       "content": "Oreochromis mossambicus was the tilapia primarily distributed worldwide in the 1940s and 1950s; the Nile tilapia (O. niloticus), described by FAO as more desirable, was distributed from the 1960s to the 1980s.",
       "source_quote": "While significant worldwide distribution of tilapias, primarily Oreochromis mossambicus, occurred during the 1940s and 1950s, distribution of the more desirable Nile tilapia occurred during the 1960s up to the 1980s.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gembolo_physical_001",
+      "source_id": "idwiki_ikan_kembung",
+      "species_label": "gembolo",
+      "category": "physical_characteristics",
+      "content": "Kembung (Rastrelliger spp.), the fish known as gembolo or gambolo in West Sumatra, has a dark blue-green to brownish back with one or two rows of dark spots near the dorsal fin base and silvery ventral scales.",
+      "source_quote": "Sisi dorsal gelap, biru kehijauan hingga kecoklatan, dengan 1–2 deret bintik gelap membujur di dekat pangkal sirip punggung; sisik ventral keperakan.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gembolo_physical_002",
+      "source_id": "fao_scombrids_rastrelliger",
+      "species_label": "gembolo",
+      "category": "physical_characteristics",
+      "content": "Rastrelliger mackerels, the genus sold as gembolo in West Sumatra, have a blue-green back with two rows of small dark spots along the dorsal fin bases.",
+      "source_quote": "Colour: back blue-green with 2 rows of small, dark spots on sides of dorsal fin bases",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gembolo_physical_003",
+      "source_id": "fao_scombrids_rastrelliger",
+      "species_label": "gembolo",
+      "category": "physical_characteristics",
+      "content": "Rastrelliger brachysoma (short mackerel), one of the Rastrelliger fishes sold as gembolo, reaches a maximum fork length of 34.5 cm and is commonly 15 to 20 cm.",
+      "source_quote": "Maximum fork length is 34.5 cm, common from 15 to 20 cm",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gembolo_taste_001",
+      "source_id": "siswanti_kembung_snack_stick",
+      "species_label": "gembolo",
+      "category": "taste_texture",
+      "content": "Rastrelliger kanagurta, one of the Rastrelliger mackerels sold as gembolo in West Sumatra, was chosen for a fish snack study because it tastes good and is cheap.",
+      "source_quote": "it taste good and tasty, and the price are cheap",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gembolo_processing_001",
+      "source_id": "fao_scombrids_rastrelliger",
+      "species_label": "gembolo",
+      "category": "processing_methods",
+      "content": "Rastrelliger mackerels, the genus sold as gembolo in West Sumatra, are marketed fresh, frozen, canned, dried-salted and smoked.",
+      "source_quote": "The fish are marketed fresh, frozen, canned, dried salted and smoked.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gembolo_processing_002",
+      "source_id": "minwiki_gambolo",
+      "species_label": "gembolo",
+      "category": "processing_methods",
+      "content": "Gambolo (Rastrelliger spp.) is usually sold fresh or processed into preserved products including salted fish (ikan asin).",
+      "source_quote": "biasonyo dijuwa baru atau diproses manjadi ikan tangguang jo ikan asin",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gembolo_processing_003",
+      "source_id": "enwiki_short_mackerel",
+      "species_label": "gembolo",
+      "category": "processing_methods",
+      "content": "Rastrelliger brachysoma (short mackerel), one of the fishes sold as gembolo, is typically fried in Thailand and eaten with nam phrik kapi.",
+      "source_quote": "is typically fried and eaten with",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gembolo_commercial_001",
+      "source_id": "idwiki_ikan_kembung",
+      "species_label": "gembolo",
+      "category": "commercial_uses",
+      "content": "Kembung (Rastrelliger spp.), known as gembolo in West Sumatra, is a small pelagic fish of medium economic value and an important commodity for local fishers.",
+      "source_quote": "Kembung termasuk ikan pelagis kecil yang memiliki nilai ekonomis menengah, sehingga terhitung sebagai komoditas yang cukup penting bagi nelayan lokal.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gembolo_commercial_002",
+      "source_id": "idwiki_ikan_kembung",
+      "species_label": "gembolo",
+      "category": "commercial_uses",
+      "content": "Small kembung (Rastrelliger spp., called gembolo in West Sumatra) are often used as live bait for skipjack tuna fishing.",
+      "source_quote": "Ikan kembung yang masih kecil juga sering digunakan sebagai umpan hidup untuk memancing cakalang.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gembolo_commercial_003",
+      "source_id": "fishbase_rastrelliger_brachysoma",
+      "species_label": "gembolo",
+      "category": "commercial_uses",
+      "content": "Rastrelliger brachysoma (short mackerel), one of the fishes sold as gembolo, is a highly commercial fisheries species and also a gamefish.",
+      "source_quote": "Fisheries: highly commercial; gamefish: yes",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gembolo_substitutes_001",
+      "source_id": "enwiki_short_mackerel",
+      "species_label": "gembolo",
+      "category": "substitutes",
+      "content": "The Thai market name for Rastrelliger brachysoma (one of the fishes sold as gembolo) is sometimes also applied to Indian mackerel (Rastrelliger kanagurta), which is prepared the same way.",
+      "source_quote": "is sometimes also applied to the",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gembolo_substitutes_002",
+      "source_id": "fao_scombrids_rastrelliger",
+      "species_label": "gembolo",
+      "category": "substitutes",
+      "content": "Some common names for Rastrelliger brachysoma, one of the fishes sold as gembolo, may also or exclusively refer to island mackerel (Rastrelliger faughni).",
+      "source_quote": "Some common names listed for this species may also or exclusively be in use for R. faughni.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_kembung_taste_001",
+      "source_id": "siswanti_kembung_snack_stick",
+      "species_label": "kembung",
+      "category": "taste_texture",
+      "content": "Indian mackerel (Rastrelliger kanagurta, kembung) was chosen for a fish snack study because it is nutritious, tastes good and is cheap.",
+      "source_quote": "Mackerel (Rastrelliger kanagurta) was chosen because it has a good nutrient for the body, one of them protein and calcium, it taste good and tasty, and the price are cheap.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_kembung_taste_002",
+      "source_id": "siswanti_kembung_snack_stick",
+      "species_label": "kembung",
+      "category": "taste_texture",
+      "content": "In snack sticks made from kembung (Rastrelliger kanagurta), the stick made from the fish meat was preferred for texture.",
+      "source_quote": "Fish meat stick favored in texture",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_kembung_processing_001",
+      "source_id": "idwiki_ikan_kembung",
+      "species_label": "kembung",
+      "category": "processing_methods",
+      "content": "Kembung (Rastrelliger spp.) is usually sold fresh or processed into longer-lasting pindang (boiled-salted) fish and salted fish (ikan asin).",
+      "source_quote": "Kembung biasanya dijual segar atau diproses menjadi ikan pindang dan ikan asin yang lebih tahan lama.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_kembung_processing_002",
+      "source_id": "fishbase_rastrelliger_kanagurta",
+      "species_label": "kembung",
+      "category": "processing_methods",
+      "content": "Rastrelliger kanagurta (Indian mackerel, kembung) is generally marketed fresh, frozen, canned, dried-salted and smoked, and is also made into fish sauce.",
+      "source_quote": "Generally marketed fresh, frozen, canned, dried-salted, and smoked; also made into fish sauce",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_kembung_substitutes_002",
+      "source_id": "enwiki_island_mackerel",
+      "species_label": "kembung",
+      "category": "substitutes",
+      "content": "Island mackerel (Rastrelliger faughni) is reported together with the other Rastrelliger species (Indian and short mackerel) in landings statistics.",
+      "source_quote": "in the landings statistics, it is reported together with the other",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gulamah_taste_001",
+      "source_id": "manfish_gulamah_surimi_2022",
+      "species_label": "gulamah",
+      "category": "taste_texture",
+      "content": "A 2022 study from West Kalimantan reports that the flesh of the leaftail croaker (gulamah, Johnius trachycephalus) is relatively thick, which gives a high meat yield and makes it a strong candidate raw material for surimi.",
+      "source_quote": "Daging ikan gulamah relatif lebih tebal sehingga sangat potensial digunakan sebagai bahan baku surimi karena menghasilkan rendemen yang tinggi.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gulamah_taste_002",
+      "source_id": "manfish_gulamah_surimi_2022",
+      "species_label": "gulamah",
+      "category": "taste_texture",
+      "content": "Surimi gel made from gulamah (Johnius trachycephalus) flesh measured a gel strength of 932.55 g/cm2 in Texture Profile Analyzer testing.",
+      "source_quote": "Karakeristik gel surimi berdasarkan uji Tekstur Profile Analyzer didapatkan nilai kekuatan gel (Gel strength) sebesar 932,55 g/cm2",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gulamah_taste_003",
+      "source_id": "manfish_gulamah_surimi_2022",
+      "species_label": "gulamah",
+      "category": "taste_texture",
+      "content": "Croakers of the genera Pennahia and Johnius are among the marine fish most often used as surimi raw material in the surimi industry, alongside threadfin bream, bigeye snapper, lizardfish and goatfish.",
+      "source_quote": "Jenis ikan laut sebagai bahan baku surimi yang paling sering digunakan pada industri surimi adalah ikan threadfin bream (Nemipterus spp.), bigeye snapper (Priacanthus spp.), croakers (Pennahia and Johnius spp.), lizardfish (Saurida spp.), dan goat fish/red mullet (Upeneus spp, Parupeneus spp.).",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gulamah_substitutes_001",
+      "source_id": "fao_sheets_sciaenidae_johnius_trachycephalus",
+      "species_label": "gulamah",
+      "category": "substitutes",
+      "content": "The FAO identification sheet for the leaftail croaker (Johnius trachycephalus) lists similar croakers in the same area, including Johnius dussumieri, J. coitor, J. belangerii, J. carutta and J. hypostomus; J. dussumieri can be told apart by the barbel on its chin.",
+      "source_quote": "DISTINGUISHING CHARACTERS OF SIMILAR SPECIES OCCURRING IN THE AREA: Johnius dussumieri: barbel present on chin.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gelama_bunga_physical_001",
+      "source_id": "fishbase_nibea_albiflora",
+      "species_label": "gelama_bunga",
+      "category": "physical_characteristics",
+      "content": "FishBase gives a maximum length of 43.5 cm standard length for the yellow drum (Nibea albiflora).",
+      "source_quote": "Max length : 43.5 cm SL male/unsexed",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gelama_bunga_physical_002",
+      "source_id": "ece_yellow_drum_genome_2019",
+      "species_label": "gelama_bunga",
+      "category": "physical_characteristics",
+      "content": "The yellow drum (Nibea albiflora) can grow to about 44 cm in length and about 1.5 kg in weight.",
+      "source_quote": "The yellow drum can grow to ~44 cm in length and ~1.5 kg in weight",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gelama_bunga_substitutes_001",
+      "source_id": "ece_yellow_drum_genome_2019",
+      "species_label": "gelama_bunga",
+      "category": "substitutes",
+      "content": "The yellow drum (Nibea albiflora) shares similar external characteristics, meat quality and flavour with the large yellow croaker (Larimichthys crocea).",
+      "source_quote": "Yellow drum shares similar external characteristics, meat quality and flavors with large yellow croaker.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gelama_bunga_substitutes_002",
+      "source_id": "ece_yellow_drum_genome_2019",
+      "species_label": "gelama_bunga",
+      "category": "substitutes",
+      "content": "The yellow drum is expected to partly replace the large yellow croaker in the market, because large yellow croaker supply suffers from overfishing and disease in aquaculture.",
+      "source_quote": "Now, yellow drum is expected to partially replace the market of the large yellow croaker, which suffers from the shortage of germplasm resource due to overfishing and severe bacterial and virus diseases in aquaculture",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_gelama_bunga_substitutes_003",
+      "source_id": "scidata_yellow_drum_genome_2021",
+      "species_label": "gelama_bunga",
+      "category": "substitutes",
+      "content": "In Chinese fish markets, the yellow drum sells at a price similar to that of the large yellow croaker (Larimichthys crocea).",
+      "source_quote": "The market price of the yellow drum is similar to that of the large yellow croaker (Larimichthys crocea), which is another popular fish sold in local Chinese fish markets.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_kuniran_taste_001",
+      "source_id": "fao_wcp_mullidae_randall",
+      "species_label": "kuniran",
+      "category": "taste_texture",
+      "content": "FAO describes the flesh of goatfishes (family Mullidae, which includes Upeneus moluccensis) as of good quality, with some species highly esteemed in certain countries.",
+      "source_quote": "The flesh of goatfishes is of good quality and that of some species highly esteemed in certain countries.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_kuniran_substitutes_001",
+      "source_id": "fao_sheets_mullidae_upeneus_moluccensis",
+      "species_label": "kuniran",
+      "category": "substitutes",
+      "content": "The yellowfin goatfish (Mulloidichthys vanicolensis) is often confused with the goldband goatfish (Upeneus moluccensis) because it also has a single golden band along its sides.",
+      "source_quote": "Mulloidichthys vanicolensis: often confused with U. moluccensis because it also has a single golden band along sides",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_senangin_taste_001",
+      "source_id": "frdc_fishfiles_blue_threadfin",
+      "species_label": "senangin",
+      "category": "taste_texture",
+      "content": "Threadfin salmons such as the blue (fourfinger) threadfin have firm flesh with large flakes that suits barbecuing or grilling as steaks, cutlets or fillets.",
+      "source_quote": "Their firm flesh and large flakes make them absolutely ideal for barbecuing or grilling in steaks, cutlets or fillets, depending on size and variety.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_senangin_taste_002",
+      "source_id": "frdc_fishfiles_blue_threadfin",
+      "species_label": "senangin",
+      "category": "taste_texture",
+      "content": "Threadfin salmons, including the blue threadfin, are good-eating tropical fish that readily absorb the flavours of other ingredients.",
+      "source_quote": "Threadfin salmons are good eating tropical finfish that readily absorb the flavours of other ingredients.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_senangin_taste_003",
+      "source_id": "wa_fact_sheet_blue_threadfin",
+      "species_label": "senangin",
+      "category": "taste_texture",
+      "content": "The Western Australian fisheries fact sheet says the blue threadfin (Eleutheronema tetradactylum) is considered excellent eating.",
+      "source_quote": "Considered to be excellent eating.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_senangin_substitutes_002",
+      "source_id": "scidata_eleutheronema_rhadinum_genome_2025",
+      "species_label": "senangin",
+      "category": "substitutes",
+      "content": "The East Asian fourfinger threadfin (Eleutheronema rhadinum) was historically misidentified as the fourfinger threadfin (E. tetradactylum) because the two look very similar.",
+      "source_quote": "was historically misidentified as E. tetradactylum due to their high degree of morphological similarity",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_senangin_substitutes_003",
+      "source_id": "fao_threadfins_of_the_world_eleutheronema",
+      "species_label": "senangin",
+      "category": "substitutes",
+      "content": "In Australia the fourfinger threadfin (Eleutheronema tetradactylum) goes by local names that call it a salmon, such as blue salmon, Cooktown salmon and Rockhampton salmon.",
+      "source_quote": "Local Names: AUSTRALIA: Blue threadfin, Blue salmon, Cooktown salmon, Rockhampton salmon, Giant threadfin,",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tenggiri_taste_002",
+      "source_id": "sfm_spanish_mackerel",
+      "species_label": "tenggiri",
+      "category": "taste_texture",
+      "content": "Narrow-barred Spanish mackerel has a strong, distinctly fishy flavour, medium to very high oiliness and medium-dry, firm flesh.",
+      "source_quote": "Has a strong, distinctly 'fishy' flavour, medium to very high oiliness and medium-dry, firm flesh.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tenggiri_taste_003",
+      "source_id": "sfm_spanish_mackerel",
+      "species_label": "tenggiri",
+      "category": "taste_texture",
+      "content": "Spanish mackerel has a thin edible skin but is usually sold skinned, and it has few bones, which are easily removed.",
+      "source_quote": "The thin skin can be eaten, but it's usually sold skinned and has few bones, which are easily removed.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tenggiri_taste_004",
+      "source_id": "sfm_spanish_mackerel",
+      "species_label": "tenggiri",
+      "category": "taste_texture",
+      "content": "Good-quality Spanish mackerel cutlets and steaks have bright off-white, firm, lustrous, moist flesh without dark brown markings or oozing water.",
+      "source_quote": "In cutlets and steaks look for bright off-white, firm, lustrous, moist flesh without any dark brown markings or oozing water and with a pleasant fresh sea smell.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tenggiri_substitutes_002",
+      "source_id": "sfm_spanish_mackerel",
+      "species_label": "tenggiri",
+      "category": "substitutes",
+      "content": "Sydney Fish Market lists other mackerels, bonito, striped marlin, swordfish and tunas as alternative species for Spanish mackerel.",
+      "source_quote": "Other Mackerels, Bonito, Striped Marlin, Swordfish, Tunas",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tenggiri_substitutes_003",
+      "source_id": "sfm_spanish_mackerel",
+      "species_label": "tenggiri",
+      "category": "substitutes",
+      "content": "Spanish mackerel looks similar to grey mackerel, especially when young, because of the dark vertical bars along its sides.",
+      "source_quote": "It looks similar to Grey Mackerel, especially when young, due to the dark vertical bars along the sides.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tenggiri_substitutes_004",
+      "source_id": "fao_species_catalogue_scombrids",
+      "species_label": "tenggiri",
+      "category": "substitutes",
+      "content": "Before it was formally described, the Queensland school mackerel (Scomberomorus queenslandicus) was confused with the spotted Spanish mackerel S. guttatus.",
+      "source_quote": "Prior to its description, this species was confused with S. guttatus.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tuna_substitutes_002",
+      "source_id": "fao_species_catalogue_scombrids",
+      "species_label": "tuna",
+      "category": "substitutes",
+      "content": "In Japan, bigeye tuna (Thunnus obesus) meat is highly priced and processed into sashimi as a substitute for bluefin tuna.",
+      "source_quote": "In Japan, its meat is highly priced and processed into sashimi in substitution for bluefin tuna.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tuna_substitutes_003",
+      "source_id": "fao_species_catalogue_scombrids",
+      "species_label": "tuna",
+      "category": "substitutes",
+      "content": "The name 'albacore', normally used for Thunnus alalunga, is used by French speakers in the eastern Atlantic for yellowfin tuna (T. albacares).",
+      "source_quote": "while in the eastern Atlantic \"albacore\" is used by francophones for the yellowfin tuna (T. albacares).",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_tuna_substitutes_004",
+      "source_id": "sfm_yellowfin_tuna",
+      "species_label": "tuna",
+      "category": "substitutes",
+      "content": "Sydney Fish Market lists Atlantic salmon, marlins, mackerels, swordfish, other tunas and yellowtail kingfish as alternative species for yellowfin tuna.",
+      "source_quote": "Atlantic Salmon, Marlins, Mackerels, Swordfish, other Tunas, Yellowtail Kingfish",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_bandeng_substitutes_001",
+      "source_id": "ijfs_southern_italy_fish_fraud",
+      "species_label": "bandeng",
+      "category": "substitutes",
+      "content": "Milkfish (Chanos chanos) is reported, together with tilapia, common carp and mud carp, among the less expensive fish used to replace costly fish.",
+      "source_quote": "Replacement of costly fish with some less expensive ones, such as tilapia (Oreochromis niloticus), common carp (Cyprinus carpio), milkfish (Chanos chanos), and mud cap (Cirrhinus molitorella), is reported.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_bandeng_substitutes_002",
+      "source_id": "heliyon_taiwan_surimi_metabarcoding",
+      "species_label": "bandeng",
+      "category": "substitutes",
+      "content": "In Taiwanese fish surimi products, milkfish was one of the main fish species identified, alongside dolphinfish, pomfret, swordfish and cartilaginous fishes.",
+      "source_quote": "The main fish species identified included milkfish (Chanos chanos), dolphinfish (Coryphaena hippurus), Pomfret (Taractes rubescens), swordfish (Istiophorus spp.) and cartilaginous.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_mujair_substitutes_002",
+      "source_id": "fao_y5728e",
+      "species_label": "mujair",
+      "category": "substitutes",
+      "content": "Oreochromis mossambicus introduced to Nauru became a pest rather than a food fish, partly because of its unattractive appearance compared to milkfish.",
+      "source_quote": "Rather than becoming a food fish, it became a pest for reasons of its unattractive appearance compared to milkfish, small size and mainly because of its effect on milkfish farming.",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_mujair_substitutes_003",
+      "source_id": "afs_red_hybrid_tilapia_malaysia",
+      "species_label": "mujair",
+      "category": "substitutes",
+      "content": "The Taiwanese strain of red hybrid tilapia was produced by crossing mutant reddish-orange female Oreochromis mossambicus with normal male O. niloticus.",
+      "source_quote": "Mutant reddish-orange female Oreochromis mossambicus (Peters, 1852) and normal male O. niloticus crosses have been used to produce the Taiwanese strain",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_mujair_substitutes_004",
+      "source_id": "afs_red_hybrid_tilapia_malaysia",
+      "species_label": "mujair",
+      "category": "substitutes",
+      "content": "Red hybrid tilapia is valued partly because its colour resembles premium marine species such as sea bream (Pagrus major) and red snapper (Lutjanus argentimaculatus).",
+      "source_quote": "Due to its characteristic colour resemblance to premium marine species such as the sea bream (Pagrus major (Temminck & Schlegel, 1843)) and red snapper (Lutjanus argentimaculatus",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_nila_substitutes_002",
+      "source_id": "scirep_taiwan_seafood_substitution",
+      "species_label": "nila",
+      "category": "substitutes",
+      "content": "In a Taiwan market study, all 11 products sold as snapper that were substituted were confirmed by DNA to be Nile tilapia (Oreochromis niloticus).",
+      "source_quote": "The substituted snappers are the largest mislabel category, where all 11 substituted snappers are molecularly confirmed to be tilapia (Oreochromis niloticus, Table 1).",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_nila_substitutes_003",
+      "source_id": "scirep_taiwan_seafood_substitution",
+      "species_label": "nila",
+      "category": "substitutes",
+      "content": "In Taiwan, substitution of snapper by tilapia stems from the practice of labelling tilapia as 'Taiwan-Snapper'.",
+      "source_quote": "The substitution of snapper by tilapia is actually originated from the confusing practice of labeling Tilapia as Taiwan-Snapper",
+      "stage": "research",
+      "verification_status": "candidate"
+    },
+    {
+      "claim_id": "claim_nila_substitutes_004",
+      "source_id": "fao_en_niletilapia",
+      "species_label": "nila",
+      "category": "substitutes",
+      "content": "FAO states that tilapia is ideally suited to replace carp as the staple of Chinese seafood.",
+      "source_quote": "Tilapia is ideally suited to replace carp as the staple of Chinese seafood.",
       "stage": "research",
       "verification_status": "candidate"
     }

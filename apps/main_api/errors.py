@@ -25,6 +25,15 @@ class UnsupportedSpecies(Exception):
         self.species_id = species_id
 
 
+class PhotoRejected(Exception):
+    """The CV gates refused the photo: not a fish, or not one of the known species.
+    Nothing is saved; the operator retakes the photo or names the species by hand."""
+
+    def __init__(self, reason: str):
+        super().__init__(reason)
+        self.reason = reason  # "not_fish" or "unknown_species"
+
+
 class UnsupportedCvLabel(Exception):
     """The CV service returned a label outside the seeded taxonomy (upstream contract error).
 

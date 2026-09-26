@@ -38,7 +38,7 @@ export function SpeciesArt({
     <div
       className={`overflow-hidden bg-abyss-900 ${className}`}
       role="img"
-      aria-label={known ? `Foto ${species.commonName}` : `Ilustrasi ${species.commonName}`}
+      aria-label={known ? `Photo of ${species.commonName}` : `Illustration for ${species.commonName}`}
     >
       {/* Containing block for the layers, kept off the root so the caller's
           position utility is free to win. */}

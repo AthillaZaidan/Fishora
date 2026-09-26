@@ -9,6 +9,8 @@ router = APIRouter(prefix="/api/v1/discover")
 
 class DiscoverResponse(BaseModel):
     public_slug: str
+    # The page a diner opens from a printed card reads the lot's reviews by id.
+    lot_id: str
     species_id: str
     card: KnowledgeCard
 
@@ -25,19 +27,21 @@ def discover(public_slug: str, request: Request):
         # rest is missing rather than implying it with empty fields.
         return DiscoverResponse(
             public_slug=lot.public_slug,
+            lot_id=lot.id,
             species_id=lot.species_id,
             card=_identity_only_card(request, lot.species_id),
         )
     return DiscoverResponse(
         public_slug=lot.public_slug,
+        lot_id=lot.id,
         species_id=lot.species_id,
         card=KnowledgeCard.model_validate(lot.knowledge_snapshot),
     )
 
 
 CARD_PENDING = (
-    "Kartu pengetahuan untuk lot ini belum tersedia. Nama dan taksonomi di bawah "
-    "berasal dari basis data spesies, bukan dari penelusuran sumber."
+    "The knowledge card for this lot is not available yet. The name and taxonomy "
+    "below come from the species database, not from a source search."
 )
 
 

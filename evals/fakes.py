@@ -5,8 +5,9 @@ orchestrator prompt deterministically and sleeps ``delay`` seconds per call so
 latency and the number of sequential LLM rounds are measurable. Its experts
 emit two kinds of claims, both tied to a chunk in their evidence:
 
-* a *true* claim: the Indonesian paraphrase of a chunk of the field's own
-  category, citing that chunk;
+* a *true* claim: the recorded paraphrase of a chunk of the field's own
+  category, citing that chunk (the locked grounding dataset is Indonesian, so
+  these runs also exercise cross-lingual grounding);
 * a *hallucination*, only when the field has no evidence of its category: a
   plausible claim borrowed from another species, citing an unrelated chunk.
 
@@ -49,10 +50,10 @@ LIST_FIELDS = {
 }
 # Expert prompts open with these phrases (orchestrator._EXPERT_PROMPTS).
 _EXPERT_MARKERS = {
-    "Tulis physical_characteristics": "physical",
-    "Tulis taste dan texture": "taste",
-    "Tulis processing_methods": "commercial",
-    "Tulis similar_or_substitute_species": "substitute",
+    "Write physical_characteristics": "physical",
+    "Write taste and texture": "taste",
+    "Write processing_methods": "commercial",
+    "Write similar_or_substitute_species": "substitute",
 }
 _CHUNK_LINE = re.compile(r"\[chunk_id: ([a-z0-9_]+)\] \[source_id: ([a-z0-9_]+)\] \[([a-z_]+)\] ?(.*)")
 
@@ -89,21 +90,17 @@ class ScriptedLLM:
             time.sleep(self.delay)
         with self._lock:
             self.spans.append((started, time.perf_counter()))
-        if text.startswith("Untuk spesies"):
-            return "query tambahan untuk kategori yang kosong"
-        if text.startswith("Untuk setiap field"):
+        if text.startswith("For each field"):
             return "{}"  # a neutral critic: measures the deterministic gate alone
-        if text.startswith("Kamu adalah pemeriksa fakta"):
+        if text.startswith("You are a fact checker"):
             # Neutral iteration-2 entailment stage: every claim that reached it
             # is "supported", so scripted runs measure the deterministic and
             # embedding gates alone. Its accuracy is measured on the locked
             # gold claims with a real LLM (evals/iteration2.py), not here.
             payload = json.loads(text.split("\n", text.count("\n"))[-1]) if text.rstrip().endswith("}") else {}
-            ids = [c["id"] for c in payload.get("klaim", [])]
-            return json.dumps({"verdicts": [{"id": i, "alasan": "scripted", "label": "supported"} for i in ids]})
-        if text.startswith("Perbaiki bahasa"):
-            return text.split("\n", 1)[1] if "\n" in text else "{}"
-        if text.startswith("Tulis klaim"):
+            ids = [c["id"] for c in payload.get("claims", [])]
+            return json.dumps({"verdicts": [{"id": i, "reason": "scripted", "label": "supported"} for i in ids]})
+        if text.startswith("Write claims"):
             return self._wrap(json.dumps(self._writer(text), ensure_ascii=False))
         for marker, expert in _EXPERT_MARKERS.items():
             if text.startswith(marker):
@@ -156,7 +153,7 @@ class ScriptedLLM:
         for chunk_id, _source, category, _content in evidence:
             fld = self._WRITER_FIELD.get(category)
             if fld and chunk_id in self.claims:
-                claims.append({"field": fld, "chunk_ids": [chunk_id], "teks": self.claims[chunk_id]})
+                claims.append({"field": fld, "chunk_ids": [chunk_id], "text": self.claims[chunk_id]})
                 with self._lock:
                     self.emitted.append(EmittedClaim(species, fld, self.claims[chunk_id], "true", chunk_id))
         present = {row[2] for row in evidence}
@@ -166,7 +163,7 @@ class ScriptedLLM:
             borrowed = self._borrowed_claim(species, category)
             if borrowed:
                 fld = self._WRITER_FIELD[category]
-                claims.append({"field": fld, "chunk_ids": [evidence[0][0]], "teks": borrowed})
+                claims.append({"field": fld, "chunk_ids": [evidence[0][0]], "text": borrowed})
                 with self._lock:
                     self.emitted.append(EmittedClaim(species, fld, borrowed, "hallucination", evidence[0][0]))
         return {"claims": claims}

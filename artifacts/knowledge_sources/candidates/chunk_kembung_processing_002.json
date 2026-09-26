@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_kembung_processing_002",
+  "chunk": {
+    "id": "chunk_kembung_processing_002",
+    "species_label": "kembung",
+    "source_id": "fishbase_rastrelliger_kanagurta",
+    "category": "processing_methods",
+    "content": "Rastrelliger kanagurta (Indian mackerel, kembung) is generally marketed fresh, frozen, canned, dried-salted and smoked, and is also made into fish sauce.",
+    "source_quote": "Generally marketed fresh, frozen, canned, dried-salted, and smoked; also made into fish sauce",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fishbase_rastrelliger_kanagurta",
+    "title": "Rastrelliger kanagurta, Indian mackerel",
+    "source_type": "species_summary",
+    "url": "https://www.fishbase.se/summary/Rastrelliger-kanagurta.html",
+    "publisher": "FishBase",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

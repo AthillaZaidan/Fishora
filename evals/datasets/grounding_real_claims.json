@@ -1,0 +1,3676 @@
+{
+ "version": 1,
+ "provenance": {
+  "runs": [
+   "iter2-diagnosis",
+   "iter2-claims-2",
+   "iter2-claims-3"
+  ],
+  "command": "python -m evals.cost_eval --label <run> --paths agent --repeat 1",
+  "model": "gpt-5.6-luna (OpenCode Go)",
+  "git": "6112d6e",
+  "unit": "one atom (list item, or sentence / semicolon clause of a text field; evals/claim_atoms.py) paired with one chunk the expert cited for that field"
+ },
+ "labelling": {
+  "by": "Claude (AI assistant), 2026-09-26. Pending human review: no person has checked these labels.",
+  "rubric": [
+   "supported: the chunk states the atom's content; translation and paraphrase are fine; no number, qualifier or fact the chunk lacks",
+   "a buyer segment is supported when the chunk names the use, product or market form the segment deals in (fresh, frozen, fish meal, roe, surimi, aquaculture, Chinese medicine, sales)",
+   "unsupported: the fact is only in another chunk (sibling_chunk); the chunk scopes the fact to a processed product and the atom drops that scope (scope_dropped); or the segment is for a use the chunk never names (segment_not_named)"
+  ],
+  "borderline_calls": [
+   "fishery operators as a 'buyer segment' for a commercially fished species: supported (counterpart rule)",
+   "'highly commercial' translated as 'bernilai tinggi': supported",
+   "'dapat merujuk pada beberapa spesies' against a chunk naming one candidate species: supported; 'lima spesies' against the same chunk: unsupported",
+   "'Dibekukan' against 'deep-frozen': supported; 'Dibekukan secara mendalam' against 'frozen': unsupported"
+  ]
+ },
+ "split": {
+  "rule": "by species, fixed before scoring",
+  "dev_species": [
+   "bandeng",
+   "gelama_bunga",
+   "kuniran",
+   "senangin",
+   "tuna"
+  ]
+ },
+ "pairs": [
+  {
+   "id": "r000",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "Tubuh memanjang dan agak pipih, mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar dan bercagak dalam",
+   "chunk_id": "chunk_bandeng_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r001",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "Tubuh memanjang dan agak pipih, mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar dan bercagak dalam",
+   "chunk_id": "chunk_bandeng_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r002",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "bagian punggung berwarna hijau zaitun dengan sisi tubuh keperakan.",
+   "chunk_id": "chunk_bandeng_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r003",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "bagian punggung berwarna hijau zaitun dengan sisi tubuh keperakan.",
+   "chunk_id": "chunk_bandeng_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r004",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "Ikan dewasa dapat mencapai panjang standar 180 cm dan berat 14 kg.",
+   "chunk_id": "chunk_bandeng_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r005",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "Ikan dewasa dapat mencapai panjang standar 180 cm dan berat 14 kg.",
+   "chunk_id": "chunk_bandeng_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r006",
+   "species": "bandeng",
+   "field": "texture",
+   "claim": "Paling keras pada bandeng yang dimasak dengan kukus bertekanan",
+   "chunk_id": "chunk_bandeng_taste_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r007",
+   "species": "bandeng",
+   "field": "processing_methods",
+   "claim": "Bandeng presto (pengolahan ikan bandeng bertekanan)",
+   "chunk_id": "chunk_bandeng_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r008",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dipasarkan dalam keadaan segar",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r009",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Diasap",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r010",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dikalengkan",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r011",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dibekukan",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r012",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dibudidayakan di kolam hingga menjadi ikan muda yang dipasarkan",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r013",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dipelihara sebagai induk dan dipijahkan dalam penangkaran",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r014",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Pembudidaya ikan yang membeli benih atau juvenil",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r015",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Pembenih dan hatcheri yang membutuhkan induk untuk pemijahan",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r016",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Pengolah ikan asap",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r017",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Industri pengalengan ikan",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r018",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Pengolah dan distributor ikan beku",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r019",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Pedagang dan distributor ikan segar",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r020",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Konsumen ikan segar",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r021",
+   "species": "gelama_bunga",
+   "field": "physical_characteristics",
+   "claim": "Mencapai panjang standar 43,5 cm dan berat 1,5 kg.",
+   "chunk_id": "chunk_gelama_bunga_identity_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r022",
+   "species": "gelama_bunga",
+   "field": "taste",
+   "claim": "Skor rasa 5,40",
+   "chunk_id": "chunk_gelama_bunga_taste_001",
+   "supported": false,
+   "reason": "scope_dropped",
+   "split": "dev"
+  },
+  {
+   "id": "r023",
+   "species": "gelama_bunga",
+   "field": "texture",
+   "claim": "Skor tekstur 5,00",
+   "chunk_id": "chunk_gelama_bunga_taste_001",
+   "supported": false,
+   "reason": "scope_dropped",
+   "split": "dev"
+  },
+  {
+   "id": "r024",
+   "species": "gelama_bunga",
+   "field": "processing_methods",
+   "claim": "Diolah menjadi sosis ikan 100%.",
+   "chunk_id": "chunk_gelama_bunga_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r025",
+   "species": "gelama_bunga",
+   "field": "processing_methods",
+   "claim": "Diolah menjadi formulasi yang mengandung 30% daging ayam untuk pengujian sensori dan proksimat.",
+   "chunk_id": "chunk_gelama_bunga_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r026",
+   "species": "gelama_bunga",
+   "field": "commercial_uses",
+   "claim": "Ditangkap secara komersial.",
+   "chunk_id": "chunk_gelama_bunga_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r027",
+   "species": "gelama_bunga",
+   "field": "commercial_uses",
+   "claim": "Digunakan dalam pengobatan tradisional Tiongkok.",
+   "chunk_id": "chunk_gelama_bunga_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r028",
+   "species": "gelama_bunga",
+   "field": "potential_buyer_segments",
+   "claim": "Perusahaan atau pelaku usaha perikanan komersial",
+   "chunk_id": "chunk_gelama_bunga_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r029",
+   "species": "gelama_bunga",
+   "field": "potential_buyer_segments",
+   "claim": "Industri obat tradisional Tiongkok",
+   "chunk_id": "chunk_gelama_bunga_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r030",
+   "species": "gulamah",
+   "field": "physical_characteristics",
+   "claim": "Memiliki 9–10 duri sirip punggung, 24–27 jari-jari lunak sirip punggung, dua duri sirip anal, dan 6–7 jari-jari lunak sirip anal.",
+   "chunk_id": "chunk_gulamah_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r031",
+   "species": "gulamah",
+   "field": "processing_methods",
+   "claim": "Diolah menjadi ikan asin.",
+   "chunk_id": "chunk_gulamah_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r032",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "claim": "Bahan baku potensial untuk surimi dan produk olahan daging ikan.",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r033",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "claim": "Bahan baku potensial untuk surimi dan produk olahan daging ikan.",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r034",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "claim": "Gelatin dari tulang digunakan secara eksperimental untuk pembuatan permen jeli.",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r035",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "claim": "Gelatin dari tulang digunakan secara eksperimental untuk pembuatan permen jeli.",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r036",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen surimi dan produk daging ikan olahan",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r037",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen surimi dan produk daging ikan olahan",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r038",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen permen jeli berbasis gelatin",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r039",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen permen jeli berbasis gelatin",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r040",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Lembaga penelitian dan pengembangan produk pangan berbasis ikan",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r041",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Lembaga penelitian dan pengembangan produk pangan berbasis ikan",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r042",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "Mencapai panjang cagak 24 cm dan berat 750 g",
+   "chunk_id": "chunk_kembung_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r043",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "Mencapai panjang cagak 24 cm dan berat 750 g",
+   "chunk_id": "chunk_kembung_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r044",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "kepala lebih panjang daripada kedalaman tubuh",
+   "chunk_id": "chunk_kembung_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r045",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "kepala lebih panjang daripada kedalaman tubuh",
+   "chunk_id": "chunk_kembung_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r046",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "memiliki 2–6 bintik besar di pangkal sirip punggung pertama, bercak hitam di belakang pangkal sirip dada, perut berwarna kuning keperakan, serta gelembung renang.",
+   "chunk_id": "chunk_kembung_physical_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r047",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "memiliki 2–6 bintik besar di pangkal sirip punggung pertama, bercak hitam di belakang pangkal sirip dada, perut berwarna kuning keperakan, serta gelembung renang.",
+   "chunk_id": "chunk_kembung_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r048",
+   "species": "kuniran",
+   "field": "physical_characteristics",
+   "claim": "Kuniran memiliki garis kuning atau keemasan di bagian tengah sisi tubuh, membentang dari mata hingga pangkal atas sirip ekor, sungut berwarna putih, serta garis-garis merah pada sirip ekor.",
+   "chunk_id": "chunk_kuniran_identity_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r049",
+   "species": "kuniran",
+   "field": "physical_characteristics",
+   "claim": "Kuniran memiliki garis kuning atau keemasan di bagian tengah sisi tubuh, membentang dari mata hingga pangkal atas sirip ekor, sungut berwarna putih, serta garis-garis merah pada sirip ekor.",
+   "chunk_id": "chunk_kuniran_physical_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r050",
+   "species": "kuniran",
+   "field": "physical_characteristics",
+   "claim": "Panjang totalnya dapat mencapai 22,5 cm, dengan panjang umum sekitar 18 cm.",
+   "chunk_id": "chunk_kuniran_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r051",
+   "species": "kuniran",
+   "field": "physical_characteristics",
+   "claim": "Panjang totalnya dapat mencapai 22,5 cm, dengan panjang umum sekitar 18 cm.",
+   "chunk_id": "chunk_kuniran_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r052",
+   "species": "kuniran",
+   "field": "processing_methods",
+   "claim": "Disimpan dalam es hingga batas penerimaan sensoris selama 8 hari.",
+   "chunk_id": "chunk_kuniran_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r053",
+   "species": "kuniran",
+   "field": "commercial_uses",
+   "claim": "Dijual sebagai ikan pangan segar di pasar.",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r054",
+   "species": "kuniran",
+   "field": "commercial_uses",
+   "claim": "Dimanfaatkan untuk tepung ikan.",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r055",
+   "species": "kuniran",
+   "field": "commercial_uses",
+   "claim": "Telurnya memiliki nilai komersial.",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r056",
+   "species": "kuniran",
+   "field": "potential_buyer_segments",
+   "claim": "Pedagang dan pasar ikan segar",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r057",
+   "species": "kuniran",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen tepung ikan",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r058",
+   "species": "kuniran",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli atau pengolah telur ikan",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r059",
+   "species": "mujair",
+   "field": "physical_characteristics",
+   "claim": "Populasi Gascoyne-Lyons dilaporkan sangat kerdil, dengan kematangan pada panjang standar rata-rata 9 cm, dibandingkan sekitar 18 cm pada populasi lainnya",
+   "chunk_id": "chunk_mujair_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r060",
+   "species": "mujair",
+   "field": "physical_characteristics",
+   "claim": "karakteristik ini spesifik untuk populasi tersebut.",
+   "chunk_id": "chunk_mujair_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r061",
+   "species": "mujair",
+   "field": "taste",
+   "claim": "sangat lezat",
+   "chunk_id": "chunk_mujair_taste_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r062",
+   "species": "mujair",
+   "field": "processing_methods",
+   "claim": "Diolah menjadi daging ikan cincang",
+   "chunk_id": "chunk_mujair_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r063",
+   "species": "mujair",
+   "field": "processing_methods",
+   "claim": "Diolah menjadi burger ikan",
+   "chunk_id": "chunk_mujair_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r064",
+   "species": "mujair",
+   "field": "processing_methods",
+   "claim": "Disimpan beku pada suhu -18°C hingga 75 hari",
+   "chunk_id": "chunk_mujair_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r065",
+   "species": "mujair",
+   "field": "commercial_uses",
+   "claim": "Mendukung perikanan artisanal di dataran banjir Sungai Sepik, Papua Nugini",
+   "chunk_id": "chunk_mujair_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r066",
+   "species": "mujair",
+   "field": "commercial_uses",
+   "claim": "Dimanfaatkan sebagai hasil tangkapan perikanan dan menyumbang sekitar setengah dari perkiraan pendaratan tahunan",
+   "chunk_id": "chunk_mujair_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r067",
+   "species": "mujair",
+   "field": "potential_buyer_segments",
+   "claim": "Pelaku perikanan artisanal di wilayah dataran banjir",
+   "chunk_id": "chunk_mujair_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r068",
+   "species": "mujair",
+   "field": "potential_buyer_segments",
+   "claim": "Konsumen lokal yang membeli hasil tangkapan perikanan di Sungai Sepik, Papua Nugini",
+   "chunk_id": "chunk_mujair_commercial_001",
+   "supported": false,
+   "reason": "segment_not_named",
+   "split": "test"
+  },
+  {
+   "id": "r069",
+   "species": "nila",
+   "field": "physical_characteristics",
+   "claim": "Nila adalah ikan bertubuh besar dan tinggi dengan kepala yang relatif kecil.",
+   "chunk_id": "chunk_nila_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r070",
+   "species": "nila",
+   "field": "physical_characteristics",
+   "claim": "Nila adalah ikan bertubuh besar dan tinggi dengan kepala yang relatif kecil.",
+   "chunk_id": "chunk_nila_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r071",
+   "species": "nila",
+   "field": "physical_characteristics",
+   "claim": "Ciri paling khasnya adalah garis-garis vertikal teratur di seluruh bagian sirip ekor pada semua tahap kehidupan.",
+   "chunk_id": "chunk_nila_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r072",
+   "species": "nila",
+   "field": "physical_characteristics",
+   "claim": "Ciri paling khasnya adalah garis-garis vertikal teratur di seluruh bagian sirip ekor pada semua tahap kehidupan.",
+   "chunk_id": "chunk_nila_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r073",
+   "species": "nila",
+   "field": "physical_characteristics",
+   "claim": "Panjang standarnya dapat mencapai 60 cm dengan berat hingga 4,3 kg.",
+   "chunk_id": "chunk_nila_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r074",
+   "species": "nila",
+   "field": "physical_characteristics",
+   "claim": "Panjang standarnya dapat mencapai 60 cm dengan berat hingga 4,3 kg.",
+   "chunk_id": "chunk_nila_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r075",
+   "species": "nila",
+   "field": "taste",
+   "claim": "Rasa ringan dan lezat",
+   "chunk_id": "chunk_nila_taste_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r076",
+   "species": "nila",
+   "field": "processing_methods",
+   "claim": "Diolah menjadi fillet tanpa kulit, dengan rendemen sekitar 33% pada ikan dengan faktor kondisi 3,11.",
+   "chunk_id": "chunk_nila_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r077",
+   "species": "nila",
+   "field": "commercial_uses",
+   "claim": "Dibudidayakan secara komersial sebagai salah satu kelompok ikan budidaya paling penting dan paling luas diternakkan di dunia.",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r078",
+   "species": "nila",
+   "field": "commercial_uses",
+   "claim": "Diproduksi dan dipasarkan sebagai ikan konsumsi, dengan sebagian besar nilai penjualan produksi nila global dikaitkan dengan nila Nil.",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r079",
+   "species": "nila",
+   "field": "potential_buyer_segments",
+   "claim": "Pembudidaya ikan air tawar",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r080",
+   "species": "nila",
+   "field": "potential_buyer_segments",
+   "claim": "Pedagang dan distributor ikan konsumsi",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r081",
+   "species": "nila",
+   "field": "potential_buyer_segments",
+   "claim": "Pengolah dan pengecer produk makanan laut",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": false,
+   "reason": "segment_not_named",
+   "split": "test"
+  },
+  {
+   "id": "r082",
+   "species": "nila",
+   "field": "potential_buyer_segments",
+   "claim": "Pasar ikan budidaya global",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r083",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Senangin (Eleutheronema tetradactylum) memiliki empat filamen bebas pada sirip dada.",
+   "chunk_id": "chunk_senangin_identity_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r084",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Senangin (Eleutheronema tetradactylum) memiliki empat filamen bebas pada sirip dada.",
+   "chunk_id": "chunk_senangin_physical_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r085",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Panjang maksimum mencapai 200 cm TL dengan berat hingga 145 kg, sedangkan panjang umumnya sekitar 50 cm TL.",
+   "chunk_id": "chunk_senangin_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r086",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Panjang maksimum mencapai 200 cm TL dengan berat hingga 145 kg, sedangkan panjang umumnya sekitar 50 cm TL.",
+   "chunk_id": "chunk_senangin_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r087",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Membran sirip dada berwarna kuning cerah saat hidup dan kuning kusam pada spesimen besar, sementara filamen sirip dada berwarna putih.",
+   "chunk_id": "chunk_senangin_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r088",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Membran sirip dada berwarna kuning cerah saat hidup dan kuning kusam pada spesimen besar, sementara filamen sirip dada berwarna putih.",
+   "chunk_id": "chunk_senangin_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r089",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Spesies ini merupakan hermafrodit protandri.",
+   "chunk_id": "chunk_senangin_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r090",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Spesies ini merupakan hermafrodit protandri.",
+   "chunk_id": "chunk_senangin_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r091",
+   "species": "senangin",
+   "field": "processing_methods",
+   "claim": "Dipasarkan dalam keadaan segar",
+   "chunk_id": "chunk_senangin_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r092",
+   "species": "senangin",
+   "field": "processing_methods",
+   "claim": "Dibekukan",
+   "chunk_id": "chunk_senangin_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r093",
+   "species": "senangin",
+   "field": "processing_methods",
+   "claim": "Dikeringkan",
+   "chunk_id": "chunk_senangin_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r094",
+   "species": "senangin",
+   "field": "processing_methods",
+   "claim": "Diasinkan",
+   "chunk_id": "chunk_senangin_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r095",
+   "species": "senangin",
+   "field": "commercial_uses",
+   "claim": "Ikan pangan komersial bernilai tinggi",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r096",
+   "species": "senangin",
+   "field": "commercial_uses",
+   "claim": "Dibudidayakan secara komersial",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r097",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli ikan pangan segar",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r098",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli dan distributor produk ikan beku",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r099",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Pengolah atau pembeli ikan kering dan asin",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r100",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Pelaku usaha akuakultur komersial",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r101",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Nama umum “tenggiri” ambigu dan dapat merujuk pada lima spesies.",
+   "chunk_id": "chunk_tenggiri_identity_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r102",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Nama umum “tenggiri” ambigu dan dapat merujuk pada lima spesies.",
+   "chunk_id": "chunk_tenggiri_identity_003",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r103",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Nama umum “tenggiri” ambigu dan dapat merujuk pada lima spesies.",
+   "chunk_id": "chunk_tenggiri_identity_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r104",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus guttatus dapat mencapai panjang cagak 81,5 cm dan berat 4 kg, dengan sisi tubuh putih keperakan serta beberapa baris bintik bulat cokelat gelap di sepanjang garis rusuk.",
+   "chunk_id": "chunk_tenggiri_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r105",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus guttatus dapat mencapai panjang cagak 81,5 cm dan berat 4 kg, dengan sisi tubuh putih keperakan serta beberapa baris bintik bulat cokelat gelap di sepanjang garis rusuk.",
+   "chunk_id": "chunk_tenggiri_identity_003",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r106",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus guttatus dapat mencapai panjang cagak 81,5 cm dan berat 4 kg, dengan sisi tubuh putih keperakan serta beberapa baris bintik bulat cokelat gelap di sepanjang garis rusuk.",
+   "chunk_id": "chunk_tenggiri_identity_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r107",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus commerson dapat mencapai panjang cagak 240 cm, memiliki punggung biru keabu-abuan berkilau dengan banyak pita vertikal tipis bergelombang, serta 15–18 duri sirip punggung.",
+   "chunk_id": "chunk_tenggiri_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r108",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus commerson dapat mencapai panjang cagak 240 cm, memiliki punggung biru keabu-abuan berkilau dengan banyak pita vertikal tipis bergelombang, serta 15–18 duri sirip punggung.",
+   "chunk_id": "chunk_tenggiri_identity_003",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r109",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus commerson dapat mencapai panjang cagak 240 cm, memiliki punggung biru keabu-abuan berkilau dengan banyak pita vertikal tipis bergelombang, serta 15–18 duri sirip punggung.",
+   "chunk_id": "chunk_tenggiri_identity_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r110",
+   "species": "tenggiri",
+   "field": "processing_methods",
+   "claim": "Dikeringkan dan diasinkan",
+   "chunk_id": "chunk_tenggiri_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r111",
+   "species": "tenggiri",
+   "field": "processing_methods",
+   "claim": "Dibekukan",
+   "chunk_id": "chunk_tenggiri_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r112",
+   "species": "tenggiri",
+   "field": "processing_methods",
+   "claim": "Diasap",
+   "chunk_id": "chunk_tenggiri_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r113",
+   "species": "tenggiri",
+   "field": "processing_methods",
+   "claim": "Dikalengkan",
+   "chunk_id": "chunk_tenggiri_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r114",
+   "species": "tenggiri",
+   "field": "processing_methods",
+   "claim": "Diolah menjadi bakso ikan",
+   "chunk_id": "chunk_tenggiri_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r115",
+   "species": "tenggiri",
+   "field": "commercial_uses",
+   "claim": "Dipasarkan terutama dalam keadaan segar",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r116",
+   "species": "tenggiri",
+   "field": "commercial_uses",
+   "claim": "Dipasarkan dalam bentuk kering dan asin",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r117",
+   "species": "tenggiri",
+   "field": "commercial_uses",
+   "claim": "Dipasarkan dalam bentuk beku",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r118",
+   "species": "tenggiri",
+   "field": "commercial_uses",
+   "claim": "Dipasarkan dalam bentuk asap",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r119",
+   "species": "tenggiri",
+   "field": "commercial_uses",
+   "claim": "Dipasarkan dalam bentuk kalengan",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r120",
+   "species": "tenggiri",
+   "field": "potential_buyer_segments",
+   "claim": "Konsumen dan pengecer ikan segar",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r121",
+   "species": "tenggiri",
+   "field": "potential_buyer_segments",
+   "claim": "Pengolah dan pedagang ikan kering asin",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r122",
+   "species": "tenggiri",
+   "field": "potential_buyer_segments",
+   "claim": "Distributor serta pengecer makanan laut beku",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r123",
+   "species": "tenggiri",
+   "field": "potential_buyer_segments",
+   "claim": "Pengolah dan penjual ikan asap",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r124",
+   "species": "tenggiri",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen makanan laut kalengan",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r125",
+   "species": "tuna",
+   "field": "physical_characteristics",
+   "claim": "Berbentuk seperti torpedo, berwarna biru tua metalik di bagian atas dan kuning hingga keperakan di bagian bawah, dengan sirip punggung, sirip dubur, dan sirip-sirip kecil berwarna kuning cerah.",
+   "chunk_id": "chunk_tuna_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r126",
+   "species": "tuna",
+   "field": "taste",
+   "claim": "rasa ringan dan berdaging",
+   "chunk_id": "chunk_tuna_taste_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r127",
+   "species": "tuna",
+   "field": "texture",
+   "claim": "daging padat, lembap, dengan serpihan besar",
+   "chunk_id": "chunk_tuna_taste_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r128",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dipasarkan segar",
+   "chunk_id": "chunk_tuna_processing_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r129",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dipasarkan segar",
+   "chunk_id": "chunk_tuna_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r130",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dibekukan",
+   "chunk_id": "chunk_tuna_processing_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r131",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dibekukan",
+   "chunk_id": "chunk_tuna_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r132",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dikalengkan",
+   "chunk_id": "chunk_tuna_processing_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r133",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dikalengkan",
+   "chunk_id": "chunk_tuna_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r134",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Diasap",
+   "chunk_id": "chunk_tuna_processing_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r135",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Diasap",
+   "chunk_id": "chunk_tuna_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r136",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dibekukan secara mendalam",
+   "chunk_id": "chunk_tuna_processing_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r137",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dibekukan secara mendalam",
+   "chunk_id": "chunk_tuna_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r138",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Diolah sebagai sashimi",
+   "chunk_id": "chunk_tuna_processing_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r139",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Diolah sebagai sashimi",
+   "chunk_id": "chunk_tuna_processing_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r140",
+   "species": "tuna",
+   "field": "commercial_uses",
+   "claim": "Perikanan tuna dan makarel",
+   "chunk_id": "chunk_tuna_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r141",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "Tubuh memanjang dan agak pipih, dengan mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar dan bercagak dalam.",
+   "chunk_id": "chunk_bandeng_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r142",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "Tubuh memanjang dan agak pipih, dengan mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar dan bercagak dalam.",
+   "chunk_id": "chunk_bandeng_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r143",
+   "species": "bandeng",
+   "field": "texture",
+   "claim": "Tekstur paling keras di antara metode memasak yang diuji (pada bandeng yang dikukus bertekanan).",
+   "chunk_id": "chunk_bandeng_taste_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r144",
+   "species": "bandeng",
+   "field": "processing_methods",
+   "claim": "Bandeng presto menggunakan tekanan tinggi",
+   "chunk_id": "chunk_bandeng_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r145",
+   "species": "bandeng",
+   "field": "processing_methods",
+   "claim": "Pengasapan",
+   "chunk_id": "chunk_bandeng_processing_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r146",
+   "species": "bandeng",
+   "field": "processing_methods",
+   "claim": "Pengalengan",
+   "chunk_id": "chunk_bandeng_processing_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r147",
+   "species": "bandeng",
+   "field": "processing_methods",
+   "claim": "Pembekuan",
+   "chunk_id": "chunk_bandeng_processing_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r148",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dijual segar",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r149",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dijual sebagai produk asap",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r150",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dijual dalam bentuk kalengan",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r151",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dijual dalam bentuk beku",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r152",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dibudidayakan di kolam hingga menjadi ikan muda untuk dipasarkan",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r153",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dijadikan induk untuk pemijahan dalam penangkaran",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r154",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Pembudidaya ikan dan perusahaan akuakultur",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r155",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Hatchery atau pembenihan ikan",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r156",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli induk untuk pemijahan dan pembiakan",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r157",
+   "species": "gelama_bunga",
+   "field": "physical_characteristics",
+   "claim": "Panjang standar hingga 43,5 cm dan berat hingga 1,5 kg.",
+   "chunk_id": "chunk_gelama_bunga_identity_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r158",
+   "species": "gelama_bunga",
+   "field": "taste",
+   "claim": "Skor rasa 5,40 pada sosis olahan.",
+   "chunk_id": "chunk_gelama_bunga_taste_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r159",
+   "species": "gelama_bunga",
+   "field": "texture",
+   "claim": "Skor tekstur 5,00 pada sosis olahan.",
+   "chunk_id": "chunk_gelama_bunga_taste_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r160",
+   "species": "gelama_bunga",
+   "field": "processing_methods",
+   "claim": "Diolah menjadi sosis ikan 100%",
+   "chunk_id": "chunk_gelama_bunga_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r161",
+   "species": "gelama_bunga",
+   "field": "processing_methods",
+   "claim": "Diolah menjadi formulasi yang mengandung 30% daging ayam untuk pengujian sensori dan proksimat",
+   "chunk_id": "chunk_gelama_bunga_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r162",
+   "species": "gelama_bunga",
+   "field": "commercial_uses",
+   "claim": "Ditangkap secara komersial",
+   "chunk_id": "chunk_gelama_bunga_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r163",
+   "species": "gelama_bunga",
+   "field": "commercial_uses",
+   "claim": "Digunakan dalam pengobatan tradisional Tiongkok",
+   "chunk_id": "chunk_gelama_bunga_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r164",
+   "species": "gelama_bunga",
+   "field": "potential_buyer_segments",
+   "claim": "Pelaku perikanan komersial",
+   "chunk_id": "chunk_gelama_bunga_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r165",
+   "species": "gulamah",
+   "field": "physical_characteristics",
+   "claim": "Memiliki 9–10 duri sirip punggung, 24–27 jari-jari lunak sirip punggung, dua duri sirip dubur, dan 6–7 jari-jari lunak sirip dubur.",
+   "chunk_id": "chunk_gulamah_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r166",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "claim": "Berpotensi digunakan sebagai bahan baku surimi dan produk daging ikan olahan.",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r167",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "claim": "Berpotensi digunakan sebagai bahan baku surimi dan produk daging ikan olahan.",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r168",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "claim": "Gelatin dari tulang berpotensi digunakan dalam pembuatan permen jeli secara eksperimental.",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r169",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "claim": "Gelatin dari tulang berpotensi digunakan dalam pembuatan permen jeli secara eksperimental.",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r170",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen surimi",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r171",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen surimi",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r172",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen produk olahan daging ikan",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r173",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen produk olahan daging ikan",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r174",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen gelatin untuk aplikasi permen jeli",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r175",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen gelatin untuk aplikasi permen jeli",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r176",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Perusahaan pengembang bahan pangan dan produk perikanan",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r177",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Perusahaan pengembang bahan pangan dan produk perikanan",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r178",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "Mencapai panjang cagak 24 cm dan berat 750 g.",
+   "chunk_id": "chunk_kembung_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r179",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "Mencapai panjang cagak 24 cm dan berat 750 g.",
+   "chunk_id": "chunk_kembung_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r180",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "Kepala lebih panjang daripada kedalaman tubuh, memiliki 2–6 bintik besar di pangkal sirip punggung pertama, gelembung renang, serta bercak hitam di belakang pangkal sirip dada dan perut berwarna keperakan kekuningan.",
+   "chunk_id": "chunk_kembung_physical_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r181",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "Kepala lebih panjang daripada kedalaman tubuh, memiliki 2–6 bintik besar di pangkal sirip punggung pertama, gelembung renang, serta bercak hitam di belakang pangkal sirip dada dan perut berwarna keperakan kekuningan.",
+   "chunk_id": "chunk_kembung_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r182",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "Membentuk kawanan yang terdiri atas individu berukuran sama.",
+   "chunk_id": "chunk_kembung_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r183",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "Membentuk kawanan yang terdiri atas individu berukuran sama.",
+   "chunk_id": "chunk_kembung_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r184",
+   "species": "kuniran",
+   "field": "physical_characteristics",
+   "claim": "Kuniran dapat mencapai panjang total 22,5 cm, dengan panjang umum sekitar 18 cm.",
+   "chunk_id": "chunk_kuniran_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r185",
+   "species": "kuniran",
+   "field": "physical_characteristics",
+   "claim": "Kuniran dapat mencapai panjang total 22,5 cm, dengan panjang umum sekitar 18 cm.",
+   "chunk_id": "chunk_kuniran_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r186",
+   "species": "kuniran",
+   "field": "physical_characteristics",
+   "claim": "Ciri khasnya adalah garis kuning atau keemasan di bagian tengah sisi tubuh, membentang dari mata hingga pangkal bagian atas sirip ekor, sungut berwarna putih, dan garis-garis merah pada sirip ekor.",
+   "chunk_id": "chunk_kuniran_identity_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r187",
+   "species": "kuniran",
+   "field": "physical_characteristics",
+   "claim": "Ciri khasnya adalah garis kuning atau keemasan di bagian tengah sisi tubuh, membentang dari mata hingga pangkal bagian atas sirip ekor, sungut berwarna putih, dan garis-garis merah pada sirip ekor.",
+   "chunk_id": "chunk_kuniran_physical_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r188",
+   "species": "kuniran",
+   "field": "processing_methods",
+   "claim": "Disimpan dalam es hingga batas penerimaan sensoris sekitar 8 hari.",
+   "chunk_id": "chunk_kuniran_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r189",
+   "species": "kuniran",
+   "field": "commercial_uses",
+   "claim": "Diolah menjadi tepung ikan.",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r190",
+   "species": "kuniran",
+   "field": "commercial_uses",
+   "claim": "Dimanfaatkan telurnya.",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r191",
+   "species": "kuniran",
+   "field": "potential_buyer_segments",
+   "claim": "Pedagang dan pengecer ikan segar di pasar",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r192",
+   "species": "kuniran",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli dan pengolah telur ikan",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r193",
+   "species": "mujair",
+   "field": "physical_characteristics",
+   "claim": "Mujair (Oreochromis mossambicus) memiliki populasi Gascoyne-Lyons yang sangat kerdil, dengan panjang baku rata-rata saat matang sekitar 9 cm, dibandingkan sekitar 18 cm pada populasi lain.",
+   "chunk_id": "chunk_mujair_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r194",
+   "species": "mujair",
+   "field": "physical_characteristics",
+   "claim": "Mujair (Oreochromis mossambicus) memiliki populasi Gascoyne-Lyons yang sangat kerdil, dengan panjang baku rata-rata saat matang sekitar 9 cm, dibandingkan sekitar 18 cm pada populasi lain.",
+   "chunk_id": "chunk_mujair_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r195",
+   "species": "mujair",
+   "field": "physical_characteristics",
+   "claim": "Karakteristik ini bersifat spesifik populasi.",
+   "chunk_id": "chunk_mujair_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r196",
+   "species": "mujair",
+   "field": "physical_characteristics",
+   "claim": "Karakteristik ini bersifat spesifik populasi.",
+   "chunk_id": "chunk_mujair_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r197",
+   "species": "mujair",
+   "field": "processing_methods",
+   "claim": "Diolah menjadi daging ikan cincang.",
+   "chunk_id": "chunk_mujair_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r198",
+   "species": "mujair",
+   "field": "processing_methods",
+   "claim": "Diolah menjadi burger ikan.",
+   "chunk_id": "chunk_mujair_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r199",
+   "species": "mujair",
+   "field": "processing_methods",
+   "claim": "Disimpan beku pada suhu -18°C hingga 75 hari.",
+   "chunk_id": "chunk_mujair_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r200",
+   "species": "mujair",
+   "field": "commercial_uses",
+   "claim": "Mendukung perikanan artisanal di dataran banjir Sungai Sepik, Papua Nugini.",
+   "chunk_id": "chunk_mujair_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r201",
+   "species": "mujair",
+   "field": "commercial_uses",
+   "claim": "Dimanfaatkan sebagai hasil tangkapan perikanan dan menyumbang sekitar setengah dari perkiraan pendaratan tahunan.",
+   "chunk_id": "chunk_mujair_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r202",
+   "species": "mujair",
+   "field": "potential_buyer_segments",
+   "claim": "Pelaku perikanan tangkap artisanal di dataran banjir Sungai Sepik, Papua Nugini",
+   "chunk_id": "chunk_mujair_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r203",
+   "species": "nila",
+   "field": "physical_characteristics",
+   "claim": "Nila merupakan ikan tilapia bertubuh besar dan dalam dengan kepala yang relatif kecil.",
+   "chunk_id": "chunk_nila_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r204",
+   "species": "nila",
+   "field": "physical_characteristics",
+   "claim": "Nila merupakan ikan tilapia bertubuh besar dan dalam dengan kepala yang relatif kecil.",
+   "chunk_id": "chunk_nila_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r205",
+   "species": "nila",
+   "field": "physical_characteristics",
+   "claim": "Panjang standarnya dapat mencapai 60 cm dan bobotnya 4,3 kg.",
+   "chunk_id": "chunk_nila_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r206",
+   "species": "nila",
+   "field": "physical_characteristics",
+   "claim": "Panjang standarnya dapat mencapai 60 cm dan bobotnya 4,3 kg.",
+   "chunk_id": "chunk_nila_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r207",
+   "species": "nila",
+   "field": "processing_methods",
+   "claim": "Diolah menjadi fillet tanpa kulit, dengan rendemen sekitar 33% untuk ikan dengan faktor kondisi 3,11.",
+   "chunk_id": "chunk_nila_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r208",
+   "species": "nila",
+   "field": "commercial_uses",
+   "claim": "Dibudidayakan dan dipasarkan sebagai salah satu kelompok ikan budidaya yang paling penting dan paling banyak dibudidayakan secara global.",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r209",
+   "species": "nila",
+   "field": "potential_buyer_segments",
+   "claim": "Pembudidaya ikan",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r210",
+   "species": "nila",
+   "field": "potential_buyer_segments",
+   "claim": "Pengolah hasil perikanan",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": false,
+   "reason": "segment_not_named",
+   "split": "test"
+  },
+  {
+   "id": "r211",
+   "species": "nila",
+   "field": "potential_buyer_segments",
+   "claim": "Distributor dan pedagang ikan",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r212",
+   "species": "nila",
+   "field": "potential_buyer_segments",
+   "claim": "Pasar ikan konsumsi",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r213",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Dapat tumbuh hingga panjang total 200 cm dan berat 145 kg, dengan panjang umum 50 cm.",
+   "chunk_id": "chunk_senangin_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r214",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Dapat tumbuh hingga panjang total 200 cm dan berat 145 kg, dengan panjang umum 50 cm.",
+   "chunk_id": "chunk_senangin_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r215",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Selaput sirip dada berwarna kuning cerah saat hidup (kuning kusam pada spesimen besar), sedangkan filamen sirip dada berwarna putih.",
+   "chunk_id": "chunk_senangin_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r216",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Selaput sirip dada berwarna kuning cerah saat hidup (kuning kusam pada spesimen besar), sedangkan filamen sirip dada berwarna putih.",
+   "chunk_id": "chunk_senangin_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r217",
+   "species": "senangin",
+   "field": "commercial_uses",
+   "claim": "Ikan pangan komersial",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r218",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli ikan konsumsi",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r219",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Pembudidaya ikan komersial",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r220",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Distributor dan pengecer ikan segar",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r221",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Distributor dan pengecer ikan beku",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r222",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Pengolah dan pedagang ikan kering atau asin",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r223",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Nama “tenggiri” bersifat ambigu dan dapat merujuk pada beberapa spesies.",
+   "chunk_id": "chunk_tenggiri_identity_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r224",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Nama “tenggiri” bersifat ambigu dan dapat merujuk pada beberapa spesies.",
+   "chunk_id": "chunk_tenggiri_identity_003",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r225",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Nama “tenggiri” bersifat ambigu dan dapat merujuk pada beberapa spesies.",
+   "chunk_id": "chunk_tenggiri_identity_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r226",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus guttatus dapat mencapai panjang cagak 81,5 cm dan bobot 4 kg, dengan sisi tubuh putih keperakan serta beberapa baris bintik bulat cokelat gelap di sepanjang garis rusuk.",
+   "chunk_id": "chunk_tenggiri_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r227",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus guttatus dapat mencapai panjang cagak 81,5 cm dan bobot 4 kg, dengan sisi tubuh putih keperakan serta beberapa baris bintik bulat cokelat gelap di sepanjang garis rusuk.",
+   "chunk_id": "chunk_tenggiri_identity_003",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r228",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus guttatus dapat mencapai panjang cagak 81,5 cm dan bobot 4 kg, dengan sisi tubuh putih keperakan serta beberapa baris bintik bulat cokelat gelap di sepanjang garis rusuk.",
+   "chunk_id": "chunk_tenggiri_identity_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r229",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus commerson dapat mencapai panjang cagak 240 cm, memiliki punggung biru keabu-abuan berkilau, banyak pita vertikal tipis bergelombang, dan 15–18 duri sirip punggung.",
+   "chunk_id": "chunk_tenggiri_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r230",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus commerson dapat mencapai panjang cagak 240 cm, memiliki punggung biru keabu-abuan berkilau, banyak pita vertikal tipis bergelombang, dan 15–18 duri sirip punggung.",
+   "chunk_id": "chunk_tenggiri_identity_003",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r231",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus commerson dapat mencapai panjang cagak 240 cm, memiliki punggung biru keabu-abuan berkilau, banyak pita vertikal tipis bergelombang, dan 15–18 duri sirip punggung.",
+   "chunk_id": "chunk_tenggiri_identity_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r232",
+   "species": "tenggiri",
+   "field": "processing_methods",
+   "claim": "Dipasarkan dalam keadaan segar",
+   "chunk_id": "chunk_tenggiri_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r233",
+   "species": "tenggiri",
+   "field": "commercial_uses",
+   "claim": "Dijual terutama dalam keadaan segar",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r234",
+   "species": "tenggiri",
+   "field": "commercial_uses",
+   "claim": "Dijual dalam bentuk kering dan asin",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r235",
+   "species": "tenggiri",
+   "field": "commercial_uses",
+   "claim": "Dijual dalam bentuk beku",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r236",
+   "species": "tenggiri",
+   "field": "commercial_uses",
+   "claim": "Dijual dalam bentuk asap",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r237",
+   "species": "tenggiri",
+   "field": "commercial_uses",
+   "claim": "Dijual dalam bentuk kalengan",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r238",
+   "species": "tenggiri",
+   "field": "potential_buyer_segments",
+   "claim": "Pedagang dan pasar ikan segar",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r239",
+   "species": "tenggiri",
+   "field": "potential_buyer_segments",
+   "claim": "Pengolah ikan asin-kering",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r240",
+   "species": "tenggiri",
+   "field": "potential_buyer_segments",
+   "claim": "Distributor dan pengecer makanan laut beku",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r241",
+   "species": "tenggiri",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen makanan laut kaleng",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r242",
+   "species": "tuna",
+   "field": "physical_characteristics",
+   "claim": "Berbentuk seperti torpedo, berwarna biru tua metalik di bagian atas dan kuning hingga keperakan di bagian bawah, dengan sirip punggung, sirip dubur, dan finlet berwarna kuning cerah.",
+   "chunk_id": "chunk_tuna_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r243",
+   "species": "tuna",
+   "field": "physical_characteristics",
+   "claim": "Berbentuk seperti torpedo, berwarna biru tua metalik di bagian atas dan kuning hingga keperakan di bagian bawah, dengan sirip punggung, sirip dubur, dan finlet berwarna kuning cerah.",
+   "chunk_id": "chunk_tuna_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r244",
+   "species": "tuna",
+   "field": "physical_characteristics",
+   "claim": "Berbentuk seperti torpedo, berwarna biru tua metalik di bagian atas dan kuning hingga keperakan di bagian bawah, dengan sirip punggung, sirip dubur, dan finlet berwarna kuning cerah.",
+   "chunk_id": "chunk_tuna_identity_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r245",
+   "species": "tuna",
+   "field": "physical_characteristics",
+   "claim": "Ciri ini merujuk pada tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam genus Thunnus.",
+   "chunk_id": "chunk_tuna_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r246",
+   "species": "tuna",
+   "field": "physical_characteristics",
+   "claim": "Ciri ini merujuk pada tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam genus Thunnus.",
+   "chunk_id": "chunk_tuna_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r247",
+   "species": "tuna",
+   "field": "physical_characteristics",
+   "claim": "Ciri ini merujuk pada tuna sirip kuning Pasifik (Thunnus albacares), salah satu spesies dalam genus Thunnus.",
+   "chunk_id": "chunk_tuna_identity_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r248",
+   "species": "tuna",
+   "field": "texture",
+   "claim": "Daging padat dan lembap dengan serpihan besar",
+   "chunk_id": "chunk_tuna_taste_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r249",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dipasarkan dalam keadaan segar",
+   "chunk_id": "chunk_tuna_processing_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r250",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dipasarkan dalam keadaan segar",
+   "chunk_id": "chunk_tuna_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r251",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Diolah untuk sashimi",
+   "chunk_id": "chunk_tuna_processing_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r252",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Diolah untuk sashimi",
+   "chunk_id": "chunk_tuna_processing_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r253",
+   "species": "tuna",
+   "field": "commercial_uses",
+   "claim": "Perikanan tuna dan makerel",
+   "chunk_id": "chunk_tuna_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r254",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "Tubuh memanjang dan agak pipih, dengan mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar yang bercabang dalam.",
+   "chunk_id": "chunk_bandeng_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r255",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "Tubuh memanjang dan agak pipih, dengan mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar yang bercabang dalam.",
+   "chunk_id": "chunk_bandeng_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r256",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "Bagian punggung berwarna hijau zaitun dan sisi tubuh berwarna keperakan.",
+   "chunk_id": "chunk_bandeng_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r257",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "Bagian punggung berwarna hijau zaitun dan sisi tubuh berwarna keperakan.",
+   "chunk_id": "chunk_bandeng_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r258",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "Individu dewasa dapat mencapai panjang standar 180 cm dan berat 14 kg.",
+   "chunk_id": "chunk_bandeng_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r259",
+   "species": "bandeng",
+   "field": "physical_characteristics",
+   "claim": "Individu dewasa dapat mencapai panjang standar 180 cm dan berat 14 kg.",
+   "chunk_id": "chunk_bandeng_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r260",
+   "species": "bandeng",
+   "field": "texture",
+   "claim": "Paling keras pada bandeng yang dimasak dengan metode kukus bertekanan",
+   "chunk_id": "chunk_bandeng_taste_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r261",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dijual dalam bentuk asap",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r262",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dibudidayakan di tambak",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r263",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "claim": "Dikembangkan sebagai induk dan dipijahkan dalam penangkaran",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r264",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli ikan bandeng segar",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r265",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli ikan bandeng asap",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r266",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli ikan bandeng kalengan",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r267",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli ikan bandeng beku",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r268",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Pembudidaya ikan yang membutuhkan larva atau benih bandeng",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r269",
+   "species": "bandeng",
+   "field": "potential_buyer_segments",
+   "claim": "Pembenih atau hatchery yang membutuhkan induk bandeng",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r270",
+   "species": "gelama_bunga",
+   "field": "processing_methods",
+   "claim": "Diolah menjadi sosis dengan formulasi yang mengandung 30% daging ayam.",
+   "chunk_id": "chunk_gelama_bunga_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r271",
+   "species": "gelama_bunga",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli hasil perikanan komersial",
+   "chunk_id": "chunk_gelama_bunga_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r272",
+   "species": "gelama_bunga",
+   "field": "potential_buyer_segments",
+   "claim": "Pengolah dan distributor produk makanan laut",
+   "chunk_id": "chunk_gelama_bunga_commercial_001",
+   "supported": false,
+   "reason": "segment_not_named",
+   "split": "dev"
+  },
+  {
+   "id": "r273",
+   "species": "gelama_bunga",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen obat tradisional Tiongkok",
+   "chunk_id": "chunk_gelama_bunga_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r274",
+   "species": "gelama_bunga",
+   "field": "potential_buyer_segments",
+   "claim": "Praktisi pengobatan tradisional Tiongkok",
+   "chunk_id": "chunk_gelama_bunga_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r275",
+   "species": "gulamah",
+   "field": "physical_characteristics",
+   "claim": "Ikan kecil yang mencapai panjang standar 13 cm, dengan 9–10 duri sirip punggung, 24–27 jari-jari lunak sirip punggung, 2 duri sirip dubur, dan 6–7 jari-jari lunak sirip dubur.",
+   "chunk_id": "chunk_gulamah_physical_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r276",
+   "species": "gulamah",
+   "field": "physical_characteristics",
+   "claim": "Ikan kecil yang mencapai panjang standar 13 cm, dengan 9–10 duri sirip punggung, 24–27 jari-jari lunak sirip punggung, 2 duri sirip dubur, dan 6–7 jari-jari lunak sirip dubur.",
+   "chunk_id": "chunk_gulamah_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r277",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "claim": "Berpotensi digunakan sebagai bahan baku surimi dan produk olahan daging ikan, berdasarkan penelitian.",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r278",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "claim": "Berpotensi digunakan sebagai bahan baku surimi dan produk olahan daging ikan, berdasarkan penelitian.",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r279",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "claim": "Gelatin yang diekstrak dari tulangnya telah diteliti untuk digunakan dalam pembuatan permen jeli secara eksperimental.",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r280",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "claim": "Gelatin yang diekstrak dari tulangnya telah diteliti untuk digunakan dalam pembuatan permen jeli secara eksperimental.",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r281",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen surimi dan produk olahan daging ikan",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r282",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen surimi dan produk olahan daging ikan",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r283",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Perusahaan pengolahan gelatin berbahan tulang ikan",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r284",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Perusahaan pengolahan gelatin berbahan tulang ikan",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r285",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen permen jeli dan produk pangan berbasis gelatin",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r286",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Produsen permen jeli dan produk pangan berbasis gelatin",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r287",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Perusahaan riset dan pengembangan pangan",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r288",
+   "species": "gulamah",
+   "field": "potential_buyer_segments",
+   "claim": "Perusahaan riset dan pengembangan pangan",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r289",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "Ikan kembung dapat mencapai panjang cagak 24 cm dan berat 750 g.",
+   "chunk_id": "chunk_kembung_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r290",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "Ikan kembung dapat mencapai panjang cagak 24 cm dan berat 750 g.",
+   "chunk_id": "chunk_kembung_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r291",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "Kepalanya lebih panjang daripada kedalaman tubuh, memiliki 2–6 bintik besar di pangkal sirip punggung pertama, gelembung renang, bercak hitam di belakang pangkal sirip dada, serta perut berwarna kuning keperakan.",
+   "chunk_id": "chunk_kembung_physical_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r292",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "claim": "Kepalanya lebih panjang daripada kedalaman tubuh, memiliki 2–6 bintik besar di pangkal sirip punggung pertama, gelembung renang, bercak hitam di belakang pangkal sirip dada, serta perut berwarna kuning keperakan.",
+   "chunk_id": "chunk_kembung_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r293",
+   "species": "kuniran",
+   "field": "physical_characteristics",
+   "claim": "Mencapai panjang total 22,5 cm, dengan panjang umum 18 cm.",
+   "chunk_id": "chunk_kuniran_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r294",
+   "species": "kuniran",
+   "field": "physical_characteristics",
+   "claim": "Mencapai panjang total 22,5 cm, dengan panjang umum 18 cm.",
+   "chunk_id": "chunk_kuniran_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r295",
+   "species": "kuniran",
+   "field": "physical_characteristics",
+   "claim": "Memiliki garis lateral tengah berwarna kuning atau keemasan dari mata hingga pangkal sirip ekor bagian atas, sungut berwarna putih, dan garis-garis merah pada sirip ekor.",
+   "chunk_id": "chunk_kuniran_identity_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r296",
+   "species": "kuniran",
+   "field": "physical_characteristics",
+   "claim": "Memiliki garis lateral tengah berwarna kuning atau keemasan dari mata hingga pangkal sirip ekor bagian atas, sungut berwarna putih, dan garis-garis merah pada sirip ekor.",
+   "chunk_id": "chunk_kuniran_physical_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r297",
+   "species": "kuniran",
+   "field": "commercial_uses",
+   "claim": "Dijual segar di pasar sebagai ikan konsumsi.",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r298",
+   "species": "kuniran",
+   "field": "potential_buyer_segments",
+   "claim": "Pasar ikan segar",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r299",
+   "species": "kuniran",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli telur ikan",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r300",
+   "species": "mujair",
+   "field": "physical_characteristics",
+   "claim": "Populasi Gascoyne-Lyons dilaporkan sangat kerdil, dengan panjang baku rata-rata saat matang 9 cm, dibandingkan sekitar 18 cm pada populasi lainnya.",
+   "chunk_id": "chunk_mujair_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r301",
+   "species": "mujair",
+   "field": "processing_methods",
+   "claim": "Disimpan dalam kondisi beku pada suhu -18 °C hingga 75 hari.",
+   "chunk_id": "chunk_mujair_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r302",
+   "species": "mujair",
+   "field": "potential_buyer_segments",
+   "claim": "Sektor perikanan artisanal di dataran banjir",
+   "chunk_id": "chunk_mujair_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r303",
+   "species": "mujair",
+   "field": "potential_buyer_segments",
+   "claim": "Pelaku perikanan di Sungai Sepik, Papua Nugini",
+   "chunk_id": "chunk_mujair_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r304",
+   "species": "nila",
+   "field": "physical_characteristics",
+   "claim": "Ikan nila Nil bertubuh besar dan dalam, dengan kepala relatif kecil.",
+   "chunk_id": "chunk_nila_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r305",
+   "species": "nila",
+   "field": "taste",
+   "claim": "ringan dan lezat",
+   "chunk_id": "chunk_nila_taste_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r306",
+   "species": "nila",
+   "field": "commercial_uses",
+   "claim": "Dibudidayakan secara komersial sebagai ikan konsumsi.",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r307",
+   "species": "nila",
+   "field": "commercial_uses",
+   "claim": "Menjadi salah satu kelompok ikan budidaya yang paling penting dan paling banyak dibudidayakan.",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r308",
+   "species": "nila",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli ikan budidaya",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r309",
+   "species": "nila",
+   "field": "potential_buyer_segments",
+   "claim": "Pasar makanan laut",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r310",
+   "species": "nila",
+   "field": "potential_buyer_segments",
+   "claim": "Distributor dan pengecer ikan konsumsi",
+   "chunk_id": "chunk_nila_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r311",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Senangin memiliki empat filamen sirip dada bebas.",
+   "chunk_id": "chunk_senangin_identity_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r312",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Senangin memiliki empat filamen sirip dada bebas.",
+   "chunk_id": "chunk_senangin_physical_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r313",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Ikan ini dapat tumbuh hingga panjang total 200 cm dan berat 145 kg, dengan panjang umum sekitar 50 cm.",
+   "chunk_id": "chunk_senangin_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r314",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Ikan ini dapat tumbuh hingga panjang total 200 cm dan berat 145 kg, dengan panjang umum sekitar 50 cm.",
+   "chunk_id": "chunk_senangin_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r315",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Selaput sirip dadanya berwarna kuning cerah saat hidup (kuning kusam pada spesimen besar), sedangkan filamen sirip dadanya berwarna putih.",
+   "chunk_id": "chunk_senangin_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "dev"
+  },
+  {
+   "id": "r316",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "claim": "Selaput sirip dadanya berwarna kuning cerah saat hidup (kuning kusam pada spesimen besar), sedangkan filamen sirip dadanya berwarna putih.",
+   "chunk_id": "chunk_senangin_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r317",
+   "species": "senangin",
+   "field": "processing_methods",
+   "claim": "Dipasarkan segar",
+   "chunk_id": "chunk_senangin_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r318",
+   "species": "senangin",
+   "field": "commercial_uses",
+   "claim": "Budidaya perikanan komersial",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r319",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Pedagang dan distributor ikan segar",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r320",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Pedagang dan distributor ikan beku",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r321",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Pengolah ikan kering atau asin",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r322",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Pengecer dan pasar ikan",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r323",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Industri makanan laut",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r324",
+   "species": "senangin",
+   "field": "potential_buyer_segments",
+   "claim": "Konsumen ikan konsumsi",
+   "chunk_id": "chunk_senangin_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r325",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Nama “tenggiri” dapat merujuk pada beberapa spesies.",
+   "chunk_id": "chunk_tenggiri_identity_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r326",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Nama “tenggiri” dapat merujuk pada beberapa spesies.",
+   "chunk_id": "chunk_tenggiri_identity_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r327",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Nama “tenggiri” dapat merujuk pada beberapa spesies.",
+   "chunk_id": "chunk_tenggiri_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r328",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus commerson mencapai panjang cagak 240 cm, memiliki punggung biru keabu-abuan berkilau, banyak garis vertikal tipis bergelombang, dan 15–18 duri sirip punggung.",
+   "chunk_id": "chunk_tenggiri_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r329",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus commerson mencapai panjang cagak 240 cm, memiliki punggung biru keabu-abuan berkilau, banyak garis vertikal tipis bergelombang, dan 15–18 duri sirip punggung.",
+   "chunk_id": "chunk_tenggiri_identity_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r330",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus commerson mencapai panjang cagak 240 cm, memiliki punggung biru keabu-abuan berkilau, banyak garis vertikal tipis bergelombang, dan 15–18 duri sirip punggung.",
+   "chunk_id": "chunk_tenggiri_physical_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r331",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus guttatus mencapai panjang cagak 81,5 cm dan berat 4 kg, dengan sisi tubuh putih keperakan serta beberapa baris bintik bulat cokelat gelap di sepanjang garis rusuk.",
+   "chunk_id": "chunk_tenggiri_identity_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r332",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus guttatus mencapai panjang cagak 81,5 cm dan berat 4 kg, dengan sisi tubuh putih keperakan serta beberapa baris bintik bulat cokelat gelap di sepanjang garis rusuk.",
+   "chunk_id": "chunk_tenggiri_identity_002",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r333",
+   "species": "tenggiri",
+   "field": "physical_characteristics",
+   "claim": "Scomberomorus guttatus mencapai panjang cagak 81,5 cm dan berat 4 kg, dengan sisi tubuh putih keperakan serta beberapa baris bintik bulat cokelat gelap di sepanjang garis rusuk.",
+   "chunk_id": "chunk_tenggiri_physical_001",
+   "supported": false,
+   "reason": "sibling_chunk",
+   "split": "test"
+  },
+  {
+   "id": "r334",
+   "species": "tenggiri",
+   "field": "processing_methods",
+   "claim": "Dipasarkan segar",
+   "chunk_id": "chunk_tenggiri_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r335",
+   "species": "tenggiri",
+   "field": "potential_buyer_segments",
+   "claim": "Pembeli ikan segar",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r336",
+   "species": "tenggiri",
+   "field": "potential_buyer_segments",
+   "claim": "Pengolah ikan beku",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r337",
+   "species": "tenggiri",
+   "field": "potential_buyer_segments",
+   "claim": "Pengolah ikan asap",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r338",
+   "species": "tenggiri",
+   "field": "potential_buyer_segments",
+   "claim": "Industri pengalengan ikan",
+   "chunk_id": "chunk_tenggiri_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "test"
+  },
+  {
+   "id": "r339",
+   "species": "tuna",
+   "field": "physical_characteristics",
+   "claim": "Berbentuk torpedo, berwarna biru tua metalik di bagian atas, kuning hingga keperakan di bagian bawah, dengan sirip punggung, sirip dubur, dan sirip-sirip kecil berwarna kuning cerah.",
+   "chunk_id": "chunk_tuna_physical_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r340",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dijual segar",
+   "chunk_id": "chunk_tuna_processing_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r341",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dijual segar",
+   "chunk_id": "chunk_tuna_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r342",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dikemas dalam kaleng",
+   "chunk_id": "chunk_tuna_processing_002",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r343",
+   "species": "tuna",
+   "field": "processing_methods",
+   "claim": "Dikemas dalam kaleng",
+   "chunk_id": "chunk_tuna_processing_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  },
+  {
+   "id": "r344",
+   "species": "tuna",
+   "field": "commercial_uses",
+   "claim": "Perikanan tuna",
+   "chunk_id": "chunk_tuna_commercial_001",
+   "supported": true,
+   "reason": "stated",
+   "split": "dev"
+  }
+ ],
+ "traps": [
+  {
+   "id": "t01",
+   "species": "tuna",
+   "field": "taste",
+   "chunk_id": "chunk_tuna_taste_001",
+   "claim": "rasa kuat dan amis",
+   "kind": "antonym"
+  },
+  {
+   "id": "t02",
+   "species": "tuna",
+   "field": "texture",
+   "chunk_id": "chunk_tuna_taste_001",
+   "claim": "daging lembek dan berair dengan serpihan kecil",
+   "kind": "antonym"
+  },
+  {
+   "id": "t03",
+   "species": "tuna",
+   "field": "physical_characteristics",
+   "chunk_id": "chunk_tuna_physical_001",
+   "claim": "berwarna biru tua metalik di bagian bawah dan kuning di bagian atas",
+   "kind": "attribute_swap"
+  },
+  {
+   "id": "t04",
+   "species": "nila",
+   "field": "taste",
+   "chunk_id": "chunk_nila_taste_001",
+   "claim": "Rasa hambar dan tidak enak",
+   "kind": "antonym"
+  },
+  {
+   "id": "t05",
+   "species": "nila",
+   "field": "physical_characteristics",
+   "chunk_id": "chunk_nila_physical_001",
+   "claim": "Nila bertubuh kecil dan pipih dengan kepala yang relatif besar.",
+   "kind": "antonym"
+  },
+  {
+   "id": "t06",
+   "species": "nila",
+   "field": "processing_methods",
+   "chunk_id": "chunk_nila_processing_001",
+   "claim": "Diolah menjadi fillet berkulit dengan rendemen sekitar 33% pada ikan dengan faktor kondisi 3,11.",
+   "kind": "attribute_swap"
+  },
+  {
+   "id": "t07",
+   "species": "mujair",
+   "field": "taste",
+   "chunk_id": "chunk_mujair_taste_001",
+   "claim": "tidak lezat",
+   "kind": "negation"
+  },
+  {
+   "id": "t08",
+   "species": "mujair",
+   "field": "physical_characteristics",
+   "chunk_id": "chunk_mujair_physical_001",
+   "claim": "Populasi Gascoyne-Lyons dilaporkan berukuran sangat besar dibandingkan populasi lainnya.",
+   "kind": "antonym"
+  },
+  {
+   "id": "t09",
+   "species": "mujair",
+   "field": "commercial_uses",
+   "chunk_id": "chunk_mujair_commercial_001",
+   "claim": "Menyumbang sebagian kecil dari perkiraan pendaratan tahunan.",
+   "kind": "antonym"
+  },
+  {
+   "id": "t10",
+   "species": "bandeng",
+   "field": "texture",
+   "chunk_id": "chunk_bandeng_taste_001",
+   "claim": "Paling lunak pada bandeng yang dimasak dengan kukus bertekanan",
+   "kind": "antonym"
+  },
+  {
+   "id": "t11",
+   "species": "bandeng",
+   "field": "texture",
+   "chunk_id": "chunk_bandeng_taste_001",
+   "claim": "Daging bandeng mentah bertekstur paling keras.",
+   "kind": "scope"
+  },
+  {
+   "id": "t12",
+   "species": "bandeng",
+   "field": "commercial_uses",
+   "chunk_id": "chunk_bandeng_commercial_001",
+   "claim": "Tidak dibudidayakan di kolam.",
+   "kind": "negation"
+  },
+  {
+   "id": "t13",
+   "species": "gelama_bunga",
+   "field": "taste",
+   "chunk_id": "chunk_gelama_bunga_taste_001",
+   "claim": "Skor rasa ikan segar 5,40.",
+   "kind": "scope"
+  },
+  {
+   "id": "t14",
+   "species": "kembung",
+   "field": "physical_characteristics",
+   "chunk_id": "chunk_kembung_physical_001",
+   "claim": "Kepala lebih pendek daripada kedalaman tubuh.",
+   "kind": "antonym"
+  },
+  {
+   "id": "t15",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "chunk_id": "chunk_senangin_physical_001",
+   "claim": "Selaput sirip dada berwarna biru saat hidup.",
+   "kind": "attribute_swap"
+  },
+  {
+   "id": "t16",
+   "species": "senangin",
+   "field": "physical_characteristics",
+   "chunk_id": "chunk_senangin_physical_001",
+   "claim": "Spesies ini bukan hermafrodit.",
+   "kind": "negation"
+  },
+  {
+   "id": "t17",
+   "species": "senangin",
+   "field": "processing_methods",
+   "chunk_id": "chunk_senangin_processing_001",
+   "claim": "Tidak pernah dikeringkan atau diasinkan.",
+   "kind": "negation"
+  },
+  {
+   "id": "t18",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "chunk_id": "chunk_gulamah_commercial_001",
+   "claim": "Telah digunakan secara luas dalam industri surimi.",
+   "kind": "scope"
+  },
+  {
+   "id": "t19",
+   "species": "gulamah",
+   "field": "commercial_uses",
+   "chunk_id": "chunk_gulamah_commercial_002",
+   "claim": "Gelatin dari tulangnya sudah diproduksi secara industri untuk permen jeli.",
+   "kind": "scope"
+  },
+  {
+   "id": "t20",
+   "species": "kuniran",
+   "field": "commercial_uses",
+   "chunk_id": "chunk_kuniran_commercial_001",
+   "claim": "Tidak dijual segar di pasar.",
+   "kind": "negation"
+  },
+  {
+   "id": "t21",
+   "species": "kuniran",
+   "field": "processing_methods",
+   "chunk_id": "chunk_kuniran_processing_001",
+   "claim": "Disimpan dalam es tanpa batas penerimaan sensoris.",
+   "kind": "negation"
+  },
+  {
+   "id": "t22",
+   "species": "tenggiri",
+   "field": "processing_methods",
+   "chunk_id": "chunk_tenggiri_processing_001",
+   "claim": "Jarang dipasarkan dalam keadaan segar.",
+   "kind": "antonym"
+  },
+  {
+   "id": "t23",
+   "species": "kuniran",
+   "field": "physical_characteristics",
+   "chunk_id": "chunk_kuniran_physical_001",
+   "claim": "Panjang totalnya dapat mencapai 32,5 cm.",
+   "kind": "number"
+  }
+ ]
+}

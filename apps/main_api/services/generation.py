@@ -27,6 +27,8 @@ from apps.main_api.errors import InvalidGeneratedKnowledge, OpenCodeUnavailable
 SYSTEM_PROMPT = (
     Path(__file__).resolve().parents[1] / "prompts" / "knowledge_card_system.txt"
 ).read_text(encoding="utf-8")
+# First limitation of a card built with no evidence at all.
+NO_INFORMATION = "No information available yet"
 
 
 class GeneratedCitation(BaseModel):
@@ -124,21 +126,21 @@ def make_opencode_go_llm(settings, timeout: float | None = None, session_id: str
 
 
 def _user_payload(species: SpeciesRecord, evidence: list[RetrievedChunk]) -> str:
-    """Indonesian payload: relational species fields plus the supplied
-    evidence passages, each delimited by source_id/species/category/content."""
+    """User payload: relational species fields plus the supplied evidence
+    passages, each delimited by source_id/species/category/content."""
     lines = [
-        "Data relasional spesies (wajib diikuti, jangan ditimpa):",
-        f"- nama umum: {species.common_name_id}",
-        f"- nama ilmiah: {species.scientific_name}",
-        f"- peringkat taksonomi: {species.taxonomic_rank}",
-        f"- status taksonomi: {species.taxonomy_status}",
+        "Relational species data (must be followed, never overridden):",
+        f"- common name: {species.common_name_id}",
+        f"- scientific name: {species.scientific_name}",
+        f"- taxonomic rank: {species.taxonomic_rank}",
+        f"- taxonomy status: {species.taxonomy_status}",
         "",
-        "Bukti yang disediakan (hanya ini yang boleh dipakai):",
+        "Supplied evidence (use only this):",
     ]
     for chunk in evidence:
         lines.append(
-            f"[source_id: {chunk.source_id}] [spesies: {chunk.species_id}] "
-            f"[kategori: {chunk.category}]"
+            f"[source_id: {chunk.source_id}] [species: {chunk.species_id}] "
+            f"[category: {chunk.category}]"
         )
         lines.append(chunk.content)
     return "\n".join(lines)
@@ -185,20 +187,21 @@ class KnowledgeResponse(BaseModel):
 TAXONOMY_GUARDRAILS: dict[str, tuple[str | None, str]] = {
     "tuna": (
         "Thunnus spp.",
-        "Nama umum 'tuna' mencakup beberapa spesies (mungkin juga cakalang/bonito, "
-        "Katsuwonus/Euthynnus); taksonomi dikunci pada tingkat genus Thunnus spp. "
-        "sampai verifikasi ahli.",
+        "The common name 'tuna' covers several species (possibly also skipjack or "
+        "bonito, Katsuwonus/Euthynnus); taxonomy is locked at the genus Thunnus spp. "
+        "until expert verification.",
     ),
     "gembolo": (
         None,
-        "Nama umum 'gembolo' ambigu: merujuk spesies berbeda menurut daerah "
-        "(Rastrelliger spp., Selaroides leptolepis, Caranx spp.); nama ilmiah "
-        "tidak dapat dipastikan tanpa identifikasi ahli.",
+        "The market name 'gembolo' is ambiguous: it refers to different species by "
+        "region (Rastrelliger spp., Selaroides leptolepis, Caranx spp.); the scientific "
+        "name cannot be confirmed without expert identification.",
     ),
     "tenggiri": (
         "Scomberomorus commerson",
-        "Label 'tenggiri' juga dipakai untuk Scomberomorus guttatus (tenggiri papan); "
-        "kartu ini mengikuti nama vernakular utama Scomberomorus commerson.",
+        "The market name 'tenggiri' is also used for Scomberomorus guttatus "
+        "(Indo-Pacific king mackerel); this card follows its main vernacular species, "
+        "Scomberomorus commerson.",
     ),
 }
 
@@ -261,7 +264,7 @@ class KnowledgeGenerator:
             commercial_uses=[],
             similar_or_substitute_species=[],
             potential_buyer_segments=[],
-            limitations=["Informasi belum tersedia"] + limitations,
+            limitations=[NO_INFORMATION] + limitations,
             sources=[],
         )
 

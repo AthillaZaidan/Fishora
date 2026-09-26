@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_mujair_substitutes_002",
+  "chunk": {
+    "id": "chunk_mujair_substitutes_002",
+    "species_label": "mujair",
+    "source_id": "fao_y5728e",
+    "category": "substitutes",
+    "content": "Oreochromis mossambicus introduced to Nauru became a pest rather than a food fish, partly because of its unattractive appearance compared to milkfish.",
+    "source_quote": "Rather than becoming a food fish, it became a pest for reasons of its unattractive appearance compared to milkfish, small size and mainly because of its effect on milkfish farming.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_y5728e",
+    "title": "Tilapias as Alien Aquatics in Asia and the Pacific: A Review",
+    "source_type": "fisheries_technical_paper",
+    "url": "https://www.fao.org/4/y5728e/y5728e05.htm",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

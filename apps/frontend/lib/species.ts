@@ -22,7 +22,14 @@ export const SUPPORTED_LABELS = [
 export type SpeciesLabel = (typeof SUPPORTED_LABELS)[number]
 
 export interface SpeciesNames {
+  /** The English name, or the local name where the fish has no English one. */
   commonName: string
+  /**
+   * The Indonesian market name the catch is landed and sold under. A proper
+   * noun of the market, shown beside the English name, never instead of it.
+   * Equal to `commonName` when there is no English name.
+   */
+  localName: string
   scientificName: string | null
   /** Catch photography for this species, served from /public. */
   photo: string
@@ -51,18 +58,22 @@ const PHOTOS: Record<SpeciesLabel, string> = {
 }
 
 // Follows the taxonomy seed: gembolo has no scientific name, tuna is genus-level.
+// English names are the FishBase common names of the scientific name (tenggiri
+// shortened from "Narrow-barred Spanish mackerel", as the trade says). Gembolo
+// keeps its local name: it names different fish in different regions, so no
+// single English name is true of it.
 const NAMES: Record<SpeciesLabel, Omit<SpeciesNames, 'photo'>> = {
-  bandeng: { commonName: 'Bandeng', scientificName: 'Chanos chanos' },
-  gelama_bunga: { commonName: 'Gelama Bunga', scientificName: 'Pennahia anea' },
-  gembolo: { commonName: 'Gembolo', scientificName: null },
-  gulamah: { commonName: 'Gulamah', scientificName: 'Johnius belangerii' },
-  kembung: { commonName: 'Kembung', scientificName: 'Rastrelliger kanagurta' },
-  kuniran: { commonName: 'Kuniran', scientificName: 'Upeneus sulphureus' },
-  mujair: { commonName: 'Mujair', scientificName: 'Oreochromis mossambicus' },
-  nila: { commonName: 'Nila', scientificName: 'Oreochromis niloticus' },
-  senangin: { commonName: 'Senangin', scientificName: 'Eleutheronema tetradactylum' },
-  tenggiri: { commonName: 'Tenggiri', scientificName: 'Scomberomorus commerson' },
-  tuna: { commonName: 'Tuna', scientificName: 'Thunnus spp.' },
+  bandeng: { commonName: 'Milkfish', localName: 'Bandeng', scientificName: 'Chanos chanos' },
+  gelama_bunga: { commonName: 'Greyfin croaker', localName: 'Gelama Bunga', scientificName: 'Pennahia anea' },
+  gembolo: { commonName: 'Gembolo', localName: 'Gembolo', scientificName: null },
+  gulamah: { commonName: "Belanger's croaker", localName: 'Gulamah', scientificName: 'Johnius belangerii' },
+  kembung: { commonName: 'Indian mackerel', localName: 'Kembung', scientificName: 'Rastrelliger kanagurta' },
+  kuniran: { commonName: 'Sulphur goatfish', localName: 'Kuniran', scientificName: 'Upeneus sulphureus' },
+  mujair: { commonName: 'Mozambique tilapia', localName: 'Mujair', scientificName: 'Oreochromis mossambicus' },
+  nila: { commonName: 'Nile tilapia', localName: 'Nila', scientificName: 'Oreochromis niloticus' },
+  senangin: { commonName: 'Fourfinger threadfin', localName: 'Senangin', scientificName: 'Eleutheronema tetradactylum' },
+  tenggiri: { commonName: 'Spanish mackerel', localName: 'Tenggiri', scientificName: 'Scomberomorus commerson' },
+  tuna: { commonName: 'Tuna', localName: 'Tuna', scientificName: 'Thunnus spp.' },
 }
 
 export const SPECIES: Record<SpeciesLabel, SpeciesNames> = Object.fromEntries(
@@ -73,7 +84,13 @@ export function resolveSpecies(label: string): SpeciesNames {
   if (isSpeciesLabel(label)) return SPECIES[label]
   // Open water, not a fish: showing some other species' photograph next to an
   // unrecognised label would misinform a buyer about what is in the lot.
-  return { commonName: label, scientificName: null, photo: '/sea.jpg' }
+  return { commonName: label, localName: label, scientificName: null, photo: '/sea.jpg' }
+}
+
+/** `Milkfish (Bandeng)`, or just `Gembolo` where there is no English name. */
+export function displayName(label: string): string {
+  const { commonName, localName } = resolveSpecies(label)
+  return localName === commonName ? commonName : `${commonName} (${localName})`
 }
 
 export function isSpeciesLabel(label: string): label is SpeciesLabel {

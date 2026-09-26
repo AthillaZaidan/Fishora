@@ -7,8 +7,11 @@ Needs OPENCODE_GO_API_KEY (from .env). Application code is not modified:
 * agent path (``run_graph``, the operator card): the real LLM is wrapped in
   ``RecordingLLM``. It reads ``usage_metadata`` off every response and labels
   the call by pipeline stage (sub-query, expert, critic, polish).
-* published path (``KnowledgeGenerator`` + ``OpenCodeGoClient``, the lot/QR
-  card): LangChain's usage callback captures its one structured-output call.
+* one-call path (``KnowledgeGenerator`` + ``OpenCodeGoClient``): the product's
+  published card until iteration 1, one structured-output call with no
+  per-claim critic. Since iteration 2 the product publishes the graded agent
+  card (W19), so this path is an eval-only reference: W26 compares the graded
+  card's fill rate against it. LangChain's usage callback captures its call.
 
 Retrieval runs on the real E5 model over the in-memory candidate store, as in
 evals/run.py. Cost uses the OpenCode Go list price. On the subscription that
@@ -52,18 +55,14 @@ ALLOWANCE = {
     "deepseek-v4.1-flash": {"5h": 12.0, "week": 30.0, "month": 60.0},
 }
 
-CARD_QUERY = (
-    "Buat kartu pengetahuan bahasa Indonesia untuk {common_name}: identitas, "
-    "ciri fisik, rasa dan tekstur, cara pengolahan, penggunaan komersial, dan "
-    "spesies pengganti."
-)
+from apps.main_api.services.orchestrator import CARD_QUERY  # noqa: E402  (the production query)
 _STAGE_PREFIXES = (
     ("Untuk spesies", "researcher_subquery"),
-    ("Tulis physical_characteristics", "expert_physical"),
-    ("Tulis taste dan texture", "expert_taste"),
-    ("Tulis processing_methods", "expert_commercial"),
-    ("Tulis similar_or_substitute_species", "expert_substitute"),
-    ("Untuk setiap field", "critic_llm"),
+    ("Write physical_characteristics", "expert_physical"),
+    ("Write taste and texture", "expert_taste"),
+    ("Write processing_methods", "expert_commercial"),
+    ("Write similar_or_substitute_species", "expert_substitute"),
+    ("For each field", "critic_llm"),
     ("Perbaiki bahasa", "writer_polish"),
 )
 
@@ -168,9 +167,18 @@ _EN = {"the", "and", "with", "of", "is", "are", "for", "from", "its", "fish"}
 _ID = {"dan", "yang", "dengan", "untuk", "dari", "adalah", "ikan", "atau", "pada", "sebagai"}
 
 
-def english_leak(card: dict | None) -> bool | None:
-    """True when a card's prose has more English than Indonesian function
-    words. The prompt requires Indonesian; the evidence is English."""
+def language_leak(card: dict | None) -> bool | None:
+    """True when a card's prose is not English: it has more Indonesian than
+    English function words. The app is English-only and so is the prompt (W22).
+    Until the app went English-only this was ``english_leak``, the opposite
+    check; findings W22 re-scores the stored cards of artifacts that predate it."""
+    words = _prose_words(card)
+    if words is None:
+        return None
+    return sum(w in _ID for w in words) > sum(w in _EN for w in words)
+
+
+def _prose_words(card: dict | None) -> list[str] | None:
     if not card:
         return None
     text = " ".join(
@@ -179,9 +187,7 @@ def english_leak(card: dict | None) -> bool | None:
         if k in {"physical_characteristics", "taste", "texture", "processing_methods", "commercial_uses",
                  "similar_or_substitute_species", "potential_buyer_segments"} and v
     ).lower().split()
-    if not text:
-        return None
-    return sum(w in _EN for w in text) > sum(w in _ID for w in text)
+    return text or None
 
 
 def _card_fill(card: dict | None) -> dict:
@@ -226,8 +232,10 @@ def run_agent(species, store, embedder, settings, repeat: int, normalize: bool =
                 "reasoning_tokens": sum(c.reasoning_tokens for c in calls),
                 "cost_usd": round(sum(c.cost_usd for c in calls), 6),
                 "critic_feedback": job.critic_feedback,
+                "expert_outputs": job.expert_outputs,
+                "trace": job.trace,
                 "fields_filled": _card_fill(job.final_card),
-                "english_leak": english_leak(job.final_card),
+                "language_leak": language_leak(job.final_card),
                 "card": job.final_card,
                 "sources": len((job.final_card or {}).get("sources", [])),
                 "error": job.error,
@@ -237,7 +245,7 @@ def run_agent(species, store, embedder, settings, repeat: int, normalize: bool =
     return cards, llm.records
 
 
-def run_published(species, store, embedder, settings, repeat: int, model: str | None = None,
+def run_one_call(species, store, embedder, settings, repeat: int, model: str | None = None,
                   timeout: float | None = None, max_retries: int | None = None) -> tuple[list[dict], list[CallRecord]]:
     from langchain_core.callbacks import get_usage_metadata_callback
 
@@ -278,21 +286,21 @@ def run_published(species, store, embedder, settings, repeat: int, model: str | 
                 for key, value in _usage_fields(model_usage).items():
                     usage[key] = usage.get(key, 0) + value
             usage = {**_usage_fields(None), **usage}
-            call = CallRecord(path="published", species=record.normalized_label, stage="sync_generate",
+            call = CallRecord(path="one_call", species=record.normalized_label, stage="sync_generate",
                               started_s=round(gen_started - t0, 3), latency_s=round(gen_s, 3),
                               error=error, **usage)
             call.cost_usd = price(model, call.input_tokens, call.cached_tokens, call.output_tokens)
             records.append(call)
             cards.append({
-                "path": "published", "species": record.normalized_label, "status": status,
+                "path": "one_call", "species": record.normalized_label, "status": status,
                 "wall_s": round(time.perf_counter() - started, 2), "retrieval_ms": round(retrieval_s * 1000, 1),
                 "llm_calls": 1, "llm_errors": int(error is not None), "llm_time_s": round(gen_s, 2),
                 **usage, "cost_usd": round(call.cost_usd, 6),
-                "fields_filled": _card_fill(card), "english_leak": english_leak(card),
+                "fields_filled": _card_fill(card), "language_leak": language_leak(card),
                 "model": model, "card": card, "sources": len((card or {}).get("sources", [])),
                 "error": error,
             })
-            print(f"[cost] published {record.normalized_label}: {status} {gen_s:.1f}s ${call.cost_usd:.5f}", flush=True)
+            print(f"[cost] one_call {record.normalized_label}: {status} {gen_s:.1f}s ${call.cost_usd:.5f}", flush=True)
     generation.make_opencode_go_llm = production_factory
     return cards, records
 
@@ -308,12 +316,12 @@ def _dist(values: list[float]) -> dict:
 
 def summarize(cards: list[dict], records: list[CallRecord], model: str) -> dict:
     by_path = {}
-    for path in ("published", "agent", "agent_normalized"):
+    for path in ("one_call", "agent", "agent_normalized"):
         every = [c for c in cards if c["path"] == path]
         # A completed agent card with no LLM call came from the card cache (W6).
         # Generation statistics exclude those so they compare with uncached runs;
         # cache hits are reported on their own.
-        hits = [c for c in every if path != "published" and c["status"] == "completed" and c["llm_calls"] == 0]
+        hits = [c for c in every if path != "one_call" and c["status"] == "completed" and c["llm_calls"] == 0]
         pc = [c for c in every if c not in hits]
         if not pc:
             continue
@@ -331,7 +339,7 @@ def summarize(cards: list[dict], records: list[CallRecord], model: str) -> dict:
             "cache_hit_share_of_input": round(sum(c["cached_tokens"] for c in pc) / max(1, sum(c["input_tokens"] for c in pc)), 4),
             "output_share_of_cost": round(
                 sum(c["output_tokens"] for c in pc) * PRICES[model][1] / 1e6 / max(1e-12, sum(c["cost_usd"] for c in pc)), 4),
-            "english_leak_rate": round(sum(bool(c.get("english_leak")) for c in pc) / len(pc), 4),
+            "language_leak_rate": round(sum(bool(c.get("language_leak")) for c in pc) / len(pc), 4),
             "cards_per_allowance": {window: int(limit // mean_cost) if mean_cost else None
                                     for window, limit in ALLOWANCE[model].items()},
             "cost_usd_per_1000_cards": round(mean_cost * 1000, 2),
@@ -375,7 +383,7 @@ def main(argv: list[str] | None = None):
     parser.add_argument("--label", default="current")
     parser.add_argument("--species", default="", help="comma-separated labels; default all 11")
     parser.add_argument("--repeat", type=int, default=1)
-    parser.add_argument("--paths", default="published,agent")
+    parser.add_argument("--paths", default="one_call,agent")
     args = parser.parse_args(argv)
 
     settings = MainSettings()
@@ -392,8 +400,8 @@ def main(argv: list[str] | None = None):
     store = build_store(embedder)
     started = time.perf_counter()
     cards, records = [], []
-    if "published" in args.paths:
-        c, r = run_published(species, store, embedder, settings, args.repeat)
+    if "one_call" in args.paths.split(","):
+        c, r = run_one_call(species, store, embedder, settings, args.repeat)
         cards += c
         records += r
     for normalize, name in ((False, "agent"), (True, "agent_normalized")):

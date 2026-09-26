@@ -34,7 +34,7 @@ export function FlowStrip() {
     <div
       id="flow"
       role="group"
-      aria-label="Alur Fishora"
+      aria-label="How Fishora works"
       // overflow-hidden, not overflow-x-auto: no scrollbar, and the track is
       // moved by the animation rather than by the scroll position.
       className="marquee group relative overflow-hidden"

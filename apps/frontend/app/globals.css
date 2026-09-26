@@ -457,9 +457,9 @@ html {
     position: fixed;
     top: 0;
     left: 0;
-    /* The ratio is the point of the card, so height follows width rather than
-       stretching to the sheet. */
-    width: 100mm;
+    /* A6 landscape. The ratio is the point of the card, so height follows
+       width rather than stretching to the sheet. */
+    width: 148mm;
     height: auto;
     box-shadow: none;
     /* Without this the photograph and the scrim drop out and the card prints

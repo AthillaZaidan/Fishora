@@ -1,18 +1,21 @@
 // Locale is pinned: an unpinned one formats differently on server and client.
+// English UI: comma thousands, point decimals, day-month dates, 24-hour clock.
+const LOCALE = 'en-GB'
 
 /** Non-breaking space. */
 const NBSP = ' '
-/** Zero-width, non-breaking. Stops "68.000/kg" breaking at the slash. */
+/** Zero-width, non-breaking. Stops "68,000/kg" breaking at the slash. */
 const WORD_JOINER = '⁠'
 
-const decimal = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 0 })
+const decimal = new Intl.NumberFormat(LOCALE, { maximumFractionDigits: 0 })
+const oneDecimal = new Intl.NumberFormat(LOCALE, { maximumFractionDigits: 1 })
 
-/** `68000` -> `Rp 68.000`. Built by hand so ICU drift cannot change it. */
+/** `68000` -> `Rp 68,000`. Built by hand so ICU drift cannot change it. */
 export function rupiah(value: number): string {
   return `Rp${NBSP}${decimal.format(Math.round(value))}`
 }
 
-/** `68000` -> `Rp 68.000/kg`, unbreakable. */
+/** `68000` -> `Rp 68,000/kg`, unbreakable. */
 export function rupiahPerKg(value: number): string {
   return `${rupiah(value)}${WORD_JOINER}/kg`
 }
@@ -27,6 +30,16 @@ export function kilometres(value: number): string {
   return `${decimal.format(Math.round(value))}${NBSP}km`
 }
 
+/** `1200` -> `1,200`: a whole number with English grouping. */
+export function integer(value: number): string {
+  return decimal.format(Math.round(value))
+}
+
+/** `4.25` -> `4.3`: at most one decimal, English decimal point. */
+export function oneDecimalPlace(value: number): string {
+  return oneDecimal.format(value)
+}
+
 /** `0.91` -> `91%`. */
 export function percent(fraction: number): string {
   return `${Math.round(fraction * 100)}%`
@@ -34,15 +47,16 @@ export function percent(fraction: number): string {
 
 // The market runs on WIB, and an unpinned zone renders one string on the
 // server and another in the browser, which React reports as a hydration error.
-const stamp = new Intl.DateTimeFormat('id-ID', {
+const stamp = new Intl.DateTimeFormat(LOCALE, {
   day: 'numeric',
   month: 'short',
   hour: '2-digit',
   minute: '2-digit',
+  hour12: false,
   timeZone: 'Asia/Jakarta',
 })
 
-/** An ISO instant -> `24 Agu, 17.15` in WIB. */
+/** An ISO instant -> `24 Aug, 17:15` in WIB. */
 export function dateTime(iso: string): string {
   return stamp.format(new Date(iso))
 }

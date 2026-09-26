@@ -96,12 +96,14 @@ class Lot(Base):
         CheckConstraint("auction_ends_at > auction_starts_at", name="ck_lots_auction_window"),
         CheckConstraint("size_category IN ('S', 'M', 'L')", name="ck_lots_size_category"),
         UniqueConstraint("public_slug", name="uq_lots_public_slug"),
-        # HANDOFF 11: Prediction 1 -> 0..1 AuctionLot.
-        UniqueConstraint("prediction_id", name="uq_lots_prediction_id"),
+        # One catch publishes once, as a batch of lots numbered 1..batch_size,
+        # each its own auction. A second publish of the catch collides on lot 1.
+        UniqueConstraint("prediction_id", "batch_index", name="uq_lots_prediction_batch"),
+        CheckConstraint("batch_index BETWEEN 1 AND batch_size", name="ck_lots_batch_index"),
     )
 
     id: Mapped[str] = mapped_column(String(120), primary_key=True)
-    # No index=True: uq_lots_prediction_id already indexes this column.
+    # No index=True: uq_lots_prediction_batch leads with this column.
     prediction_id: Mapped[str] = mapped_column(ForeignKey("predictions.id"), nullable=False)
     operator_id: Mapped[str] = mapped_column(String(120), nullable=False, index=True)
     species_id: Mapped[str] = mapped_column(ForeignKey("fish_species.id"), nullable=False, index=True)
@@ -116,6 +118,8 @@ class Lot(Base):
     public_slug: Mapped[str] = mapped_column(String(160), nullable=False)
     allocated_buyer_id: Mapped[str | None] = mapped_column(String(120))
     seller_fisher_group: Mapped[str | None] = mapped_column(String(160))
+    batch_index: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
+    batch_size: Mapped[int] = mapped_column(Integer, nullable=False, default=1, server_default="1")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
@@ -160,6 +164,7 @@ class KnowledgeJob(Base):
     critic_feedback: Mapped[str | None] = mapped_column(Text)
     final_card: Mapped[dict | None] = mapped_column(JSONB)
     error: Mapped[str | None] = mapped_column(Text)
+    trace: Mapped[dict | None] = mapped_column(JSONB)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
@@ -186,4 +191,21 @@ class CommercialBuyerReview(Base):
     processing_suitability: Mapped[int] = mapped_column(Integer, nullable=False)
     substitute_acceptance: Mapped[bool | None] = mapped_column(Boolean)
     comment: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class User(Base):
+    __tablename__ = "users"
+    __table_args__ = (
+        CheckConstraint("role IN ('operator', 'buyer')", name="ck_users_role"),
+        UniqueConstraint("username", name="uq_users_username"),
+    )
+
+    # Lots, bids and preferences store this id as a plain string, not a foreign
+    # key: the seeded demo ids (op_rian, buyer_dewi) predate this table.
+    id: Mapped[str] = mapped_column(String(120), primary_key=True)
+    username: Mapped[str] = mapped_column(String(32), nullable=False)
+    display_name: Mapped[str] = mapped_column(String(80), nullable=False)
+    role: Mapped[str] = mapped_column(String(20), nullable=False)
+    password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

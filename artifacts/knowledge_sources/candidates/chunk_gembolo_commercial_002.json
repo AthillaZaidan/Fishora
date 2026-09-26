@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_gembolo_commercial_002",
+  "chunk": {
+    "id": "chunk_gembolo_commercial_002",
+    "species_label": "gembolo",
+    "source_id": "idwiki_ikan_kembung",
+    "category": "commercial_uses",
+    "content": "Small kembung (Rastrelliger spp., called gembolo in West Sumatra) are often used as live bait for skipjack tuna fishing.",
+    "source_quote": "Ikan kembung yang masih kecil juga sering digunakan sebagai umpan hidup untuk memancing cakalang.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "idwiki_ikan_kembung",
+    "title": "Ikan kembung - Wikipedia bahasa Indonesia",
+    "source_type": "encyclopedia",
+    "url": "https://id.wikipedia.org/wiki/Ikan_kembung",
+    "publisher": "Wikipedia",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

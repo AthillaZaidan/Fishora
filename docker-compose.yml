@@ -1,3 +1,25 @@
+# The whole stack: `docker compose up --build`, then open http://localhost:${FISHORA_FRONTEND_PORT}.
+#
+# Settings come from .env, the same file run_local.sh uses. Compose also reads it
+# for the ${...} ports below. The `environment:` entries only swap the host
+# addresses in .env (localhost:55432, localhost:8001) for service names.
+#
+# The CV service needs the model export under ai/ and an NVIDIA GPU, so it is
+# opt-in: add COMPOSE_PROFILES=cv to .env. Without it identification returns 503
+# and the operator names the species by hand.
+
+x-env-file: &env-file
+  env_file:
+    - path: .env
+      required: false
+
+x-api-build: &api-build
+  build:
+    context: .
+  image: fishora-api:local
+
+x-db-url: &db-url postgresql+psycopg://fishora:fishora@db:5432/fishora
+
 services:
   db:
     image: pgvector/pgvector:pg16
@@ -15,5 +37,80 @@ services:
     volumes:
       - fishora_pgdata:/var/lib/postgresql/data
 
+  # Migrations, taxonomy, and demo lots on first run; exits when done.
+  init:
+    <<: [*env-file, *api-build]
+    command: ["sh", "docker/init.sh"]
+    environment:
+      FISHORA_DATABASE_URL: *db-url
+    volumes:
+      - ./artifacts:/app/artifacts
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api:
+    <<: [*env-file, *api-build]
+    environment:
+      FISHORA_DATABASE_URL: *db-url
+      FISHORA_CV_SERVICE_URL: http://cv:8001
+      HF_HUB_OFFLINE: "1"
+    ports:
+      - "${FISHORA_MAIN_API_PORT:-8000}:8000"
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    depends_on:
+      init:
+        condition: service_completed_successfully
+
+  cv:
+    <<: *env-file
+    profiles: [cv]
+    build:
+      context: .
+      args:
+        TORCH_INDEX: https://download.pytorch.org/whl/cu126
+        TORCH_PACKAGES: torch torchvision
+        EXTRAS: cv
+        BAKE_E5: "0"
+    image: fishora-cv:local
+    command: ["python", "-m", "uvicorn", "apps.cv_service.main:app", "--host", "0.0.0.0", "--port", "8001"]
+    ports:
+      - "${FISHORA_CV_SERVICE_PORT:-8001}:8001"
+    volumes:
+      # FISHORA_CV_EXPORT_DIR in .env is relative (ai/results/...), resolved from /app.
+      - ./ai:/app/ai:ro
+      - fishora_cv_hf:/opt/hf
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  frontend:
+    build:
+      context: ./apps/frontend
+      args:
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000}
+    image: fishora-frontend:local
+    environment:
+      # Server components reach the API over the compose network; the browser
+      # uses NEXT_PUBLIC_API_BASE_URL, compiled in above.
+      FISHORA_INTERNAL_API_BASE_URL: http://api:8000
+    ports:
+      - "${FISHORA_FRONTEND_PORT:-3111}:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+
 volumes:
   fishora_pgdata:
+  fishora_cv_hf:

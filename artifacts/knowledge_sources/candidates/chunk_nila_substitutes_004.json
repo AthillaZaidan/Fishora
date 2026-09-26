@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_nila_substitutes_004",
+  "chunk": {
+    "id": "chunk_nila_substitutes_004",
+    "species_label": "nila",
+    "source_id": "fao_en_niletilapia",
+    "category": "substitutes",
+    "content": "FAO states that tilapia is ideally suited to replace carp as the staple of Chinese seafood.",
+    "source_quote": "Tilapia is ideally suited to replace carp as the staple of Chinese seafood.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_en_niletilapia",
+    "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+    "source_type": "species_fact_sheet",
+    "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

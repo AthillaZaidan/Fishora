@@ -1,6 +1,7 @@
 'use server'
 
-import { ApiError } from '@/lib/api/client'
+import { cookies } from 'next/headers'
+import { ApiError, type ApiFetchOptions } from '@/lib/api/client'
 import type { ActionResult } from '@/lib/api/action-result'
 import {
   declareSpeciesManually,
@@ -12,12 +13,28 @@ import {
   type ManualEntryResult,
 } from '@/lib/api/fish'
 
+// A server action runs on the Next server, whose fetch carries no browser
+// cookies. The identify routes require an operator session, so it is forwarded.
+async function withSession(): Promise<ApiFetchOptions> {
+  const jar = await cookies()
+  const cookie = jar
+    .getAll()
+    .map((entry) => `${entry.name}=${entry.value}`)
+    .join('; ')
+  return cookie ? { headers: { cookie } } : {}
+}
+
 function fail(error: unknown): ActionResult<never> {
   if (error instanceof ApiError) {
     return {
       ok: false,
       kind: error.kind,
-      userMessage: error.userMessage,
+      userMessage:
+        error.status === 401
+          ? 'Your session has expired. Sign in again as a fisher to continue.'
+          : error.status === 403
+            ? 'This step needs a fisher (operator) account.'
+            : error.userMessage,
       retryable: error.retryable,
       status: error.status,
     }
@@ -33,13 +50,13 @@ export async function identifyCatch(
     return {
       ok: false,
       kind: 'image_invalid',
-      userMessage: 'Format gambar tidak didukung. Gunakan JPG atau PNG.',
+      userMessage: 'Unsupported image format. Use JPG or PNG.',
       retryable: false,
       status: 400,
     }
   }
   try {
-    return { ok: true, data: await identifyFish(file) }
+    return { ok: true, data: await identifyFish(file, undefined, await withSession()) }
   } catch (error) {
     return fail(error)
   }
@@ -55,7 +72,7 @@ export async function confirmSpecies(
   verification_status: 'confirmed' | 'corrected'
 }>> {
   try {
-    return { ok: true, data: await verifySpecies(predictionId, verifiedSpeciesId) }
+    return { ok: true, data: await verifySpecies(predictionId, verifiedSpeciesId, await withSession()) }
   } catch (error) {
     return fail(error)
   }
@@ -65,7 +82,7 @@ export async function loadKnowledge(
   predictionId: string
 ): Promise<ActionResult<KnowledgeResult>> {
   try {
-    return { ok: true, data: await getKnowledge(predictionId) }
+    return { ok: true, data: await getKnowledge(predictionId, await withSession()) }
   } catch (error) {
     return fail(error)
   }
@@ -80,13 +97,13 @@ export async function declareSpecies(
     return {
       ok: false,
       kind: 'image_invalid',
-      userMessage: 'Format gambar tidak didukung. Gunakan JPG atau PNG.',
+      userMessage: 'Unsupported image format. Use JPG or PNG.',
       retryable: false,
       status: 400,
     }
   }
   try {
-    return { ok: true, data: await declareSpeciesManually(file, speciesId) }
+    return { ok: true, data: await declareSpeciesManually(file, speciesId, await withSession()) }
   } catch (error) {
     return fail(error)
   }

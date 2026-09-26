@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_bandeng_substitutes_001",
+  "chunk": {
+    "id": "chunk_bandeng_substitutes_001",
+    "species_label": "bandeng",
+    "source_id": "ijfs_southern_italy_fish_fraud",
+    "category": "substitutes",
+    "content": "Milkfish (Chanos chanos) is reported, together with tilapia, common carp and mud carp, among the less expensive fish used to replace costly fish.",
+    "source_quote": "Replacement of costly fish with some less expensive ones, such as tilapia (Oreochromis niloticus), common carp (Cyprinus carpio), milkfish (Chanos chanos), and mud cap (Cirrhinus molitorella), is reported.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "ijfs_southern_italy_fish_fraud",
+    "title": "A retail market survey on fish fraud from Southern Italy using DNA barcoding (doi:10.4081/ijfs.2025.13376)",
+    "source_type": "paper",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12715670/",
+    "publisher": "Italian Journal of Food Safety",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

@@ -12,7 +12,7 @@ export function FilterRail({
 }) {
   return (
     <aside className="hidden w-[264px] shrink-0 lg:block">
-      <FilterGroups filters={filters} onChange={onChange} defaultOpen />
+      <FilterGroups filters={filters} onChange={onChange} />
     </aside>
   )
 }

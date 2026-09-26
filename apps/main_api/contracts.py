@@ -88,6 +88,9 @@ class KnowledgeJobRecord:
     critic_feedback: str | None = None
     final_card: dict | None = None
     error: str | None = None
+    # Stage trace of the run that produced the card (W12): evidence, expert
+    # subsets, prompt hashes, verdicts, timings, tokens.
+    trace: dict | None = None
 
 
 @dataclass(frozen=True)
@@ -123,6 +126,9 @@ class LotRecord:
     # PRD 8.3.1 requires Seller / Fisher Group on every lot. The operator
     # publishes, so this is how the fisher stays visible in the record.
     seller_fisher_group: str | None = None
+    # Lot n of the N a catch was split into at publication.
+    batch_index: int = 1
+    batch_size: int = 1
 
 
 @dataclass

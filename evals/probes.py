@@ -28,6 +28,8 @@ RAG_SOURCES = (
     "apps/main_api/services/generation.py",
     "apps/main_api/services/knowledge.py",
     "apps/main_api/services/lots.py",
+    "apps/main_api/services/workflow.py",
+    "apps/main_api/services/claim_verifier.py",
 )
 TAXONOMY_CSV = ROOT / "artifacts/Dataset/fishora_dataset/metadata/taxonomy.csv"
 _BINOMIAL = re.compile(r"\b([A-Z][a-z]+ [a-z]{3,})\b")
@@ -61,6 +63,17 @@ def opencode_headers() -> dict:
     }
 
 
+def _calls(source: str, name: str) -> bool:
+    """True when the module's code (not its comments or docstrings) calls `name`."""
+    for node in ast.walk(ast.parse(source)):
+        if isinstance(node, ast.Call):
+            func = node.func
+            called = func.id if isinstance(func, ast.Name) else func.attr if isinstance(func, ast.Attribute) else None
+            if called == name:
+                return True
+    return False
+
+
 def publication_path() -> dict:
     lots = (ROOT / "apps/main_api/services/lots.py").read_text(encoding="utf-8")
     knowledge = (ROOT / "apps/main_api/services/knowledge.py").read_text(encoding="utf-8")
@@ -68,7 +81,10 @@ def publication_path() -> dict:
     return {
         "publish_uses_sync_knowledge_service": "get_for_prediction" in lots,
         "publish_prefers_graded_card": "_graded_card" in lots and "final_card" in lots,
-        "sync_path_has_claim_critic": any(tok in knowledge for tok in ("critic", "_grade_claim", "ClaimStatus")),
+        # The sync path is graded when its code runs the job's pipeline (W19):
+        # a call, read from the syntax tree, so a comment cannot satisfy it.
+        "sync_path_has_claim_critic": any(_calls(knowledge, name) for name in
+                                          ("workflow_card", "grade_card", "critic_node")),
         "matching_reads_snapshot_fields": sorted(
             f for f in ("processing_methods", "commercial_uses", "taste", "texture", "physical_characteristics")
             if f'"{f}"' in matching
@@ -104,26 +120,14 @@ def taxonomy_vs_corpus() -> dict:
 
 def sync_path_blank_key() -> dict:
     """GET knowledge for a verified prediction when no job exists and the
-    OpenCode key is blank (the fallback a failed job schedule drops into)."""
+    OpenCode key is blank (the path a manually declared catch takes)."""
     from fastapi.testclient import TestClient
 
     from apps.main_api.config import MainSettings
     from apps.main_api.main import create_main_app
     from apps.main_api.ports import AppDependencies
-    from apps.main_api.services.generation import KnowledgeGenerator, OpenCodeGoClient
     from evals.corpus import species_records
     from evals.fakes import FixedCVClient, InMemoryImageStore, InMemoryPredictionRepository, InMemorySpeciesRepository
-
-    class OneChunkRetriever:
-        def retrieve(self, species_id, query, max_chunks=6):
-            from apps.main_api.contracts import RetrievedChunk
-
-            return [RetrievedChunk(
-                chunk_id="chunk_nila_taste_001", species_id=species_id, source_id="fao_en_niletilapia",
-                source_type="species_fact_sheet", category="taste_texture", content="mild flavour",
-                distance=0.1, chunk_verification_status="verified", source_verification_status="verified",
-                source_title="FAO", source_publisher="FAO", source_url="https://fao.org", source_reviewed_at=None,
-            )]
 
     settings = MainSettings(_env_file=None, database_url="postgresql+psycopg://probe@localhost/probe",
                             opencode_go_api_key="")
@@ -132,13 +136,14 @@ def sync_path_blank_key() -> dict:
         cv_client=FixedCVClient("nila"), species_repo=InMemorySpeciesRepository(species_records()),
         prediction_repo=predictions, image_store=InMemoryImageStore(),
         embedder=type("E5Stub", (), {"model_name": "intfloat/multilingual-e5-base"})(),
-        retriever=OneChunkRetriever(), generator=KnowledgeGenerator(lambda: OpenCodeGoClient(settings)),
-        job_repo=None,
+        knowledge_repo=type("NoRows", (), {})(), job_repo=None,
     )
     predictions.create("probe1", "memory://probe1", "species_nila", 0.9, [], "probe")
     predictions.verify("probe1", "species_nila", "confirmed")
     app = create_main_app(settings=settings, deps=deps)
     with TestClient(app, raise_server_exceptions=False) as client:
+        # The knowledge route is operator-only since accounts were added.
+        client.post("/api/v1/auth/login", json={"username": "rian", "password": "demo"})
         response = client.get("/api/v1/predictions/probe1/knowledge")
     return {"status_code": response.status_code, "body": response.text[:120]}
 

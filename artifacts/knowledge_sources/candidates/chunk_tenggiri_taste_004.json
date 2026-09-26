@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_tenggiri_taste_004",
+  "chunk": {
+    "id": "chunk_tenggiri_taste_004",
+    "species_label": "tenggiri",
+    "source_id": "sfm_spanish_mackerel",
+    "category": "taste_texture",
+    "content": "Good-quality Spanish mackerel cutlets and steaks have bright off-white, firm, lustrous, moist flesh without dark brown markings or oozing water.",
+    "source_quote": "In cutlets and steaks look for bright off-white, firm, lustrous, moist flesh without any dark brown markings or oozing water and with a pleasant fresh sea smell.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "sfm_spanish_mackerel",
+    "title": "Spanish Mackerel (Scomberomorus commerson): species information",
+    "source_type": "seafood_market_guide",
+    "url": "https://www.sydneyfishmarket.com.au/species/spanish-mackerel/",
+    "publisher": "Sydney Fish Market",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

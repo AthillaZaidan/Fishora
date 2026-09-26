@@ -48,6 +48,13 @@ class MainSettings(BaseSettings):
         default=DEFAULT_CORS_ALLOW_ORIGINS,
         validation_alias=AliasChoices("FISHORA_CORS_ALLOW_ORIGINS", "cors_allow_origins"),
     )
+    # Blank means a random secret per process (services/session.py): sessions
+    # then die on every restart and differ between workers, but nobody can
+    # forge one from a value published in the repository.
+    session_secret: SecretStr = Field(default=SecretStr(""), validation_alias=AliasChoices("FISHORA_SESSION_SECRET", "session_secret"))
+    # Off by default because local development is plain http, where a Secure
+    # cookie is never sent back. Turn it on behind https.
+    session_cookie_secure: bool = Field(default=False, validation_alias=AliasChoices("FISHORA_SESSION_COOKIE_SECURE", "session_cookie_secure"))
 
     @property
     def cors_origins(self) -> list[str]:

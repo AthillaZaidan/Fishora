@@ -12,7 +12,7 @@ from apps.main_api.api.buyers import router as buyers_router
 from apps.main_api.api.discover import router as discover_router
 from apps.main_api.api.fish import knowledge_router, router as fish_router
 from apps.main_api.api.jobs import router as jobs_router
-from apps.main_api.api.lots import router as lots_router
+from apps.main_api.api.lots import landing_router, router as lots_router
 from apps.main_api.api.quality import router as quality_router
 from apps.main_api.api.reviews import router as reviews_router
 from apps.main_api.api.species import router as species_router
@@ -22,6 +22,7 @@ from apps.main_api.db.preference_repository import SqlPreferenceRepository
 from apps.main_api.db.repositories import TAXONOMY_STATUS_BY_LABEL, SqlKnowledgeRepository
 from apps.main_api.db.session import session_factory
 from apps.main_api.db.sql_repositories import SqlKnowledgeJobRepository, SqlPredictionRepository, SqlSpeciesRepository
+from apps.main_api.db.user_repository import SqlUserRepository
 from apps.main_api.errors import (
     RetrievalUnavailable,
     BidOutbid,
@@ -37,15 +38,15 @@ from apps.main_api.errors import (
     PredictionNotFound,
     PredictionNotVerified,
     Unauthenticated,
+    PhotoRejected,
     UnsupportedCvLabel,
     UnsupportedSpecies,
 )
 from apps.main_api.ports import AppDependencies
 from apps.main_api.services.cv_client import HttpCVClient
 from apps.main_api.services.embeddings import LocalE5Embedder
-from apps.main_api.services.generation import KnowledgeGenerator, OpenCodeGoClient
 from apps.main_api.services.image_store import FilesystemImageStore
-from apps.main_api.services.retrieval import VerifiedRetriever
+from apps.main_api.services.session import SessionService, seed_demo_users
 
 
 def create_main_app(settings: MainSettings | None = None, deps: AppDependencies | None = None) -> FastAPI:
@@ -60,19 +61,22 @@ def create_main_app(settings: MainSettings | None = None, deps: AppDependencies 
     reads environment variables, and never creates a DB session factory.
     """
     deps = deps or AppDependencies()
-    if deps.session_service is None:
-        from apps.main_api.services.session import SessionService
-
-        deps.session_service = SessionService()
     app = FastAPI(lifespan=_lifespan)
     app.state.settings = settings  # may be None when all ports are injected
     app.state.deps = deps
+    # Built now, not in the lifespan: a complete fake bundle never gets past the
+    # lifespan's first check, and still needs sign-in. The lifespan rebuilds a
+    # service it made itself once settings and the users table are known.
+    app.state.owns_session_service = deps.session_service is None
+    if deps.session_service is None:
+        deps.session_service = _session_service(settings, deps.user_repo)
     _register_cors(app, settings)
     _register_health(app)
     _register_error_handlers(app)
     app.include_router(fish_router)
     app.include_router(knowledge_router)
     app.include_router(lots_router)
+    app.include_router(landing_router)
     app.include_router(buyers_router)
     app.include_router(auth_router)
     app.include_router(discover_router)
@@ -162,16 +166,34 @@ def _ensure_production_deps(app: FastAPI) -> None:
         seed_demo_landing_points(deps.landing_point_repo)
     if deps.preference_repo is None:
         deps.preference_repo = SqlPreferenceRepository(deps.session_factory)
-    if deps.retriever is None:
-        deps.retriever = VerifiedRetriever(deps.knowledge_repo, deps.embedder)
-    if deps.generator is None:
-        # Lazy: a blank OPENCODE_GO_API_KEY must not break startup.
-        deps.generator = KnowledgeGenerator(lambda: OpenCodeGoClient(settings))
+    if deps.user_repo is None:
+        deps.user_repo = SqlUserRepository(deps.session_factory)
+        try:
+            seed_demo_users(deps.user_repo)
+        except Exception:
+            # Startup goes on so the rest of the API works; sign-in fails until
+            # the users table exists.
+            logging.getLogger(__name__).exception("could not seed the demo accounts; run `alembic upgrade head`")
+    if getattr(app.state, "owns_session_service", False):
+        deps.session_service = _session_service(settings, deps.user_repo)
     if getattr(deps, "job_repo", None) is None:
         try:
             deps.job_repo = SqlKnowledgeJobRepository(deps.session_factory)
         except Exception:
-            pass
+            # Without it cards are made synchronously on request; say so.
+            logging.getLogger(__name__).exception("knowledge job repository unavailable")
+
+
+def _session_service(settings: MainSettings | None, users) -> SessionService:
+    """No settings means a fake bundle: a per-process secret and, without a
+    user repository, in-memory accounts seeded with the demo pair."""
+    if settings is None:
+        return SessionService(users=users)
+    return SessionService(
+        settings.session_secret.get_secret_value() or None,
+        users,
+        cookie_secure=settings.session_cookie_secure,
+    )
 
 
 def _register_health(app: FastAPI) -> None:
@@ -227,6 +249,13 @@ def _register_error_handlers(app: FastAPI) -> None:
     @app.exception_handler(UnsupportedSpecies)
     async def _unsupported_species(request: Request, exc: UnsupportedSpecies):
         return JSONResponse(status_code=422, content={"detail": str(exc)})
+
+    @app.exception_handler(PhotoRejected)
+    async def _photo_rejected(request: Request, exc: PhotoRejected):
+        # The detail text is what the frontend keys on (lib/api/errors.ts).
+        detail = {"not_fish": "photo rejected: not a fish",
+                  "unknown_species": "photo rejected: unknown species"}.get(exc.reason, "photo rejected")
+        return JSONResponse(status_code=422, content={"detail": detail, "reason": exc.reason})
 
     @app.exception_handler(UnsupportedCvLabel)
     async def _unsupported_cv_label(request: Request, exc: UnsupportedCvLabel):

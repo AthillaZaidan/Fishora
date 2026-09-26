@@ -10,9 +10,9 @@ import { resolveSpecies } from '@/lib/species'
 const NOT_LISTED = '__not_listed__'
 
 const VERDICT: Record<ReturnType<typeof confidenceBand>, string> = {
-  high: 'Tinggi',
-  medium: 'Sedang',
-  low: 'Perlu verifikasi',
+  high: 'High',
+  medium: 'Medium',
+  low: 'Needs checking',
 }
 
 // Low confidence keeps Confirm disabled until the operator picks a candidate.
@@ -56,7 +56,7 @@ export function PredictionCard({
 
       {low ? (
         <fieldset className="flex flex-col gap-2">
-          <legend className="text-label text-ink">Pilih spesies</legend>
+          <legend className="text-label text-ink">Choose the species</legend>
           {sorted.map((candidate) => (
             <CandidateRow
               key={candidate.species_id}
@@ -94,8 +94,15 @@ export function PredictionCard({
           if (selected && selected !== NOT_LISTED) onConfirm(selected)
         }}
       >
-        Konfirmasi
+        Confirm
       </Button>
+      {selected === NOT_LISTED && (
+        // Not a dead end: the operator names the fish from the full list, or
+        // goes back and retakes the photo.
+        <Button size="lg" variant="secondary" block onClick={() => onSpeciesNotListed?.()}>
+          Choose from all species
+        </Button>
+      )}
     </section>
   )
 }

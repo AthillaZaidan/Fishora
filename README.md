@@ -8,7 +8,8 @@ Bahasa Indonesia.
 The local runtime starts PostgreSQL in Docker and runs the CV service, the API and the web frontend
 on the host. Only the database is containerised, so the CV service can reach a GPU directly when one
 is available; it also runs on CPU at roughly a second per image, which is enough to demonstrate the
-whole flow.
+whole flow. To run every service in containers instead, see
+[Or run everything in Docker](#or-run-everything-in-docker).
 
 **Running this for the first time? Start with [Quick start](#quick-start).**
 
@@ -133,9 +134,55 @@ Generated cards need three things, in this order:
 ```
 
 Miss any of those and the endpoint answers `502 knowledge retrieval is temporarily unavailable`.
-Even with all three, cards come back empty with the limitation `Informasi belum tersedia` until an
+Even with all three, cards come back empty with the limitation `No information available yet` until an
 approved corpus is ingested: generation is fail-closed and will not assert anything it cannot cite.
 That approval requires a human attestation and is deliberately not automated.
+
+To load the corpus into a database (the 116 candidate chunks in `artifacts/knowledge_sources/`,
+reviewed and approved by Jason Edward Salim on 2026-09-26; the attestation is in
+`artifacts/knowledge_sources/review/approval.json`):
+
+```bash
+export FISHORA_CORPUS_APPROVAL_KEY=$("$PY" -c "import secrets; print(secrets.token_hex(32))")
+"$PY" -m scripts.corpus_pipeline approve --candidate-dir artifacts/knowledge_sources/candidates \
+  --review-file artifacts/knowledge_sources/review/approval.json \
+  --approved-dir artifacts/knowledge_sources/approved \
+  --approval-manifest artifacts/knowledge_sources/approval-manifest.json \
+  --reviewer "<your name>" --confirmation APPROVE
+"$PY" -m scripts.corpus_pipeline ingest --approved-dir artifacts/knowledge_sources/approved \
+  --approval-manifest artifacts/knowledge_sources/approval-manifest.json
+```
+
+### Knowledge sources
+
+Every card claim cites one of 56 sources behind the 116 approved chunks. Every species has evidence
+for all six card categories (identity, physical traits, taste and texture, processing, commercial
+uses, substitutes). Most come from reference databases; the rest are peer-reviewed papers, each
+linked by DOI, plus a few trade and government fact sheets. The main groups:
+
+| Source | Used for | Where |
+|---|---|---|
+| **FishBase** (14 species pages) | Identity, physical traits, size, commercial status for every species | [fishbase.se](https://www.fishbase.se), one summary page per scientific name |
+| **FAO** (4 documents) | Tuna and mackerel catalogue, Nile tilapia fact sheet, tilapia in Asia | [FAO Species Catalogue Vol. 2: Scombrids](https://www.fao.org/4/ac478e/ac478e00.htm), [Nile tilapia fact sheet](https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm), [Tilapias in Asia and the Pacific](https://www.fao.org/4/y5728e/y5728e05.htm) |
+| **NOAA Fisheries** | Yellowfin tuna taste, texture and marketing | [Pacific yellowfin tuna](https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna) |
+| **Peer-reviewed papers** (9) | Processing, products and local market uses | Food Chemistry [10.1016/j.foodchem.2008.09.078](https://doi.org/10.1016/j.foodchem.2008.09.078); Food Research [10.26656/fr.2017.7(S3).12](https://doi.org/10.26656/fr.2017.7(S3).12); J. Bangladesh Agric. Univ. [10.5455/JBAU.86202](https://doi.org/10.5455/JBAU.86202); Coastal and Ocean Journal [10.29244/coj.5.1.1-8](https://doi.org/10.29244/coj.5.1.1-8); Jurnal Manajemen dan Agribisnis [10.17358/jma.22.2.210](https://doi.org/10.17358/jma.22.2.210); Jurnal IPTEKS PSP [10.20956/jipsp.v6i12.7801](https://doi.org/10.20956/jipsp.v6i12.7801); J. Pharmaceutical and Sciences [10.36490/journal-jps.com.v8i2.936](https://doi.org/10.36490/journal-jps.com.v8i2.936); Manfish Journal [10.31573/manfish.v2i3.489](https://doi.org/10.31573/manfish.v2i3.489); Marinade [10.31629/marinade.v5i02.4962](https://doi.org/10.31629/marinade.v5i02.4962) |
+
+Protein per 100 g on the card comes from published food-composition tables, cited on the card
+itself and listed in `apps/frontend/lib/nutrition.ts` (TKPI 2017 by Kemenkes RI, the Malaysian
+Food Composition Database, the Thai FCD, and the ASEAN tables via FAO/INFOODS).
+
+Added after the first 49 chunks: FAO species sheets and catalogues for croakers, goatfishes, threadfins
+and scombrids; the Sydney Fish Market seafood guide and the FRDC Fish Files (taste, texture and
+substitutes); a Western Australian government fact sheet; Indonesian, Minangkabau and English
+Wikipedia (only for what the market name *gembolo* refers to and for local names); and further papers
+in Scientific Reports, Scientific Data, Ecology and Evolution, Heliyon, the Italian Journal of Food
+Safety and Asian Fisheries Science. Each source's title and URL are in its chunk files under
+`artifacts/knowledge_sources/candidates/`.
+
+Weaker evidence is scoped in the claim itself (genus-level taste for *Johnius* and *Upeneus*; gembolo's
+facts scoped to the *Rastrelliger* mackerels). The verifier still drops a claim its evidence does not
+carry, so a card field can stay empty even though its cell has a chunk (for example gembolo's taste).
+`python -m evals.corpus_gaps` lists any cell without evidence.
 
 ## System at a Glance
 
@@ -181,7 +228,7 @@ Commerce, buyers, and session:
 
 | Method | Path | Purpose |
 | --- | --- | --- |
-| POST | `/api/v1/lots` | Publish a lot from a verified prediction. Optional `auction_hours` |
+| POST | `/api/v1/lots` | Publish a verified catch as `lot_count` lots of `quantity_kg` each. Optional `auction_minutes` |
 | GET | `/api/v1/lots` | Public list with filters. `mine=1` scopes it to the signed-in operator |
 | GET | `/api/v1/lots/{id}` | One lot |
 | POST | `/api/v1/lots/{id}/bids` | Place a bid (buyer session) |
@@ -206,8 +253,10 @@ verified prediction directly, so a CV outage cannot strand a catch. It records
 A knowledge card is only issued for a verified prediction. Requesting one for a pending prediction
 returns `409` by design: an AI guess must not become a public commercial record.
 
-`auction_hours` on `POST /api/v1/lots` is optional and bounded by `MIN_AUCTION_HOURS` /
-`MAX_AUCTION_HOURS` (1 to 72) in `apps/main_api/services/lots.py`. Omitting it keeps the 4h default.
+`POST /api/v1/lots` splits one catch into `lot_count` lots (1 to `MAX_LOT_COUNT`, 50) of
+`quantity_kg` each; every lot is its own auction with its own winner, and the response is the list.
+`auction_minutes` is optional and must be one of `AUCTION_MINUTE_OPTIONS` (30, 60, 120, 180) in
+`apps/main_api/services/lots.py`. Omitting it keeps the 60-minute default.
 
 ## Prerequisites
 
@@ -371,6 +420,32 @@ Stop with `Ctrl+C`. All three processes are terminated; PostgreSQL stays up in D
 docker compose down
 ```
 
+### Or run everything in Docker
+
+Needs only Docker and a `.env` (copy `.env.example`); no Python, Node or pnpm on the host:
+
+```bash
+docker compose up --build
+```
+
+Open the frontend on `FISHORA_FRONTEND_PORT` from `.env` (3111 if unset; keep
+`FISHORA_CORS_ALLOW_ORIGINS` in step with it). Compose reads the same `.env` as
+`run_local.sh`, both for the services and for the published ports, and only swaps the host
+addresses (`localhost:55432`, `localhost:8001`) for the service names.
+
+| Service | What it does |
+|---|---|
+| `db` | PostgreSQL + pgvector, same volume and port (55432) as the host workflow |
+| `init` | Migrations, taxonomy (the synthetic fixture if `artifacts/` has none), demo lots into an empty database, then exits |
+| `api` | Main API on `FISHORA_MAIN_API_PORT`, E5 weights baked into the image, `data/` and `reports/` mounted |
+| `frontend` | `next build` + `next start` on `FISHORA_FRONTEND_PORT`. `NEXT_PUBLIC_API_BASE_URL` is a build argument, so rebuild after changing it |
+| `cv` | Opt-in: `COMPOSE_PROFILES=cv` in `.env`. Needs the export under `ai/` and an NVIDIA GPU visible to Docker |
+
+Without the `cv` profile, identification returns 503 and the operator names the species by hand, as
+in the host workflow. Demo lots are seeded only when the database has no lots; set
+`FISHORA_SEED_DEMO_LOTS=0` to skip them. Stop with `docker compose down`; add `-v` to also drop the
+database volume.
+
 ### Running a subset
 
 ```bash
@@ -509,9 +584,11 @@ It writes `reports/<label>/` (JSON artifacts, JUnit XML, coverage) and `reports/
 `reports/` is generated and gitignored; the recorded baseline, including a copy of the dashboard,
 lives in `evals/results/baseline/`.
 
-Expect **35 passed, 15 failed** on the baseline. The failures are deliberate: each one is a weakness
-the fixes must close, and the dashboard lists them with their computed evidence. The test layers
-can also run alone:
+The baseline code (tag `checkpoint-1-baseline`) gives **35 passed, 15 failed**. The failures were
+deliberate: each one is a weakness a fix had to close, and the dashboard lists them with their
+computed evidence. The recorded iteration-1 run passes **all 71**
+(`evals/results/iteration-1/tests.json`) and the iteration-2 run **all 84**
+(`evals/results/iteration-2/tests.json`). The test layers can also run alone:
 
 ```bash
 HF_HUB_OFFLINE=1 "$PY" -m pytest evals/tests -m unit -q        # no model load, about 2 s
@@ -531,8 +608,22 @@ A full cost run costs about $0.07; the comparison runs 11 cards on each of six m
 "$PY" -m evals.dashboard
 ```
 
-The eval client sends the `x-opencode-session` header the gateway requires. The application client
-does not yet send it, so card generation in the app still fails against OpenCode Go.
+Both the application client and the cost run send the `x-opencode-session` header the gateway
+requires. The cost run drives the application client itself, so a missing header shows up as failed
+cards. Its paths are `agent` (the graded card the product publishes) and `one_call` (the ungraded
+one-call generator, kept only as a reference for W26).
+
+The claim verifier experiment re-reads the claims of three agent-only cost runs (labels
+`iter2-diagnosis`, `iter2-claims-2`, `iter2-claims-3`, about $0.01 each; archived in
+`evals/results/iteration-2/claim_runs/`, copy them to `reports/<label>/`) and needs no key itself:
+
+```bash
+"$PY" -m evals.cost_eval --label iter2-claims-2 --paths agent --repeat 1   # one of the three runs
+HF_HUB_OFFLINE=1 "$PY" -m evals.experiment_verifier --label current
+```
+
+It also needs the two compact NLI models in the local cache
+(`MoritzLaurer/multilingual-MiniLMv2-L6-mnli-xnli` and `-L12-`); the product does not use them.
 
 ### Species identification
 
@@ -585,6 +676,26 @@ HF_HUB_OFFLINE=1 "$PY" -m scripts.quality --label current
 
 The dashboard then shows each target metric as baseline, target and current, and
 `reports/comparison.json` lists every test that was fixed or regressed.
+
+### Iteration documentation
+
+Each iteration is recorded as findings, then fixes, then a re-test, in `evals/results/<iteration>/`.
+The documents are generated by `"$PY" -m evals.iteration --name <iteration> --baseline <run> --current <run>`
+from the run artifacts, so their numbers are never typed by hand. Iteration 2 is measured against
+iteration 1's archived artifacts (copy `evals/results/iteration-1/*.json` to `reports/iteration-1/`).
+
+| Document | What it holds |
+| --- | --- |
+| [`evals/results/iteration-2/CYCLES.md`](evals/results/iteration-2/CYCLES.md) | **Latest.** Every card that reaches a buyer passes the claim critic (W19); card runs leave a stage trace (W12); the claim verifier re-tested on real expert claims (W26, W29, R2) |
+| [`evals/results/iteration-2/REPORT.md`](evals/results/iteration-2/REPORT.md) | Every iteration-2 fix (F19, F20 product; E8 to E13 evaluation), the verifier experiment, what is still open |
+| [`evals/datasets/grounding_real_claims.json`](evals/datasets/grounding_real_claims.json) | 345 labelled real claim atoms and 23 fresh traps; labels by an AI assistant, **pending human review** |
+| [`evals/results/iteration-1/CYCLES.md`](evals/results/iteration-1/CYCLES.md) | The three main RAG cycles of iteration 1, each with the finding, the product and evaluation fixes, and the re-test |
+| [`evals/results/iteration-1/REPORT.md`](evals/results/iteration-1/REPORT.md) | Every fix (F1 to F18 product, E1 to E7 evaluation) with its source finding, files, tests and metrics; the experiments; what is still open |
+| `evals/results/iteration-1/dashboard.html` | The dashboard, baseline against iteration 1 |
+| `evals/results/iteration-1/iteration.json` | The same record for tools |
+
+Every fix names the finding it came from: W* from the baseline registry in `evals/findings.py`, R* from
+the review critique. A change without a source finding does not go in.
 
 ## Troubleshooting
 

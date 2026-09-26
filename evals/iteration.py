@@ -1,14 +1,17 @@
 """Iteration record: every change, its source finding, and its re-test result.
 
-    python -m evals.iteration --name iteration-1 --baseline baseline --current current
+    python -m evals.iteration --name iteration-1 --baseline baseline --current <run>
+    python -m evals.iteration --name iteration-2 --baseline iteration-1 --current current
 
-The FIXES registry below is the only hand-written part: each entry names the
+The per-iteration FIXES and CYCLES registries (ITERATIONS) are the only
+hand-written part: each fix names the
 findings it answers (W* from the baseline registry, R* from the review
 critique, CV* from species ID), the files it touched, and the tests and
 metrics that verify it. Every number in the report is read from the
 Python-generated artifacts of the two runs. Output:
 
-    evals/results/<name>/REPORT.md       findings -> fixes -> re-test, for people
+    evals/results/<name>/CYCLES.md       the three main cycles, one finding -> fix -> re-test story each
+    evals/results/<name>/REPORT.md       every fix, findings -> fixes -> re-test, for people
     evals/results/<name>/iteration.json  the same, for tools
 """
 
@@ -37,7 +40,7 @@ class Fix:
     note: str = ""
 
 
-FIXES: tuple[Fix, ...] = (
+ITERATION_1_FIXES: tuple[Fix, ...] = (
     Fix("F1", "product", "OpenCode Go session header and user agent", ("W20",),
         "make_opencode_go_llm sends x-opencode-session (one id per card) and a descriptive User-Agent.",
         ("apps/main_api/services/generation.py",),
@@ -170,6 +173,180 @@ FIXES: tuple[Fix, ...] = (
 )
 
 
+@dataclass(frozen=True)
+class Cycle:
+    """One complete iteration story: the findings it starts from, the fixes on
+    both tracks, and the metrics that re-test it. Text here carries no measured
+    number; every number in CYCLES.md is read from the run artifacts."""
+    id: str
+    title: str
+    problem: str
+    findings: tuple[str, ...]
+    fixes: tuple[str, ...]
+    metrics: tuple[str, ...]  # "<label>|<artifact.path>"
+    note: str = ""
+
+
+ITERATION_1_CYCLES: tuple[Cycle, ...] = (
+    Cycle("C1", "The agent card path works against the real LLM",
+          "The card path the app ships (researcher, experts, critic, writer) had never completed a card on "
+          "OpenCode Go. The gateway rejected calls without a session header, and the experts could not read "
+          "Responses-API content blocks or JSON wrapped in code fences, so every expert failed and the spend "
+          "was wasted.",
+          ("W20", "W21", "W4", "W3"), ("F1", "F2", "F12", "E2"),
+          ("Agent card success, real LLM|cost_eval.summary.by_path.agent.success_rate",
+           "Fenced-JSON job success (scripted)|rag_eval.pipeline.fenced.job_success_rate",
+           "Published card success, real LLM|cost_eval.summary.by_path.published.success_rate",
+           "Spend per agent card, real LLM (USD)|cost_eval.summary.by_path.agent.cost_usd_per_card.mean"),
+          "Nothing in this cycle is open. Read the spend row with care: at baseline it bought no card. The "
+          "evaluation fix (E2) mattered as much as the product fixes: the cost run used to add the session header "
+          "itself, so it could not see that the app never sent it. Whether OpenCode Go may carry production "
+          "traffic is a separate open question (W23)."),
+    Cycle("C2", "Claims are checked against their evidence, across languages",
+          "The critic kept a claim when enough words overlapped with the cited chunk. The claims are Indonesian "
+          "and the evidence English, so it dropped most true claims and still passed some claims borrowed from "
+          "other species. The review (R2) also asked whether it catches negated or inverted claims.",
+          ("W1", "W13", "R2"), ("F3", "F18", "E3", "E4"),
+          ("Grounding F1, held-out test split|rag_eval.grounding.test.f1",
+           "Grounding precision, test split|rag_eval.grounding.test.precision",
+           "Grounding recall, test split|rag_eval.grounding.test.recall",
+           "False support rate, all pairs|rag_eval.grounding.all.false_support_rate",
+           "True-claim retention in cards (scripted)|rag_eval.pipeline.plain.claim_retention",
+           "Hallucinated claims reaching cards (scripted)|rag_eval.pipeline.plain.hallucination_leakage",
+           "Negation/scope traps accepted (of 14)|experiment_nli_grounding.variants.A_e5_exact.traps_accepted"),
+          "The threshold was chosen on the dev split and is reported on the held-out test split, which is small, "
+          "so its perfect score has a wide interval. The false support left on the full set is a claim borrowed "
+          "from another species' processing chunk (`rag_eval.grounding.errors`). R2 stays partial: the shipped "
+          "verifier still accepts part of the negation/scope traps. The LLM judge was measured and removed (F18) "
+          "because it cut recall; multilingual NLI rejects every trap but is too slow on CPU, so it is the next "
+          "candidate, to be confirmed on a fresh trap set. W13 stays partial because the number and taxon checks "
+          "mitigate the embedding overlap rather than remove it."),
+    Cycle("C3", "Each card sees all of its evidence, in fewer LLM rounds",
+          "The card took the ranked top 6 of a species slice of at most 7 chunks, so ranking errors decided "
+          "what the model saw, and the experts read only the first 300 characters of each chunk. A card took "
+          "several sequential LLM rounds and the same evidence was regenerated every time.",
+          ("R1", "W9", "W14", "W5", "W6"), ("F5", "F4", "F7", "F8", "E1"),
+          ("Card evidence completeness, min over species|rag_eval.retrieval.card_evidence_completeness.min",
+           "LLM calls per card (scripted)|rag_eval.pipeline.plain.llm_calls_per_card",
+           "LLM rounds per card (call timestamps)|rag_eval.pipeline.plain.llm_rounds",
+           "Repeat card latency (ms)|rag_eval.pipeline.plain.repeat_latency_ms_mean",
+           "Agent card p50 wall time, real LLM (s)|cost_eval.agent.wall_s_per_card.p50",
+           "Agent card p95 wall time, real LLM (s)|cost_eval.agent.wall_s_per_card.p95",
+           "Published card p95 wall time, real LLM (s), one LLM call|cost_eval.summary.by_path.published.wall_s_per_card.p95",
+           "Cost per agent card, real LLM (USD)|cost_eval.agent.cost_usd_per_card.mean"),
+          "The shipped agent path completed no card at baseline (C1), so its real-LLM baseline latency and cost "
+          "come from the eval-only run that read the replies correctly. Cache hits are excluded from the "
+          "real-LLM statistics. The p95 got worse. The published path, a single LLM call, shows the same p95 in "
+          "the same run, which points to provider stalls rather than the pipeline; a repeat cost run would "
+          "confirm it."),
+)
+
+
+# ---- Iteration 2 --------------------------------------------------------------
+# Baseline: iteration 1's archived run artifacts (evals/results/iteration-1).
+
+ITERATION_2_FIXES: tuple[Fix, ...] = (
+    Fix("F19", "product", "The synchronous card path runs the graded graph", ("W19", "W3"),
+        "KnowledgeService (a manually declared catch, the publication fallback) calls orchestrator.grade_card, the "
+        "same researcher-experts-critic-writer graph as the background job, so no card reaches a buyer without the "
+        "per-claim critic. A blank key stays a mapped provider outage. The one-call generator wiring "
+        "(deps.retriever, deps.generator) is removed from the app.",
+        ("apps/main_api/services/knowledge.py", "apps/main_api/services/orchestrator.py",
+         "apps/main_api/services/card_llm.py", "apps/main_api/api/fish.py", "apps/main_api/api/lots.py",
+         "apps/main_api/main.py", "apps/main_api/ports.py"),
+        ("test_knowledge_api::test_manual_catch_card_is_graded_by_the_critic",
+         "test_knowledge_api::test_manual_catch_without_a_key_is_a_provider_outage",
+         "test_lot_publication::test_published_snapshot_is_the_graded_job_card"),
+        ("Sync path grades claims (probe)|probes.publication_path.sync_path_has_claim_critic",
+         "Blank key on the sync path (HTTP status)|probes.sync_path_blank_key.status_code")),
+    Fix("F20", "product", "Every card run leaves a stage trace; no handler fails silently", ("W12",),
+        "grade_card records evidence ids and distances, each expert's chunk ids, prompt hash, latency and tokens, "
+        "the claim verdicts and per-stage timings; run_graph stores it on the job (knowledge_jobs.trace). The "
+        "silent broad handlers log; the langgraph branch, never installed and never run, is deleted.",
+        ("apps/main_api/services/orchestrator.py", "apps/main_api/api/fish.py", "apps/main_api/services/lots.py",
+         "apps/main_api/db/sql_repositories.py", "apps/main_api/db/models.py", "apps/main_api/contracts.py",
+         "alembic/versions/0007_knowledge_job_trace.py"),
+        ("test_knowledge_api::test_card_job_records_a_stage_trace",),
+        ("Silent broad exception handlers|probes.silent_excepts.count",)),
+    Fix("E8", "evaluation", "The W19 probe reads the syntax tree", ("W19",),
+        "sync_path_has_claim_critic is true only when knowledge.py's code calls grade_card or critic_node; the "
+        "former token check would have passed on a comment.", ("evals/probes.py",)),
+    Fix("E9", "evaluation", "W12 requires a stage trace", ("W12",),
+        "Resolved needs no silent handler and the stage-trace test passing (judge methodology 6.1).",
+        ("evals/findings.py",)),
+    Fix("E10", "evaluation", "Cost runs measure the card the product publishes", ("W19", "W25", "W26"),
+        "The one-call generator becomes an eval-only reference path (one_call); 'published' metrics resolve to "
+        "the path the product publishes; agent cards keep their trace and expert outputs.",
+        ("evals/cost_eval.py", "evals/findings.py", "evals/dashboard.py", "evals/model_compare.py"),
+        metrics=("Published card success, real LLM|cost_eval.published.success_rate",
+                 "Cost per published card (USD)|cost_eval.published.cost_usd_per_card.mean")),
+    Fix("E11", "evaluation", "W26 counts only cells with evidence", ("W26",),
+        "An empty field with no evidence is the abstention R4 requires; the graded card is compared with the "
+        "one-call card only where the species has evidence for the field. The rule is otherwise unchanged and "
+        "the unrestricted rates stay in the evidence.", ("evals/findings.py",)),
+    Fix("E12", "evaluation", "Real-claims grounding set and fresh traps", ("W26", "R2", "W29"),
+        "345 atom-level (claim, cited chunk) pairs from three real-LLM agent runs, labelled with a written rubric "
+        "by an AI assistant and pending human review, split by species; 23 fresh negation, antonym and scope "
+        "traps used only as a test set.",
+        ("evals/datasets/grounding_real_claims.json", "evals/claim_atoms.py")),
+    Fix("E13", "evaluation", "Verifier experiment on real claims", ("W26", "R2", "W29", "W13"),
+        "E5, E5 re-tuned, and NLI (mDeBERTa and two compact multilingual models) as verifier, veto and "
+        "E5-or-NLI, under a pre-registered rule with a CPU budget per card. The rule's winner was not confirmed "
+        "on the held-out test, so the shipped verifier stays. Grading atom by atom was measured and rejected.",
+        ("evals/experiment_verifier.py",),
+        metrics=("Real-claims recall, verifier in use|experiment_verifier.variants.A_e5_exact.test_real.recall",
+                 "Real-claims false support, verifier in use|experiment_verifier.variants.A_e5_exact.test_real.false_support_rate",
+                 "Fresh traps accepted, verifier in use|experiment_verifier.variants.A_e5_exact.test_traps_accepted")),
+)
+
+ITERATION_2_CYCLES: tuple[Cycle, ...] = (
+    Cycle("C1", "Every card that reaches a buyer has passed the claim critic",
+          "Publication froze the graded job card when one existed, but a manually declared catch has no job, and "
+          "for it the card, the lot snapshot and the QR page came from a one-call generator with no per-claim "
+          "critic. The finding was partial: the path buyers see most could still publish ungraded claims.",
+          ("W19", "W3"), ("F19", "E8", "E10"),
+          ("Sync path grades claims (probe)|probes.publication_path.sync_path_has_claim_critic",
+           "Blank key on the sync path (HTTP status)|probes.sync_path_blank_key.status_code",
+           "Published card success, real LLM|cost_eval.published.success_rate",
+           "Cost per published card (USD)|cost_eval.published.cost_usd_per_card.mean",
+           "Published card p50 wall time, real LLM (s)|cost_eval.published.wall_s_per_card.p50"),
+          "The published card is now the graded card, so its cost and time are the agent path's (several "
+          "parallel LLM calls instead of one); the baseline column is the one-call card it replaces. The evaluation fixes matter as much: the probe "
+          "now reads code rather than words, and the cost run no longer calls an ungraded path 'published'."),
+    Cycle("C2", "A card run can be inspected after the fact",
+          "Handlers on the card path caught everything and returned quietly, and a completed job kept only the "
+          "card: nothing recorded which evidence each expert saw, what the critic decided, or where the time went.",
+          ("W12",), ("F20", "E9"),
+          ("Silent broad exception handlers|probes.silent_excepts.count",),
+          "W12 now needs both halves: no silent handler, and a stage trace on every job, checked by a test."),
+    Cycle("C3", "The claim verifier, re-tested on real claims",
+          "W26 said graded cards are emptier than ungraded ones. Measured fairly, only where evidence exists, it "
+          "held. Reading the real claims showed why: the verifier had been chosen on synthetic claims, and real "
+          "expert claims are short translations that it misses, while it keeps facts from a sibling chunk.",
+          ("W26", "W29", "R2", "W13"), ("E11", "E12", "E13"),
+          ("Real-claims recall, verifier in use|experiment_verifier.variants.A_e5_exact.test_real.recall",
+           "Real-claims false support, verifier in use|experiment_verifier.variants.A_e5_exact.test_real.false_support_rate",
+           "Fresh traps accepted, verifier in use|experiment_verifier.variants.A_e5_exact.test_traps_accepted",
+           "Fresh traps accepted, mDeBERTa NLI|experiment_verifier.variants.C_mdeberta_exact.test_traps_accepted",
+           "mDeBERTa NLI added CPU time per card (s)|experiment_verifier.variants.C_mdeberta_exact.cpu_added_s_per_card_p95",
+           "Card recall, whole-claim grading|experiment_verifier.card_grading_policy.whole_recall",
+           "Card recall, atomic grading|experiment_verifier.card_grading_policy.atomic_recall",
+           "Grounding F1, synthetic test split|rag_eval.grounding.test.f1"),
+          "This cycle changed what we know, not the verifier. No variant within the CPU budget improved the "
+          "held-out test without keeping more false claims, so E5 stays and the owner declined the trade. W29 is "
+          "the new, measured statement of the problem. The labels are an AI assistant's and need a human pass "
+          "before these numbers are cited outside the team. Next: NLI on a GPU, or a verifier trained on "
+          "real claim atoms."),
+)
+
+ITERATIONS = {
+    "iteration-1": {"fixes": ITERATION_1_FIXES, "cycles": ITERATION_1_CYCLES,
+                    "baseline_note": "baseline, tag `checkpoint-1-baseline`"},
+    "iteration-2": {"fixes": ITERATION_2_FIXES, "cycles": ITERATION_2_CYCLES,
+                    "baseline_note": "iteration 1, archived in `evals/results/iteration-1`"},
+}
+
+
 def _fmt(v) -> str:
     if v is None:
         return "n/a"
@@ -184,13 +361,14 @@ def _metric(artifacts: dict, path: str):
 
 
 def build(name: str, baseline: str, current: str) -> dict:
+    spec = ITERATIONS[name]
     base, cur = load_artifacts(baseline), load_artifacts(current)
     f_base = {f["id"]: f for f in evaluate(baseline)}
     f_cur = {f["id"]: f for f in evaluate(current)}
     tests_now = {t["name"]: t["status"] for t in get(cur, "tests.tests", []) or []}
     tests_then = {t["name"]: t["status"] for t in get(base, "tests.tests", []) or []}
     fixes = []
-    for fx in FIXES:
+    for fx in spec["fixes"]:
         fixes.append({
             "id": fx.id, "track": fx.track, "title": fx.title, "sources": list(fx.sources), "change": fx.change,
             "files": list(fx.files), "note": fx.note,
@@ -202,20 +380,36 @@ def build(name: str, baseline: str, current: str) -> dict:
                          "before": _metric(base, m.split("|")[1]), "after": _metric(cur, m.split("|")[1])}
                         for m in fx.metrics],
         })
-    cited = {s for fx in FIXES for s in fx.sources}
+    by_fix = {fx["id"]: fx for fx in fixes}
+    cycles = []
+    for c in spec["cycles"]:
+        cycles.append({
+            "id": c.id, "title": c.title, "problem": c.problem, "note": c.note,
+            "findings": [{"id": s, "title": f_base[s]["title"], "severity": f_base[s]["severity"],
+                          "before": f_base[s]["status"], "after": f_cur[s]["status"],
+                          "evidence_before": f_base[s]["evidence"], "evidence_after": f_cur[s]["evidence"]}
+                         for s in c.findings if s in f_base and s in f_cur],
+            "fixes": [by_fix[i] for i in c.fixes],
+            "metrics": [{"metric": m.split("|")[0], "path": m.split("|")[1],
+                         "before": _metric(base, m.split("|")[1]), "after": _metric(cur, m.split("|")[1])}
+                        for m in c.metrics],
+        })
+    cited = {s for fx in spec["fixes"] for s in fx.sources}
     carried = [f for f in f_cur.values() if f["status"] in ("open", "partial") ]
     return {
-        "name": name, "baseline": baseline, "current": current,
+        "name": name, "baseline": baseline, "current": current, "baseline_note": spec["baseline_note"],
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "tests": {"baseline": get(base, "tests.totals"), "current": get(cur, "tests.totals"),
                   "coverage_rag": [get(base, "tests.coverage.rag_percent"), get(cur, "tests.coverage.rag_percent")]},
         "findings_status": {"baseline": _count(f_base), "current": _count(f_cur)},
         "fixes": fixes,
+        "cycles": cycles,
         "improvements": improvements(baseline, current),
         "experiments": {
             "passage_prefix": get(cur, "experiment_passage_prefix"),
             "verifier_comparison": get(cur, "experiment_nli_grounding"),
             "calibration": get(cur, "grounding_calibration"),
+            "verifier_real_claims": get(cur, "experiment_verifier"),
         },
         "corpus_gaps": get(cur, "corpus_gaps"),
         "still_open": [{"id": f["id"], "severity": f["severity"], "status": f["status"], "title": f["title"],
@@ -278,6 +472,19 @@ def render_markdown(r: dict) -> str:
                 continue
             L.append(f"  - {k}: held-out F1 {x['test']['f1']}, false support {x['test']['false_support_rate']}, "
                      f"traps accepted {x['traps_accepted']}/{x['traps_total']}")
+    if exp.get("verifier_real_claims"):
+        v = exp["verifier_real_claims"]
+        L.append(f"- **Verifier on real claims (W26, R2, W29):** rule: {v['rule']}. Winner {v['winner']}; "
+                 f"confirmed on test: {v['confirmed']}; in use: {v['verifier_in_use']}.")
+        for k, x in v["variants"].items():
+            if x.get("params") is None:
+                continue
+            L.append(f"  - {k}: test F1 {x['test']['f1']} (real recall {x['test_real']['recall']}, real false support "
+                     f"{x['test_real']['false_support_rate']}), fresh traps {x['test_traps_accepted']}/{x['test_traps_total']}, "
+                     f"+{x['cpu_added_s_per_card_p95']} s/card CPU")
+        g = v["card_grading_policy"]
+        L.append(f"  - card grading: whole-claim precision {g['whole_precision']}, recall {g['whole_recall']}; "
+                 f"atomic precision {g['atomic_precision']}, recall {g['atomic_recall']}")
     if r["corpus_gaps"]:
         g = r["corpus_gaps"]
         L += ["", "## Corpus gaps (R4)", "",
@@ -287,6 +494,64 @@ def render_markdown(r: dict) -> str:
     for f in sorted(r["still_open"], key=lambda f: (f["status"] != "partial", f["severity"])):
         L.append(f"| {f['id']} | {f['severity']} | {f['status']} | {'yes' if f['addressed_this_iteration'] else 'no'} | {f['title']} |")
     return "\n".join(L) + "\n"
+
+
+def render_cycles(r: dict) -> str:
+    L = [f"# {r['name']}: {len(r['cycles'])} complete iteration cycles",
+         "",
+         "Checkpoint requirement: *Progres perbaikan pada Evaluation Track dan Product Track. Minimal satu "
+         "siklus iterasi lengkap terdokumentasi: temuan, perbaikan, lalu hasil uji ulang.*",
+         "",
+         "Each cycle below runs finding (temuan) -> fix (perbaikan) -> re-test (hasil uji ulang), with changes on "
+         "both the product track (`apps/main_api`) and the evaluation track (`evals/`). These are the largest "
+         "RAG cycles of this iteration; [`REPORT.md`](REPORT.md) lists every fix.",
+         "",
+         f"Generated {r['generated_at']} by `python -m evals.iteration` from `reports/{r['baseline']}` "
+         f"({r['baseline_note']}) and `reports/{r['current']}` (after the fixes). Every number is read from "
+         "those run artifacts, which are archived in this folder.",
+         "",
+         "| Cycle | Starts from | Fixes | Headline re-test | Findings now |",
+         "|---|---|---|---|---|"]
+    for c in r["cycles"]:
+        m = c["metrics"][0]
+        status = ", ".join(f"{f['id']} {f['after']}" for f in c["findings"])
+        L.append(f"| [{c['id']}](#{c['id'].lower()}) {c['title']} | {', '.join(f['id'] for f in c['findings'])} | "
+                 f"{', '.join(fx['id'] for fx in c['fixes'])} | {m['metric']}: {_fmt(m['before'])} -> {_fmt(m['after'])} | {status} |")
+    t_b, t_c = r["tests"]["baseline"], r["tests"]["current"]
+    L += ["", f"Whole suite: {t_b.get('passed')}/{t_b.get('total')} tests passing at baseline, "
+              f"{t_c.get('passed')}/{t_c.get('total')} after the fixes.", ""]
+    for c in r["cycles"]:
+        L += [f"## {c['id']}", "", f"### {c['title']}", "", c["problem"], "",
+              "#### 1. Finding (temuan, baseline run)", ""]
+        for f in c["findings"]:
+            L.append(f"- **{f['id']}** ({f['severity']}): {f['title']}.")
+            for e in f["evidence_before"] or ["not measured at baseline: this finding came from the review"]:
+                L.append(f"  - {e}")
+        L += ["", "#### 2. Fix (perbaikan)", "", "| Fix | Track | Source | Change | Files |", "|---|---|---|---|---|"]
+        for fx in c["fixes"]:
+            files = "<br>".join(f"`{f}`" for f in fx["files"])
+            L.append(f"| {fx['id']} {fx['title']} | {fx['track']} | {', '.join(fx['sources'])} | {fx['change']} | {files} |")
+        L += ["", "#### 3. Re-test (hasil uji ulang)", "", "| Metric | Baseline | After | Artifact |", "|---|---:|---:|---|"]
+        for m in c["metrics"]:
+            L.append(f"| {m['metric']} | {_fmt(m['before'])} | {_fmt(m['after'])} | `{m['path']}` |")
+        tests = [t for fx in c["fixes"] for t in fx["tests"]]
+        if tests:
+            L += ["", "| Test | Baseline | After |", "|---|---|---|"]
+            L += [f"| `{t['test']}` | {t['before']} | {t['after']} |" for t in tests]
+        L += ["", "| Finding | Baseline | After | Evidence after |", "|---|---|---|---|"]
+        for f in c["findings"]:
+            L.append(f"| {f['id']} | {f['before']} | {f['after']} | {'; '.join(f['evidence_after'])} |")
+        L += ["", f"**Reading the result, and what remains.** {c['note']}", ""]
+    L += ["## Reproduce", "",
+          "```bash",
+          "HF_HUB_OFFLINE=1 .venv/Scripts/python.exe -m scripts.quality --label current            # tests, evals, findings, dashboard",
+          "HF_HUB_OFFLINE=1 .venv/Scripts/python.exe -m evals.cost_eval --label current --repeat 2   # real LLM, needs OPENCODE_GO_API_KEY",
+          "HF_HUB_OFFLINE=1 .venv/Scripts/python.exe -m evals.calibrate_grounding --label current",
+          "HF_HUB_OFFLINE=1 .venv/Scripts/python.exe -m evals.experiment_nli_grounding --label current --with-llm",
+          "HF_HUB_OFFLINE=1 .venv/Scripts/python.exe -m evals.experiment_verifier --label current   # needs the iter2-* claim runs",
+          f".venv/Scripts/python.exe -m evals.iteration --name {r['name']} --baseline {r['baseline']} --current {r['current']}",
+          "```", ""]
+    return "\n".join(L)
 
 
 def main(argv: list[str] | None = None):
@@ -300,6 +565,7 @@ def main(argv: list[str] | None = None):
     out.mkdir(parents=True, exist_ok=True)
     (out / "iteration.json").write_text(json.dumps(report, indent=2, ensure_ascii=False, default=_jsonable), encoding="utf-8")
     (out / "REPORT.md").write_text(render_markdown(report), encoding="utf-8")
+    (out / "CYCLES.md").write_text(render_cycles(report), encoding="utf-8")
     print(f"[iteration] {len(report['fixes'])} fixes; findings now {report['findings_status']['current']} -> {out}")
     return out
 

@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Fish, SquaresFour, Star, User, Sliders } from '@phosphor-icons/react/dist/ssr'
+import { Fish, SquaresFour, User, Sliders } from '@phosphor-icons/react/dist/ssr'
+import { SignOutButton } from '@/components/auth/sign-out-button'
 import { Logo } from '@/components/common/logo'
 import { ThemeToggle } from '@/components/common/theme-toggle'
 import { Z } from '@/lib/z'
@@ -22,7 +23,6 @@ const OPERATOR_TABS = [
 
 const BUYER_TABS = [
   { href: '/marketplace', label: 'Marketplace', icon: SquaresFour },
-  { href: '/marketplace?matched=1', label: 'Matched', icon: Star },
   { href: '/preferences', label: 'Preferences', icon: Sliders },
   { href: '/account', label: 'Account', icon: User },
 ]
@@ -98,18 +98,26 @@ export function AppShell({
             })}
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1">
             {session ? (
-              <p className="text-body-sm text-ink-muted">
-                <span className="text-ink">{session.name}</span>
-                <span className="hidden sm:inline">
-                  {' '}
-                  · {ROLE_LABEL[session.role] ?? session.role}
-                </span>
-              </p>
+              <>
+                <Link
+                  href="/account"
+                  className="text-body-sm flex min-h-11 min-w-0 items-center px-2 text-ink-muted hover:text-ink"
+                >
+                  <span className="max-w-[40vw] truncate text-ink">{session.name}</span>
+                  <span className="hidden whitespace-nowrap sm:inline">
+                    &nbsp;· {ROLE_LABEL[session.role] ?? session.role}
+                  </span>
+                </Link>
+                <SignOutButton compact />
+              </>
             ) : (
-              <Link href="/account" className="text-body-sm flex min-h-11 items-center px-2 text-ink-muted">
-                Masuk
+              <Link
+                href="/account"
+                className="text-body-sm flex min-h-11 items-center px-2 text-ink-muted hover:text-ink"
+              >
+                Sign in
               </Link>
             )}
             <ThemeToggle />

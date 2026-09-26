@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_gembolo_physical_001",
+  "chunk": {
+    "id": "chunk_gembolo_physical_001",
+    "species_label": "gembolo",
+    "source_id": "idwiki_ikan_kembung",
+    "category": "physical_characteristics",
+    "content": "Kembung (Rastrelliger spp.), the fish known as gembolo or gambolo in West Sumatra, has a dark blue-green to brownish back with one or two rows of dark spots near the dorsal fin base and silvery ventral scales.",
+    "source_quote": "Sisi dorsal gelap, biru kehijauan hingga kecoklatan, dengan 1–2 deret bintik gelap membujur di dekat pangkal sirip punggung; sisik ventral keperakan.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "idwiki_ikan_kembung",
+    "title": "Ikan kembung - Wikipedia bahasa Indonesia",
+    "source_type": "encyclopedia",
+    "url": "https://id.wikipedia.org/wiki/Ikan_kembung",
+    "publisher": "Wikipedia",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

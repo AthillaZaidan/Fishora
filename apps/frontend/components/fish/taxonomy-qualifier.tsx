@@ -9,15 +9,15 @@ export interface TaxonomyQualifierProps {
 
 const COPY: Record<Exclude<TaxonomyStatus, 'VERIFIED_TAXONOMY'>, string> = {
   TAXONOMY_REVIEW_REQUIRED:
-    'Nama ilmiah memerlukan tinjauan ahli. Identifikasi ini belum dikunci ke satu spesies.',
+    'The scientific name needs expert review. This identification is not yet locked to a single species.',
   MEDIUM_CONFIDENCE_LABEL_AMBIGUITY:
-    'Label ini dipakai untuk lebih dari satu spesies. Konfirmasi ahli tetap diperlukan.',
+    'This label is used for more than one species. Expert confirmation is still required.',
   MIXED_TAXONOMY:
-    'Taksonomi dikunci pada tingkat genus. Spesies pasti belum ditentukan.',
+    'Taxonomy is locked at genus level. The exact species has not been determined.',
 }
 
 const TUNA_MIXED =
-  'Taksonomi dikunci pada tingkat genus Thunnus spp. sampai verifikasi ahli.'
+  'Taxonomy is locked at the genus Thunnus spp. until expert verification.'
 
 export function TaxonomyQualifier({ status, label }: TaxonomyQualifierProps) {
   if (status === 'VERIFIED_TAXONOMY') return null

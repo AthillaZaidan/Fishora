@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_kuniran_taste_001",
+  "chunk": {
+    "id": "chunk_kuniran_taste_001",
+    "species_label": "kuniran",
+    "source_id": "fao_wcp_mullidae_randall",
+    "category": "taste_texture",
+    "content": "FAO describes the flesh of goatfishes (family Mullidae, which includes Upeneus moluccensis) as of good quality, with some species highly esteemed in certain countries.",
+    "source_quote": "The flesh of goatfishes is of good quality and that of some species highly esteemed in certain countries.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_wcp_mullidae_randall",
+    "title": "MULLIDAE Goatfishes (surmullets) by J.E. Randall, FAO Species Identification Guide for Fishery Purposes: The Living Marine Resources of the Western Central Pacific",
+    "source_type": "catalogue",
+    "url": "https://www.fao.org/4/y0770e/y0770e39.pdf",
+    "publisher": "FAO",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

@@ -23,7 +23,8 @@ from typing import Callable
 from evals.run import REPORTS_DIR, _jsonable
 
 ARTIFACTS = ("tests", "rag_eval", "cost_eval", "model_compare", "probes", "cv_eval",
-             "grounding_calibration", "experiment_nli_grounding", "experiment_passage_prefix", "corpus_gaps")
+             "grounding_calibration", "experiment_nli_grounding", "experiment_passage_prefix", "corpus_gaps",
+             "experiment_verifier")
 SEVERITY_ORDER = {"high": 0, "medium": 1, "low": 2, "info": 3}
 # open and partial findings sort before resolved ones
 OPEN_STATES = ("open", "partial", "check_error")
@@ -75,6 +76,20 @@ def _agent(a) -> str:
     return "agent" if shipped else "agent_normalized"
 
 
+def _published(a) -> str:
+    """The path whose card the product publishes. Until iteration 1 that was a
+    separate one-call path, measured as ``published``; from iteration 2 the sync
+    path runs the graded graph (W19), so the published card is the agent card."""
+    return "published" if get(a, "cost_eval.summary.by_path.published") else _agent(a)
+
+
+def _one_call(a) -> str | None:
+    """The ungraded one-call generation: the product's published path until
+    iteration 1, kept after it as an eval-only reference (``one_call``)."""
+    by_path = get(a, "cost_eval.summary.by_path") or {}
+    return next((p for p in ("one_call", "published") if p in by_path), None)
+
+
 def _w1(a):
     g = get(a, "rag_eval.grounding")
     if not g:
@@ -119,13 +134,13 @@ def _w4(a):
 def _w5(a):
     rounds = get(a, "rag_eval.pipeline.plain.llm_rounds", get(a, "rag_eval.pipeline.plain.sequential_rounds"))
     real = get(a, f"cost_eval.summary.by_path.{_agent(a)}.wall_s_per_card.p50")
-    pub = get(a, "cost_eval.summary.by_path.published.wall_s_per_card.p50")
+    pub = get(a, f"cost_eval.summary.by_path.{_one_call(a)}.wall_s_per_card.p50")
     calls = get(a, f"cost_eval.summary.by_path.{_agent(a)}.llm_calls_per_card.mean")
     if rounds is None:
         return "not_measured", []
     ev = [f"LLM rounds per card (scripted): {rounds}; wall time / call delay {get(a, 'rag_eval.pipeline.plain.sequential_rounds')}"]
-    if real:
-        ev.append(f"real LLM: agent card p50 {real:.1f}s with {calls} calls vs published card p50 {pub:.1f}s with 1 call")
+    if real and pub:
+        ev.append(f"real LLM: agent card p50 {real:.1f}s with {calls} calls vs one-call card p50 {pub:.1f}s with 1 call")
     return ("open" if rounds > 2.5 else "resolved"), ev
 
 
@@ -134,7 +149,9 @@ def _w6(a):
     first = get(a, "rag_eval.pipeline.plain.latency_ms_mean")
     if rep is None:
         return "not_measured", []
-    return ("open" if rep >= 50 else "resolved"), [f"repeat card {rep:.0f} ms vs first card {first:.0f} ms (no cache)"]
+    status = "open" if rep >= 50 else "resolved"
+    how = "no cache" if status == "open" else "served from the card cache"
+    return status, [f"repeat card {rep:.0f} ms vs first card {first:.0f} ms ({how})"]
 
 
 def _w7(a):
@@ -190,7 +207,7 @@ def _w11(a):
     if not counts:
         return "not_measured", []
     empty = [k for k, v in counts.items() if v == 0]
-    fill = get(a, "cost_eval.summary.by_path.published.fields_filled_rate") or {}
+    fill = get(a, f"cost_eval.summary.by_path.{_published(a)}.fields_filled_rate") or {}
     ev = [f"categories with no chunks: {empty or 'none'}",
           "published-card field fill rate: " + ", ".join(f"{k} {v:.0%}" for k, v in fill.items())] if fill else [
           f"categories with no chunks: {empty or 'none'}"]
@@ -204,8 +221,13 @@ def _w12(a):
     files = {}
     for h in probe["handlers"]:
         files[h["file"].split("/")[-1]] = files.get(h["file"].split("/")[-1], 0) + 1
-    return ("open" if probe["count"] else "resolved"), [
-        f"{probe['count']} broad except handlers that neither log nor re-raise: {files}"]
+    # Observability is both halves: no silent handler, and every card run
+    # leaves a stage trace (judge methodology §6.1). Iteration 2 added the second.
+    trace = test_status(a, "test_knowledge_api", "test_card_job_records_a_stage_trace")
+    status = "open" if probe["count"] else ("resolved" if trace == "passed" else "partial")
+    return status, [
+        f"{probe['count']} broad except handlers that neither log nor re-raise: {files or 'none'}",
+        f"stage trace kept per card job: test {trace or 'absent'}"]
 
 
 def _w13(a):
@@ -224,7 +246,8 @@ def _w14(a):
     s = test_status(a, "test_orchestrator_nodes", "test_expert_sees_the_whole_chunk")
     if s is None:
         return "not_measured", []
-    return ("resolved" if s == "passed" else "open"), [f"expert evidence cut at 300 chars; unit test: {s}"]
+    what = "experts receive whole chunks" if s == "passed" else "expert evidence cut at 300 chars"
+    return ("resolved" if s == "passed" else "open"), [f"{what}; unit test: {s}"]
 
 
 def _w18(a):
@@ -256,7 +279,7 @@ def _w20(a):
         return "not_measured", []
     return ("resolved" if h["sends_session_header"] else "open"), [
         f"client sends x-opencode-session: {h['sends_session_header']}; sets a user agent: {h['sets_user_agent']}",
-        "without it the gateway answers 400 MissingSessionID (the cost eval adds the header itself)"]
+        "without it the gateway answers 400 MissingSessionID"]
 
 
 def _w21(a):
@@ -267,19 +290,34 @@ def _w21(a):
     ev = [f"agent path as shipped, real LLM: {_pct(shipped['success_rate'])} cards completed of {shipped['cards']}"]
     if fixed:
         ev.append(f"same run, content read as text (eval-only): {_pct(fixed['success_rate'])} completed")
-    ev.append(f"spend on the failing path: ${shipped['cost_usd_per_card']['mean']:.5f} per card, all wasted")
-    return ("open" if shipped["success_rate"] < 0.5 else "resolved"), ev
+    status = "open" if shipped["success_rate"] < 0.5 else "resolved"
+    cost = shipped["cost_usd_per_card"]["mean"]
+    ev.append(f"spend on the failing path: ${cost:.5f} per card, all wasted" if status == "open"
+              else f"spend: ${cost:.5f} per completed card")
+    return status, ev
 
 
 def _w22(a):
+    # The app is English-only: a card whose prose is not English is the defect.
+    # Artifacts from before that rule carry only english_leak_rate (the opposite
+    # check), so their stored cards are re-scored here instead.
+    from evals.cost_eval import language_leak
+
     paths = get(a, "cost_eval.summary.by_path") or {}
-    rates = {p: v.get("english_leak_rate") for p, v in paths.items() if v.get("english_leak_rate") is not None}
+    rates = {p: v["language_leak_rate"] for p, v in paths.items() if v.get("language_leak_rate") is not None}
+    if not rates:
+        scored: dict[str, list[bool]] = {}
+        for c in get(a, "cost_eval.cards") or []:
+            leak = language_leak(c.get("card"))
+            if leak is not None:
+                scored.setdefault(c["path"], []).append(leak)
+        rates = {p: sum(v) / len(v) for p, v in scored.items()}
     if not rates:
         return "not_measured", []
     leaking = any(r > 0 for r in rates.values())
-    return ("open" if leaking else "not_observed"), [
-        "cards whose prose is mostly English: " + ", ".join(f"{p} {r:.0%}" for p, r in rates.items()),
-        "expert prompts do not state the output language; not seen in final cards in this run"]
+    return ("open" if leaking else "resolved"), [
+        "cards whose prose is not English: " + ", ".join(f"{p} {r:.0%}" for p, r in rates.items()),
+        "expert, writer and verifier prompts require English output"]
 
 
 def _w24(a):
@@ -291,29 +329,66 @@ def _w24(a):
     for c in cards:
         by_species.setdefault(c["species"], []).append(c["status"])
     failing = {s: f"{v.count('failed')}/{len(v)}" for s, v in by_species.items() if "failed" in v}
-    pub = {c["species"]: c["status"] for c in get(a, "cost_eval.cards") if c["path"] == "published"}
+    pub = {c["species"]: c["status"] for c in get(a, "cost_eval.cards") if c["path"] == _published(a)}
     return ("open" if failing else "resolved"), [
         f"{path} failures by species: {failing or 'none'}",
         f"gembolo published card: {pub.get('gembolo', 'n/a')} (only a LIMITATION chunk exists)"]
 
 
 def _w25(a):
-    pub = get(a, "cost_eval.summary.by_path.published")
+    path = _published(a)
+    pub = get(a, f"cost_eval.summary.by_path.{path}")
     if not pub:
         return "not_measured", []
-    fails = [f"{c['species']}: {c['error']}" for c in get(a, "cost_eval.cards") if c["path"] == "published" and c["status"] != "completed"]
+    fails = [f"{c['species']}: {c['error']}" for c in get(a, "cost_eval.cards") if c["path"] == path and c["status"] != "completed"]
     return ("open" if pub["success_rate"] < 1 else "resolved"), [
         f"published cards passing the citation gate: {_pct(pub['success_rate'])} of {pub['cards']}", *fails[:3]]
 
 
 def _w26(a):
-    pub = get(a, "cost_eval.summary.by_path.published.fields_filled_rate")
-    agent = get(a, f"cost_eval.summary.by_path.{_agent(a)}.fields_filled_rate")
-    if not pub or not agent:
+    """Graded cards against the ungraded one-call reference, field by field.
+
+    Iteration 2 counts only the cells (species, field) where the species has
+    evidence for that field. An empty field with no evidence is the abstention
+    R4/F6 require, so counting it as "emptier" scored the guardrail as a defect.
+    The rule is otherwise unchanged (open when the graded card is emptier on at
+    least 3 fields), and the unrestricted rates stay in the evidence. A run with
+    no corpus gap list falls back to the unrestricted comparison.
+    """
+    from apps.main_api.services.orchestrator import FIELD_EVIDENCE
+
+    ref_path, agent_path = _one_call(a), _agent(a)
+    cards = get(a, "cost_eval.cards") or []
+    ref = [c for c in cards if c["path"] == ref_path and c["status"] == "completed"]
+    graded = [c for c in cards if c["path"] == agent_path and c["status"] == "completed"]
+    if not ref or not graded:
         return "not_measured", []
-    rows = [f"{f}: published {pub[f]:.0%} vs agent {agent.get(f, 0):.0%}" for f in pub]
-    worse = sum(agent.get(f, 0) < pub[f] for f in pub)
-    return ("open" if worse >= 3 else "resolved"), [f"fields where the critic-guarded agent card is emptier: {worse}/7", *rows]
+    gaps = get(a, "corpus_gaps.gaps")
+    missing = {(g["species"], g["category"]) for g in gaps or []}
+
+    def with_evidence(species: str, field: str) -> bool:
+        return gaps is None or any((species, cat) not in missing for cat in FIELD_EVIDENCE[field])
+
+    def rate(group: list[dict], field: str):
+        cells = [c for c in group if with_evidence(c["species"], field)]
+        return (sum(bool(c["fields_filled"].get(field)) for c in cells) / len(cells), len(cells)) if cells else (None, 0)
+
+    rows, worse, compared = [], 0, 0
+    for field in FIELD_EVIDENCE:
+        (r_ref, n_ref), (r_graded, n_graded) = rate(ref, field), rate(graded, field)
+        if r_ref is None or r_graded is None:
+            rows.append(f"{field}: no species has evidence for it")
+            continue
+        compared += 1
+        worse += r_graded < r_ref
+        rows.append(f"{field}: graded {r_graded:.0%} (n={n_graded}) vs one-call {r_ref:.0%} (n={n_ref})")
+    scope = "on cells with evidence" if gaps is not None else "on all cells (no corpus gap list in this run)"
+    raw_ref = get(a, f"cost_eval.summary.by_path.{ref_path}.fields_filled_rate") or {}
+    raw_graded = get(a, f"cost_eval.summary.by_path.{agent_path}.fields_filled_rate") or {}
+    raw = ", ".join(f"{f} {raw_graded.get(f, 0):.0%}/{v:.0%}" for f, v in raw_ref.items())
+    return ("open" if worse >= 3 else "resolved"), [
+        f"fields where the graded card is emptier than the one-call card {scope}: {worse}/{compared}", *rows,
+        f"unrestricted fill, graded/one-call: {raw}"]
 
 
 def _w27(a):
@@ -413,7 +488,34 @@ def _r1(a):
         "semantic ranking applies only above 20 chunks per species"]
 
 
+def _in_use_verifier(a):
+    """The verifier variant the product runs, as recorded by the iteration-2 experiment."""
+    variants = get(a, "experiment_verifier.variants")
+    if not variants:
+        return None, None
+    name = get(a, "experiment_verifier.verifier_in_use") or "A_e5_exact"
+    # Since the team's iteration 2 the product grades claims with claim_verifier
+    # (orchestrator.CRITIC_MODE == "verifier"); the experiment measures it as
+    # P_production_claim_verifier when run with --with-llm.
+    from apps.main_api.services.orchestrator import CRITIC_MODE
+    if CRITIC_MODE == "verifier" and "P_production_claim_verifier" in variants:
+        name = "P_production_claim_verifier"
+    return name, variants
+
+
 def _r2(a):
+    # From iteration 2: the fresh trap set, never used for a choice, is the test.
+    name, variants = _in_use_verifier(a)
+    if variants:
+        used = variants[name]
+        ev = [f"verifier in use ({name}): fresh traps accepted {used['test_traps_accepted']}/{used['test_traps_total']}, "
+              f"iteration-1 traps {used['dev_traps_accepted']}/{used['dev_traps_total']}"]
+        scored = [k for k, v in variants.items() if v.get("params") is not None]
+        best = min(scored, key=lambda k: (variants[k]["test_traps_accepted"], variants[k]["cpu_added_s_per_card_p95"]))
+        b = variants[best]
+        ev.append(f"fewest fresh traps: {best} {b['test_traps_accepted']}/{b['test_traps_total']}, "
+                  f"+{b['cpu_added_s_per_card_p95']} s per card on CPU ({'within' if b['eligible'] else 'over'} budget)")
+        return ("resolved" if used["test_traps_accepted"] == 0 else "partial"), ev
     exp = get(a, "experiment_nli_grounding.variants")
     if not exp:
         return "not_measured", []
@@ -428,6 +530,19 @@ def _r2(a):
             ev.append(f"{label}: held-out F1 {exp[key]['test']['f1']}, traps accepted "
                       f"{exp[key]['traps_accepted']}/{exp[key]['traps_total']}")
     return ("resolved" if shipped["traps_accepted"] == 0 else "partial"), ev
+
+
+def _w29(a):
+    name, variants = _in_use_verifier(a)
+    if not variants:
+        return "not_measured", []
+    real, synthetic = variants[name]["test_real"], variants[name]["test_synthetic"]
+    ok = real["false_support_rate"] <= 0.10 and real["recall"] >= 0.80
+    return ("resolved" if ok else "open"), [
+        f"real expert claim atoms, held-out species (n={real['n']}): recall {real['recall']}, "
+        f"false support {real['false_support_rate']} ({real['fp']} of {real['fp'] + real['tn']} unsupported atoms kept)",
+        f"synthetic test claims (n={synthetic['n']}): recall {synthetic['recall']}, false support {synthetic['false_support_rate']}",
+        "labels: evals/datasets/grounding_real_claims.json, by an AI assistant, pending human review"]
 
 
 REGISTRY: tuple[Finding, ...] = (
@@ -470,13 +585,16 @@ REGISTRY: tuple[Finding, ...] = (
     Finding("W25", "medium", "generation", "Published path intermittently fails its own citation gate",
             "100% published cards valid", _w25),
     Finding("W26", "medium", "guardrail (critic)", "Critic-guarded agent cards are emptier than published cards",
-            "agent fill rate ≥ published on ≥ 5/7 fields", _w26),
+            "graded fill rate ≥ one-call on ≥ 5/7 fields, on cells with evidence", _w26),
     Finding("W28", "medium", "LLM provider", "Not every OpenCode Go model is a drop-in replacement",
             "all candidate models ≥ 90% valid", _w28),
+    Finding("W29", "high", "guardrail (critic)",
+            "The claim verifier was validated on synthetic claims only; on real expert claims it drops true ones and keeps false ones",
+            "held-out real claim atoms: false support ≤ 0.10 and recall ≥ 0.80", _w29),
     Finding("W14", "low", "context construction", "Expert evidence truncated at 300 characters",
             "experts see whole chunks", _w14),
-    Finding("W22", "low", "prompting", "Expert prompts do not require Indonesian output",
-            "0% English cards", _w22),
+    Finding("W22", "low", "prompting", "Card prose must be English (the app is English-only)",
+            "0% non-English cards", _w22),
     Finding("W27", "info", "cost", "Where the LLM money goes", "n/a", _w27),
     Finding("R1", "medium", "retrieval", "Retrieval is unnecessary at this corpus size and loses evidence",
             "every species' full evidence reaches its card", _r1),
@@ -523,9 +641,9 @@ TARGETS = (
     ("Scoped retrieval MRR", "rag_eval.retrieval.scoped.mrr", 0.7, True, ["W8"]),
     ("Scoped recall@6", "rag_eval.retrieval.scoped.recall@6", 1.0, True, ["W9"]),
     ("Agent card success, real LLM", "cost_eval.summary.by_path.agent.success_rate", 0.9, True, ["W20", "W21"]),
-    ("Published card success, real LLM", "cost_eval.summary.by_path.published.success_rate", 1.0, True, ["W25"]),
+    ("Published card success, real LLM", "cost_eval.published.success_rate", 1.0, True, ["W25"]),
     ("Agent card p50 wall time (s)", "cost_eval.agent.wall_s_per_card.p50", 6.0, False, ["W5"]),
-    ("Cost per published card (USD)", "cost_eval.summary.by_path.published.cost_usd_per_card.mean", None, False, ["W27"]),
+    ("Cost per published card (USD)", "cost_eval.published.cost_usd_per_card.mean", None, False, ["W27"]),
     ("Cost per agent card (USD)", "cost_eval.agent.cost_usd_per_card.mean", None, False, ["W5", "W27"]),
     ("Species ID: field accuracy", "cv_eval.prod.field_accuracy", 0.90, True, ["CV1"]),
     ("Species ID: wrong and confident (field)", "cv_eval.prod.field_wrong_confident", 0.05, False, ["CV2"]),
@@ -540,6 +658,8 @@ def metric_value(artifacts: dict, path: str):
         return get(artifacts, f"cv_eval.models.{prod}.{path.removeprefix('cv_eval.prod.')}") if prod else None
     if path.startswith("cost_eval.agent."):
         return get(artifacts, f"cost_eval.summary.by_path.{_agent(artifacts)}.{path.removeprefix('cost_eval.agent.')}")
+    if path.startswith("cost_eval.published."):
+        return get(artifacts, f"cost_eval.summary.by_path.{_published(artifacts)}.{path.removeprefix('cost_eval.published.')}")
     if path == "tests.totals":
         t = get(artifacts, "tests.totals")
         return round(t["passed"] / t["total"], 4) if t and t.get("total") else None

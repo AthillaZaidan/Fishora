@@ -1,0 +1,3662 @@
+{
+  "label": "iter2-claims-3",
+  "generated_at": "2026-09-26T08:25:42+00:00",
+  "git": {
+    "commit": "6112d6e",
+    "dirty": true
+  },
+  "model": "gpt-5.6-luna",
+  "prices_usd_per_1m": {
+    "input": 0.2,
+    "output": 1.2,
+    "cached_input": 0.02
+  },
+  "allowance_usd": {
+    "5h": 3.0,
+    "week": 7.5,
+    "month": 15.0
+  },
+  "wall_time_s": 51.6,
+  "summary": {
+    "by_path": {
+      "agent": {
+        "cards": 11,
+        "success_rate": 1.0,
+        "cost_usd_per_card": {
+          "mean": 0.0009,
+          "p50": 0.001,
+          "p95": 0.0012,
+          "max": 0.0012,
+          "n": 11
+        },
+        "wall_s_per_card": {
+          "mean": 4.5827,
+          "p50": 4.51,
+          "p95": 6.66,
+          "max": 6.66,
+          "n": 11
+        },
+        "llm_calls_per_card": {
+          "mean": 3.2727,
+          "p50": 3,
+          "p95": 4,
+          "max": 4,
+          "n": 11
+        },
+        "input_tokens_per_card": {
+          "mean": 663.3636,
+          "p50": 728,
+          "p95": 894,
+          "max": 894,
+          "n": 11
+        },
+        "output_tokens_per_card": {
+          "mean": 631.4545,
+          "p50": 679,
+          "p95": 903,
+          "max": 903,
+          "n": 11
+        },
+        "reasoning_share_of_output": 0.3989,
+        "cache_hit_share_of_input": 0.0,
+        "output_share_of_cost": 0.851,
+        "english_leak_rate": 0.0,
+        "cards_per_allowance": {
+          "5h": 3369,
+          "week": 8422,
+          "month": 16845
+        },
+        "cost_usd_per_1000_cards": 0.89,
+        "cache_hits": 0,
+        "cache_hit_wall_s": {},
+        "fields_filled_rate": {
+          "physical_characteristics": 0.636,
+          "taste": 0.091,
+          "texture": 0.182,
+          "processing_methods": 0.818,
+          "commercial_uses": 0.818,
+          "similar_or_substitute_species": 0.0,
+          "potential_buyer_segments": 0.636
+        }
+      }
+    },
+    "by_stage": {
+      "agent:expert_commercial": {
+        "calls": 10,
+        "errors": 0,
+        "latency_s": {
+          "mean": 3.6742,
+          "p50": 3.697,
+          "p95": 5.162,
+          "max": 5.162,
+          "n": 10
+        },
+        "input_tokens": {
+          "mean": 218.0,
+          "p50": 203,
+          "p95": 273,
+          "max": 273,
+          "n": 10
+        },
+        "output_tokens": {
+          "mean": 229.4,
+          "p50": 234,
+          "p95": 289,
+          "max": 289,
+          "n": 10
+        },
+        "reasoning_tokens": {
+          "mean": 68.1,
+          "p50": 64,
+          "p95": 108,
+          "max": 108,
+          "n": 10
+        },
+        "cost_usd_total": 0.003189
+      },
+      "agent:expert_physical": {
+        "calls": 11,
+        "errors": 0,
+        "latency_s": {
+          "mean": 3.952,
+          "p50": 4.05,
+          "p95": 6.384,
+          "max": 6.384,
+          "n": 11
+        },
+        "input_tokens": {
+          "mean": 259.0909,
+          "p50": 254,
+          "p95": 437,
+          "max": 437,
+          "n": 11
+        },
+        "output_tokens": {
+          "mean": 209.1818,
+          "p50": 215,
+          "p95": 388,
+          "max": 388,
+          "n": 11
+        },
+        "reasoning_tokens": {
+          "mean": 93.4545,
+          "p50": 82,
+          "p95": 154,
+          "max": 154,
+          "n": 11
+        },
+        "cost_usd_total": 0.003331
+      },
+      "agent:expert_substitute": {
+        "calls": 10,
+        "errors": 0,
+        "latency_s": {
+          "mean": 3.1897,
+          "p50": 2.927,
+          "p95": 3.942,
+          "max": 3.942,
+          "n": 10
+        },
+        "input_tokens": {
+          "mean": 157.7,
+          "p50": 149,
+          "p95": 204,
+          "max": 204,
+          "n": 10
+        },
+        "output_tokens": {
+          "mean": 187.2,
+          "p50": 184,
+          "p95": 230,
+          "max": 230,
+          "n": 10
+        },
+        "reasoning_tokens": {
+          "mean": 85.2,
+          "p50": 78,
+          "p95": 120,
+          "max": 120,
+          "n": 10
+        },
+        "cost_usd_total": 0.002562
+      },
+      "agent:expert_taste": {
+        "calls": 5,
+        "errors": 0,
+        "latency_s": {
+          "mean": 2.353,
+          "p50": 2.213,
+          "p95": 3.021,
+          "max": 3.021,
+          "n": 5
+        },
+        "input_tokens": {
+          "mean": 138.0,
+          "p50": 140,
+          "p95": 145,
+          "max": 145,
+          "n": 5
+        },
+        "output_tokens": {
+          "mean": 95.8,
+          "p50": 98,
+          "p95": 100,
+          "max": 100,
+          "n": 5
+        },
+        "reasoning_tokens": {
+          "mean": 42.0,
+          "p50": 41,
+          "p95": 48,
+          "max": 48,
+          "n": 5
+        },
+        "cost_usd_total": 0.000713
+      }
+    },
+    "stage_cost_share": {
+      "agent:expert_commercial": 0.3256,
+      "agent:expert_physical": 0.3401,
+      "agent:expert_substitute": 0.2616,
+      "agent:expert_taste": 0.0728
+    },
+    "run_total_cost_usd": 0.00979
+  },
+  "cards": [
+    {
+      "path": "agent",
+      "species": "bandeng",
+      "status": "completed",
+      "wall_s": 4.76,
+      "llm_calls": 4,
+      "llm_errors": 0,
+      "llm_time_s": 15.52,
+      "input_tokens": 745,
+      "cached_tokens": 0,
+      "output_tokens": 788,
+      "reasoning_tokens": 277,
+      "cost_usd": 0.001095,
+      "critic_feedback": "physical_characteristics=supported; taste=no_evidence; texture=supported; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "expert_outputs": {
+        "physical": {
+          "physical_characteristics": "Tubuh memanjang dan agak pipih, dengan mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar yang bercabang dalam. Bagian punggung berwarna hijau zaitun dan sisi tubuh berwarna keperakan. Individu dewasa dapat mencapai panjang standar 180 cm dan berat 14 kg.",
+          "sources": [
+            {
+              "source_id": "fishbase_chanos_chanos",
+              "chunk_id": "chunk_bandeng_physical_001"
+            },
+            {
+              "source_id": "fishbase_chanos_chanos",
+              "chunk_id": "chunk_bandeng_identity_001"
+            }
+          ]
+        },
+        "taste": {
+          "taste": null,
+          "texture": "Paling keras pada bandeng yang dimasak dengan metode kukus bertekanan",
+          "sources": [
+            {
+              "source_id": "foodresearch_7s3_12",
+              "chunk_id": "chunk_bandeng_taste_001"
+            }
+          ]
+        },
+        "commercial": {
+          "processing_methods": [
+            "Bandeng presto menggunakan tekanan tinggi",
+            "Pengasapan",
+            "Pengalengan",
+            "Pembekuan"
+          ],
+          "commercial_uses": [
+            "Dijual segar",
+            "Dijual dalam bentuk asap",
+            "Dijual dalam bentuk kalengan",
+            "Dijual dalam bentuk beku",
+            "Dibudidayakan di tambak",
+            "Dikembangkan sebagai induk dan dipijahkan dalam penangkaran"
+          ],
+          "sources": [
+            {
+              "source_id": "marinade_4962",
+              "chunk_id": "chunk_bandeng_processing_001"
+            },
+            {
+              "source_id": "fishbase_chanos_chanos",
+              "chunk_id": "chunk_bandeng_commercial_001"
+            }
+          ]
+        },
+        "substitute": {
+          "similar_or_substitute_species": [],
+          "potential_buyer_segments": [
+            "Pembeli ikan bandeng segar",
+            "Pembeli ikan bandeng asap",
+            "Pembeli ikan bandeng kalengan",
+            "Pembeli ikan bandeng beku",
+            "Pembudidaya ikan yang membutuhkan larva atau benih bandeng",
+            "Pembenih atau hatchery yang membutuhkan induk bandeng"
+          ],
+          "sources": [
+            {
+              "source_id": "fishbase_chanos_chanos",
+              "chunk_id": "chunk_bandeng_commercial_001"
+            }
+          ]
+        }
+      },
+      "trace": {
+        "pipeline_version": "iteration-1",
+        "model": "gpt-5.6-luna",
+        "evidence": [
+          {
+            "chunk_id": "chunk_bandeng_identity_001",
+            "category": "identity",
+            "distance": 0.2059
+          },
+          {
+            "chunk_id": "chunk_bandeng_physical_001",
+            "category": "physical_characteristics",
+            "distance": 0.2747
+          },
+          {
+            "chunk_id": "chunk_bandeng_taste_001",
+            "category": "taste_texture",
+            "distance": 0.247
+          },
+          {
+            "chunk_id": "chunk_bandeng_processing_001",
+            "category": "processing_methods",
+            "distance": 0.2061
+          },
+          {
+            "chunk_id": "chunk_bandeng_commercial_001",
+            "category": "commercial_uses",
+            "distance": 0.2502
+          }
+        ],
+        "cache_hit": false,
+        "experts": {
+          "physical": {
+            "chunk_ids": [
+              "chunk_bandeng_identity_001",
+              "chunk_bandeng_physical_001"
+            ],
+            "prompt_sha256": "958a9bf21c7d5ed3",
+            "tokens": {
+              "input_tokens": 240,
+              "output_tokens": 208,
+              "total_tokens": 448,
+              "reasoning_tokens": 78
+            },
+            "latency_ms": 4672.8,
+            "skipped": false,
+            "error": false
+          },
+          "taste": {
+            "chunk_ids": [
+              "chunk_bandeng_taste_001"
+            ],
+            "prompt_sha256": "a108d5295b651f1a",
+            "tokens": {
+              "input_tokens": 131,
+              "output_tokens": 100,
+              "total_tokens": 231,
+              "reasoning_tokens": 41
+            },
+            "latency_ms": 3021.2,
+            "skipped": false,
+            "error": false
+          },
+          "commercial": {
+            "chunk_ids": [
+              "chunk_bandeng_processing_001",
+              "chunk_bandeng_commercial_001"
+            ],
+            "prompt_sha256": "89c95eb8fd45d45f",
+            "tokens": {
+              "input_tokens": 220,
+              "output_tokens": 267,
+              "total_tokens": 487,
+              "reasoning_tokens": 81
+            },
+            "latency_ms": 4094.9,
+            "skipped": false,
+            "error": false
+          },
+          "substitute": {
+            "chunk_ids": [
+              "chunk_bandeng_commercial_001"
+            ],
+            "prompt_sha256": "e88e8ef28a967fbf",
+            "tokens": {
+              "input_tokens": 154,
+              "output_tokens": 213,
+              "total_tokens": 367,
+              "reasoning_tokens": 77
+            },
+            "latency_ms": 3728.6,
+            "skipped": false,
+            "error": false
+          }
+        },
+        "claims": [
+          {
+            "field": "physical_characteristics",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_bandeng_physical_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "taste",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "texture",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_bandeng_taste_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "processing_methods",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_bandeng_processing_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "commercial_uses",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_bandeng_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "similar_or_substitute_species",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "potential_buyer_segments",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_bandeng_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          }
+        ],
+        "error": null,
+        "timings_ms": {
+          "research": 9.0,
+          "experts": 4673.9,
+          "critic": 75.1,
+          "writer": 0.1,
+          "total": 4758.1
+        }
+      },
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": true,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Bandeng",
+        "scientific_name": "Chanos chanos",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Tubuh memanjang dan agak pipih, dengan mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar yang bercabang dalam. Bagian punggung berwarna hijau zaitun dan sisi tubuh berwarna keperakan. Individu dewasa dapat mencapai panjang standar 180 cm dan berat 14 kg.",
+        "taste": null,
+        "texture": "Paling keras pada bandeng yang dimasak dengan metode kukus bertekanan",
+        "processing_methods": [
+          "Bandeng presto menggunakan tekanan tinggi",
+          "Pengasapan",
+          "Pengalengan",
+          "Pembekuan"
+        ],
+        "commercial_uses": [
+          "Dijual segar",
+          "Dijual dalam bentuk asap",
+          "Dijual dalam bentuk kalengan",
+          "Dijual dalam bentuk beku",
+          "Dibudidayakan di tambak",
+          "Dikembangkan sebagai induk dan dipijahkan dalam penangkaran"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pembeli ikan bandeng segar",
+          "Pembeli ikan bandeng asap",
+          "Pembeli ikan bandeng kalengan",
+          "Pembeli ikan bandeng beku",
+          "Pembudidaya ikan yang membutuhkan larva atau benih bandeng",
+          "Pembenih atau hatchery yang membutuhkan induk bandeng"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_chanos_chanos",
+            "title": "Chanos chanos, Milkfish: fisheries, aquaculture, gamefish, bait",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Chanos-chanos.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "foodresearch_7s3_12",
+            "title": "Product characteristics, amino acid and fatty acid profiles of milkfish (Chanos chanos) with different cooking methods",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.26656/fr.2017.7(S3).12",
+            "publisher": "Food Research",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "marinade_4962",
+            "title": "Karakteristik Proses Pengolahan Bandeng (Chanos chanos) Presto Skala UMKM di Kecamatan Juwana, Kabupaten Pati",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.31629/marinade.v5i02.4962",
+            "publisher": "Marinade (jurnal pengolahan produk perikanan)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 3,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "gelama_bunga",
+      "status": "completed",
+      "wall_s": 4.04,
+      "llm_calls": 4,
+      "llm_errors": 0,
+      "llm_time_s": 10.56,
+      "input_tokens": 668,
+      "cached_tokens": 0,
+      "output_tokens": 600,
+      "reasoning_tokens": 228,
+      "cost_usd": 0.000854,
+      "critic_feedback": "physical_characteristics=unsupported; taste=supported; texture=supported; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "expert_outputs": {
+        "physical": {
+          "physical_characteristics": "Mencapai panjang standar 43,5 cm dan berat 1,5 kg.",
+          "sources": [
+            {
+              "source_id": "fishbase_nibea_albiflora",
+              "chunk_id": "chunk_gelama_bunga_identity_001"
+            }
+          ]
+        },
+        "taste": {
+          "taste": "Skor rasa 5,40",
+          "texture": "Skor tekstur 5,00",
+          "sources": [
+            {
+              "source_id": "jipsp_6_12_7801",
+              "chunk_id": "chunk_gelama_bunga_taste_001"
+            }
+          ]
+        },
+        "commercial": {
+          "processing_methods": [
+            "Diolah menjadi sosis ikan 100%.",
+            "Diolah menjadi sosis dengan formulasi yang mengandung 30% daging ayam."
+          ],
+          "commercial_uses": [
+            "Ditangkap secara komersial.",
+            "Digunakan dalam pengobatan tradisional Tiongkok."
+          ],
+          "sources": [
+            {
+              "source_id": "jipsp_6_12_7801",
+              "chunk_id": "chunk_gelama_bunga_processing_001"
+            },
+            {
+              "source_id": "fishbase_nibea_albiflora",
+              "chunk_id": "chunk_gelama_bunga_commercial_001"
+            }
+          ]
+        },
+        "substitute": {
+          "similar_or_substitute_species": [],
+          "potential_buyer_segments": [
+            "Pembeli hasil perikanan komersial",
+            "Pengolah dan distributor produk makanan laut",
+            "Produsen obat tradisional Tiongkok",
+            "Praktisi pengobatan tradisional Tiongkok"
+          ],
+          "sources": [
+            {
+              "source_id": "fishbase_nibea_albiflora",
+              "chunk_id": "chunk_gelama_bunga_commercial_001"
+            }
+          ]
+        }
+      },
+      "trace": {
+        "pipeline_version": "iteration-1",
+        "model": "gpt-5.6-luna",
+        "evidence": [
+          {
+            "chunk_id": "chunk_gelama_bunga_identity_001",
+            "category": "identity",
+            "distance": 0.2082
+          },
+          {
+            "chunk_id": "chunk_gelama_bunga_taste_001",
+            "category": "taste_texture",
+            "distance": 0.2334
+          },
+          {
+            "chunk_id": "chunk_gelama_bunga_processing_001",
+            "category": "processing_methods",
+            "distance": 0.2334
+          },
+          {
+            "chunk_id": "chunk_gelama_bunga_commercial_001",
+            "category": "commercial_uses",
+            "distance": 0.2747
+          }
+        ],
+        "cache_hit": false,
+        "experts": {
+          "physical": {
+            "chunk_ids": [
+              "chunk_gelama_bunga_identity_001"
+            ],
+            "prompt_sha256": "958a9bf21c7d5ed3",
+            "tokens": {
+              "input_tokens": 174,
+              "output_tokens": 119,
+              "total_tokens": 293,
+              "reasoning_tokens": 60
+            },
+            "latency_ms": 2184.3,
+            "skipped": false,
+            "error": false
+          },
+          "taste": {
+            "chunk_ids": [
+              "chunk_gelama_bunga_taste_001"
+            ],
+            "prompt_sha256": "a108d5295b651f1a",
+            "tokens": {
+              "input_tokens": 144,
+              "output_tokens": 98,
+              "total_tokens": 242,
+              "reasoning_tokens": 38
+            },
+            "latency_ms": 1834.8,
+            "skipped": false,
+            "error": false
+          },
+          "commercial": {
+            "chunk_ids": [
+              "chunk_gelama_bunga_processing_001",
+              "chunk_gelama_bunga_commercial_001"
+            ],
+            "prompt_sha256": "89c95eb8fd45d45f",
+            "tokens": {
+              "input_tokens": 203,
+              "output_tokens": 228,
+              "total_tokens": 431,
+              "reasoning_tokens": 65
+            },
+            "latency_ms": 3614.1,
+            "skipped": false,
+            "error": false
+          },
+          "substitute": {
+            "chunk_ids": [
+              "chunk_gelama_bunga_commercial_001"
+            ],
+            "prompt_sha256": "e88e8ef28a967fbf",
+            "tokens": {
+              "input_tokens": 147,
+              "output_tokens": 155,
+              "total_tokens": 302,
+              "reasoning_tokens": 65
+            },
+            "latency_ms": 2927.3,
+            "skipped": false,
+            "error": false
+          }
+        },
+        "claims": [
+          {
+            "field": "physical_characteristics",
+            "status": "unsupported",
+            "chunk_ids": [],
+            "reason": "isi chunk yang disitasi tidak mendukung klaim"
+          },
+          {
+            "field": "taste",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_gelama_bunga_taste_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "texture",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_gelama_bunga_taste_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "processing_methods",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_gelama_bunga_processing_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "commercial_uses",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_gelama_bunga_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "similar_or_substitute_species",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "potential_buyer_segments",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_gelama_bunga_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          }
+        ],
+        "error": null,
+        "timings_ms": {
+          "research": 16.0,
+          "experts": 3620.9,
+          "critic": 404.1,
+          "writer": 0.1,
+          "total": 4041.2
+        }
+      },
+      "fields_filled": {
+        "physical_characteristics": false,
+        "taste": true,
+        "texture": true,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Gelama Bunga",
+        "scientific_name": "Nibea albiflora",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": null,
+        "taste": "Skor rasa 5,40",
+        "texture": "Skor tekstur 5,00",
+        "processing_methods": [
+          "Diolah menjadi sosis ikan 100%.",
+          "Diolah menjadi sosis dengan formulasi yang mengandung 30% daging ayam."
+        ],
+        "commercial_uses": [
+          "Ditangkap secara komersial.",
+          "Digunakan dalam pengobatan tradisional Tiongkok."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pembeli hasil perikanan komersial",
+          "Pengolah dan distributor produk makanan laut",
+          "Produsen obat tradisional Tiongkok",
+          "Praktisi pengobatan tradisional Tiongkok"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "jipsp_6_12_7801",
+            "title": "Karakteristik Nilai Gizi dan Mutu Sensori Sosis Ikan Gulamah (Nibea albiflora) dengan Penambahan Daging Ayam",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.20956/jipsp.v6i12.7801",
+            "publisher": "Jurnal IPTEKS Pemanfaatan Sumberdaya Perikanan, Universitas Hasanuddin",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_nibea_albiflora",
+            "title": "Nibea albiflora, Yellow drum: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Nibea-albiflora.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "gembolo",
+      "status": "completed",
+      "wall_s": 1.41,
+      "llm_calls": 1,
+      "llm_errors": 0,
+      "llm_time_s": 1.4,
+      "input_tokens": 147,
+      "cached_tokens": 0,
+      "output_tokens": 46,
+      "reasoning_tokens": 30,
+      "cost_usd": 8.5e-05,
+      "critic_feedback": "physical_characteristics=no_evidence; taste=no_evidence; texture=no_evidence; processing_methods=no_evidence; commercial_uses=no_evidence; similar_or_substitute_species=no_evidence; potential_buyer_segments=no_evidence",
+      "expert_outputs": {
+        "physical": {
+          "physical_characteristics": null,
+          "sources": []
+        },
+        "taste": {
+          "taste": null,
+          "texture": null,
+          "sources": [],
+          "skipped": true
+        },
+        "commercial": {
+          "processing_methods": [],
+          "commercial_uses": [],
+          "sources": [],
+          "skipped": true
+        },
+        "substitute": {
+          "similar_or_substitute_species": [],
+          "potential_buyer_segments": [],
+          "sources": [],
+          "skipped": true
+        }
+      },
+      "trace": {
+        "pipeline_version": "iteration-1",
+        "model": "gpt-5.6-luna",
+        "evidence": [
+          {
+            "chunk_id": "chunk_gembolo_identity_001",
+            "category": "identity",
+            "distance": 0.1994
+          }
+        ],
+        "cache_hit": false,
+        "experts": {
+          "physical": {
+            "chunk_ids": [
+              "chunk_gembolo_identity_001"
+            ],
+            "prompt_sha256": "958a9bf21c7d5ed3",
+            "tokens": {
+              "input_tokens": 147,
+              "output_tokens": 46,
+              "total_tokens": 193,
+              "reasoning_tokens": 30
+            },
+            "latency_ms": 1397.1,
+            "skipped": false,
+            "error": false
+          },
+          "taste": {
+            "skipped": true,
+            "error": false
+          },
+          "commercial": {
+            "skipped": true,
+            "error": false
+          },
+          "substitute": {
+            "skipped": true,
+            "error": false
+          }
+        },
+        "claims": [
+          {
+            "field": "physical_characteristics",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "taste",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "texture",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "processing_methods",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "commercial_uses",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "similar_or_substitute_species",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "potential_buyer_segments",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          }
+        ],
+        "error": null,
+        "timings_ms": {
+          "research": 8.1,
+          "experts": 1397.9,
+          "critic": 0.0,
+          "writer": 0.0,
+          "total": 1406.0
+        }
+      },
+      "fields_filled": {
+        "physical_characteristics": false,
+        "taste": false,
+        "texture": false,
+        "processing_methods": false,
+        "commercial_uses": false,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": null,
+      "card": {
+        "common_name": "Gembolo",
+        "scientific_name": null,
+        "taxonomy_status": "TAXONOMY_REVIEW_REQUIRED",
+        "physical_characteristics": null,
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada klaim yang dapat diverifikasi dari bukti yang tersedia.",
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, cara pengolahan, penggunaan komersial, spesies pengganti, segmen pembeli.",
+          "Nama umum 'gembolo' ambigu: merujuk spesies berbeda menurut daerah (Rastrelliger spp., Selaroides leptolepis, Caranx spp.); nama ilmiah tidak dapat dipastikan tanpa identifikasi ahli."
+        ],
+        "sources": []
+      },
+      "sources": 0,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "gulamah",
+      "status": "completed",
+      "wall_s": 4.17,
+      "llm_calls": 3,
+      "llm_errors": 0,
+      "llm_time_s": 10.84,
+      "input_tokens": 728,
+      "cached_tokens": 0,
+      "output_tokens": 679,
+      "reasoning_tokens": 196,
+      "cost_usd": 0.00096,
+      "critic_feedback": "physical_characteristics=unsupported; taste=no_evidence; texture=no_evidence; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "expert_outputs": {
+        "physical": {
+          "physical_characteristics": "Ikan kecil yang mencapai panjang standar 13 cm, dengan 9–10 duri sirip punggung, 24–27 jari-jari lunak sirip punggung, 2 duri sirip dubur, dan 6–7 jari-jari lunak sirip dubur.",
+          "sources": [
+            {
+              "source_id": "fishbase_johnius_trachycephalus",
+              "chunk_id": "chunk_gulamah_physical_001"
+            },
+            {
+              "source_id": "fishbase_johnius_trachycephalus",
+              "chunk_id": "chunk_gulamah_identity_001"
+            }
+          ]
+        },
+        "taste": {
+          "taste": null,
+          "texture": null,
+          "sources": [],
+          "skipped": true
+        },
+        "commercial": {
+          "processing_methods": [
+            "Diolah menjadi ikan asin."
+          ],
+          "commercial_uses": [
+            "Berpotensi digunakan sebagai bahan baku surimi dan produk olahan daging ikan, berdasarkan penelitian.",
+            "Gelatin yang diekstrak dari tulangnya telah diteliti untuk digunakan dalam pembuatan permen jeli secara eksperimental."
+          ],
+          "sources": [
+            {
+              "source_id": "coj_5_1_1",
+              "chunk_id": "chunk_gulamah_processing_001"
+            },
+            {
+              "source_id": "manfish_2_3_489",
+              "chunk_id": "chunk_gulamah_commercial_001"
+            },
+            {
+              "source_id": "jps_8_2_936",
+              "chunk_id": "chunk_gulamah_commercial_002"
+            }
+          ]
+        },
+        "substitute": {
+          "similar_or_substitute_species": [],
+          "potential_buyer_segments": [
+            "Produsen surimi dan produk olahan daging ikan",
+            "Perusahaan pengolahan gelatin berbahan tulang ikan",
+            "Produsen permen jeli dan produk pangan berbasis gelatin",
+            "Perusahaan riset dan pengembangan pangan"
+          ],
+          "sources": [
+            {
+              "source_id": "manfish_2_3_489",
+              "chunk_id": "chunk_gulamah_commercial_001"
+            },
+            {
+              "source_id": "jps_8_2_936",
+              "chunk_id": "chunk_gulamah_commercial_002"
+            }
+          ]
+        }
+      },
+      "trace": {
+        "pipeline_version": "iteration-1",
+        "model": "gpt-5.6-luna",
+        "evidence": [
+          {
+            "chunk_id": "chunk_gulamah_identity_001",
+            "category": "identity",
+            "distance": 0.2051
+          },
+          {
+            "chunk_id": "chunk_gulamah_physical_001",
+            "category": "physical_characteristics",
+            "distance": 0.2431
+          },
+          {
+            "chunk_id": "chunk_gulamah_processing_001",
+            "category": "processing_methods",
+            "distance": 0.1934
+          },
+          {
+            "chunk_id": "chunk_gulamah_commercial_001",
+            "category": "commercial_uses",
+            "distance": 0.2281
+          },
+          {
+            "chunk_id": "chunk_gulamah_commercial_002",
+            "category": "commercial_uses",
+            "distance": 0.2295
+          }
+        ],
+        "cache_hit": false,
+        "experts": {
+          "physical": {
+            "chunk_ids": [
+              "chunk_gulamah_identity_001",
+              "chunk_gulamah_physical_001"
+            ],
+            "prompt_sha256": "958a9bf21c7d5ed3",
+            "tokens": {
+              "input_tokens": 254,
+              "output_tokens": 215,
+              "total_tokens": 469,
+              "reasoning_tokens": 82
+            },
+            "latency_ms": 3147.8,
+            "skipped": false,
+            "error": false
+          },
+          "taste": {
+            "skipped": true,
+            "error": false
+          },
+          "commercial": {
+            "chunk_ids": [
+              "chunk_gulamah_processing_001",
+              "chunk_gulamah_commercial_001",
+              "chunk_gulamah_commercial_002"
+            ],
+            "prompt_sha256": "89c95eb8fd45d45f",
+            "tokens": {
+              "input_tokens": 270,
+              "output_tokens": 234,
+              "total_tokens": 504,
+              "reasoning_tokens": 40
+            },
+            "latency_ms": 3771.9,
+            "skipped": false,
+            "error": false
+          },
+          "substitute": {
+            "chunk_ids": [
+              "chunk_gulamah_commercial_001",
+              "chunk_gulamah_commercial_002"
+            ],
+            "prompt_sha256": "e88e8ef28a967fbf",
+            "tokens": {
+              "input_tokens": 204,
+              "output_tokens": 230,
+              "total_tokens": 434,
+              "reasoning_tokens": 74
+            },
+            "latency_ms": 3919.8,
+            "skipped": false,
+            "error": false
+          }
+        },
+        "claims": [
+          {
+            "field": "physical_characteristics",
+            "status": "unsupported",
+            "chunk_ids": [],
+            "reason": "isi chunk yang disitasi tidak mendukung klaim"
+          },
+          {
+            "field": "taste",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "texture",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "processing_methods",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_gulamah_processing_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "commercial_uses",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_gulamah_commercial_001",
+              "chunk_gulamah_commercial_002"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "similar_or_substitute_species",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "potential_buyer_segments",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_gulamah_commercial_001",
+              "chunk_gulamah_commercial_002"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          }
+        ],
+        "error": null,
+        "timings_ms": {
+          "research": 7.9,
+          "experts": 3924.1,
+          "critic": 238.5,
+          "writer": 0.1,
+          "total": 4170.5
+        }
+      },
+      "fields_filled": {
+        "physical_characteristics": false,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Gulamah",
+        "scientific_name": "Johnius trachycephalus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": null,
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Diolah menjadi ikan asin."
+        ],
+        "commercial_uses": [
+          "Berpotensi digunakan sebagai bahan baku surimi dan produk olahan daging ikan, berdasarkan penelitian.",
+          "Gelatin yang diekstrak dari tulangnya telah diteliti untuk digunakan dalam pembuatan permen jeli secara eksperimental."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Produsen surimi dan produk olahan daging ikan",
+          "Perusahaan pengolahan gelatin berbahan tulang ikan",
+          "Produsen permen jeli dan produk pangan berbasis gelatin",
+          "Perusahaan riset dan pengembangan pangan"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "coj_5_1_1",
+            "title": "Business Analysis of Gulamah (Johnius trachycephalus) Salted Fish Small and Medium Enterprises (SMEs) in Perlis, Berandan Barat, Langkat, North Sumatera",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.29244/coj.5.1.1-8",
+            "publisher": "Coastal and Ocean Journal (COJ)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "manfish_2_3_489",
+            "title": "Studi Potensi Ikan Gulamah (Johnius trachycephalus) Sebagai Bahan Baku Surimi dan Produk Olahan Berbasis Daging Ikan",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.31573/manfish.v2i3.489",
+            "publisher": "Manfish Journal, Politeknik Negeri Pontianak",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jps_8_2_936",
+            "title": "Isolasi Gelatin dari Tulang Ikan Gulamah (Johnius trachycephalus) dan Aplikasinya Pada Permen Jelly",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.36490/journal-jps.com.v8i2.936",
+            "publisher": "Journal of Pharmaceutical and Sciences",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 3,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "kembung",
+      "status": "completed",
+      "wall_s": 4.51,
+      "llm_calls": 3,
+      "llm_errors": 0,
+      "llm_time_s": 9.04,
+      "input_tokens": 570,
+      "cached_tokens": 0,
+      "output_tokens": 498,
+      "reasoning_tokens": 265,
+      "cost_usd": 0.000712,
+      "critic_feedback": "physical_characteristics=supported; taste=no_evidence; texture=no_evidence; processing_methods=no_evidence; commercial_uses=no_evidence; similar_or_substitute_species=no_evidence; potential_buyer_segments=no_evidence",
+      "expert_outputs": {
+        "physical": {
+          "physical_characteristics": "Ikan kembung dapat mencapai panjang cagak 24 cm dan berat 750 g. Kepalanya lebih panjang daripada kedalaman tubuh, memiliki 2–6 bintik besar di pangkal sirip punggung pertama, gelembung renang, bercak hitam di belakang pangkal sirip dada, serta perut berwarna kuning keperakan.",
+          "sources": [
+            {
+              "source_id": "fishbase_rastrelliger_faughni",
+              "chunk_id": "chunk_kembung_physical_001"
+            },
+            {
+              "source_id": "fishbase_rastrelliger_faughni",
+              "chunk_id": "chunk_kembung_identity_001"
+            }
+          ]
+        },
+        "taste": {
+          "taste": null,
+          "texture": null,
+          "sources": [],
+          "skipped": true
+        },
+        "commercial": {
+          "processing_methods": [],
+          "commercial_uses": [],
+          "sources": [
+            {
+              "source_id": "jma_22_2_210",
+              "chunk_id": "chunk_kembung_commercial_001"
+            }
+          ]
+        },
+        "substitute": {
+          "similar_or_substitute_species": [],
+          "potential_buyer_segments": [],
+          "sources": [
+            {
+              "source_id": "jma_22_2_210",
+              "chunk_id": "chunk_kembung_commercial_001"
+            }
+          ]
+        }
+      },
+      "trace": {
+        "pipeline_version": "iteration-1",
+        "model": "gpt-5.6-luna",
+        "evidence": [
+          {
+            "chunk_id": "chunk_kembung_identity_001",
+            "category": "identity",
+            "distance": 0.201
+          },
+          {
+            "chunk_id": "chunk_kembung_physical_001",
+            "category": "physical_characteristics",
+            "distance": 0.2602
+          },
+          {
+            "chunk_id": "chunk_kembung_commercial_001",
+            "category": "commercial_uses",
+            "distance": 0.2392
+          }
+        ],
+        "cache_hit": false,
+        "experts": {
+          "physical": {
+            "chunk_ids": [
+              "chunk_kembung_identity_001",
+              "chunk_kembung_physical_001"
+            ],
+            "prompt_sha256": "958a9bf21c7d5ed3",
+            "tokens": {
+              "input_tokens": 273,
+              "output_tokens": 276,
+              "total_tokens": 549,
+              "reasoning_tokens": 135
+            },
+            "latency_ms": 4375.0,
+            "skipped": false,
+            "error": false
+          },
+          "taste": {
+            "skipped": true,
+            "error": false
+          },
+          "commercial": {
+            "chunk_ids": [
+              "chunk_kembung_commercial_001"
+            ],
+            "prompt_sha256": "89c95eb8fd45d45f",
+            "tokens": {
+              "input_tokens": 145,
+              "output_tokens": 94,
+              "total_tokens": 239,
+              "reasoning_tokens": 50
+            },
+            "latency_ms": 2056.7,
+            "skipped": false,
+            "error": false
+          },
+          "substitute": {
+            "chunk_ids": [
+              "chunk_kembung_commercial_001"
+            ],
+            "prompt_sha256": "e88e8ef28a967fbf",
+            "tokens": {
+              "input_tokens": 152,
+              "output_tokens": 128,
+              "total_tokens": 280,
+              "reasoning_tokens": 80
+            },
+            "latency_ms": 2609.8,
+            "skipped": false,
+            "error": false
+          }
+        },
+        "claims": [
+          {
+            "field": "physical_characteristics",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_kembung_physical_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "taste",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "texture",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "processing_methods",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "commercial_uses",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "similar_or_substitute_species",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "potential_buyer_segments",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          }
+        ],
+        "error": null,
+        "timings_ms": {
+          "research": 8.0,
+          "experts": 4376.0,
+          "critic": 118.8,
+          "writer": 0.1,
+          "total": 4502.8
+        }
+      },
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": false,
+        "commercial_uses": false,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Kembung",
+        "scientific_name": "Rastrelliger faughni",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Ikan kembung dapat mencapai panjang cagak 24 cm dan berat 750 g. Kepalanya lebih panjang daripada kedalaman tubuh, memiliki 2–6 bintik besar di pangkal sirip punggung pertama, gelembung renang, bercak hitam di belakang pangkal sirip dada, serta perut berwarna kuning keperakan.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [],
+        "commercial_uses": [],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, cara pengolahan, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_rastrelliger_faughni",
+            "title": "Rastrelliger faughni, Island mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Rastrelliger-faughni.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 1,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "kuniran",
+      "status": "completed",
+      "wall_s": 5.49,
+      "llm_calls": 3,
+      "llm_errors": 0,
+      "llm_time_s": 11.02,
+      "input_tokens": 579,
+      "cached_tokens": 0,
+      "output_tokens": 544,
+      "reasoning_tokens": 183,
+      "cost_usd": 0.000769,
+      "critic_feedback": "physical_characteristics=supported; taste=no_evidence; texture=no_evidence; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "expert_outputs": {
+        "physical": {
+          "physical_characteristics": "Mencapai panjang total 22,5 cm, dengan panjang umum 18 cm. Memiliki garis lateral tengah berwarna kuning atau keemasan dari mata hingga pangkal sirip ekor bagian atas, sungut berwarna putih, dan garis-garis merah pada sirip ekor.",
+          "sources": [
+            {
+              "source_id": "fishbase_upeneus_moluccensis",
+              "chunk_id": "chunk_kuniran_identity_001"
+            },
+            {
+              "source_id": "fishbase_upeneus_moluccensis",
+              "chunk_id": "chunk_kuniran_physical_001"
+            }
+          ]
+        },
+        "taste": {
+          "taste": null,
+          "texture": null,
+          "sources": [],
+          "skipped": true
+        },
+        "commercial": {
+          "processing_methods": [
+            "Disimpan dalam es hingga batas penerimaan sensoris selama 8 hari."
+          ],
+          "commercial_uses": [
+            "Dijual segar di pasar sebagai ikan konsumsi.",
+            "Diolah menjadi tepung ikan.",
+            "Dimanfaatkan telurnya."
+          ],
+          "sources": [
+            {
+              "source_id": "foodchem_2008",
+              "chunk_id": "chunk_kuniran_processing_001"
+            },
+            {
+              "source_id": "fishbase_upeneus_moluccensis",
+              "chunk_id": "chunk_kuniran_commercial_001"
+            }
+          ]
+        },
+        "substitute": {
+          "similar_or_substitute_species": [],
+          "potential_buyer_segments": [
+            "Pasar ikan segar",
+            "Produsen tepung ikan",
+            "Pembeli telur ikan"
+          ],
+          "sources": [
+            {
+              "source_id": "fishbase_upeneus_moluccensis",
+              "chunk_id": "chunk_kuniran_commercial_001"
+            }
+          ]
+        }
+      },
+      "trace": {
+        "pipeline_version": "iteration-1",
+        "model": "gpt-5.6-luna",
+        "evidence": [
+          {
+            "chunk_id": "chunk_kuniran_identity_001",
+            "category": "identity",
+            "distance": 0.209
+          },
+          {
+            "chunk_id": "chunk_kuniran_physical_001",
+            "category": "physical_characteristics",
+            "distance": 0.2663
+          },
+          {
+            "chunk_id": "chunk_kuniran_processing_001",
+            "category": "processing_methods",
+            "distance": 0.224
+          },
+          {
+            "chunk_id": "chunk_kuniran_commercial_001",
+            "category": "commercial_uses",
+            "distance": 0.2599
+          }
+        ],
+        "cache_hit": false,
+        "experts": {
+          "physical": {
+            "chunk_ids": [
+              "chunk_kuniran_identity_001",
+              "chunk_kuniran_physical_001"
+            ],
+            "prompt_sha256": "958a9bf21c7d5ed3",
+            "tokens": {
+              "input_tokens": 238,
+              "output_tokens": 180,
+              "total_tokens": 418,
+              "reasoning_tokens": 56
+            },
+            "latency_ms": 3247.4,
+            "skipped": false,
+            "error": false
+          },
+          "taste": {
+            "skipped": true,
+            "error": false
+          },
+          "commercial": {
+            "chunk_ids": [
+              "chunk_kuniran_processing_001",
+              "chunk_kuniran_commercial_001"
+            ],
+            "prompt_sha256": "89c95eb8fd45d45f",
+            "tokens": {
+              "input_tokens": 202,
+              "output_tokens": 194,
+              "total_tokens": 396,
+              "reasoning_tokens": 49
+            },
+            "latency_ms": 5162.0,
+            "skipped": false,
+            "error": false
+          },
+          "substitute": {
+            "chunk_ids": [
+              "chunk_kuniran_commercial_001"
+            ],
+            "prompt_sha256": "e88e8ef28a967fbf",
+            "tokens": {
+              "input_tokens": 139,
+              "output_tokens": 170,
+              "total_tokens": 309,
+              "reasoning_tokens": 78
+            },
+            "latency_ms": 2611.7,
+            "skipped": false,
+            "error": false
+          }
+        },
+        "claims": [
+          {
+            "field": "physical_characteristics",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_kuniran_physical_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "taste",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "texture",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "processing_methods",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_kuniran_processing_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "commercial_uses",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_kuniran_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "similar_or_substitute_species",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "potential_buyer_segments",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_kuniran_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          }
+        ],
+        "error": null,
+        "timings_ms": {
+          "research": 50.1,
+          "experts": 5165.5,
+          "critic": 276.6,
+          "writer": 0.1,
+          "total": 5492.3
+        }
+      },
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Kuniran",
+        "scientific_name": "Upeneus moluccensis",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Mencapai panjang total 22,5 cm, dengan panjang umum 18 cm. Memiliki garis lateral tengah berwarna kuning atau keemasan dari mata hingga pangkal sirip ekor bagian atas, sungut berwarna putih, dan garis-garis merah pada sirip ekor.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Disimpan dalam es hingga batas penerimaan sensoris selama 8 hari."
+        ],
+        "commercial_uses": [
+          "Dijual segar di pasar sebagai ikan konsumsi.",
+          "Diolah menjadi tepung ikan.",
+          "Dimanfaatkan telurnya."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pasar ikan segar",
+          "Produsen tepung ikan",
+          "Pembeli telur ikan"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_upeneus_moluccensis",
+            "title": "Upeneus moluccensis, Goldband goatfish: fisheries",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Upeneus-moluccensis.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "foodchem_2008",
+            "title": "Sensory, microbiological and chemical assessment of the freshness of red mullet (Mullus barbatus) and goldband goatfish (Upeneus moluccensis) during storage in ice",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.1016/j.foodchem.2008.09.078",
+            "publisher": "Food Chemistry (Elsevier)",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "mujair",
+      "status": "completed",
+      "wall_s": 4.42,
+      "llm_calls": 4,
+      "llm_errors": 0,
+      "llm_time_s": 13.36,
+      "input_tokens": 733,
+      "cached_tokens": 0,
+      "output_tokens": 738,
+      "reasoning_tokens": 318,
+      "cost_usd": 0.001032,
+      "critic_feedback": "physical_characteristics=supported; taste=unsupported; texture=no_evidence; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "expert_outputs": {
+        "physical": {
+          "physical_characteristics": "Populasi Gascoyne-Lyons dilaporkan sangat kerdil, dengan panjang baku rata-rata saat matang 9 cm, dibandingkan sekitar 18 cm pada populasi lainnya. Karakteristik ini spesifik untuk populasi tersebut.",
+          "sources": [
+            {
+              "source_id": "fao_y5728e",
+              "chunk_id": "chunk_mujair_physical_001"
+            }
+          ]
+        },
+        "taste": {
+          "taste": "sangat lezat",
+          "texture": null,
+          "sources": [
+            {
+              "source_id": "fishbase_oreochromis_mossambicus",
+              "chunk_id": "chunk_mujair_taste_001"
+            }
+          ]
+        },
+        "commercial": {
+          "processing_methods": [
+            "Diolah menjadi daging ikan cincang.",
+            "Diolah menjadi burger ikan.",
+            "Disimpan dalam kondisi beku pada suhu -18 °C hingga 75 hari."
+          ],
+          "commercial_uses": [
+            "Mendukung perikanan artisanal di dataran banjir Sungai Sepik, Papua Nugini.",
+            "Dimanfaatkan sebagai hasil tangkapan perikanan dan menyumbang sekitar setengah dari perkiraan pendaratan tahunan."
+          ],
+          "sources": [
+            {
+              "source_id": "jbau_86202",
+              "chunk_id": "chunk_mujair_processing_001"
+            },
+            {
+              "source_id": "fao_y5728e",
+              "chunk_id": "chunk_mujair_commercial_001"
+            }
+          ]
+        },
+        "substitute": {
+          "similar_or_substitute_species": [],
+          "potential_buyer_segments": [
+            "Sektor perikanan artisanal di dataran banjir",
+            "Pelaku perikanan di Sungai Sepik, Papua Nugini"
+          ],
+          "sources": [
+            {
+              "source_id": "fao_y5728e",
+              "chunk_id": "chunk_mujair_commercial_001"
+            }
+          ]
+        }
+      },
+      "trace": {
+        "pipeline_version": "iteration-1",
+        "model": "gpt-5.6-luna",
+        "evidence": [
+          {
+            "chunk_id": "chunk_mujair_identity_001",
+            "category": "identity",
+            "distance": 0.2206
+          },
+          {
+            "chunk_id": "chunk_mujair_physical_001",
+            "category": "physical_characteristics",
+            "distance": 0.26
+          },
+          {
+            "chunk_id": "chunk_mujair_taste_001",
+            "category": "taste_texture",
+            "distance": 0.2621
+          },
+          {
+            "chunk_id": "chunk_mujair_processing_001",
+            "category": "processing_methods",
+            "distance": 0.2496
+          },
+          {
+            "chunk_id": "chunk_mujair_commercial_001",
+            "category": "commercial_uses",
+            "distance": 0.2628
+          }
+        ],
+        "cache_hit": false,
+        "experts": {
+          "physical": {
+            "chunk_ids": [
+              "chunk_mujair_identity_001",
+              "chunk_mujair_physical_001"
+            ],
+            "prompt_sha256": "958a9bf21c7d5ed3",
+            "tokens": {
+              "input_tokens": 259,
+              "output_tokens": 175,
+              "total_tokens": 434,
+              "reasoning_tokens": 86
+            },
+            "latency_ms": 4049.8,
+            "skipped": false,
+            "error": false
+          },
+          "taste": {
+            "chunk_ids": [
+              "chunk_mujair_taste_001"
+            ],
+            "prompt_sha256": "a108d5295b651f1a",
+            "tokens": {
+              "input_tokens": 130,
+              "output_tokens": 97,
+              "total_tokens": 227,
+              "reasoning_tokens": 48
+            },
+            "latency_ms": 2075.4,
+            "skipped": false,
+            "error": false
+          },
+          "commercial": {
+            "chunk_ids": [
+              "chunk_mujair_processing_001",
+              "chunk_mujair_commercial_001"
+            ],
+            "prompt_sha256": "89c95eb8fd45d45f",
+            "tokens": {
+              "input_tokens": 200,
+              "output_tokens": 248,
+              "total_tokens": 448,
+              "reasoning_tokens": 64
+            },
+            "latency_ms": 3795.5,
+            "skipped": false,
+            "error": false
+          },
+          "substitute": {
+            "chunk_ids": [
+              "chunk_mujair_commercial_001"
+            ],
+            "prompt_sha256": "e88e8ef28a967fbf",
+            "tokens": {
+              "input_tokens": 144,
+              "output_tokens": 218,
+              "total_tokens": 362,
+              "reasoning_tokens": 120
+            },
+            "latency_ms": 3443.0,
+            "skipped": false,
+            "error": false
+          }
+        },
+        "claims": [
+          {
+            "field": "physical_characteristics",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_mujair_physical_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "taste",
+            "status": "unsupported",
+            "chunk_ids": [],
+            "reason": "isi chunk yang disitasi tidak mendukung klaim"
+          },
+          {
+            "field": "texture",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "processing_methods",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_mujair_processing_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "commercial_uses",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_mujair_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "similar_or_substitute_species",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "potential_buyer_segments",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_mujair_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          }
+        ],
+        "error": null,
+        "timings_ms": {
+          "research": 8.5,
+          "experts": 4050.9,
+          "critic": 355.9,
+          "writer": 0.1,
+          "total": 4415.4
+        }
+      },
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Mujair",
+        "scientific_name": "Oreochromis mossambicus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Populasi Gascoyne-Lyons dilaporkan sangat kerdil, dengan panjang baku rata-rata saat matang 9 cm, dibandingkan sekitar 18 cm pada populasi lainnya. Karakteristik ini spesifik untuk populasi tersebut.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Diolah menjadi daging ikan cincang.",
+          "Diolah menjadi burger ikan.",
+          "Disimpan dalam kondisi beku pada suhu -18 °C hingga 75 hari."
+        ],
+        "commercial_uses": [
+          "Mendukung perikanan artisanal di dataran banjir Sungai Sepik, Papua Nugini.",
+          "Dimanfaatkan sebagai hasil tangkapan perikanan dan menyumbang sekitar setengah dari perkiraan pendaratan tahunan."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Sektor perikanan artisanal di dataran banjir",
+          "Pelaku perikanan di Sungai Sepik, Papua Nugini"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fao_y5728e",
+            "title": "Tilapias as Alien Aquatics in Asia and the Pacific: A Review",
+            "source_type": "fisheries_technical_paper",
+            "url": "https://www.fao.org/4/y5728e/y5728e05.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "jbau_86202",
+            "title": "Quality evaluation of fish burger from tilapia (Oreochromis mossambicus) during frozen storage (-18°C)",
+            "source_type": "journal_article",
+            "url": "https://doi.org/10.5455/JBAU.86202",
+            "publisher": "Journal of Bangladesh Agricultural University",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "nila",
+      "status": "completed",
+      "wall_s": 4.21,
+      "llm_calls": 4,
+      "llm_errors": 0,
+      "llm_time_s": 12.27,
+      "input_tokens": 803,
+      "cached_tokens": 0,
+      "output_tokens": 749,
+      "reasoning_tokens": 339,
+      "cost_usd": 0.001059,
+      "critic_feedback": "physical_characteristics=supported; taste=unsupported; texture=no_evidence; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=unsupported; potential_buyer_segments=unsupported",
+      "expert_outputs": {
+        "physical": {
+          "physical_characteristics": "Ikan nila Nil bertubuh besar dan dalam, dengan kepala relatif kecil. Ciri paling khasnya adalah garis-garis vertikal teratur di seluruh bagian sirip ekor pada semua tahap kehidupan. Panjang standarnya dapat mencapai 60 cm dengan berat hingga 4,3 kg.",
+          "sources": [
+            {
+              "source_id": "fishbase_oreochromis_niloticus",
+              "chunk_id": "chunk_nila_physical_001"
+            }
+          ]
+        },
+        "taste": {
+          "taste": "ringan dan lezat",
+          "texture": null,
+          "sources": [
+            {
+              "source_id": "fao_en_niletilapia",
+              "chunk_id": "chunk_nila_taste_001"
+            }
+          ]
+        },
+        "commercial": {
+          "processing_methods": [
+            "Diolah menjadi fillet tanpa kulit, dengan rendemen sekitar 33% pada ikan dengan faktor kondisi 3,11."
+          ],
+          "commercial_uses": [
+            "Dibudidayakan secara komersial sebagai ikan konsumsi.",
+            "Menjadi salah satu kelompok ikan budidaya yang paling penting dan paling banyak dibudidayakan."
+          ],
+          "sources": [
+            {
+              "source_id": "fao_en_niletilapia",
+              "chunk_id": "chunk_nila_processing_001"
+            },
+            {
+              "source_id": "fao_en_niletilapia",
+              "chunk_id": "chunk_nila_commercial_001"
+            }
+          ]
+        },
+        "substitute": {
+          "similar_or_substitute_species": [
+            "Ikan mas dan kelompok ikan karper lainnya"
+          ],
+          "potential_buyer_segments": [
+            "Pembeli ikan budidaya",
+            "Pasar makanan laut",
+            "Distributor dan pengecer ikan konsumsi"
+          ],
+          "sources": [
+            {
+              "source_id": "fao_en_niletilapia",
+              "chunk_id": "chunk_nila_commercial_001"
+            }
+          ]
+        }
+      },
+      "trace": {
+        "pipeline_version": "iteration-1",
+        "model": "gpt-5.6-luna",
+        "evidence": [
+          {
+            "chunk_id": "chunk_nila_identity_001",
+            "category": "identity",
+            "distance": 0.2197
+          },
+          {
+            "chunk_id": "chunk_nila_physical_001",
+            "category": "physical_characteristics",
+            "distance": 0.2198
+          },
+          {
+            "chunk_id": "chunk_nila_taste_001",
+            "category": "taste_texture",
+            "distance": 0.2212
+          },
+          {
+            "chunk_id": "chunk_nila_processing_001",
+            "category": "processing_methods",
+            "distance": 0.2169
+          },
+          {
+            "chunk_id": "chunk_nila_commercial_001",
+            "category": "commercial_uses",
+            "distance": 0.2452
+          }
+        ],
+        "cache_hit": false,
+        "experts": {
+          "physical": {
+            "chunk_ids": [
+              "chunk_nila_identity_001",
+              "chunk_nila_physical_001"
+            ],
+            "prompt_sha256": "958a9bf21c7d5ed3",
+            "tokens": {
+              "input_tokens": 232,
+              "output_tokens": 245,
+              "total_tokens": 477,
+              "reasoning_tokens": 146
+            },
+            "latency_ms": 3929.9,
+            "skipped": false,
+            "error": false
+          },
+          "taste": {
+            "chunk_ids": [
+              "chunk_nila_taste_001"
+            ],
+            "prompt_sha256": "a108d5295b651f1a",
+            "tokens": {
+              "input_tokens": 145,
+              "output_tokens": 84,
+              "total_tokens": 229,
+              "reasoning_tokens": 39
+            },
+            "latency_ms": 2213.1,
+            "skipped": false,
+            "error": false
+          },
+          "commercial": {
+            "chunk_ids": [
+              "chunk_nila_processing_001",
+              "chunk_nila_commercial_001"
+            ],
+            "prompt_sha256": "89c95eb8fd45d45f",
+            "tokens": {
+              "input_tokens": 241,
+              "output_tokens": 236,
+              "total_tokens": 477,
+              "reasoning_tokens": 76
+            },
+            "latency_ms": 3329.9,
+            "skipped": false,
+            "error": false
+          },
+          "substitute": {
+            "chunk_ids": [
+              "chunk_nila_commercial_001"
+            ],
+            "prompt_sha256": "e88e8ef28a967fbf",
+            "tokens": {
+              "input_tokens": 185,
+              "output_tokens": 184,
+              "total_tokens": 369,
+              "reasoning_tokens": 78
+            },
+            "latency_ms": 2793.0,
+            "skipped": false,
+            "error": false
+          }
+        },
+        "claims": [
+          {
+            "field": "physical_characteristics",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_nila_physical_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "taste",
+            "status": "unsupported",
+            "chunk_ids": [],
+            "reason": "isi chunk yang disitasi tidak mendukung klaim"
+          },
+          {
+            "field": "texture",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "processing_methods",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_nila_processing_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "commercial_uses",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_nila_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "similar_or_substitute_species",
+            "status": "unsupported",
+            "chunk_ids": [],
+            "reason": "klaim tidak terikat pada chunk terverifikasi"
+          },
+          {
+            "field": "potential_buyer_segments",
+            "status": "unsupported",
+            "chunk_ids": [],
+            "reason": "isi chunk yang disitasi tidak mendukung klaim"
+          }
+        ],
+        "error": null,
+        "timings_ms": {
+          "research": 9.0,
+          "experts": 3930.7,
+          "critic": 262.8,
+          "writer": 0.1,
+          "total": 4202.6
+        }
+      },
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Nila",
+        "scientific_name": "Oreochromis niloticus",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Ikan nila Nil bertubuh besar dan dalam, dengan kepala relatif kecil. Ciri paling khasnya adalah garis-garis vertikal teratur di seluruh bagian sirip ekor pada semua tahap kehidupan. Panjang standarnya dapat mencapai 60 cm dengan berat hingga 4,3 kg.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Diolah menjadi fillet tanpa kulit, dengan rendemen sekitar 33% pada ikan dengan faktor kondisi 3,11."
+        ],
+        "commercial_uses": [
+          "Dibudidayakan secara komersial sebagai ikan konsumsi.",
+          "Menjadi salah satu kelompok ikan budidaya yang paling penting dan paling banyak dibudidayakan."
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_oreochromis_niloticus",
+            "title": "Oreochromis niloticus, Nile tilapia: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Oreochromis-niloticus.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_en_niletilapia",
+            "title": "FAO Cultured Aquatic Species Fact Sheet: Oreochromis niloticus (Nile tilapia)",
+            "source_type": "species_fact_sheet",
+            "url": "https://www.fao.org/fishery/docs/CDrom/aquaculture/I1129m/file/en/en_niletilapia.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 2,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "senangin",
+      "status": "completed",
+      "wall_s": 4.97,
+      "llm_calls": 3,
+      "llm_errors": 0,
+      "llm_time_s": 11.84,
+      "input_tokens": 617,
+      "cached_tokens": 0,
+      "output_tokens": 650,
+      "reasoning_tokens": 199,
+      "cost_usd": 0.000903,
+      "critic_feedback": "physical_characteristics=supported; taste=no_evidence; texture=no_evidence; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "expert_outputs": {
+        "physical": {
+          "physical_characteristics": "Senangin memiliki empat filamen sirip dada bebas. Ikan ini dapat tumbuh hingga panjang total 200 cm dan berat 145 kg, dengan panjang umum sekitar 50 cm. Selaput sirip dadanya berwarna kuning cerah saat hidup (kuning kusam pada spesimen besar), sedangkan filamen sirip dadanya berwarna putih. Spesies ini merupakan hermafrodit protandri.",
+          "sources": [
+            {
+              "source_id": "fishbase_eleutheronema_tetradactylum",
+              "chunk_id": "chunk_senangin_identity_001"
+            },
+            {
+              "source_id": "fishbase_eleutheronema_tetradactylum",
+              "chunk_id": "chunk_senangin_physical_001"
+            }
+          ]
+        },
+        "taste": {
+          "taste": null,
+          "texture": null,
+          "sources": [],
+          "skipped": true
+        },
+        "commercial": {
+          "processing_methods": [
+            "Dipasarkan segar",
+            "Dibekukan",
+            "Dikeringkan",
+            "Diasinkan"
+          ],
+          "commercial_uses": [
+            "Ikan pangan komersial",
+            "Budidaya perikanan komersial"
+          ],
+          "sources": [
+            {
+              "source_id": "fishbase_eleutheronema_tetradactylum",
+              "chunk_id": "chunk_senangin_processing_001"
+            },
+            {
+              "source_id": "fishbase_eleutheronema_tetradactylum",
+              "chunk_id": "chunk_senangin_commercial_001"
+            }
+          ]
+        },
+        "substitute": {
+          "similar_or_substitute_species": [],
+          "potential_buyer_segments": [
+            "Pembudidaya ikan komersial",
+            "Pedagang dan distributor ikan segar",
+            "Pedagang dan distributor ikan beku",
+            "Pengolah ikan kering atau asin",
+            "Pengecer dan pasar ikan",
+            "Industri makanan laut",
+            "Konsumen ikan konsumsi"
+          ],
+          "sources": [
+            {
+              "source_id": "fishbase_eleutheronema_tetradactylum",
+              "chunk_id": "chunk_senangin_commercial_001"
+            }
+          ]
+        }
+      },
+      "trace": {
+        "pipeline_version": "iteration-1",
+        "model": "gpt-5.6-luna",
+        "evidence": [
+          {
+            "chunk_id": "chunk_senangin_identity_001",
+            "category": "identity",
+            "distance": 0.2246
+          },
+          {
+            "chunk_id": "chunk_senangin_physical_001",
+            "category": "physical_characteristics",
+            "distance": 0.2439
+          },
+          {
+            "chunk_id": "chunk_senangin_processing_001",
+            "category": "processing_methods",
+            "distance": 0.2419
+          },
+          {
+            "chunk_id": "chunk_senangin_commercial_001",
+            "category": "commercial_uses",
+            "distance": 0.2649
+          }
+        ],
+        "cache_hit": false,
+        "experts": {
+          "physical": {
+            "chunk_ids": [
+              "chunk_senangin_identity_001",
+              "chunk_senangin_physical_001"
+            ],
+            "prompt_sha256": "958a9bf21c7d5ed3",
+            "tokens": {
+              "input_tokens": 264,
+              "output_tokens": 224,
+              "total_tokens": 488,
+              "reasoning_tokens": 66
+            },
+            "latency_ms": 4666.6,
+            "skipped": false,
+            "error": false
+          },
+          "taste": {
+            "skipped": true,
+            "error": false
+          },
+          "commercial": {
+            "chunk_ids": [
+              "chunk_senangin_processing_001",
+              "chunk_senangin_commercial_001"
+            ],
+            "prompt_sha256": "89c95eb8fd45d45f",
+            "tokens": {
+              "input_tokens": 199,
+              "output_tokens": 219,
+              "total_tokens": 418,
+              "reasoning_tokens": 64
+            },
+            "latency_ms": 3234.3,
+            "skipped": false,
+            "error": false
+          },
+          "substitute": {
+            "chunk_ids": [
+              "chunk_senangin_commercial_001"
+            ],
+            "prompt_sha256": "e88e8ef28a967fbf",
+            "tokens": {
+              "input_tokens": 154,
+              "output_tokens": 207,
+              "total_tokens": 361,
+              "reasoning_tokens": 69
+            },
+            "latency_ms": 3941.8,
+            "skipped": false,
+            "error": false
+          }
+        },
+        "claims": [
+          {
+            "field": "physical_characteristics",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_senangin_physical_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "taste",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "texture",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "processing_methods",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_senangin_processing_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "commercial_uses",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_senangin_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "similar_or_substitute_species",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "potential_buyer_segments",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_senangin_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          }
+        ],
+        "error": null,
+        "timings_ms": {
+          "research": 7.7,
+          "experts": 4667.4,
+          "critic": 294.5,
+          "writer": 0.1,
+          "total": 4969.7
+        }
+      },
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Senangin",
+        "scientific_name": "Eleutheronema tetradactylum",
+        "taxonomy_status": "VERIFIED_TAXONOMY",
+        "physical_characteristics": "Senangin memiliki empat filamen sirip dada bebas. Ikan ini dapat tumbuh hingga panjang total 200 cm dan berat 145 kg, dengan panjang umum sekitar 50 cm. Selaput sirip dadanya berwarna kuning cerah saat hidup (kuning kusam pada spesimen besar), sedangkan filamen sirip dadanya berwarna putih. Spesies ini merupakan hermafrodit protandri.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Dipasarkan segar",
+          "Dibekukan",
+          "Dikeringkan",
+          "Diasinkan"
+        ],
+        "commercial_uses": [
+          "Ikan pangan komersial",
+          "Budidaya perikanan komersial"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pembudidaya ikan komersial",
+          "Pedagang dan distributor ikan segar",
+          "Pedagang dan distributor ikan beku",
+          "Pengolah ikan kering atau asin",
+          "Pengecer dan pasar ikan",
+          "Industri makanan laut",
+          "Konsumen ikan konsumsi"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_eleutheronema_tetradactylum",
+            "title": "Eleutheronema tetradactylum, Fourfinger threadfin: fisheries, aquaculture",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Eleutheronema-tetradactylum.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 1,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "tenggiri",
+      "status": "completed",
+      "wall_s": 6.66,
+      "llm_calls": 3,
+      "llm_errors": 0,
+      "llm_time_s": 13.58,
+      "input_tokens": 813,
+      "cached_tokens": 0,
+      "output_tokens": 903,
+      "reasoning_tokens": 357,
+      "cost_usd": 0.001246,
+      "critic_feedback": "physical_characteristics=unsupported; taste=no_evidence; texture=no_evidence; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=supported",
+      "expert_outputs": {
+        "physical": {
+          "physical_characteristics": "Nama “tenggiri” dapat merujuk pada beberapa spesies. Scomberomorus commerson mencapai panjang cagak 240 cm, memiliki punggung biru keabu-abuan berkilau, banyak garis vertikal tipis bergelombang, dan 15–18 duri sirip punggung. Scomberomorus guttatus mencapai panjang cagak 81,5 cm dan berat 4 kg, dengan sisi tubuh putih keperakan serta beberapa baris bintik bulat cokelat gelap di sepanjang garis rusuk.",
+          "sources": [
+            {
+              "source_id": "fishbase_tenggiri_common_name",
+              "chunk_id": "chunk_tenggiri_identity_001"
+            },
+            {
+              "source_id": "fishbase_scomberomorus_commerson",
+              "chunk_id": "chunk_tenggiri_identity_002"
+            },
+            {
+              "source_id": "fishbase_scomberomorus_commerson",
+              "chunk_id": "chunk_tenggiri_physical_001"
+            }
+          ]
+        },
+        "taste": {
+          "taste": null,
+          "texture": null,
+          "sources": [],
+          "skipped": true
+        },
+        "commercial": {
+          "processing_methods": [
+            "Dipasarkan segar",
+            "Dikeringkan dan diasinkan",
+            "Diolah menjadi bakso ikan",
+            "Dibekukan",
+            "Diasap",
+            "Dikalengkan"
+          ],
+          "commercial_uses": [
+            "Dipasarkan terutama dalam keadaan segar",
+            "Dipasarkan dalam bentuk kering dan asin",
+            "Dipasarkan dalam bentuk beku",
+            "Dipasarkan dalam bentuk asap",
+            "Dipasarkan dalam bentuk kalengan"
+          ],
+          "sources": [
+            {
+              "source_id": "fishbase_scomberomorus_commerson",
+              "chunk_id": "chunk_tenggiri_processing_001"
+            },
+            {
+              "source_id": "fishbase_scomberomorus_commerson",
+              "chunk_id": "chunk_tenggiri_commercial_001"
+            }
+          ]
+        },
+        "substitute": {
+          "similar_or_substitute_species": [],
+          "potential_buyer_segments": [
+            "Pembeli ikan segar",
+            "Pengolah ikan asin-kering",
+            "Pengolah ikan beku",
+            "Pengolah ikan asap",
+            "Industri pengalengan ikan"
+          ],
+          "sources": [
+            {
+              "source_id": "fishbase_scomberomorus_commerson",
+              "chunk_id": "chunk_tenggiri_commercial_001"
+            }
+          ]
+        }
+      },
+      "trace": {
+        "pipeline_version": "iteration-1",
+        "model": "gpt-5.6-luna",
+        "evidence": [
+          {
+            "chunk_id": "chunk_tenggiri_identity_001",
+            "category": "identity",
+            "distance": 0.1722
+          },
+          {
+            "chunk_id": "chunk_tenggiri_identity_003",
+            "category": "identity",
+            "distance": 0.2097
+          },
+          {
+            "chunk_id": "chunk_tenggiri_identity_002",
+            "category": "identity",
+            "distance": 0.2219
+          },
+          {
+            "chunk_id": "chunk_tenggiri_physical_001",
+            "category": "physical_characteristics",
+            "distance": 0.2195
+          },
+          {
+            "chunk_id": "chunk_tenggiri_processing_001",
+            "category": "processing_methods",
+            "distance": 0.2359
+          },
+          {
+            "chunk_id": "chunk_tenggiri_commercial_001",
+            "category": "commercial_uses",
+            "distance": 0.2036
+          }
+        ],
+        "cache_hit": false,
+        "experts": {
+          "physical": {
+            "chunk_ids": [
+              "chunk_tenggiri_identity_001",
+              "chunk_tenggiri_identity_003",
+              "chunk_tenggiri_identity_002",
+              "chunk_tenggiri_physical_001"
+            ],
+            "prompt_sha256": "958a9bf21c7d5ed3",
+            "tokens": {
+              "input_tokens": 437,
+              "output_tokens": 388,
+              "total_tokens": 825,
+              "reasoning_tokens": 154
+            },
+            "latency_ms": 6384.0,
+            "skipped": false,
+            "error": false
+          },
+          "taste": {
+            "skipped": true,
+            "error": false
+          },
+          "commercial": {
+            "chunk_ids": [
+              "chunk_tenggiri_processing_001",
+              "chunk_tenggiri_commercial_001"
+            ],
+            "prompt_sha256": "89c95eb8fd45d45f",
+            "tokens": {
+              "input_tokens": 227,
+              "output_tokens": 285,
+              "total_tokens": 512,
+              "reasoning_tokens": 84
+            },
+            "latency_ms": 3985.9,
+            "skipped": false,
+            "error": false
+          },
+          "substitute": {
+            "chunk_ids": [
+              "chunk_tenggiri_commercial_001"
+            ],
+            "prompt_sha256": "e88e8ef28a967fbf",
+            "tokens": {
+              "input_tokens": 149,
+              "output_tokens": 230,
+              "total_tokens": 379,
+              "reasoning_tokens": 119
+            },
+            "latency_ms": 3207.8,
+            "skipped": false,
+            "error": false
+          }
+        },
+        "claims": [
+          {
+            "field": "physical_characteristics",
+            "status": "unsupported",
+            "chunk_ids": [],
+            "reason": "isi chunk yang disitasi tidak mendukung klaim"
+          },
+          {
+            "field": "taste",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "texture",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "processing_methods",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_tenggiri_processing_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "commercial_uses",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_tenggiri_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "similar_or_substitute_species",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "potential_buyer_segments",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_tenggiri_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          }
+        ],
+        "error": null,
+        "timings_ms": {
+          "research": 17.9,
+          "experts": 6384.8,
+          "critic": 252.6,
+          "writer": 0.1,
+          "total": 6655.4
+        }
+      },
+      "fields_filled": {
+        "physical_characteristics": false,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": true
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Tenggiri",
+        "scientific_name": "Scomberomorus commerson",
+        "taxonomy_status": "MEDIUM_CONFIDENCE_LABEL_AMBIGUITY",
+        "physical_characteristics": null,
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Dipasarkan segar",
+          "Dikeringkan dan diasinkan",
+          "Diolah menjadi bakso ikan",
+          "Dibekukan",
+          "Diasap",
+          "Dikalengkan"
+        ],
+        "commercial_uses": [
+          "Dipasarkan terutama dalam keadaan segar",
+          "Dipasarkan dalam bentuk kering dan asin",
+          "Dipasarkan dalam bentuk beku",
+          "Dipasarkan dalam bentuk asap",
+          "Dipasarkan dalam bentuk kalengan"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [
+          "Pembeli ikan segar",
+          "Pengolah ikan asin-kering",
+          "Pengolah ikan beku",
+          "Pengolah ikan asap",
+          "Industri pengalengan ikan"
+        ],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: rasa, tekstur, spesies pengganti.",
+          "Label 'tenggiri' juga dipakai untuk Scomberomorus guttatus (tenggiri papan); kartu ini mengikuti nama vernakular utama Scomberomorus commerson."
+        ],
+        "sources": [
+          {
+            "source_id": "fishbase_scomberomorus_commerson",
+            "title": "Scomberomorus commerson, Narrow-barred Spanish mackerel: fisheries, gamefish",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Scomberomorus-commerson.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 1,
+      "error": null
+    },
+    {
+      "path": "agent",
+      "species": "tuna",
+      "status": "completed",
+      "wall_s": 5.77,
+      "llm_calls": 4,
+      "llm_errors": 0,
+      "llm_time_s": 14.45,
+      "input_tokens": 894,
+      "cached_tokens": 0,
+      "output_tokens": 751,
+      "reasoning_tokens": 379,
+      "cost_usd": 0.00108,
+      "critic_feedback": "physical_characteristics=supported; taste=unsupported; texture=unsupported; processing_methods=supported; commercial_uses=supported; similar_or_substitute_species=no_evidence; potential_buyer_segments=no_evidence",
+      "expert_outputs": {
+        "physical": {
+          "physical_characteristics": "Berbentuk torpedo, berwarna biru tua metalik di bagian atas, kuning hingga keperakan di bagian bawah, dengan sirip punggung, sirip dubur, dan sirip-sirip kecil berwarna kuning cerah.",
+          "sources": [
+            {
+              "source_id": "noaa_pacific_yellowfin",
+              "chunk_id": "chunk_tuna_physical_001"
+            }
+          ]
+        },
+        "taste": {
+          "taste": "rasa ringan dan berdaging",
+          "texture": "daging padat dan lembap dengan serpihan besar",
+          "sources": [
+            {
+              "source_id": "noaa_pacific_yellowfin",
+              "chunk_id": "chunk_tuna_taste_001"
+            }
+          ]
+        },
+        "commercial": {
+          "processing_methods": [
+            "Dijual segar",
+            "Dibekukan",
+            "Dikemas dalam kaleng",
+            "Diasap",
+            "Dibekukan secara mendalam",
+            "Diolah untuk sashimi"
+          ],
+          "commercial_uses": [
+            "Perikanan tuna"
+          ],
+          "sources": [
+            {
+              "source_id": "fishbase_thunnus_albacares",
+              "chunk_id": "chunk_tuna_processing_002"
+            },
+            {
+              "source_id": "fishbase_thunnus_alalunga",
+              "chunk_id": "chunk_tuna_processing_001"
+            },
+            {
+              "source_id": "fao_ac478e00",
+              "chunk_id": "chunk_tuna_commercial_001"
+            }
+          ]
+        },
+        "substitute": {
+          "similar_or_substitute_species": [],
+          "potential_buyer_segments": [],
+          "sources": [
+            {
+              "source_id": "fao_ac478e00",
+              "chunk_id": "chunk_tuna_commercial_001"
+            }
+          ]
+        }
+      },
+      "trace": {
+        "pipeline_version": "iteration-1",
+        "model": "gpt-5.6-luna",
+        "evidence": [
+          {
+            "chunk_id": "chunk_tuna_identity_001",
+            "category": "identity",
+            "distance": 0.2204
+          },
+          {
+            "chunk_id": "chunk_tuna_identity_002",
+            "category": "identity",
+            "distance": 0.2299
+          },
+          {
+            "chunk_id": "chunk_tuna_physical_001",
+            "category": "physical_characteristics",
+            "distance": 0.2181
+          },
+          {
+            "chunk_id": "chunk_tuna_taste_001",
+            "category": "taste_texture",
+            "distance": 0.2096
+          },
+          {
+            "chunk_id": "chunk_tuna_processing_002",
+            "category": "processing_methods",
+            "distance": 0.2021
+          },
+          {
+            "chunk_id": "chunk_tuna_processing_001",
+            "category": "processing_methods",
+            "distance": 0.2172
+          },
+          {
+            "chunk_id": "chunk_tuna_commercial_001",
+            "category": "commercial_uses",
+            "distance": 0.2102
+          }
+        ],
+        "cache_hit": false,
+        "experts": {
+          "physical": {
+            "chunk_ids": [
+              "chunk_tuna_identity_001",
+              "chunk_tuna_identity_002",
+              "chunk_tuna_physical_001"
+            ],
+            "prompt_sha256": "958a9bf21c7d5ed3",
+            "tokens": {
+              "input_tokens": 332,
+              "output_tokens": 225,
+              "total_tokens": 557,
+              "reasoning_tokens": 135
+            },
+            "latency_ms": 5416.7,
+            "skipped": false,
+            "error": false
+          },
+          "taste": {
+            "chunk_ids": [
+              "chunk_tuna_taste_001"
+            ],
+            "prompt_sha256": "a108d5295b651f1a",
+            "tokens": {
+              "input_tokens": 140,
+              "output_tokens": 100,
+              "total_tokens": 240,
+              "reasoning_tokens": 44
+            },
+            "latency_ms": 2621.5,
+            "skipped": false,
+            "error": false
+          },
+          "commercial": {
+            "chunk_ids": [
+              "chunk_tuna_processing_002",
+              "chunk_tuna_processing_001",
+              "chunk_tuna_commercial_001"
+            ],
+            "prompt_sha256": "89c95eb8fd45d45f",
+            "tokens": {
+              "input_tokens": 273,
+              "output_tokens": 289,
+              "total_tokens": 562,
+              "reasoning_tokens": 108
+            },
+            "latency_ms": 3697.5,
+            "skipped": false,
+            "error": false
+          },
+          "substitute": {
+            "chunk_ids": [
+              "chunk_tuna_commercial_001"
+            ],
+            "prompt_sha256": "e88e8ef28a967fbf",
+            "tokens": {
+              "input_tokens": 149,
+              "output_tokens": 137,
+              "total_tokens": 286,
+              "reasoning_tokens": 92
+            },
+            "latency_ms": 2713.3,
+            "skipped": false,
+            "error": false
+          }
+        },
+        "claims": [
+          {
+            "field": "physical_characteristics",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_tuna_physical_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "taste",
+            "status": "unsupported",
+            "chunk_ids": [],
+            "reason": "isi chunk yang disitasi tidak mendukung klaim"
+          },
+          {
+            "field": "texture",
+            "status": "unsupported",
+            "chunk_ids": [],
+            "reason": "isi chunk yang disitasi tidak mendukung klaim"
+          },
+          {
+            "field": "processing_methods",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_tuna_processing_002"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "commercial_uses",
+            "status": "supported",
+            "chunk_ids": [
+              "chunk_tuna_commercial_001"
+            ],
+            "reason": "didukung isi chunk terverifikasi"
+          },
+          {
+            "field": "similar_or_substitute_species",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          },
+          {
+            "field": "potential_buyer_segments",
+            "status": "no_evidence",
+            "chunk_ids": [],
+            "reason": "tidak ada klaim"
+          }
+        ],
+        "error": null,
+        "timings_ms": {
+          "research": 46.3,
+          "experts": 5417.9,
+          "critic": 305.8,
+          "writer": 0.1,
+          "total": 5770.1
+        }
+      },
+      "fields_filled": {
+        "physical_characteristics": true,
+        "taste": false,
+        "texture": false,
+        "processing_methods": true,
+        "commercial_uses": true,
+        "similar_or_substitute_species": false,
+        "potential_buyer_segments": false
+      },
+      "english_leak": false,
+      "card": {
+        "common_name": "Tuna",
+        "scientific_name": "Thunnus spp.",
+        "taxonomy_status": "MIXED_TAXONOMY",
+        "physical_characteristics": "Berbentuk torpedo, berwarna biru tua metalik di bagian atas, kuning hingga keperakan di bagian bawah, dengan sirip punggung, sirip dubur, dan sirip-sirip kecil berwarna kuning cerah.",
+        "taste": null,
+        "texture": null,
+        "processing_methods": [
+          "Dijual segar",
+          "Dibekukan",
+          "Dikemas dalam kaleng",
+          "Diasap",
+          "Dibekukan secara mendalam",
+          "Diolah untuk sashimi"
+        ],
+        "commercial_uses": [
+          "Perikanan tuna"
+        ],
+        "similar_or_substitute_species": [],
+        "potential_buyer_segments": [],
+        "limitations": [
+          "Belum ada bukti terverifikasi untuk: spesies pengganti.",
+          "Nama umum 'tuna' mencakup beberapa spesies (mungkin juga cakalang/bonito, Katsuwonus/Euthynnus); taksonomi dikunci pada tingkat genus Thunnus spp. sampai verifikasi ahli."
+        ],
+        "sources": [
+          {
+            "source_id": "noaa_pacific_yellowfin",
+            "title": "Pacific Yellowfin Tuna",
+            "source_type": "government_species_profile",
+            "url": "https://www.fisheries.noaa.gov/species/pacific-yellowfin-tuna",
+            "publisher": "NOAA Fisheries",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fishbase_thunnus_albacares",
+            "title": "Thunnus albacares, Yellowfin tuna",
+            "source_type": "species_summary",
+            "url": "https://www.fishbase.se/summary/Thunnus-albacares.html",
+            "publisher": "FishBase",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          },
+          {
+            "source_id": "fao_ac478e00",
+            "title": "FAO Species Catalogue Vol. 2: Scombrids of the World (tunas, mackerels, bonitos)",
+            "source_type": "species_catalogue",
+            "url": "https://www.fao.org/4/ac478e/ac478e00.htm",
+            "publisher": "Food and Agriculture Organization of the United Nations",
+            "reviewed_at": null,
+            "verification_status": "verified"
+          }
+        ]
+      },
+      "sources": 3,
+      "error": null
+    }
+  ],
+  "calls": [
+    {
+      "path": "agent",
+      "species": "bandeng",
+      "stage": "expert_taste",
+      "started_s": 0.478,
+      "latency_s": 3.021,
+      "input_tokens": 131,
+      "cached_tokens": 0,
+      "output_tokens": 100,
+      "reasoning_tokens": 41,
+      "error": null,
+      "cost_usd": 0.00014619999999999998
+    },
+    {
+      "path": "agent",
+      "species": "bandeng",
+      "stage": "expert_substitute",
+      "started_s": 0.48,
+      "latency_s": 3.729,
+      "input_tokens": 154,
+      "cached_tokens": 0,
+      "output_tokens": 213,
+      "reasoning_tokens": 77,
+      "error": null,
+      "cost_usd": 0.00028639999999999997
+    },
+    {
+      "path": "agent",
+      "species": "bandeng",
+      "stage": "expert_commercial",
+      "started_s": 0.479,
+      "latency_s": 4.095,
+      "input_tokens": 220,
+      "cached_tokens": 0,
+      "output_tokens": 267,
+      "reasoning_tokens": 81,
+      "error": null,
+      "cost_usd": 0.00036439999999999997
+    },
+    {
+      "path": "agent",
+      "species": "bandeng",
+      "stage": "expert_physical",
+      "started_s": 0.477,
+      "latency_s": 4.673,
+      "input_tokens": 240,
+      "cached_tokens": 0,
+      "output_tokens": 208,
+      "reasoning_tokens": 78,
+      "error": null,
+      "cost_usd": 0.0002976
+    },
+    {
+      "path": "agent",
+      "species": "gelama_bunga",
+      "stage": "expert_taste",
+      "started_s": 5.249,
+      "latency_s": 1.835,
+      "input_tokens": 144,
+      "cached_tokens": 0,
+      "output_tokens": 98,
+      "reasoning_tokens": 38,
+      "error": null,
+      "cost_usd": 0.0001464
+    },
+    {
+      "path": "agent",
+      "species": "gelama_bunga",
+      "stage": "expert_physical",
+      "started_s": 5.248,
+      "latency_s": 2.184,
+      "input_tokens": 174,
+      "cached_tokens": 0,
+      "output_tokens": 119,
+      "reasoning_tokens": 60,
+      "error": null,
+      "cost_usd": 0.0001776
+    },
+    {
+      "path": "agent",
+      "species": "gelama_bunga",
+      "stage": "expert_substitute",
+      "started_s": 5.254,
+      "latency_s": 2.927,
+      "input_tokens": 147,
+      "cached_tokens": 0,
+      "output_tokens": 155,
+      "reasoning_tokens": 65,
+      "error": null,
+      "cost_usd": 0.0002154
+    },
+    {
+      "path": "agent",
+      "species": "gelama_bunga",
+      "stage": "expert_commercial",
+      "started_s": 5.251,
+      "latency_s": 3.614,
+      "input_tokens": 203,
+      "cached_tokens": 0,
+      "output_tokens": 228,
+      "reasoning_tokens": 65,
+      "error": null,
+      "cost_usd": 0.0003142
+    },
+    {
+      "path": "agent",
+      "species": "gembolo",
+      "stage": "expert_physical",
+      "started_s": 9.282,
+      "latency_s": 1.397,
+      "input_tokens": 147,
+      "cached_tokens": 0,
+      "output_tokens": 46,
+      "reasoning_tokens": 30,
+      "error": null,
+      "cost_usd": 8.46e-05
+    },
+    {
+      "path": "agent",
+      "species": "gulamah",
+      "stage": "expert_physical",
+      "started_s": 10.691,
+      "latency_s": 3.148,
+      "input_tokens": 254,
+      "cached_tokens": 0,
+      "output_tokens": 215,
+      "reasoning_tokens": 82,
+      "error": null,
+      "cost_usd": 0.0003088
+    },
+    {
+      "path": "agent",
+      "species": "gulamah",
+      "stage": "expert_commercial",
+      "started_s": 10.693,
+      "latency_s": 3.772,
+      "input_tokens": 270,
+      "cached_tokens": 0,
+      "output_tokens": 234,
+      "reasoning_tokens": 40,
+      "error": null,
+      "cost_usd": 0.0003348
+    },
+    {
+      "path": "agent",
+      "species": "gulamah",
+      "stage": "expert_substitute",
+      "started_s": 10.694,
+      "latency_s": 3.92,
+      "input_tokens": 204,
+      "cached_tokens": 0,
+      "output_tokens": 230,
+      "reasoning_tokens": 74,
+      "error": null,
+      "cost_usd": 0.0003168
+    },
+    {
+      "path": "agent",
+      "species": "kembung",
+      "stage": "expert_commercial",
+      "started_s": 14.867,
+      "latency_s": 2.057,
+      "input_tokens": 145,
+      "cached_tokens": 0,
+      "output_tokens": 94,
+      "reasoning_tokens": 50,
+      "error": null,
+      "cost_usd": 0.0001418
+    },
+    {
+      "path": "agent",
+      "species": "kembung",
+      "stage": "expert_substitute",
+      "started_s": 14.868,
+      "latency_s": 2.61,
+      "input_tokens": 152,
+      "cached_tokens": 0,
+      "output_tokens": 128,
+      "reasoning_tokens": 80,
+      "error": null,
+      "cost_usd": 0.000184
+    },
+    {
+      "path": "agent",
+      "species": "kembung",
+      "stage": "expert_physical",
+      "started_s": 14.865,
+      "latency_s": 4.375,
+      "input_tokens": 273,
+      "cached_tokens": 0,
+      "output_tokens": 276,
+      "reasoning_tokens": 135,
+      "error": null,
+      "cost_usd": 0.0003858
+    },
+    {
+      "path": "agent",
+      "species": "kuniran",
+      "stage": "expert_substitute",
+      "started_s": 19.417,
+      "latency_s": 2.612,
+      "input_tokens": 139,
+      "cached_tokens": 0,
+      "output_tokens": 170,
+      "reasoning_tokens": 78,
+      "error": null,
+      "cost_usd": 0.00023180000000000002
+    },
+    {
+      "path": "agent",
+      "species": "kuniran",
+      "stage": "expert_physical",
+      "started_s": 19.413,
+      "latency_s": 3.247,
+      "input_tokens": 238,
+      "cached_tokens": 0,
+      "output_tokens": 180,
+      "reasoning_tokens": 56,
+      "error": null,
+      "cost_usd": 0.0002636
+    },
+    {
+      "path": "agent",
+      "species": "kuniran",
+      "stage": "expert_commercial",
+      "started_s": 19.415,
+      "latency_s": 5.162,
+      "input_tokens": 202,
+      "cached_tokens": 0,
+      "output_tokens": 194,
+      "reasoning_tokens": 49,
+      "error": null,
+      "cost_usd": 0.00027319999999999997
+    },
+    {
+      "path": "agent",
+      "species": "mujair",
+      "stage": "expert_taste",
+      "started_s": 24.869,
+      "latency_s": 2.075,
+      "input_tokens": 130,
+      "cached_tokens": 0,
+      "output_tokens": 97,
+      "reasoning_tokens": 48,
+      "error": null,
+      "cost_usd": 0.00014239999999999996
+    },
+    {
+      "path": "agent",
+      "species": "mujair",
+      "stage": "expert_substitute",
+      "started_s": 24.872,
+      "latency_s": 3.443,
+      "input_tokens": 144,
+      "cached_tokens": 0,
+      "output_tokens": 218,
+      "reasoning_tokens": 120,
+      "error": null,
+      "cost_usd": 0.00029039999999999996
+    },
+    {
+      "path": "agent",
+      "species": "mujair",
+      "stage": "expert_commercial",
+      "started_s": 24.87,
+      "latency_s": 3.795,
+      "input_tokens": 200,
+      "cached_tokens": 0,
+      "output_tokens": 248,
+      "reasoning_tokens": 64,
+      "error": null,
+      "cost_usd": 0.00033759999999999997
+    },
+    {
+      "path": "agent",
+      "species": "mujair",
+      "stage": "expert_physical",
+      "started_s": 24.867,
+      "latency_s": 4.05,
+      "input_tokens": 259,
+      "cached_tokens": 0,
+      "output_tokens": 175,
+      "reasoning_tokens": 86,
+      "error": null,
+      "cost_usd": 0.0002618
+    },
+    {
+      "path": "agent",
+      "species": "nila",
+      "stage": "expert_taste",
+      "started_s": 29.288,
+      "latency_s": 2.213,
+      "input_tokens": 145,
+      "cached_tokens": 0,
+      "output_tokens": 84,
+      "reasoning_tokens": 39,
+      "error": null,
+      "cost_usd": 0.0001298
+    },
+    {
+      "path": "agent",
+      "species": "nila",
+      "stage": "expert_substitute",
+      "started_s": 29.292,
+      "latency_s": 2.793,
+      "input_tokens": 185,
+      "cached_tokens": 0,
+      "output_tokens": 184,
+      "reasoning_tokens": 78,
+      "error": null,
+      "cost_usd": 0.0002578
+    },
+    {
+      "path": "agent",
+      "species": "nila",
+      "stage": "expert_commercial",
+      "started_s": 29.29,
+      "latency_s": 3.33,
+      "input_tokens": 241,
+      "cached_tokens": 0,
+      "output_tokens": 236,
+      "reasoning_tokens": 76,
+      "error": null,
+      "cost_usd": 0.0003314
+    },
+    {
+      "path": "agent",
+      "species": "nila",
+      "stage": "expert_physical",
+      "started_s": 29.286,
+      "latency_s": 3.93,
+      "input_tokens": 232,
+      "cached_tokens": 0,
+      "output_tokens": 245,
+      "reasoning_tokens": 146,
+      "error": null,
+      "cost_usd": 0.0003404
+    },
+    {
+      "path": "agent",
+      "species": "senangin",
+      "stage": "expert_commercial",
+      "started_s": 33.493,
+      "latency_s": 3.234,
+      "input_tokens": 199,
+      "cached_tokens": 0,
+      "output_tokens": 219,
+      "reasoning_tokens": 64,
+      "error": null,
+      "cost_usd": 0.00030260000000000004
+    },
+    {
+      "path": "agent",
+      "species": "senangin",
+      "stage": "expert_substitute",
+      "started_s": 33.495,
+      "latency_s": 3.942,
+      "input_tokens": 154,
+      "cached_tokens": 0,
+      "output_tokens": 207,
+      "reasoning_tokens": 69,
+      "error": null,
+      "cost_usd": 0.0002792
+    },
+    {
+      "path": "agent",
+      "species": "senangin",
+      "stage": "expert_physical",
+      "started_s": 33.491,
+      "latency_s": 4.667,
+      "input_tokens": 264,
+      "cached_tokens": 0,
+      "output_tokens": 224,
+      "reasoning_tokens": 66,
+      "error": null,
+      "cost_usd": 0.0003216
+    },
+    {
+      "path": "agent",
+      "species": "tenggiri",
+      "stage": "expert_substitute",
+      "started_s": 38.478,
+      "latency_s": 3.208,
+      "input_tokens": 149,
+      "cached_tokens": 0,
+      "output_tokens": 230,
+      "reasoning_tokens": 119,
+      "error": null,
+      "cost_usd": 0.0003058
+    },
+    {
+      "path": "agent",
+      "species": "tenggiri",
+      "stage": "expert_commercial",
+      "started_s": 38.476,
+      "latency_s": 3.986,
+      "input_tokens": 227,
+      "cached_tokens": 0,
+      "output_tokens": 285,
+      "reasoning_tokens": 84,
+      "error": null,
+      "cost_usd": 0.0003874
+    },
+    {
+      "path": "agent",
+      "species": "tenggiri",
+      "stage": "expert_physical",
+      "started_s": 38.474,
+      "latency_s": 6.384,
+      "input_tokens": 437,
+      "cached_tokens": 0,
+      "output_tokens": 388,
+      "reasoning_tokens": 154,
+      "error": null,
+      "cost_usd": 0.000553
+    },
+    {
+      "path": "agent",
+      "species": "tuna",
+      "stage": "expert_taste",
+      "started_s": 45.165,
+      "latency_s": 2.621,
+      "input_tokens": 140,
+      "cached_tokens": 0,
+      "output_tokens": 100,
+      "reasoning_tokens": 44,
+      "error": null,
+      "cost_usd": 0.000148
+    },
+    {
+      "path": "agent",
+      "species": "tuna",
+      "stage": "expert_substitute",
+      "started_s": 45.168,
+      "latency_s": 2.713,
+      "input_tokens": 149,
+      "cached_tokens": 0,
+      "output_tokens": 137,
+      "reasoning_tokens": 92,
+      "error": null,
+      "cost_usd": 0.0001942
+    },
+    {
+      "path": "agent",
+      "species": "tuna",
+      "stage": "expert_commercial",
+      "started_s": 45.166,
+      "latency_s": 3.697,
+      "input_tokens": 273,
+      "cached_tokens": 0,
+      "output_tokens": 289,
+      "reasoning_tokens": 108,
+      "error": null,
+      "cost_usd": 0.00040140000000000005
+    },
+    {
+      "path": "agent",
+      "species": "tuna",
+      "stage": "expert_physical",
+      "started_s": 45.162,
+      "latency_s": 5.417,
+      "input_tokens": 332,
+      "cached_tokens": 0,
+      "output_tokens": 225,
+      "reasoning_tokens": 135,
+      "error": null,
+      "cost_usd": 0.0003364
+    }
+  ]
+}

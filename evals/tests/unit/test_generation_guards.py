@@ -17,7 +17,7 @@ CHUNK = RetrievedChunk(
 def _generated(**overrides) -> GeneratedKnowledgeCard:
     fields = dict(
         common_name="x", scientific_name=None, taxonomy_status="x", physical_characteristics=None,
-        taste="Rasa ringan", texture=None, processing_methods=[], commercial_uses=[],
+        taste="Mild flavour", texture=None, processing_methods=[], commercial_uses=[],
         similar_or_substitute_species=[], potential_buyer_segments=[], limitations=[],
         sources=[{"source_id": "fao_en_niletilapia"}],
     )
@@ -30,7 +30,7 @@ def test_empty_evidence_never_builds_the_llm_client():
         raise AssertionError("LLM client constructed for empty evidence")
 
     card = KnowledgeGenerator(factory).generate(NILA, [])
-    assert card.sources == [] and card.limitations[0] == "Informasi belum tersedia"
+    assert card.sources == [] and card.limitations[0] == "No information available yet"
 
 
 def test_relational_identity_overrides_generated_text():

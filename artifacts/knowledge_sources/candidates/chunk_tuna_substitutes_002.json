@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_tuna_substitutes_002",
+  "chunk": {
+    "id": "chunk_tuna_substitutes_002",
+    "species_label": "tuna",
+    "source_id": "fao_species_catalogue_scombrids",
+    "category": "substitutes",
+    "content": "In Japan, bigeye tuna (Thunnus obesus) meat is highly priced and processed into sashimi as a substitute for bluefin tuna.",
+    "source_quote": "In Japan, its meat is highly priced and processed into sashimi in substitution for bluefin tuna.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_species_catalogue_scombrids",
+    "title": "FAO Species Catalogue Vol. 2 Scombrids of the World (FAO Fisheries Synopsis No. 125)",
+    "source_type": "catalogue",
+    "url": "https://www.vliz.be/imisdocs/publications/307984.pdf",
+    "publisher": "FAO",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

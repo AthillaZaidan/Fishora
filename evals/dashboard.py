@@ -523,6 +523,9 @@ def render(baseline: str, current: str) -> tuple[str, str]:
     tests, ev, cost, comp = a["tests"] or {}, a["rag_eval"] or {}, a["cost_eval"] or {}, a["model_compare"] or {}
     totals = tests.get("totals", {})
     by_path = get(cost, "summary.by_path") or {}
+    # The card the product publishes: a separate one-call path until iteration 1,
+    # the graded agent card since (W19).
+    pub = "published" if "published" in by_path else "agent"
     n_high = sum(f["status"] in ("open", "partial") and f["severity"] == "high" for f in findings)
     n_med = sum(f["status"] in ("open", "partial") and f["severity"] == "medium" for f in findings)
     commit = get(ev, "git.commit") or "?"
@@ -547,8 +550,8 @@ def render(baseline: str, current: str) -> tuple[str, str]:
     <div class="row"><span class="chip nochip">{n_high} high open</span><span class="chip nochip">{n_med} medium open</span>
     <span class="chip nochip">grounding F1 {fmt(get(ev, "grounding.test.f1"))}</span></div></div>
   <div class="spot orange"><span class="cap" style="color:#fff">Per published card</span>
-    <span class="big">{fmt(get(by_path, "published.cost_usd_per_card.mean"), "usd")}</span>
-    <div class="row"><span class="chip nochip">{fmt(get(by_path, "published.wall_s_per_card.p50"), "s")} p50</span>
+    <span class="big">{fmt(get(by_path, f"{pub}.cost_usd_per_card.mean"), "usd")}</span>
+    <div class="row"><span class="chip nochip">{fmt(get(by_path, f"{pub}.wall_s_per_card.p50"), "s")} p50</span>
     <span class="chip nochip">operator cards {fmt(get(by_path, "agent.success_rate"), "pct")} complete</span></div></div>
 </div>"""
 
@@ -613,7 +616,8 @@ def render(baseline: str, current: str) -> tuple[str, str]:
             x_label="p50 latency of valid cards (s, log)", y_label="USD per card", x_fmt=secs, y_fmt=usd, y_higher=False, x_log=True,
             quadrant=(10, geo([p["cpc"] for p in mp]) or 0))),
     ]
-    path_names = {"published": "published", "agent": "operator (shipped)", "agent_normalized": "operator (fixed)"}
+    path_names = {"published": "published", "one_call": "one-call (reference)", "agent": "graded (shipped)",
+                  "agent_normalized": "operator (fixed)"}
     paths = [{"name": path_names[k], "x": v["cost_usd_per_card"].get("mean"), "y": v["success_rate"], "star": False}
              for k, v in by_path.items()]
     small.append(("Card paths: completed vs cost", pareto(paths, x_label="USD per card", y_label="Cards completed",
@@ -640,13 +644,13 @@ def render(baseline: str, current: str) -> tuple[str, str]:
     stages = get(cost, "summary.by_stage") or {}
     st_rows = [(k.split(":", 1)[1].replace("_", " "), v["cost_usd_total"] / max(1, v["calls"]),
                 f'{usd(v["cost_usd_total"] / max(1, v["calls"]))} · {v["latency_s"].get("p50", 0):.1f}s')
-               for k, v in stages.items() if k.startswith(("agent_normalized", "published"))]
+               for k, v in stages.items() if k.startswith(("agent_normalized", "published", "one_call", "agent:"))]
     top_stage = max((r[1] for r in st_rows), default=1)
     share = [(k, v["output_share_of_cost"], v["reasoning_share_of_output"]) for k, v in by_path.items()]
     kpis = "".join(f'<div class="card"><span class="cap">{escape(l)}</span><span class="kpi"><span class="v">{v}</span></span></div>' for l, v in (
-        ("Published card p50", fmt(get(by_path, "published.wall_s_per_card.p50"), "s")),
+        ("Published card p50", fmt(get(by_path, f"{pub}.wall_s_per_card.p50"), "s")),
         ("Operator card p50 (fixed)", fmt(get(by_path, "agent_normalized.wall_s_per_card.p50"), "s")),
-        ("Cards per $3 / 5 h window", fmt(get(by_path, "published.cards_per_allowance.5h"))),
+        ("Cards per $3 / 5 h window", fmt(get(by_path, f"{pub}.cards_per_allowance.5h"))),
         ("Run total", fmt(get(cost, "summary.run_total_cost_usd"), "usd")),
     ))
     cost_sec = f"""
@@ -678,7 +682,8 @@ def render(baseline: str, current: str) -> tuple[str, str]:
                            [(hk, "leaked", True), (he - hk, "blocked", False)]]) if pc else ""
     real_cards = cost.get("cards", [])
     abst = [(name, abstention_cells([c for c in real_cards if c["path"] == key]))
-            for key, name in (("published", "Published card"), ("agent_normalized", "Operator card (parser fixed)"))]
+            for key, name in (("published", "Published card"), ("one_call", "One-call card (reference)"),
+                              ("agent", "Graded card"), ("agent_normalized", "Operator card (parser fixed)"))]
     abst_html = "".join(
         f'<div class="card"><span class="cap">{escape(name)} · real LLM, field × evidence</span>'
         f'{confusion("field", ("filled", "empty"), ("evidence exists", "no evidence"), [[cells[0][0], cells[1][0]], [cells[0][1], cells[1][1]]])}</div>'

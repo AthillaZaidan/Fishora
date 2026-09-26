@@ -2,6 +2,9 @@
 
 from decimal import Decimal
 
+import pytest
+
+from apps.main_api.errors import InvalidLot
 from apps.main_api.services.lots import LotService
 from evals.fakes import InMemoryJobRepository, InMemoryPredictionRepository
 
@@ -15,9 +18,9 @@ class _Lots:
     def get_by_prediction(self, prediction_id):
         return next((l for l in self.rows.values() if l.prediction_id == prediction_id), None)
 
-    def create(self, lot):
-        self.rows[lot.id] = lot
-        return lot
+    def create_many(self, lots):
+        self.rows.update({lot.id: lot for lot in lots})
+        return lots
 
 
 class _SyncKnowledge:
@@ -29,13 +32,14 @@ class _SyncKnowledge:
         raise AssertionError("the ungraded sync path must not run when a graded card exists")
 
 
-def _publish(jobs, knowledge):
+def _publish(jobs, knowledge, **kwargs):
     predictions = InMemoryPredictionRepository()
     predictions.create("p1", "memory://p1", "species_nila", 0.9, [], "v")
     predictions.verify("p1", "species_nila", "confirmed")
     service = LotService(predictions, _Lots(), knowledge_service=knowledge, job_repo=jobs)
     return service.publish(prediction_id="p1", operator_id="op", quantity_kg=Decimal("10"),
-                           starting_price_per_kg=Decimal("20000"), size_category="M", landing_point_id="lp1")
+                           starting_price_per_kg=Decimal("20000"), size_category="M", landing_point_id="lp1",
+                           **kwargs)
 
 
 def test_published_snapshot_is_the_graded_job_card():
@@ -43,7 +47,7 @@ def test_published_snapshot_is_the_graded_job_card():
     jobs.create("p1", "p1", "species_nila")
     jobs.update("p1", status="completed", final_card=GRADED)
     knowledge = _SyncKnowledge()
-    lot = _publish(jobs, knowledge)
+    [lot] = _publish(jobs, knowledge)
     assert lot.knowledge_snapshot == GRADED and knowledge.calls == 0
 
 
@@ -59,5 +63,26 @@ def test_graded_card_for_another_species_is_not_published():
             Fallback.calls += 1
             raise RuntimeError("generation down")
 
-    lot = _publish(jobs, Fallback())
+    [lot] = _publish(jobs, Fallback())
     assert Fallback.calls == 1 and lot.knowledge_snapshot is None
+
+
+def _graded_jobs():
+    jobs = InMemoryJobRepository()
+    jobs.create("p1", "p1", "species_nila")
+    jobs.update("p1", status="completed", final_card=GRADED)
+    return jobs
+
+
+def test_a_catch_publishes_as_numbered_lots_sharing_one_card():
+    lots = _publish(_graded_jobs(), _SyncKnowledge(), lot_count=3, auction_minutes=30)
+    assert [(lot.batch_index, lot.batch_size) for lot in lots] == [(1, 3), (2, 3), (3, 3)]
+    assert len({lot.id for lot in lots}) == len({lot.public_slug for lot in lots}) == 3
+    assert all(lot.quantity_kg == Decimal("10") and lot.knowledge_snapshot == GRADED for lot in lots)
+    assert all((lot.auction_ends_at - lot.auction_starts_at).total_seconds() == 30 * 60 for lot in lots)
+
+
+@pytest.mark.parametrize("kwargs", [{"auction_minutes": 45}, {"lot_count": 0}, {"lot_count": 51}])
+def test_out_of_range_batch_or_duration_is_refused(kwargs):
+    with pytest.raises(InvalidLot):
+        _publish(_graded_jobs(), _SyncKnowledge(), **kwargs)

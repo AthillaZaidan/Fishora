@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_mujair_substitutes_003",
+  "chunk": {
+    "id": "chunk_mujair_substitutes_003",
+    "species_label": "mujair",
+    "source_id": "afs_red_hybrid_tilapia_malaysia",
+    "category": "substitutes",
+    "content": "The Taiwanese strain of red hybrid tilapia was produced by crossing mutant reddish-orange female Oreochromis mossambicus with normal male O. niloticus.",
+    "source_quote": "Mutant reddish-orange female Oreochromis mossambicus (Peters, 1852) and normal male O. niloticus crosses have been used to produce the Taiwanese strain",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "afs_red_hybrid_tilapia_malaysia",
+    "title": "Red Hybrid Tilapia (Oreochromis spp.) Broodstock Development Programme in Malaysia: Status, Challenges and Prospects for Future Development (doi:10.33997/j.afs.2021.34.1.008)",
+    "source_type": "paper",
+    "url": "https://www.asianfisheriessociety.org/publication/downloadfile.php?id=1352&file=Y0dSbUx6QXhORFU0TlRFd01ERTJNVGN4TkRZMU16WXVjR1Jt",
+    "publisher": "Asian Fisheries Society",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}
