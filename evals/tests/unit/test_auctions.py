@@ -79,7 +79,7 @@ class Lots:
         if highest is not None and amount_per_kg <= highest:
             raise BidOutbid(highest)
         if highest is None and amount_per_kg < lot.starting_price_per_kg:
-            raise BidOutbid(lot.starting_price_per_kg)
+            raise BidOutbid(lot.starting_price_per_kg, "bid must be at least the starting price")
         self.tick += 1
         bid = BidRecord(id=uuid4().hex, lot_id=lot_id, buyer_id=buyer_id, amount_per_kg=amount_per_kg,
                         created_at=T0 + timedelta(seconds=self.tick))
@@ -278,6 +278,40 @@ def test_a_bid_after_the_end_is_a_409(api):
     lots.create_many([_lot("ended", ends_in=-timedelta(seconds=1))])
     response = client("buyer_dewi").post("/api/v1/lots/ended/bids", json={"amount_per_kg": "30000"})
     assert response.status_code == 409
+
+
+def test_a_bid_under_the_floor_is_a_409_naming_the_floor(api):
+    lots, _, client = api
+    lots.create_many([_lot("a", ends_in=timedelta(minutes=5))])
+    dewi = client("buyer_dewi")
+    under = dewi.post("/api/v1/lots/a/bids", json={"amount_per_kg": "19999"})
+    assert under.status_code == 409
+    assert under.json() == {"detail": "bid must be at least the starting price", "current_highest_per_kg": "20000"}
+    assert dewi.post("/api/v1/lots/a/bids", json={"amount_per_kg": "20000"}).status_code == 200
+    tie = client("buyer_budi").post("/api/v1/lots/a/bids", json={"amount_per_kg": "20000"})
+    assert tie.status_code == 409 and tie.json()["detail"] == "bid must exceed current highest"
+
+
+@pytest.mark.parametrize("amount", ["20000.001", "99999999999999"])
+def test_a_bid_the_price_column_cannot_hold_is_a_422(api, amount):
+    # NUMERIC(12, 2): a third decimal would round onto a tie with the bid it
+    # beat, and an oversized amount overflowed into a 500.
+    lots, _, client = api
+    lots.create_many([_lot("a", ends_in=timedelta(minutes=5))])
+    assert client("buyer_dewi").post("/api/v1/lots/a/bids", json={"amount_per_kg": amount}).status_code == 422
+    assert lots.bids == []
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [("quantity_kg", "1.0005"), ("quantity_kg", "9999999999999"), ("starting_price_per_kg", "99999999999999")],
+)
+def test_a_lot_the_numeric_columns_cannot_hold_is_a_422(api, field, value):
+    lots, _, client = api
+    body = {"prediction_id": "p1", "quantity_kg": "10", "starting_price_per_kg": "20000",
+            "size_category": "M", "landing_point_id": "lp_karangsong", field: value}
+    assert client("op_rian", "operator").post("/api/v1/lots", json=body).status_code == 422
+    assert lots.rows == {}
 
 
 def test_bid_history_shows_labels_not_buyer_ids(api):

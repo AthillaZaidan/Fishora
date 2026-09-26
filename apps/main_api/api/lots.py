@@ -29,9 +29,11 @@ class PublishLotRequest(BaseModel):
     prediction_id: str
     operator_id: str | None = None
     # Per lot: the catch is published as `lot_count` lots of this many kg.
-    quantity_kg: Decimal = Field(gt=0)
+    # Digit limits mirror the NUMERIC columns, so an oversized value is a 422
+    # rather than a database overflow, and never rounded on save.
+    quantity_kg: Decimal = Field(gt=0, max_digits=12, decimal_places=3)
     lot_count: int = Field(default=1, ge=1, le=MAX_LOT_COUNT)
-    starting_price_per_kg: Decimal = Field(gt=0)
+    starting_price_per_kg: Decimal = Field(gt=0, max_digits=12, decimal_places=2)
     size_category: Literal["S", "M", "L"]
     landing_point_id: str
     auction_minutes: int | None = Field(
@@ -69,7 +71,9 @@ class LotResponse(BaseModel):
 
 class PlaceBidRequest(BaseModel):
     buyer_id: str | None = None
-    amount_per_kg: Decimal = Field(gt=0)
+    # NUMERIC(12, 2): a third decimal would be rounded on save, onto a tie with
+    # the bid it had to beat.
+    amount_per_kg: Decimal = Field(gt=0, max_digits=12, decimal_places=2)
 
 
 class BidResponse(BaseModel):

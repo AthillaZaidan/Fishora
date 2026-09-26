@@ -24,14 +24,20 @@ export const PRINT_CARD_CLASS = 'qr-print-card'
  * protein. The code in the bottom-left corner opens the fish's page in Fishora.
  *
  * The photograph is the species photograph from `lib/species.ts`, swapped in
- * one place when live-fish photography arrives.
+ * one place when live-fish photography arrives. A species listed in
+ * `QR_PHOTOS` prints a fixed photograph instead, with its credit.
  */
+const QR_PHOTOS: Record<string, { src: string; credit: string }> = {
+  gembolo: { src: '/gembolo-qr.jpg', credit: 'Photo: Reef Life Survey' },
+}
+
 export function QrCard({ lot, card }: { lot: Lot; card: KnowledgeCard | null }) {
   const label = lot.species_id.replace('species_', '')
   const species = resolveSpecies(label)
   const protein = proteinFor(label)
   const url = discoverUrl(lot.public_slug)
   const scientific = card?.scientific_name ?? species.scientificName
+  const fixedPhoto = QR_PHOTOS[label]
 
   return (
     <article
@@ -39,7 +45,15 @@ export function QrCard({ lot, card }: { lot: Lot; card: KnowledgeCard | null }) 
     >
       {/* Left: the fish, with the code sitting in its bottom-left corner. */}
       <div className="relative">
-        <SpeciesArt label={label} className="absolute inset-0" sizes="(max-width: 640px) 40vw, 18rem" showName={false} />
+        {fixedPhoto ? (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={fixedPhoto.src} alt={species.commonName} className="absolute inset-0 size-full object-cover" />
+            <span className="absolute right-[3%] bottom-[2%] text-[0.5rem] text-white/80">{fixedPhoto.credit}</span>
+          </>
+        ) : (
+          <SpeciesArt label={label} className="absolute inset-0" sizes="(max-width: 640px) 40vw, 18rem" showName={false} />
+        )}
         <div
           data-testid="qr-code-fish"
           className="absolute bottom-[4%] left-[4%] flex w-[36%] flex-col items-center gap-1 rounded-lg bg-white p-1.5"

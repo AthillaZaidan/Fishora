@@ -445,7 +445,7 @@ export function IdentifyFlow({
     try {
       await publishLot({
         prediction_id: prediction.prediction_id,
-        quantity_kg: quantityKg,
+        quantity_kg: quantityKg.replace(',', '.'),
         lot_count: Number(lotCount),
         starting_price_per_kg: pricePerKg,
         size_category: size,
@@ -806,7 +806,7 @@ function LotForm({
   onDuration: (value: (typeof DURATIONS)[number]['id']) => void
 }) {
   const resolved = SPECIES[label as SpeciesLabel]
-  const total = Number(quantityKg) * Number(lotCount)
+  const total = Number(quantityKg.replace(',', '.')) * Number(lotCount)
   return (
     <form className="mt-6 flex flex-col gap-5" onSubmit={(event) => event.preventDefault()}>
       <div className="rounded-[var(--radius-input)] bg-bg-sunken px-3 py-3">
@@ -864,7 +864,8 @@ function LotForm({
         label="Starting price per kg"
         inputMode="numeric"
         value={pricePerKg}
-        onChange={(event) => onPrice(event.target.value)}
+        // Whole rupiah only: "25.000", the Indonesian way of writing it, is 25000.
+        onChange={(event) => onPrice(event.target.value.replace(/\D/g, ''))}
         prefix="Rp"
         helper="The price the auction opens at."
         error={errors.price}

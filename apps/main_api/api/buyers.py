@@ -120,6 +120,8 @@ def _ranked(request: Request, prefs: BuyerPreferenceRecord):
         prediction_repo=deps.prediction_repo,
         lot_repo=deps.lot_repo,
         landing_point_repo=deps.landing_point_repo,
+        # So recommended lots carry their catch photo like every other listing.
+        image_store=getattr(deps, "image_store", None),
     )
     lots = lot_service.list_lots(status="active")
     points = {point.id: point for point in deps.landing_point_repo.all()} if deps.landing_point_repo else {}

@@ -24,6 +24,7 @@ from apps.main_api.errors import (
     PredictionNotVerified,
 )
 from apps.main_api.services.matching import fold_words, lot_characteristics, lot_uses
+from apps.main_api.services.reference_cards import fill_from_reference
 
 # The durations the operator can pick. Market testing asked for short windows:
 # a landed catch is sold the same morning, not over days.
@@ -128,6 +129,8 @@ class LotService:
             except Exception:
                 logger.warning("lot for prediction %s published without a card", prediction_id, exc_info=True)
                 snapshot = None
+        # Empty fields fall back to the species' reference notes, labelled as such.
+        snapshot = fill_from_reference(snapshot, record.verified_species_id)
         lots = []
         for index in range(1, lot_count + 1):
             lot_id = uuid4().hex

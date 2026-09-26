@@ -307,7 +307,7 @@ def _register_error_handlers(app: FastAPI) -> None:
     @app.exception_handler(BidOutbid)
     async def _bid_outbid(request: Request, exc: BidOutbid):
         return JSONResponse(status_code=409, content={
-            "detail": "bid must exceed current highest",
+            "detail": str(exc),
             "current_highest_per_kg": str(exc.current_highest_per_kg),
         })
 

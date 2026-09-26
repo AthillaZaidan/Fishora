@@ -8,11 +8,12 @@ from pydantic import BaseModel, Field, ValidationError
 
 from apps.main_api.config import MainSettings
 from apps.main_api.services.card_llm import card_llm
-from apps.main_api.services.generation import KnowledgeResponse
+from apps.main_api.services.generation import KnowledgeCard, KnowledgeResponse
 from apps.main_api.services.identification import IdentificationService
 from apps.main_api.services.manual_entry import ManualEntryService
 from apps.main_api.services.session import require_role
 from apps.main_api.services.knowledge import KnowledgeService
+from apps.main_api.services.reference_cards import fill_from_reference
 from apps.main_api.services.verification import VerificationService
 
 logger = logging.getLogger(__name__)
@@ -194,10 +195,8 @@ async def knowledge_card(prediction_id: str, request: Request):
                 return JSONResponse(status_code=202, content={"detail": "Agent orchestrating...", "job_id": job.id, "status": "processing"})
             if job.status == "completed":
                 if job.final_card is not None:
-                    from apps.main_api.services.generation import KnowledgeCard
-
                     try:
-                        card = KnowledgeCard.model_validate(job.final_card)
+                        card = KnowledgeCard.model_validate(fill_from_reference(job.final_card, job.species_id))
                         return KnowledgeResponse(prediction_id=job.prediction_id, species_id=job.species_id, card=card)
                     except ValidationError:
                         logger.exception("knowledge job %s stored a card that fails validation", job.id)
@@ -214,4 +213,14 @@ async def knowledge_card(prediction_id: str, request: Request):
         embedder=deps.embedder,
         llm=_card_llm(request, session_id=f"fishora-card-sync-{prediction_id}"),
     )
-    return await run_in_threadpool(service.get_for_prediction, prediction_id)
+    response = await run_in_threadpool(service.get_for_prediction, prediction_id)
+    if job_repo is not None:
+        # Kept as the completed job, so the next read, the lot published from
+        # this catch and its QR card all show this card rather than a regenerated one.
+        try:
+            job_repo.create(prediction_id, prediction_id, response.species_id)
+            job_repo.update(prediction_id, status="completed", final_card=response.card.model_dump(mode="json"))
+        except Exception:
+            logger.exception("could not keep the knowledge card for prediction %s", prediction_id)
+    filled = fill_from_reference(response.card.model_dump(mode="json"), response.species_id)
+    return response.model_copy(update={"card": KnowledgeCard.model_validate(filled)})

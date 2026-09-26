@@ -31,6 +31,7 @@ from apps.main_api.db.models import (
     Prediction,
 )
 from apps.main_api.db.session import session_factory
+from apps.main_api.services.reference_cards import REFERENCE
 
 DEMO_PREFIX = "demo_"
 # The seeded demo logins from apps/main_api/services/session.py. Inventing ids
@@ -80,35 +81,8 @@ FIXTURE_LIMITATION = (
     "This card is sample data for development, not the result of a verified source search."
 )
 
-# English, like the cards the generator writes, and worded so that every chip
-# on the buyer preference form matches at least one card
-# (evals/tests/unit/test_matching.py checks this). Dish names with no English
-# equivalent keep the local name with a gloss. Similar species keep the
-# taxonomy name first: search links similar fish by that name.
-KNOWLEDGE = {
-    "tenggiri": ("Elongated body with faint vertical bars along its sides.", "Savory and not too oily.", "Firm with fine fibers and white flesh.",
-                 ["Fillet", "Smoked", "Fish balls"], ["Restaurants", "Fish ball processing", "Catering"], ["Kembung (Indian mackerel)"], ["Fish ball processors", "Seafood restaurants"]),
-    "tuna": ("Large cigar-shaped body with a prominent dorsal fin.", "Rich and full-flavoured.", "Firm and dense.",
-             ["Fresh loins", "Frozen", "Canned"], ["Export", "Japanese restaurants", "Canneries"], ["Tenggiri (Spanish mackerel)"], ["Exporters", "Premium restaurants"]),
-    "kembung": ("Small fish with a greenish back and silvery sides.", "Savory with a strong sea flavour.", "Soft and slightly oily.",
-                ["Pindang (salt-boiled)", "Smoked", "Fried"], ["Wet markets", "Pindang processing", "Food stalls"], ["Gembolo"], ["Pindang processors", "Market traders"]),
-    "bandeng": ("Silvery body with a deeply forked tail fin.", "Sweet and mild.", "Fine-textured with many small bones.",
-                ["Presto (pressure-cooked)", "Otak-otak (fish cake)", "Smoked"], ["Presto processing", "Catering", "Souvenir food"], ["Nila (Nile tilapia)"], ["Presto processors", "Souvenir food producers"]),
-    "gelama_bunga": ("Small silvery fish with a fairly large head.", "Mild and slightly sweet.", "Soft and falls apart easily.",
-                     ["Fried", "Pindang (salt-boiled)", "Surimi"], ["Wet markets", "Surimi processing"], ["Gulamah (croaker)"], ["Surimi processors", "Market traders"]),
-    "gembolo": ("Small silvery fish; the name covers several species depending on the region.", "Mild and savory.", "Soft.",
-                ["Fried", "Pindang (salt-boiled)", "Fish crackers"], ["Wet markets", "Food stalls", "Cracker processing"], ["Kembung (Indian mackerel)"], ["Market traders", "Cracker processors"]),
-    "gulamah": ("Silvery body with a slightly downturned mouth.", "Neutral and mild.", "Soft and moist.",
-                ["Surimi", "Fish balls", "Pindang (salt-boiled)"], ["Surimi processing", "Fish ball makers"], ["Kuniran (goatfish)"], ["Surimi processors"]),
-    "kuniran": ("Small reddish fish with a long yellow stripe.", "Mild and slightly sweet.", "Soft.",
-                ["Deep-fried", "Fish crackers", "Surimi"], ["Cracker processing", "Wet markets"], ["Gulamah (croaker)"], ["Cracker processors", "Market traders"]),
-    "mujair": ("Flat body with a long spiny dorsal fin.", "Mild with a slightly earthy taste.", "Firm and fibrous.",
-               ["Fried", "Grilled", "Steamed in banana leaf (pepes)"], ["Wet markets", "Food stalls", "Catering"], ["Nila (Nile tilapia)"], ["Market traders", "Caterers"]),
-    "senangin": ("Four long filaments below the head.", "Delicate and clean.", "Firm, and lifts easily off the bone.",
-                 ["Fillet", "Curry (gulai)", "Grilled"], ["Restaurants", "Hotels"], ["Tenggiri (Spanish mackerel)"], ["Restaurants", "Hotels"]),
-    "nila": ("Deep, flat body with dark vertical bars.", "Mild and clean.", "Firm and fibrous with white flesh.",
-             ["Fillet", "Grilled", "Fried"], ["Restaurants", "Catering", "Wet markets"], ["Mujair (Mozambique tilapia)"], ["Restaurants", "Caterers"]),
-}
+# The reference notes every seeded card is written from.
+KNOWLEDGE = REFERENCE
 
 
 def _snapshot(label, common_name, scientific_name, taxonomy_status):

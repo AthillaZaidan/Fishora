@@ -26,8 +26,11 @@ export interface KnowledgeCardViewProps {
 // The development seed marks its cards with this limitation (in English, or in
 // the Indonesian it was first written in); scripts/seed_demo_lots.py.
 const SAMPLE_CARD = /sample data|data contoh|fixture/i
+// A published card whose empty fields were filled from Fishora's reference
+// notes says so; apps/main_api/services/reference_cards.py.
+const REFERENCE_NOTES = /reference notes/i
 
-type Provenance = 'verified' | 'sample' | 'unavailable'
+type Provenance = 'verified' | 'sample' | 'reference' | 'unavailable'
 
 /**
  * Only a card that cites sources has earned the verified header. A seeded
@@ -37,12 +40,14 @@ type Provenance = 'verified' | 'sample' | 'unavailable'
 export function cardProvenance(card: KnowledgeCard): Provenance {
   if (card.sources.length > 0) return 'verified'
   if (card.limitations.some((item) => SAMPLE_CARD.test(item))) return 'sample'
+  if (card.limitations.some((item) => REFERENCE_NOTES.test(item))) return 'reference'
   return 'unavailable'
 }
 
 const HEADER: Record<Provenance, string> = {
   verified: 'Verified knowledge',
   sample: 'Sample card',
+  reference: 'Fishora reference notes',
   unavailable: 'Knowledge not yet available',
 }
 
