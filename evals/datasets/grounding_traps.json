@@ -1,0 +1,19 @@
+{
+  "description": "Unsupported claims that stay close to their chunk in wording but negate, invert or widen it (R2: similarity cannot see negation or scope; entailment should). Every trap is unsupported by its cited chunk. Hand-written 2026-09-26; used only to report acceptance, never to choose a threshold.",
+  "traps": [
+    {"chunk_id": "chunk_bandeng_taste_001", "kind": "antonym", "claim": "Setelah dikukus bertekanan, teksturnya paling lunak dibanding metode masak lain yang diuji."},
+    {"chunk_id": "chunk_bandeng_taste_001", "kind": "scope", "claim": "Bandeng mentah memiliki tekstur paling keras di antara ikan konsumsi."},
+    {"chunk_id": "chunk_mujair_taste_001", "kind": "negation", "claim": "Filetnya banyak mengandung duri halus dan kepalanya besar."},
+    {"chunk_id": "chunk_nila_taste_001", "kind": "antonym", "claim": "Filetnya berasa kuat dan amis, harganya mahal dan pasokannya musiman."},
+    {"chunk_id": "chunk_tuna_taste_001", "kind": "antonym", "claim": "Rasanya kuat dengan daging lembek, kering, dan berserpih kecil."},
+    {"chunk_id": "chunk_gulamah_commercial_001", "kind": "scope", "claim": "Sudah diadopsi luas oleh industri sebagai bahan baku surimi."},
+    {"chunk_id": "chunk_gulamah_commercial_002", "kind": "scope", "claim": "Gelatin dari tulangnya sudah dipakai secara komersial untuk produksi permen jeli."},
+    {"chunk_id": "chunk_kuniran_commercial_001", "kind": "negation", "claim": "Tidak dijual segar di pasar dan tidak dimanfaatkan untuk tepung ikan."},
+    {"chunk_id": "chunk_senangin_physical_001", "kind": "antonym", "claim": "Membran sirip dadanya berwarna gelap dan bersifat hermafrodit protogini."},
+    {"chunk_id": "chunk_mujair_identity_001", "kind": "antonym", "claim": "Ikan laut dalam yang tidak toleran terhadap perubahan salinitas dan jarang dibudidayakan."},
+    {"chunk_id": "chunk_tenggiri_commercial_001", "kind": "scope", "claim": "Hanya dipasarkan dalam bentuk kalengan, tidak pernah segar."},
+    {"chunk_id": "chunk_tuna_processing_002", "kind": "negation", "claim": "Tidak cocok dijadikan sashimi dan tidak dipasarkan segar."},
+    {"chunk_id": "chunk_kembung_identity_001", "kind": "negation", "claim": "Tidak memiliki bercak hitam di belakang pangkal sirip dada, perutnya gelap."},
+    {"chunk_id": "chunk_nila_identity_001", "kind": "antonym", "claim": "Spesies tilapia yang paling jarang dibudidayakan di dunia."}
+  ]
+}
