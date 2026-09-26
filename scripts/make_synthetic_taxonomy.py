@@ -7,8 +7,9 @@ labels.
 
 The values are NOT authoritative. Statuses come from the in-code
 TAXONOMY_STATUS_BY_LABEL, the three scientific names the tests pin are correct,
-and the rest are plausible names for those Indonesian common names that still
-need expert verification. Every row is stamped `synthetic-dev-fixture` so a
+and the rest follow the identity chunks of the knowledge corpus
+(artifacts/knowledge_sources), so a card never pairs one species' name with
+another species' evidence (finding W18). They still need expert verification. Every row is stamped `synthetic-dev-fixture` so a
 generated row can never be mistaken for dataset provenance.
 
 Usage: python -m scripts.make_synthetic_taxonomy [--force]
@@ -41,13 +42,13 @@ ROWS = [
     ("tuna", "Thunnus spp.", "GENUS", "medium",
      "Common name covers several species, so taxonomy is locked at genus until expert verification."),
     ("bandeng", "Chanos chanos", "SPECIES", "high", UNVERIFIED),
-    ("gelama_bunga", "Pennahia anea", "SPECIES", "medium", UNVERIFIED),
+    ("gelama_bunga", "Nibea albiflora", "SPECIES", "medium", UNVERIFIED),
     ("gembolo", "", "VERNACULAR_AMBIGUOUS", "low",
      "Vernacular name maps to several species by region (Rastrelliger spp., Selaroides leptolepis, "
      "Caranx spp.), so no scientific name is asserted."),
-    ("gulamah", "Johnius belangerii", "SPECIES", "medium", UNVERIFIED),
-    ("kembung", "Rastrelliger kanagurta", "SPECIES", "high", UNVERIFIED),
-    ("kuniran", "Upeneus sulphureus", "SPECIES", "medium", UNVERIFIED),
+    ("gulamah", "Johnius trachycephalus", "SPECIES", "medium", UNVERIFIED),
+    ("kembung", "Rastrelliger faughni", "SPECIES", "high", UNVERIFIED),
+    ("kuniran", "Upeneus moluccensis", "SPECIES", "medium", UNVERIFIED),
     ("mujair", "Oreochromis mossambicus", "SPECIES", "high", UNVERIFIED),
     ("nila", "Oreochromis niloticus", "SPECIES", "high", UNVERIFIED),
     ("senangin", "Eleutheronema tetradactylum", "SPECIES", "medium", UNVERIFIED),
