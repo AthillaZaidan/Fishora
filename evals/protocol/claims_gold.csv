@@ -1,0 +1,222 @@
+claim_id,species,field,paths,claim,label,reason,team_changed
+C001,bandeng,physical_characteristics,published,"Tubuh memanjang dan agak pipih, mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar dan bercagak dalam.",supported,,no
+C002,bandeng,physical_characteristics,published,Bagian punggung berwarna hijau zaitun dengan sisi tubuh keperakan.,supported,,no
+C003,bandeng,physical_characteristics,published,Dewasa dapat mencapai panjang standar 180 cm dan bobot 14 kg.,supported,,no
+C004,bandeng,texture,published,"Produk bandeng yang dimasak dengan tekanan memiliki tekstur paling keras di antara metode pemasakan yang diuji; informasi ini berlaku untuk produk bandeng yang dimasak dengan tekanan, bukan bandeng mentah.",supported,,no
+C005,bandeng,processing_methods,published,Bandeng presto atau pemrosesan dengan tekanan,supported,,no
+C006,bandeng,commercial_uses,agent+published,Perikanan tangkap,supported,,no
+C007,bandeng,commercial_uses,published,Akuakultur,supported,,no
+C008,bandeng,commercial_uses,published,Dijual segar,supported,,no
+C009,bandeng,commercial_uses,published,Diasap,supported,,no
+C010,bandeng,commercial_uses,published,Dikalengkan,supported,,no
+C011,bandeng,commercial_uses,published,Dibekukan,supported,,no
+C012,bandeng,commercial_uses,agent+published,Pemeliharaan dan pemijahan induk dalam penangkaran,supported,,no
+C013,gelama_bunga,physical_characteristics,published,"Spesies benthopelagik beriklim sedang di Pasifik Barat Laut, termasuk perairan Jepang selatan dan Laut Cina Timur; dapat mencapai panjang standar 43,5 cm dan bobot 1,5 kg.",supported,,no
+C014,gelama_bunga,physical_characteristics,published,Ditemukan dekat pantai pada dasar berlumpur hingga lumpur berpasir di wilayah laut semi-tertutup.,supported,,no
+C015,gelama_bunga,taste,published,"Sosis yang dibuat dari 100% Nibea albiflora memperoleh skor rasa 5,40; informasi ini berlaku untuk produk sosis olahan, bukan ikan segar.",supported,,no
+C016,gelama_bunga,texture,published,"Sosis yang dibuat dari 100% Nibea albiflora memperoleh skor tekstur 5,00; informasi ini berlaku untuk produk sosis olahan.",supported,,no
+C017,gelama_bunga,processing_methods,published,Diolah menjadi sosis ikan berbahan 100% Nibea albiflora,supported,,no
+C018,gelama_bunga,processing_methods,published,Diolah menjadi formulasi sosis dengan 30% daging ayam,supported,,no
+C019,gelama_bunga,commercial_uses,published,Perikanan komersial,supported,,no
+C020,gelama_bunga,commercial_uses,published,Bahan sosis ikan,inferred,"sausage is a research formulation in the evidence, not a stated commercial use",no
+C021,gelama_bunga,commercial_uses,agent+published,Digunakan dalam pengobatan tradisional Tiongkok,supported,,no
+C022,gulamah,physical_characteristics,published,"Ikan kecil dari famili Sciaenidae, mencapai panjang baku 13 cm.",supported,,no
+C023,gulamah,physical_characteristics,published,"Memiliki 9–10 duri sirip punggung, 24–27 jari-jari lunak sirip punggung, dua duri sirip anal, dan 6–7 jari-jari lunak sirip anal.",supported,,no
+C024,gulamah,physical_characteristics,published,"Hidup di perairan pantai dangkal, estuari, dan sungai.",supported,,no
+C025,gulamah,processing_methods,published,Ikan asin,supported,,no
+C026,gulamah,commercial_uses,published,Ikan pangan,supported,,no
+C027,gulamah,commercial_uses,published,Bahan baku potensial untuk surimi dan produk daging ikan olahan; penggunaannya masih dalam tahap penelitian dan bukan bukti adopsi industri,supported,,no
+C028,gulamah,commercial_uses,published,Gelatin dari tulang untuk aplikasi permen jeli; penggunaannya masih eksperimental,supported,,no
+C029,kembung,physical_characteristics,published,Ikan epipelagis neritik yang dapat mencapai panjang cagak 24 cm dan bobot 750 g.,supported,,no
+C030,kembung,physical_characteristics,published,"Kepala lebih panjang daripada kedalaman tubuh, memiliki 2–6 bintik besar di pangkal sirip punggung pertama, bercak hitam di belakang pangkal sirip dada, perut kuning keperakan, dan gelembung renang.",supported,,no
+C031,kembung,physical_characteristics,published,Hidup berkelompok dengan individu berukuran serupa di perairan dengan suhu permukaan tidak kurang dari 17°C.,supported,,no
+C032,kuniran,physical_characteristics,published,"Panjang maksimum mencapai 22,5 cm TL, dengan panjang umum 18 cm TL.",supported,,no
+C033,kuniran,physical_characteristics,published,Membentuk kawanan besar di perairan pesisir bersubstrat berlumpur dan biasanya berenang cepat dengan jeda singkat untuk mencari makan.,supported,,no
+C034,kuniran,physical_characteristics,published,"Memiliki garis lateral tengah berwarna kuning atau emas dari mata hingga pangkal bagian atas sirip ekor, sungut putih, dan garis merah pada sirip ekor.",supported,,no
+C035,kuniran,processing_methods,published,Penyimpanan dalam es; batas penerimaan sensoris tercatat 8 hari.,supported,,no
+C036,kuniran,commercial_uses,published,Ikan pangan komersial yang dijual segar di pasar,supported,,no
+C037,kuniran,commercial_uses,published,Bahan baku tepung ikan,supported,,no
+C038,kuniran,commercial_uses,published,Dimanfaatkan karena telurnya,supported,,no
+C039,mujair,physical_characteristics,published,Spesies ini memiliki kepala kecil dan bobot bagian tubuh setelah dressing yang besar.,supported,,no
+C040,mujair,physical_characteristics,published,"Populasi Gascoyne-Lyons dilaporkan sangat kerdil, dengan panjang baku rata-rata saat matang 9 cm, dibandingkan sekitar 18 cm pada populasi lain; karakteristik ini bersifat spesifik populasi.",supported,,no
+C041,mujair,taste,published,Memiliki palatabilitas yang sangat baik.,supported,,no
+C042,mujair,texture,published,Fillet tidak memiliki tulang-tulang kecil.,supported,,no
+C043,mujair,processing_methods,agent+published,Diolah menjadi daging ikan cincang.,supported,,no
+C044,mujair,processing_methods,agent+published,Diolah menjadi burger ikan.,supported,,no
+C045,mujair,processing_methods,published,Dapat disimpan beku pada suhu -18°C hingga 75 hari dalam evaluasi mutu.,inferred,'can be stored frozen up to 75 days' implies acceptable quality; evidence only says quality was evaluated up to 75 days,no
+C046,mujair,commercial_uses,published,"Mendukung perikanan artisanal penting di dataran banjir Sungai Sepik, Papua Nugini, dan menyumbang sekitar setengah dari perkiraan hasil tangkapan tahunan.",supported,,no
+C047,nila,physical_characteristics,published,"Ikan nila bertubuh besar dan dalam, dengan kepala relatif kecil.",supported,,no
+C048,nila,physical_characteristics,published,Ciri paling khasnya adalah garis-garis vertikal teratur di seluruh bagian dalam sirip ekor pada semua tahap kehidupan.,supported,,no
+C049,nila,physical_characteristics,published,"Panjang baku dapat mencapai 60 cm dan bobot 4,3 kg.",supported,,no
+C050,nila,taste,published,Fillet nila memiliki cita rasa ringan dan lezat.,supported,,no
+C051,nila,processing_methods,published,"Diolah menjadi fillet tanpa kulit; rendemen fillet tanpa kulit yang dilaporkan adalah 33% untuk ikan dengan faktor kondisi 3,11.",supported,,no
+C052,nila,commercial_uses,published,Budidaya ikan konsumsi skala global; nila merupakan kelompok ikan budidaya terpenting kedua setelah karper dan ikan budidaya yang paling banyak dikembangkan.,supported,,no
+C053,nila,commercial_uses,published,Diolah dan dipasarkan sebagai fillet nila untuk menu makanan.,supported,,no
+C054,nila,potential_buyer_segments,published,Rantai restoran kasual,supported,,no
+C055,senangin,physical_characteristics,published,"Dapat tumbuh hingga panjang total 200 cm dan berat 145 kg, dengan panjang umum 50 cm.",supported,,no
+C056,senangin,physical_characteristics,published,"Membran sirip dada berwarna kuning cerah saat hidup, atau kuning kusam pada spesimen besar, dan filamen sirip dada berwarna putih.",supported,,no
+C057,senangin,physical_characteristics,published,Memiliki empat filamen sirip dada bebas serta bersifat hermafrodit protandri.,supported,,no
+C058,senangin,processing_methods,published,Dipasarkan segar,supported,,no
+C059,senangin,processing_methods,published,Dibekukan,supported,,no
+C060,senangin,processing_methods,published,Dikeringkan,supported,,no
+C061,senangin,processing_methods,published,Diasinkan,supported,,no
+C062,senangin,commercial_uses,published,Ikan pangan komersial,supported,,no
+C063,senangin,commercial_uses,published,Akuakultur komersial,supported,,no
+C064,senangin,potential_buyer_segments,published,Pasar ikan konsumsi,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C065,senangin,potential_buyer_segments,published,Usaha akuakultur komersial,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C066,tenggiri,physical_characteristics,published,"Memiliki 15–18 duri sirip punggung; spesies ini merupakan ikan pelagis besar dengan punggung biru-kelabu berkilau dan banyak pita vertikal tipis bergelombang, serta dapat mencapai panjang cagak 240 cm.",unsupported,generalises S. commerson facts to the 5-species tenggiri label without saying so; specific size/morphology (240 cm FL) is wrong for S. guttatus (81.5 cm),no
+C067,tenggiri,processing_methods,published,Dipasarkan segar,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C068,tenggiri,processing_methods,published,Dikeringkan dan diasinkan,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C069,tenggiri,processing_methods,agent+published,Diolah menjadi bakso ikan,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C070,tenggiri,processing_methods,agent+published,Dibekukan,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C071,tenggiri,processing_methods,agent+published,Diasap,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C072,tenggiri,processing_methods,agent+published,Dikalengkan,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C073,tenggiri,commercial_uses,published,Penjualan segar,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C074,tenggiri,commercial_uses,published,Produk kering-asin,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C075,tenggiri,commercial_uses,published,Produk beku,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C076,tenggiri,commercial_uses,published,Produk asap,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C077,tenggiri,commercial_uses,published,Produk kaleng,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C078,tenggiri,similar_or_substitute_species,published,Sarda orientalis,unsupported,"evidence lists it as another species sharing the name 'tenggiri', not as a substitute; no substitute evidence exists",no
+C079,tenggiri,similar_or_substitute_species,published,Scomberomorus guttatus,unsupported,"evidence lists it as another species sharing the name 'tenggiri', not as a substitute; no substitute evidence exists",no
+C080,tenggiri,similar_or_substitute_species,published,Scomberomorus koreanus,unsupported,"evidence lists it as another species sharing the name 'tenggiri', not as a substitute; no substitute evidence exists",no
+C081,tenggiri,similar_or_substitute_species,published,Scomberomorus lineolatus,unsupported,"evidence lists it as another species sharing the name 'tenggiri', not as a substitute; no substitute evidence exists",no
+C082,tuna,physical_characteristics,published,Bervariasi menurut spesies.,inferred,trivially plausible but not stated; says nothing checkable,no
+C083,tuna,physical_characteristics,published,"Pada tuna sirip kuning Pasifik (Thunnus albacares), tubuh berbentuk torpedo, berwarna biru tua metalik di bagian atas dan kuning hingga perak di bagian bawah, dengan sirip punggung, sirip anal, dan finlet berwarna kuning cerah.",supported,,no
+C084,tuna,taste,published,"Pada tuna sirip kuning Pasifik (Thunnus albacares), rasanya ringan dan berdaging.",supported,,no
+C085,tuna,texture,published,"Pada tuna sirip kuning Pasifik (Thunnus albacares), dagingnya padat, lembap, dan memiliki serpihan besar.",supported,,no
+C086,tuna,processing_methods,published,Segar,inferred,generalises one Thunnus species' facts to the genus-level tuna label without saying so,no
+C087,tuna,processing_methods,published,Beku,inferred,generalises one Thunnus species' facts to the genus-level tuna label without saying so,no
+C088,tuna,processing_methods,published,Beku mendalam,inferred,generalises one Thunnus species' facts to the genus-level tuna label without saying so,no
+C089,tuna,processing_methods,published,Kaleng,inferred,generalises one Thunnus species' facts to the genus-level tuna label without saying so,no
+C090,tuna,processing_methods,published,Asap,inferred,generalises one Thunnus species' facts to the genus-level tuna label without saying so,no
+C091,bandeng,physical_characteristics,published,Individu dewasa dapat mencapai panjang baku 180 cm dan bobot 14 kg.,supported,,no
+C092,bandeng,texture,published,"Produk bandeng yang dimasak dengan tekanan memiliki tekstur paling keras dibandingkan metode pemasakan yang diuji; keterangan ini berlaku untuk produk yang dimasak dengan tekanan, bukan bandeng mentah.",supported,,no
+C093,bandeng,processing_methods,published,Bandeng presto atau pemasakan bertekanan,supported,,no
+C094,bandeng,commercial_uses,agent+published,Dipasarkan dalam keadaan segar,supported,,no
+C095,bandeng,commercial_uses,published,Dibudidayakan di tambak hingga ukuran juvenil untuk pemasaran,supported,,no
+C096,bandeng,commercial_uses,published,Digunakan dalam perikanan tangkap dan akuakultur,supported,,no
+C097,gelama_bunga,physical_characteristics,published,"Spesies benthopelagik beriklim sedang yang ditemukan di Pasifik Barat Laut, termasuk Jepang bagian selatan dan Laut Tiongkok Timur.",supported,,no
+C098,gelama_bunga,physical_characteristics,published,"Dapat mencapai panjang standar 43,5 cm dan bobot 1,5 kg; ditemukan di dekat pantai pada dasar berlumpur hingga lumpur berpasir di area laut semi-tertutup.",supported,,no
+C099,gelama_bunga,taste,published,"Sosis yang dibuat dari 100% Nibea albiflora memperoleh skor rasa 5,40.",supported,,no
+C100,gelama_bunga,texture,published,"Sosis yang dibuat dari 100% Nibea albiflora memperoleh skor tekstur 5,00.",supported,,no
+C101,gelama_bunga,processing_methods,published,Diformulasikan dengan 30% daging ayam untuk pengujian sensori dan proksimat,supported,,no
+C102,gelama_bunga,commercial_uses,agent+published,Ditangkap secara komersial,supported,,no
+C103,gulamah,physical_characteristics,published,"Ikan kecil dengan panjang maksimum 13 cm SL; memiliki 9–10 duri sirip punggung, 24–27 jari-jari lunak sirip punggung, dua duri sirip anal, dan 6–7 jari-jari lunak sirip anal.",supported,,no
+C104,gulamah,commercial_uses,published,"Bahan baku potensial untuk surimi dan produk olahan daging ikan, berdasarkan penelitian; belum membuktikan adopsi industri.",supported,,no
+C105,gulamah,commercial_uses,published,Gelatin dari tulang dipelajari untuk aplikasi permen jeli secara eksperimental.,supported,,no
+C106,kembung,physical_characteristics,published,"Spesies epipelagis neritik dari Indo-Pasifik Barat, dikenali dari bercak hitam di belakang pangkal sirip dada dan perut berwarna keperakan kekuningan.",supported,,no
+C107,kembung,physical_characteristics,published,"Dapat mencapai panjang cagak 24 cm dan bobot 750 g; kepalanya lebih panjang daripada kedalaman tubuh, memiliki 2–6 bercak besar di pangkal sirip punggung pertama, serta gelembung renang.",supported,,no
+C108,kembung,physical_characteristics,published,Membentuk kawanan yang terdiri atas individu berukuran sama di perairan dengan suhu permukaan tidak kurang dari 17°C.,supported,,no
+C109,kuniran,physical_characteristics,published,"Dapat mencapai panjang total 22,5 cm, dengan panjang umum 18 cm.",supported,,no
+C110,kuniran,physical_characteristics,published,Membentuk gerombolan besar di perairan pesisir bersubstrat berlumpur.,supported,,no
+C111,kuniran,physical_characteristics,published,"Memiliki garis kuning atau keemasan di sisi tengah tubuh dari mata hingga pangkal bagian atas sirip ekor, sungut putih, dan garis merah pada sirip ekor.",supported,,no
+C112,mujair,physical_characteristics,published,"Mujair memiliki kepala kecil, bobot setelah penyiangan yang besar, dan fillet tanpa tulang-tulang kecil.",supported,,no
+C113,mujair,physical_characteristics,published,"Populasi Gascoyne-Lyons dilaporkan sangat kerdil, dengan panjang baku rata-rata saat matang 9 cm, dibandingkan sekitar 18 cm pada populasi lain; ukuran ini bersifat spesifik populasi.",supported,,no
+C114,mujair,processing_methods,published,Diolah menjadi burger.,supported,,no
+C115,mujair,commercial_uses,published,"Mendukung perikanan artisanal di dataran banjir Sungai Sepik, Papua Nugini, dan menyumbang sekitar setengah dari perkiraan hasil tangkapan tahunan.",supported,,no
+C116,nila,physical_characteristics,published,"Tubuh besar dan dalam, kepala relatif kecil, dengan garis-garis vertikal teratur pada seluruh kedalaman sirip ekor pada semua tahap kehidupan; dapat mencapai panjang standar 60 cm dan bobot 4,3 kg.",supported,,no
+C117,nila,taste,published,Fillet memiliki cita rasa ringan dan lezat.,supported,,no
+C118,nila,processing_methods,published,"Diolah menjadi fillet tanpa kulit; rendemennya dilaporkan sebesar 33% pada ikan dengan faktor kondisi 3,11.",supported,,no
+C119,nila,commercial_uses,published,Budidaya ikan; nila merupakan spesies tilapia yang paling dominan dibudidayakan.,supported,,no
+C120,nila,commercial_uses,published,Bahan menu restoran dan produk fillet tanpa kulit.,supported,,no
+C121,senangin,physical_characteristics,published,"Membran sirip dada berwarna kuning cerah saat hidup, atau kuning kusam pada spesimen besar, sedangkan filamen sirip dada berwarna putih.",supported,,no
+C122,senangin,physical_characteristics,agent+published,Merupakan hermafrodit protandri.,supported,,no
+C123,senangin,commercial_uses,agent+published,Ikan pangan komersial bernilai tinggi,unsupported,'bernilai tinggi' (high value) mistranslates 'highly commercial' (heavily fished commercially),no
+C124,senangin,commercial_uses,published,Dibudidayakan secara komersial,supported,,no
+C125,senangin,commercial_uses,published,"Dipasarkan segar, beku, kering, atau asin",supported,,no
+C126,tenggiri,physical_characteristics,published,"Scomberomorus commerson merupakan ikan pelagis besar dari kelompok scombrid di Indo-Pasifik Barat, dapat mencapai panjang cagak 240 cm, dengan punggung biru-abu-abu berkilau dan banyak pita vertikal tipis bergelombang; memiliki 15–18 duri sirip punggung.",supported,,no
+C127,tenggiri,processing_methods,agent+published,Diasinkan dan dikeringkan,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C128,tenggiri,processing_methods,published,Dibuat menjadi bakso ikan,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C129,tenggiri,commercial_uses,published,Penjualan dalam keadaan segar,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C130,tenggiri,commercial_uses,published,Produk asin-kering,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C131,tuna,physical_characteristics,published,"Untuk tuna sirip kuning Pasifik (Thunnus albacares), tubuh berbentuk torpedo, berwarna biru tua metalik di bagian atas dan kuning hingga perak di bagian bawah, dengan sirip punggung, sirip anal, dan finlet berwarna kuning cerah.",supported,,no
+C132,tuna,taste,published,"Untuk tuna sirip kuning Pasifik (Thunnus albacares), rasanya ringan dan berdaging.",supported,,no
+C133,tuna,texture,published,"Untuk tuna sirip kuning Pasifik (Thunnus albacares), dagingnya padat, lembap, dan memiliki serpihan besar.",supported,,no
+C134,tuna,processing_methods,agent+published,Dipasarkan segar,inferred,generalises one Thunnus species' facts to the genus-level tuna label without saying so,no
+C135,tuna,processing_methods,agent+published,Dibekukan,inferred,generalises one Thunnus species' facts to the genus-level tuna label without saying so,no
+C136,tuna,processing_methods,agent+published,Dikalengkan,inferred,generalises one Thunnus species' facts to the genus-level tuna label without saying so,no
+C137,tuna,processing_methods,agent+published,Diasap,inferred,generalises one Thunnus species' facts to the genus-level tuna label without saying so,no
+C138,tuna,processing_methods,agent+published,Dibekukan secara mendalam,inferred,generalises one Thunnus species' facts to the genus-level tuna label without saying so,no
+C139,bandeng,physical_characteristics,agent,"Tubuh memanjang dan agak pipih, dengan mulut kecil tanpa gigi, sirip dada berbentuk sabit, serta sirip ekor besar yang bercagak dalam.",supported,,no
+C140,bandeng,physical_characteristics,agent,Bagian punggung berwarna hijau zaitun dan sisi tubuh berwarna keperakan.,supported,,no
+C141,bandeng,physical_characteristics,agent,Individu dewasa dapat mencapai panjang standar 180 cm dan berat 14 kg.,supported,,no
+C142,bandeng,texture,agent,Paling keras (pada bandeng yang dikukus bertekanan),supported,,no
+C143,bandeng,processing_methods,agent,Bandeng presto (pemrosesan bertekanan),supported,,no
+C144,bandeng,commercial_uses,agent,Budidaya,supported,,no
+C145,bandeng,commercial_uses,agent,Produk asap,supported,,no
+C146,bandeng,commercial_uses,agent,Produk kalengan,supported,,no
+C147,bandeng,commercial_uses,agent,Produk beku,supported,,no
+C148,bandeng,potential_buyer_segments,agent,Pembeli ikan segar,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C149,bandeng,potential_buyer_segments,agent,Pembeli ikan asap,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C150,bandeng,potential_buyer_segments,agent,Pembeli ikan kaleng,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C151,bandeng,potential_buyer_segments,agent,Pembeli ikan beku,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C152,bandeng,potential_buyer_segments,agent,Pembudidaya ikan yang membutuhkan larva atau benih,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C153,bandeng,potential_buyer_segments,agent,Hatcheri atau pembenih yang membutuhkan induk untuk pemijahan,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C154,gelama_bunga,taste,agent,"Skor rasa 5,40",unsupported,sausage taste score presented as the fish's taste; drops the 'processed sausage' scope,no
+C155,gelama_bunga,texture,agent,"Skor tekstur 5,00",unsupported,sausage texture score presented as the fish's texture; drops the 'processed sausage' scope,no
+C156,gelama_bunga,processing_methods,agent,Diolah menjadi sosis ikan 100%,supported,,no
+C157,gelama_bunga,processing_methods,agent,Diolah menjadi formulasi dengan 30% daging ayam untuk pengujian sensoris dan proksimat,supported,,no
+C158,gelama_bunga,potential_buyer_segments,agent,Pembeli dan pedagang ikan komersial,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C159,gelama_bunga,potential_buyer_segments,agent,Industri obat tradisional Tiongkok,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C160,gelama_bunga,potential_buyer_segments,agent,Praktisi pengobatan tradisional Tiongkok,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C161,gulamah,physical_characteristics,agent,"Memiliki 9–10 duri sirip punggung, 24–27 jari-jari lunak sirip punggung, dua duri sirip dubur, dan 6–7 jari-jari lunak sirip dubur.",supported,,no
+C162,gulamah,processing_methods,agent,"Diolah menjadi ikan asin; kelayakan pengolahan ikan gulamah asin telah dianalisis pada usaha skala menengah dan mikro di Desa Perlis, Kabupaten Langkat.",supported,,no
+C163,gulamah,commercial_uses,agent,Berpotensi digunakan sebagai bahan baku surimi dan produk daging ikan olahan; penggunaannya masih pada tahap penelitian dan belum menunjukkan adopsi industri.,supported,,no
+C164,gulamah,commercial_uses,agent,Gelatin yang diekstraksi dari tulang gulamah telah diteliti untuk digunakan dalam pembuatan permen jeli; penggunaannya masih bersifat eksperimental.,supported,,no
+C165,gulamah,potential_buyer_segments,agent,Produsen surimi dan produk olahan daging ikan,inferred,"buyer segment inferred from a research-stage use; evidence says potential, not adoption",no
+C166,gulamah,potential_buyer_segments,agent,Industri gelatin dan permen jeli,inferred,"buyer segment inferred from a research-stage use; evidence says potential, not adoption",no
+C167,gulamah,potential_buyer_segments,agent,Perusahaan pengolahan hasil perikanan yang mengembangkan bahan baku alternatif,inferred,"buyer segment inferred from a research-stage use; evidence says potential, not adoption",no
+C168,gulamah,potential_buyer_segments,agent,Lembaga penelitian dan pengembangan produk pangan berbasis ikan,inferred,"buyer segment inferred from a research-stage use; evidence says potential, not adoption",no
+C169,kembung,physical_characteristics,agent,"Mencapai panjang cagak 24 cm dan berat 750 g; kepala lebih panjang daripada kedalaman tubuh; memiliki 2–6 bintik besar di pangkal sirip punggung pertama, bercak hitam di belakang pangkal sirip dada, perut berwarna kuning keperakan, dan gelembung renang.",supported,,no
+C170,kembung,physical_characteristics,agent,Hidup berkelompok dengan individu berukuran sama di perairan yang suhu permukaannya tidak turun di bawah 17 °C.,supported,,no
+C171,kuniran,physical_characteristics,agent,"Kuniran dapat mencapai panjang total 22,5 cm, dengan panjang umum sekitar 18 cm.",supported,,no
+C172,kuniran,physical_characteristics,agent,"Ciri khasnya adalah garis kuning atau keemasan di sisi tengah tubuh, dari mata hingga pangkal sirip ekor bagian atas, sungut berwarna putih, dan garis-garis merah pada sirip ekor.",supported,,no
+C173,kuniran,physical_characteristics,agent,Ikan ini membentuk kawanan besar di perairan pantai berlumpur dan biasanya berenang cepat dengan jeda singkat untuk mencari makan.,supported,,no
+C174,kuniran,processing_methods,agent,"Disimpan dalam es; batas penerimaan sensoris ikan biji nangka kuniran (Upeneus moluccensis) adalah 8 hari, ditentukan melalui penilaian kesegaran secara sensoris, mikrobiologis, dan kimiawi.",unsupported,"adds the local name 'ikan biji nangka', which is not in the evidence",no
+C175,kuniran,commercial_uses,agent,Dijual segar di pasar sebagai ikan pangan komersial.,supported,,no
+C176,kuniran,commercial_uses,agent,Dimanfaatkan untuk pembuatan tepung ikan.,supported,,no
+C177,kuniran,commercial_uses,agent,Telurnya memiliki nilai komersial.,supported,,no
+C178,kuniran,potential_buyer_segments,agent,Konsumen ikan segar,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C179,kuniran,potential_buyer_segments,agent,Pedagang atau pasar ikan segar,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C180,kuniran,potential_buyer_segments,agent,Produsen tepung ikan,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C181,kuniran,potential_buyer_segments,agent,Pembeli dan pengolah telur ikan,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C182,mujair,physical_characteristics,agent,"Populasi Gascoyne-Lyons dilaporkan mengalami pertumbuhan sangat terhambat, dengan kematangan pada panjang standar rata-rata 9 cm dibandingkan sekitar 18 cm pada populasi lainnya; karakteristik ini spesifik untuk populasi tersebut.",supported,,no
+C183,mujair,processing_methods,agent,Disimpan dalam kondisi beku pada suhu -18 °C hingga 75 hari.,supported,,no
+C184,mujair,commercial_uses,agent,"Mendukung perikanan artisanal di dataran banjir Sungai Sepik, Papua Nugini.",supported,,no
+C185,mujair,commercial_uses,agent,Dimanfaatkan sebagai hasil tangkapan perikanan dan menyumbang sekitar setengah dari perkiraan pendaratan tahunan.,supported,,no
+C186,mujair,potential_buyer_segments,agent,Pelaku perikanan tangkap artisanal di dataran banjir,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C187,mujair,potential_buyer_segments,agent,"Pasar ikan yang bergantung pada hasil tangkapan Sungai Sepik, Papua Nugini",inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C188,nila,physical_characteristics,agent,Nila adalah ikan tilapia bertubuh besar dan dalam dengan kepala yang relatif kecil.,supported,,no
+C189,nila,physical_characteristics,agent,Ciri pembeda utamanya adalah garis-garis vertikal teratur di seluruh bagian sirip ekor pada semua tahap kehidupan.,supported,,no
+C190,nila,physical_characteristics,agent,"Panjang standar dapat mencapai 60 cm dan berat 4,3 kg.",supported,,no
+C191,nila,processing_methods,agent,"Diolah menjadi filet tanpa kulit dengan rendemen sekitar 33% pada ikan dengan faktor kondisi 3,11.",supported,,no
+C192,nila,commercial_uses,agent,Dibudidayakan dan dipasarkan sebagai salah satu ikan konsumsi utama secara global.,supported,,no
+C193,nila,commercial_uses,agent,Merupakan kelompok ikan budidaya terpenting kedua setelah ikan mas dan jenis ikan budidaya yang paling banyak dibudidayakan.,supported,,no
+C194,nila,commercial_uses,agent,"Berkontribusi pada produksi global ikan nila dan nilai penjualan lebih dari USD 5 miliar, yang sebagian besar berasal dari nila Nil.",unsupported,states USD 5 billion sales as fact; evidence gives it as a projection (2003 -> 2010),no
+C195,nila,potential_buyer_segments,agent,Pembeli ikan budidaya,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C196,nila,potential_buyer_segments,agent,Pedagang dan distributor ikan,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C197,nila,potential_buyer_segments,agent,Pelaku industri pengolahan ikan,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C198,nila,potential_buyer_segments,agent,Pasar ikan konsumsi,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C199,senangin,physical_characteristics,agent,Memiliki empat filamen sirip dada bebas.,supported,,no
+C200,senangin,physical_characteristics,agent,"Dapat tumbuh hingga panjang total 200 cm dan berat 145 kg, dengan panjang umum sekitar 50 cm.",supported,,no
+C201,senangin,physical_characteristics,agent,"Membran sirip dada berwarna kuning cerah saat hidup, menjadi kuning kusam pada spesimen besar, sedangkan filamen sirip dada berwarna putih.",supported,,no
+C202,senangin,commercial_uses,agent,Dibudidayakan dalam akuakultur komersial,supported,,no
+C203,senangin,potential_buyer_segments,agent,Pembeli ikan konsumsi segar,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C204,senangin,potential_buyer_segments,agent,Pedagang atau distributor ikan beku,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C205,senangin,potential_buyer_segments,agent,Pengolah ikan kering atau asin,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C206,senangin,potential_buyer_segments,agent,Pelaku usaha akuakultur komersial,inferred,buyer segment inferred from a stated use/market; not stated in the evidence,no
+C207,tenggiri,processing_methods,agent,Dipasarkan dalam keadaan segar,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C208,tenggiri,commercial_uses,agent,Dijual terutama dalam keadaan segar,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C209,tenggiri,commercial_uses,agent,Dijual dalam bentuk asin-kering,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C210,tenggiri,commercial_uses,agent,Dijual dalam bentuk beku,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C211,tenggiri,commercial_uses,agent,Dijual dalam bentuk asap,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C212,tenggiri,commercial_uses,agent,Dijual dalam bentuk kalengan,inferred,generalises S. commerson facts to the 5-species tenggiri label without saying so,no
+C213,tenggiri,potential_buyer_segments,agent,Pedagang dan pengecer ikan segar,inferred,buyer segment inferred from a stated use/market; not stated in the evidence; also generalises S. commerson to tenggiri,no
+C214,tenggiri,potential_buyer_segments,agent,Restoran dan usaha jasa boga,inferred,buyer segment inferred from a stated use/market; not stated in the evidence; also generalises S. commerson to tenggiri,no
+C215,tenggiri,potential_buyer_segments,agent,Produsen ikan asin atau ikan kering,inferred,buyer segment inferred from a stated use/market; not stated in the evidence; also generalises S. commerson to tenggiri,no
+C216,tenggiri,potential_buyer_segments,agent,Distributor dan pengecer makanan beku,inferred,buyer segment inferred from a stated use/market; not stated in the evidence; also generalises S. commerson to tenggiri,no
+C217,tenggiri,potential_buyer_segments,agent,Produsen ikan asap,inferred,buyer segment inferred from a stated use/market; not stated in the evidence; also generalises S. commerson to tenggiri,no
+C218,tenggiri,potential_buyer_segments,agent,Produsen makanan kaleng berbahan ikan,inferred,buyer segment inferred from a stated use/market; not stated in the evidence; also generalises S. commerson to tenggiri,no
+C219,tuna,physical_characteristics,agent,"Berbentuk torpedo, berwarna biru tua metalik di bagian atas dan kuning hingga keperakan di bagian bawah, dengan sirip punggung, sirip dubur, dan finlet berwarna kuning cerah.",unsupported,generalises one Thunnus species' facts to the genus-level tuna label without saying so; yellowfin colouring stated for all tuna,no
+C220,tuna,commercial_uses,agent,Sashimi,inferred,generalises one Thunnus species' facts to the genus-level tuna label without saying so,no
+C221,tuna,commercial_uses,agent,Perikanan tuna dan makarel,inferred,"evidence is about the FAO catalogue covering tuna and mackerel fisheries, not a stated commercial use",no
