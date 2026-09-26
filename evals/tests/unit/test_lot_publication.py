@@ -48,7 +48,24 @@ def test_published_snapshot_is_the_graded_job_card():
     jobs.update("p1", status="completed", final_card=GRADED)
     knowledge = _SyncKnowledge()
     [lot] = _publish(jobs, knowledge)
-    assert lot.knowledge_snapshot == GRADED and knowledge.calls == 0
+    assert knowledge.calls == 0
+    assert lot.knowledge_snapshot["taste"] == GRADED["taste"]
+    assert lot.knowledge_snapshot["sources"] == GRADED["sources"]
+
+
+def test_empty_fields_of_the_graded_card_come_from_the_reference_notes():
+    from apps.main_api.services.reference_cards import REFERENCE
+
+    jobs = InMemoryJobRepository()
+    jobs.create("p1", "p1", "species_nila")
+    jobs.update("p1", status="completed", final_card=GRADED)
+    [lot] = _publish(jobs, _SyncKnowledge())
+    card = lot.knowledge_snapshot
+    # The sourced field is kept; only the empty ones are filled, and labelled.
+    assert card["taste"] == GRADED["taste"]
+    assert card["texture"] == REFERENCE["nila"][2]
+    assert card["processing_methods"] == REFERENCE["nila"][3]
+    assert any("reference notes" in item and "taste" not in item for item in card["limitations"])
 
 
 def test_graded_card_for_another_species_is_not_published():
@@ -78,7 +95,9 @@ def test_a_catch_publishes_as_numbered_lots_sharing_one_card():
     lots = _publish(_graded_jobs(), _SyncKnowledge(), lot_count=3, auction_minutes=30)
     assert [(lot.batch_index, lot.batch_size) for lot in lots] == [(1, 3), (2, 3), (3, 3)]
     assert len({lot.id for lot in lots}) == len({lot.public_slug for lot in lots}) == 3
-    assert all(lot.quantity_kg == Decimal("10") and lot.knowledge_snapshot == GRADED for lot in lots)
+    card = lots[0].knowledge_snapshot
+    assert card["taste"] == GRADED["taste"]
+    assert all(lot.quantity_kg == Decimal("10") and lot.knowledge_snapshot == card for lot in lots)
     assert all((lot.auction_ends_at - lot.auction_starts_at).total_seconds() == 30 * 60 for lot in lots)
 
 
