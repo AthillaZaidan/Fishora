@@ -43,6 +43,7 @@ from apps.main_api.services.generation import (
     KnowledgeCard,
     KnowledgeGenerator,
 )
+from apps.main_api.services import claim_verifier
 from apps.main_api.services.llm_output import reply_json
 from apps.main_api.services.retrieval import CATEGORY_ORDER, VerifiedRetriever
 
@@ -51,7 +52,7 @@ logger = logging.getLogger(__name__)
 EXPERT_NAMES = ("physical", "taste", "commercial", "substitute")
 
 # Bump when a prompt or grading rule changes: it is part of the card cache key.
-PIPELINE_VERSION = "iteration-1"
+PIPELINE_VERSION = "iteration-2"
 
 # Cross-lingual grounding threshold on E5 symmetric cosine (query:/query:).
 # Chosen on the dev split of evals/datasets/grounding_claims.json together
@@ -63,6 +64,11 @@ GROUNDING_TAU = 0.805
 # and still accepted 3 of 14 traps; the verifier alone scores higher on the
 # dev split. It also costs one sequential LLM round per card (W5).
 USE_LLM_JUDGE = False
+# Iteration 2: "verifier" grades each list item / sentence with
+# claim_verifier (deterministic checks + one LLM entailment call per card) and
+# keeps only supported items; "e5" is the iteration-1 cosine critic, kept for
+# the 2x2 comparison (evals/iteration2.py).
+CRITIC_MODE = "verifier"
 NO_GROUNDED_CLAIM = "Belum ada klaim yang dapat diverifikasi dari bukti yang tersedia."
 # Indonesian field names for the missing-evidence limitation (R4).
 _FIELD_LABELS = {
@@ -115,6 +121,9 @@ class FishoraState(TypedDict, total=False):
     cache_hit: bool
     known_binomials: tuple
     trace: dict
+    expert_outputs_verified: dict
+    claim_verdicts: list
+    verifier_error: str | None
 
 
 # ---- Researcher -----------------------------------------------------------
@@ -143,12 +152,17 @@ def hybrid_researcher(state: FishoraState, knowledge_repo, embedder, llm_medium=
 # ---- Expert nodes (luna) -----------------------------------------------
 
 _INDONESIAN = " Tulis semua nilai dalam bahasa Indonesia, walaupun buktinya berbahasa Inggris."
+# Iteration 2: the same scope rule the writer-critic workflow uses, so the 2x2
+# compares architectures, not prompts.
+_SCOPE_RULE = (" Pertahankan cakupan bukti: jika bukti menyebut produk olahan, populasi tertentu, proyeksi,"
+               " atau satu spesies dari label multi-spesies, nilai harus menyebutnya juga. Jangan menyimpulkan"
+               " hal yang tidak tertulis; lebih baik kosong daripada menebak.")
 
 _EXPERT_PROMPTS = {
-    "physical": "Tulis physical_characteristics dari bukti kategori physical_characteristics dan identity. Jika tidak ada, null. Jawab JSON {\"physical_characteristics\": str|null, \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN,
-    "taste": "Tulis taste dan texture dari bukti taste_texture. Jika tidak ada, null. JSON {\"taste\": str|null, \"texture\": str|null, \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN,
-    "commercial": "Tulis processing_methods dan commercial_uses dari bukti processing_methods dan commercial_uses. JSON {\"processing_methods\": [], \"commercial_uses\": [], \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN,
-    "substitute": "Tulis similar_or_substitute_species dan potential_buyer_segments dari bukti substitutes dan commercial_uses. JSON {\"similar_or_substitute_species\": [], \"potential_buyer_segments\": [], \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN,
+    "physical": "Tulis physical_characteristics dari bukti kategori physical_characteristics dan identity. Jika tidak ada, null. Jawab JSON {\"physical_characteristics\": str|null, \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN + _SCOPE_RULE,
+    "taste": "Tulis taste dan texture dari bukti taste_texture. Jika tidak ada, null. JSON {\"taste\": str|null, \"texture\": str|null, \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN + _SCOPE_RULE,
+    "commercial": "Tulis processing_methods dan commercial_uses dari bukti processing_methods dan commercial_uses. JSON {\"processing_methods\": [], \"commercial_uses\": [], \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN + _SCOPE_RULE,
+    "substitute": "Tulis similar_or_substitute_species dan potential_buyer_segments dari bukti substitutes dan commercial_uses. JSON {\"similar_or_substitute_species\": [], \"potential_buyer_segments\": [], \"sources\": [{\"source_id\": str, \"chunk_id\": str}]}" + _INDONESIAN + _SCOPE_RULE,
 }
 
 _EXPERT_CATEGORIES = {
@@ -419,7 +433,50 @@ def _llm_downgrade(statuses: list[ClaimStatus], by_chunk: dict, llm_medium) -> l
     ]
 
 
+def verified_critic_node(state: FishoraState, llm, embedder=None) -> dict:
+    """Item-level critic: every list item and every sentence is its own claim,
+    graded against the chunks its expert cited. Unsupported items are removed
+    from the expert output, so a field keeps only what the verifier accepted."""
+    evidence = state.get("refined_evidence", [])
+    outputs = copy.deepcopy(state.get("expert_outputs", {}))
+    claims: list[claim_verifier.Claim] = []
+    for expert, fields in _EXPERT_CLAIM_FIELDS.items():
+        data = outputs.get(expert) or {}
+        cited = [c["chunk_id"] for c in data.get("sources", []) if isinstance(c, dict) and c.get("chunk_id")]
+        for fld in fields:
+            for text in claim_verifier.split_field(fld, data.get(fld)):
+                claims.append(claim_verifier.Claim(id=len(claims), field=fld, text=text, chunk_ids=list(cited)))
+    result = claim_verifier.verify(claims, evidence, llm, state.get("known_binomials", ()), embedder=embedder,
+                                   tau=GROUNDING_TAU)
+    statuses: list[ClaimStatus] = []
+    for expert, fields in _EXPERT_CLAIM_FIELDS.items():
+        data = outputs.get(expert)
+        for fld in fields:
+            kept = [c for c in result.claims if c.field == fld and c.label == "supported"]
+            if data is not None and fld in data:
+                if fld in claim_verifier.LIST_FIELDS:
+                    data[fld] = [c.text for c in kept]
+                else:
+                    data[fld] = " ".join(c.text for c in kept) or None
+            if kept:
+                ids = sorted({cid for c in kept for cid in c.chunk_ids})
+                statuses.append(ClaimStatus(field=fld, status="supported", chunk_ids=ids, reason="diverifikasi per klaim"))
+            else:
+                any_claim = any(c.field == fld for c in result.claims)
+                statuses.append(ClaimStatus(field=fld, status="unsupported" if any_claim else "no_evidence",
+                                            chunk_ids=[], reason="tidak ada klaim yang lolos verifikasi"))
+    feedback = "; ".join(f"{s.field}={s.status}" for s in statuses)
+    update = {"claim_statuses": statuses, "critic_feedback": feedback, "expert_outputs_verified": outputs,
+              "claim_verdicts": [c.__dict__ for c in result.claims], "verifier_error": result.llm_error}
+    if result.llm_error and not result.supported():
+        # A verifier outage is not an empty card: fail the job so it can be retried.
+        update["error"] = f"knowledge generation failed: verifier unavailable ({result.llm_error})"
+    return update
+
+
 def critic_node(state: FishoraState, llm_medium=None, embedder=None) -> dict:
+    if CRITIC_MODE == "verifier" and llm_medium is not None:
+        return verified_critic_node(state, llm_medium, embedder)
     evidence = state.get("refined_evidence", [])
     by_chunk = {chunk.chunk_id: chunk for chunk in evidence}
     outputs = state.get("expert_outputs", {})
@@ -464,7 +521,7 @@ def writer_node(state: FishoraState, llm_luna=None, species: SpeciesRecord | Non
     if not evidence:
         return {"final_card": generator.empty_card(sp)}
 
-    outputs = state.get("expert_outputs", {})
+    outputs = state.get("expert_outputs_verified") or state.get("expert_outputs", {})
     statuses = state.get("claim_statuses") or []
     by_chunk = {chunk.chunk_id: chunk for chunk in evidence}
     claims = _supported_claims(outputs, statuses)

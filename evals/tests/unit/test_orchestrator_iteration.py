@@ -88,12 +88,16 @@ def test_critic_llm_pass_reads_the_whole_chunk():
 
 
 def test_llm_judge_pass_is_off_in_production():
-    """F18: measured harmful (R2 experiment), so the critic does not call the LLM."""
+    """F18: the iteration-1 downgrade-only judge was measured harmful (R2) and
+    stays off. Iteration 2 replaces it with the claim verifier: one LLM call per
+    card, chosen on the locked gold claims (evals/iteration2_gold.py: kappa 0.26
+    vs 0.07 for the cosine critic, leakage 15% vs 48%)."""
     llm = _LLM("{}")
     state = {"refined_evidence": [TASTE],
              "expert_outputs": {"taste": {"taste": "Fillets tilapia terasa ringan", "sources": ANSWER["sources"]}}}
     orchestrator.critic_node(state, llm)
-    assert orchestrator.USE_LLM_JUDGE is False and llm.calls == 0
+    assert orchestrator.USE_LLM_JUDGE is False
+    assert orchestrator.CRITIC_MODE == "verifier" and llm.calls == 1
 
 
 def test_substitute_claim_needs_substitute_evidence():

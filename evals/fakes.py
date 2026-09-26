@@ -93,8 +93,18 @@ class ScriptedLLM:
             return "query tambahan untuk kategori yang kosong"
         if text.startswith("Untuk setiap field"):
             return "{}"  # a neutral critic: measures the deterministic gate alone
+        if text.startswith("Kamu adalah pemeriksa fakta"):
+            # Neutral iteration-2 entailment stage: every claim that reached it
+            # is "supported", so scripted runs measure the deterministic and
+            # embedding gates alone. Its accuracy is measured on the locked
+            # gold claims with a real LLM (evals/iteration2.py), not here.
+            payload = json.loads(text.split("\n", text.count("\n"))[-1]) if text.rstrip().endswith("}") else {}
+            ids = [c["id"] for c in payload.get("klaim", [])]
+            return json.dumps({"verdicts": [{"id": i, "alasan": "scripted", "label": "supported"} for i in ids]})
         if text.startswith("Perbaiki bahasa"):
             return text.split("\n", 1)[1] if "\n" in text else "{}"
+        if text.startswith("Tulis klaim"):
+            return self._wrap(json.dumps(self._writer(text), ensure_ascii=False))
         for marker, expert in _EXPERT_MARKERS.items():
             if text.startswith(marker):
                 return self._wrap(json.dumps(self._expert(expert, text), ensure_ascii=False))
@@ -129,6 +139,37 @@ class ScriptedLLM:
                 self.emitted.append(EmittedClaim(species, name, text, kind, chunk_id))
         data["sources"] = sources
         return data
+
+    _WRITER_FIELD = {"identity": "physical_characteristics", "physical_characteristics": "physical_characteristics",
+                     "taste_texture": "taste", "processing_methods": "processing_methods",
+                     "commercial_uses": "commercial_uses", "substitutes": "similar_or_substitute_species"}
+
+    def _writer(self, prompt: str) -> dict:
+        """Writer-critic workflow: one true claim per evidence chunk, plus one
+        borrowed claim for each card category the species has no evidence for,
+        cited against an unrelated chunk (the verifier must reject it)."""
+        evidence = [m.groups() for m in map(_CHUNK_LINE.match, prompt.splitlines()) if m]
+        claims: list[dict] = []
+        if not evidence:
+            return {"claims": claims}
+        species = self.chunk_species[evidence[0][0]]
+        for chunk_id, _source, category, _content in evidence:
+            fld = self._WRITER_FIELD.get(category)
+            if fld and chunk_id in self.claims:
+                claims.append({"field": fld, "chunk_ids": [chunk_id], "teks": self.claims[chunk_id]})
+                with self._lock:
+                    self.emitted.append(EmittedClaim(species, fld, self.claims[chunk_id], "true", chunk_id))
+        present = {row[2] for row in evidence}
+        for category in ("taste_texture", "processing_methods", "commercial_uses"):
+            if category in present:
+                continue
+            borrowed = self._borrowed_claim(species, category)
+            if borrowed:
+                fld = self._WRITER_FIELD[category]
+                claims.append({"field": fld, "chunk_ids": [evidence[0][0]], "teks": borrowed})
+                with self._lock:
+                    self.emitted.append(EmittedClaim(species, fld, borrowed, "hallucination", evidence[0][0]))
+        return {"claims": claims}
 
     def _borrowed_claim(self, species: str, category: str) -> str | None:
         for chunk_id in sorted(self.claims):
