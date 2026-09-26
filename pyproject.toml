@@ -27,14 +27,19 @@ dependencies = [
 
 [project.optional-dependencies]
 cv = ["torch", "torchvision", "timm"]
-dev = ["pytest"]
+dev = ["pytest", "pytest-cov"]
 
 [tool.setuptools.packages.find]
-include = ["apps*", "scripts*"]
+include = ["apps*", "scripts*", "evals*"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tests", "evals/tests"]
 markers = [
     "integration: requires a running PostgreSQL/pgvector database",
     "real_artifact: requires real dataset artifacts on disk",
+    "unit: pure logic, no model or network",
+    "retrieval: retrieval quality gates over the real corpus and E5",
+    "generation: critic grounding and card-pipeline gates",
+    "api: FastAPI app with in-memory ports (no database)",
+    "e2e: HTTP flow from photo to grounded card, plus the dashboard",
 ]

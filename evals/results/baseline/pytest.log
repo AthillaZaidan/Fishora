@@ -1,0 +1,223 @@
+FFFF.F..F..FFF...FFF..........F.....FF............                       [100%]
+================================== FAILURES ===================================
+_________________________ test_photo_to_grounded_card _________________________
+
+app_factory = <function app_factory.<locals>.build at 0x000001D818BD22A0>
+
+    def test_photo_to_grounded_card(app_factory):
+        app, _ = app_factory("tuna")
+        own_sources = {c.source["id"] for c in load_corpus() if c.species_label == "tuna"}
+        with TestClient(app) as client:
+            identified = client.post("/api/v1/fish/identify",
+                                     files={"file": ("tuna.png", png_bytes(), "image/png")}).json()
+            assert identified["prediction"]["normalized_label"] == "tuna"
+            prediction_id = identified["prediction_id"]
+    
+            client.post("/api/v1/fish/verify", json={
+                "prediction_id": prediction_id, "verified_species_id": "species_tuna"})
+            response = client.get(f"/api/v1/predictions/{prediction_id}/knowledge")
+>           assert response.status_code == 200, response.text
+E           AssertionError: {"detail":"knowledge generation failed","job_id":"6e7536ad8b074fb6b31f1e398a6d975e","status":"failed"}
+E           assert 502 == 200
+E            +  where 502 = <Response [502 Bad Gateway]>.status_code
+
+evals\tests\e2e\test_operator_flow.py:23: AssertionError
+---------------------------- Captured stderr setup ----------------------------
+\rLoading weights:   0%|          | 0/199 [00:00<?, ?it/s]\rLoading weights:  36%|\u2588\u2588\u2588\u258c      | 71/199 [00:00<00:00, 674.62it/s]\rLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 199/199 [00:00<00:00, 1375.37it/s]
+______________________ test_quality_dashboard_is_served _______________________
+
+app_factory = <function app_factory.<locals>.build at 0x000001D897F5AAC0>
+
+    def test_quality_dashboard_is_served(app_factory):
+        app, _ = app_factory()
+        with TestClient(app) as client:
+            page = client.get("/quality")
+>           assert page.status_code == 200 and "Fishora RAG quality" in page.text
+E           assert (404 == 200)
+E            +  where 404 = <Response [404 Not Found]>.status_code
+
+evals\tests\e2e\test_operator_flow.py:36: AssertionError
+____________ test_indonesian_claim_is_grounded_in_english_evidence ____________
+
+store = <evals.corpus.InMemoryKnowledgeRepository object at 0x000001D816A57E60>
+e5 = <apps.main_api.services.embeddings.LocalE5Embedder object at 0x000001D86726D610>
+
+    def test_indonesian_claim_is_grounded_in_english_evidence(store, e5):
+        chunk = store._to_retrieved("chunk_kembung_physical_001", 0.0)
+        claim = ("Mencapai 24 cm dan 750 g, kepala lebih panjang dari tinggi badan, 2 sampai 6 "
+                 "bintik besar di pangkal sirip punggung pertama.")
+>       assert _grade(claim, chunk, e5) == "supported"
+E       AssertionError: assert 'unsupported' == 'supported'
+E         
+E         - supported
+E         + unsupported
+E         ? ++
+
+evals\tests\generation\test_grounding_and_pipeline.py:38: AssertionError
+_____________ test_shared_token_does_not_ground_a_borrowed_claim ______________
+
+store = <evals.corpus.InMemoryKnowledgeRepository object at 0x000001D816A57E60>
+e5 = <apps.main_api.services.embeddings.LocalE5Embedder object at 0x000001D86726D610>
+
+    def test_shared_token_does_not_ground_a_borrowed_claim(store, e5):
+        """'Indo-Pasifik' shares the token 'indo' with the croaker chunk; the
+        claim is still about milkfish and must not be accepted."""
+        chunk = store._to_retrieved("chunk_gulamah_identity_001", 0.0)
+        claim = "Chanos chanos, satu-satunya anggota famili Chanidae, hidup di laut, payau dan tawar di Indo-Pasifik Barat."
+>       assert _grade(claim, chunk, e5) == "unsupported"
+E       AssertionError: assert 'supported' == 'unsupported'
+E         
+E         - unsupported
+E         ? --
+E         + supported
+
+evals\tests\generation\test_grounding_and_pipeline.py:46: AssertionError
+________________________ test_grounding_test_split_f1 _________________________
+
+grounding = {'pairs': 98, 'grader': 'lexical', 'test': {'n': 48, 'precision': 0.8947, 'recall': 0.7083, 'f1': 0.7907, ...}, 'dev': {'n': 50, 'precision': 0.8, 'recall': 0.48, 'f1': 0.6, ...}, ...}
+
+    def test_grounding_test_split_f1(grounding):
+>       assert grounding["test"]["f1"] >= 0.85
+E       assert 0.7907 >= 0.85
+
+evals\tests\generation\test_grounding_and_pipeline.py:56: AssertionError
+___________________ test_true_claims_survive_into_the_card ____________________
+
+plain = {'delay_s': 0.05, 'fenced_json': False, 'cards': 11, 'job_success_rate': 1.0, ...}
+
+    def test_true_claims_survive_into_the_card(plain):
+>       assert plain["claim_retention"] >= 0.8
+E       assert 0.56 >= 0.8
+
+evals\tests\generation\test_grounding_and_pipeline.py:68: AssertionError
+______________ test_card_needs_at_most_two_sequential_llm_rounds ______________
+
+plain = {'delay_s': 0.05, 'fenced_json': False, 'cards': 11, 'job_success_rate': 1.0, ...}
+
+    def test_card_needs_at_most_two_sequential_llm_rounds(plain):
+>       assert plain["sequential_rounds"] <= 2.5
+E       assert 5.4 <= 2.5
+
+evals\tests\generation\test_grounding_and_pipeline.py:80: AssertionError
+____________________ test_repeat_card_is_served_from_cache ____________________
+
+plain = {'delay_s': 0.05, 'fenced_json': False, 'cards': 11, 'job_success_rate': 1.0, ...}
+
+    def test_repeat_card_is_served_from_cache(plain):
+>       assert plain["repeat_latency_ms_mean"] < 50
+E       assert 269.6 < 50
+
+evals\tests\generation\test_grounding_and_pipeline.py:84: AssertionError
+_______________ test_markdown_fenced_llm_output_still_completes _______________
+
+fenced = {'delay_s': 0.0, 'fenced_json': True, 'cards': 11, 'job_success_rate': 0.0, ...}
+
+    def test_markdown_fenced_llm_output_still_completes(fenced):
+>       assert fenced["job_success_rate"] == 1.0
+E       assert 0.0 == 1.0
+
+evals\tests\generation\test_grounding_and_pipeline.py:88: AssertionError
+______________ test_verification_schedules_a_job_that_completes _______________
+
+app_factory = <function app_factory.<locals>.build at 0x000001D88C34D260>
+
+    def test_verification_schedules_a_job_that_completes(app_factory):
+        app, deps = app_factory("nila")
+        with TestClient(app) as client:
+            prediction_id = _identify(client)
+            verify = client.post("/api/v1/fish/verify", json={
+                "prediction_id": prediction_id, "verified_species_id": "species_nila"})
+            assert verify.json()["verification_status"] == "confirmed"
+            job = client.get(f"/api/v1/jobs/{prediction_id}").json()
+>           assert job["status"] == "completed", job
+E           AssertionError: {'job_id': '37fd56cc118a4797a975d4674f6d52a5', 'prediction_id': '37fd56cc118a4797a975d4674f6d52a5', 'species_id': 'species_nila', 'status': 'failed', ...}
+E           assert 'failed' == 'completed'
+E             
+E             - completed
+E             + failed
+
+evals\tests\integration\test_knowledge_api.py:38: AssertionError
+_____________ test_correction_retrieves_for_the_corrected_species _____________
+
+app_factory = <function app_factory.<locals>.build at 0x000001D88C34FA60>
+
+    def test_correction_retrieves_for_the_corrected_species(app_factory):
+        app, _ = app_factory("nila")
+        with TestClient(app) as client:
+            prediction_id = _identify(client)
+            client.post("/api/v1/fish/verify", json={
+                "prediction_id": prediction_id, "verified_species_id": "species_mujair"})
+            body = client.get(f"/api/v1/predictions/{prediction_id}/knowledge").json()
+>           assert body["species_id"] == "species_mujair"
+                   ^^^^^^^^^^^^^^^^^^
+E           KeyError: 'species_id'
+
+evals\tests\integration\test_knowledge_api.py:48: KeyError
+_____________________ test_embedder_is_warmed_at_startup ______________________
+
+app_factory = <function app_factory.<locals>.build at 0x000001D88C362F20>
+
+    def test_embedder_is_warmed_at_startup(app_factory):
+        app, deps = app_factory()
+        warmed = threading.Event()
+        deps.embedder = type("Spy", (), {
+            "model_name": deps.embedder.model_name,
+            "warmup": lambda self: warmed.set(),
+        })()
+        with TestClient(app):
+>           assert warmed.wait(2.0)
+E           assert False
+E            +  where False = wait(2.0)
+E            +    where wait = <threading.Event at 0x1d88c3a0b30: unset>.wait
+
+evals\tests\integration\test_knowledge_api.py:60: AssertionError
+_________________ test_default_chunk_limit_fits_the_e5_window _________________
+
+    def test_default_chunk_limit_fits_the_e5_window():
+        """E5 truncates at 512 tokens; the 'passage: ' prefix and CLS/SEP need room."""
+        limit = inspect.signature(chunking.chunk_candidate).parameters["max_tokens"].default
+>       assert limit + 4 <= 512
+E       assert (600 + 4) <= 512
+
+evals\tests\unit\test_chunking.py:44: AssertionError
+___________________ test_expert_parses_markdown_fenced_json ___________________
+
+    def test_expert_parses_markdown_fenced_json():
+        llm = _LLM("```json\n" + json.dumps(ANSWER) + "\n```")
+        out = orchestrator._expert_node("taste", {"refined_evidence": [CHUNK]}, llm)
+>       assert out.get("taste") == "Rasa ringan" and "error" not in out
+E       AssertionError: assert (None == 'Rasa ringan')
+E        +  where None = <built-in method get of dict object at 0x000001D898309CC0>('taste')
+E        +    where <built-in method get of dict object at 0x000001D898309CC0> = {'taste': None, 'texture': None, 'error': 'expert generation failed', 'sources': []}.get
+
+evals\tests\unit\test_orchestrator_nodes.py:36: AssertionError
+______________________ test_expert_sees_the_whole_chunk _______________________
+
+    def test_expert_sees_the_whole_chunk():
+        llm = _LLM(json.dumps(ANSWER))
+        orchestrator._expert_node("taste", {"refined_evidence": [CHUNK]}, llm)
+>       assert TAIL in llm.prompts[0]
+E       assert 'fillets without small bones' in 'Tulis taste dan texture dari bukti taste_texture. Jika tidak ada, null. JSON {"taste": str|null, "texture": str|null,...illets have a mild flavour. Nile tilapia fillets have a mild flavour. Nile tilapia fillets have a mild flavour. Nile t'
+
+evals\tests\unit\test_orchestrator_nodes.py:42: AssertionError
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.12.8-final-0 _______________
+
+Coverage JSON written to file C:\Users\ASUS\fishora\reports\baseline\coverage.json
+=========================== short test summary info ===========================
+FAILED evals/tests/e2e/test_operator_flow.py::test_photo_to_grounded_card - A...
+FAILED evals/tests/e2e/test_operator_flow.py::test_quality_dashboard_is_served
+FAILED evals/tests/generation/test_grounding_and_pipeline.py::test_indonesian_claim_is_grounded_in_english_evidence
+FAILED evals/tests/generation/test_grounding_and_pipeline.py::test_shared_token_does_not_ground_a_borrowed_claim
+FAILED evals/tests/generation/test_grounding_and_pipeline.py::test_grounding_test_split_f1
+FAILED evals/tests/generation/test_grounding_and_pipeline.py::test_true_claims_survive_into_the_card
+FAILED evals/tests/generation/test_grounding_and_pipeline.py::test_card_needs_at_most_two_sequential_llm_rounds
+FAILED evals/tests/generation/test_grounding_and_pipeline.py::test_repeat_card_is_served_from_cache
+FAILED evals/tests/generation/test_grounding_and_pipeline.py::test_markdown_fenced_llm_output_still_completes
+FAILED evals/tests/integration/test_knowledge_api.py::test_verification_schedules_a_job_that_completes
+FAILED evals/tests/integration/test_knowledge_api.py::test_correction_retrieves_for_the_corrected_species
+FAILED evals/tests/integration/test_knowledge_api.py::test_embedder_is_warmed_at_startup
+FAILED evals/tests/unit/test_chunking.py::test_default_chunk_limit_fits_the_e5_window
+FAILED evals/tests/unit/test_orchestrator_nodes.py::test_expert_parses_markdown_fenced_json
+FAILED evals/tests/unit/test_orchestrator_nodes.py::test_expert_sees_the_whole_chunk
+15 failed, 35 passed in 44.86s

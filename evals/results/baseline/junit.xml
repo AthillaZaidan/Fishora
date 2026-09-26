@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="15" skipped="0" tests="50" time="44.857" timestamp="2026-09-26T09:26:15.440664+07:00" hostname="Xenon"><testcase classname="evals.tests.e2e.test_operator_flow" name="test_photo_to_grounded_card" time="18.071"><failure message="AssertionError: {&quot;detail&quot;:&quot;knowledge generation failed&quot;,&quot;job_id&quot;:&quot;6e7536ad8b074fb6b31f1e398a6d975e&quot;,&quot;status&quot;:&quot;failed&quot;}&#10;assert 502 == 200&#10; +  where 502 = &lt;Response [502 Bad Gateway]&gt;.status_code">app_factory = &lt;function app_factory.&lt;locals&gt;.build at 0x000001D818BD22A0&gt;
+
+    def test_photo_to_grounded_card(app_factory):
+        app, _ = app_factory("tuna")
+        own_sources = {c.source["id"] for c in load_corpus() if c.species_label == "tuna"}
+        with TestClient(app) as client:
+            identified = client.post("/api/v1/fish/identify",
+                                     files={"file": ("tuna.png", png_bytes(), "image/png")}).json()
+            assert identified["prediction"]["normalized_label"] == "tuna"
+            prediction_id = identified["prediction_id"]
+    
+            client.post("/api/v1/fish/verify", json={
+                "prediction_id": prediction_id, "verified_species_id": "species_tuna"})
+            response = client.get(f"/api/v1/predictions/{prediction_id}/knowledge")
+&gt;           assert response.status_code == 200, response.text
+E           AssertionError: {"detail":"knowledge generation failed","job_id":"6e7536ad8b074fb6b31f1e398a6d975e","status":"failed"}
+E           assert 502 == 200
+E            +  where 502 = &lt;Response [502 Bad Gateway]&gt;.status_code
+
+evals\tests\e2e\test_operator_flow.py:23: AssertionError</failure></testcase><testcase classname="evals.tests.e2e.test_operator_flow" name="test_quality_dashboard_is_served" time="0.043"><failure message="assert (404 == 200)&#10; +  where 404 = &lt;Response [404 Not Found]&gt;.status_code">app_factory = &lt;function app_factory.&lt;locals&gt;.build at 0x000001D897F5AAC0&gt;
+
+    def test_quality_dashboard_is_served(app_factory):
+        app, _ = app_factory()
+        with TestClient(app) as client:
+            page = client.get("/quality")
+&gt;           assert page.status_code == 200 and "Fishora RAG quality" in page.text
+E           assert (404 == 200)
+E            +  where 404 = &lt;Response [404 Not Found]&gt;.status_code
+
+evals\tests\e2e\test_operator_flow.py:36: AssertionError</failure></testcase><testcase classname="evals.tests.generation.test_grounding_and_pipeline" name="test_indonesian_claim_is_grounded_in_english_evidence" time="0.004"><failure message="AssertionError: assert 'unsupported' == 'supported'&#10;  &#10;  - supported&#10;  + unsupported&#10;  ? ++">store = &lt;evals.corpus.InMemoryKnowledgeRepository object at 0x000001D816A57E60&gt;
+e5 = &lt;apps.main_api.services.embeddings.LocalE5Embedder object at 0x000001D86726D610&gt;
+
+    def test_indonesian_claim_is_grounded_in_english_evidence(store, e5):
+        chunk = store._to_retrieved("chunk_kembung_physical_001", 0.0)
+        claim = ("Mencapai 24 cm dan 750 g, kepala lebih panjang dari tinggi badan, 2 sampai 6 "
+                 "bintik besar di pangkal sirip punggung pertama.")
+&gt;       assert _grade(claim, chunk, e5) == "supported"
+E       AssertionError: assert 'unsupported' == 'supported'
+E         
+E         - supported
+E         + unsupported
+E         ? ++
+
+evals\tests\generation\test_grounding_and_pipeline.py:38: AssertionError</failure></testcase><testcase classname="evals.tests.generation.test_grounding_and_pipeline" name="test_shared_token_does_not_ground_a_borrowed_claim" time="0.004"><failure message="AssertionError: assert 'supported' == 'unsupported'&#10;  &#10;  - unsupported&#10;  ? --&#10;  + supported">store = &lt;evals.corpus.InMemoryKnowledgeRepository object at 0x000001D816A57E60&gt;
+e5 = &lt;apps.main_api.services.embeddings.LocalE5Embedder object at 0x000001D86726D610&gt;
+
+    def test_shared_token_does_not_ground_a_borrowed_claim(store, e5):
+        """'Indo-Pasifik' shares the token 'indo' with the croaker chunk; the
+        claim is still about milkfish and must not be accepted."""
+        chunk = store._to_retrieved("chunk_gulamah_identity_001", 0.0)
+        claim = "Chanos chanos, satu-satunya anggota famili Chanidae, hidup di laut, payau dan tawar di Indo-Pasifik Barat."
+&gt;       assert _grade(claim, chunk, e5) == "unsupported"
+E       AssertionError: assert 'supported' == 'unsupported'
+E         
+E         - unsupported
+E         ? --
+E         + supported
+
+evals\tests\generation\test_grounding_and_pipeline.py:46: AssertionError</failure></testcase><testcase classname="evals.tests.generation.test_grounding_and_pipeline" name="test_wrong_numbers_are_not_grounded" time="0.002" /><testcase classname="evals.tests.generation.test_grounding_and_pipeline" name="test_grounding_test_split_f1" time="6.980"><failure message="assert 0.7907 &gt;= 0.85">grounding = {'pairs': 98, 'grader': 'lexical', 'test': {'n': 48, 'precision': 0.8947, 'recall': 0.7083, 'f1': 0.7907, ...}, 'dev': {'n': 50, 'precision': 0.8, 'recall': 0.48, 'f1': 0.6, ...}, ...}
+
+    def test_grounding_test_split_f1(grounding):
+&gt;       assert grounding["test"]["f1"] &gt;= 0.85
+E       assert 0.7907 &gt;= 0.85
+
+evals\tests\generation\test_grounding_and_pipeline.py:56: AssertionError</failure></testcase><testcase classname="evals.tests.generation.test_grounding_and_pipeline" name="test_grounding_false_support_rate" time="0.002" /><testcase classname="evals.tests.generation.test_grounding_and_pipeline" name="test_every_card_job_completes" time="5.938" /><testcase classname="evals.tests.generation.test_grounding_and_pipeline" name="test_true_claims_survive_into_the_card" time="0.003"><failure message="assert 0.56 &gt;= 0.8">plain = {'delay_s': 0.05, 'fenced_json': False, 'cards': 11, 'job_success_rate': 1.0, ...}
+
+    def test_true_claims_survive_into_the_card(plain):
+&gt;       assert plain["claim_retention"] &gt;= 0.8
+E       assert 0.56 &gt;= 0.8
+
+evals\tests\generation\test_grounding_and_pipeline.py:68: AssertionError</failure></testcase><testcase classname="evals.tests.generation.test_grounding_and_pipeline" name="test_borrowed_claims_do_not_leak" time="0.002" /><testcase classname="evals.tests.generation.test_grounding_and_pipeline" name="test_every_citation_belongs_to_the_species" time="0.002" /><testcase classname="evals.tests.generation.test_grounding_and_pipeline" name="test_card_needs_at_most_two_sequential_llm_rounds" time="0.004"><failure message="assert 5.4 &lt;= 2.5">plain = {'delay_s': 0.05, 'fenced_json': False, 'cards': 11, 'job_success_rate': 1.0, ...}
+
+    def test_card_needs_at_most_two_sequential_llm_rounds(plain):
+&gt;       assert plain["sequential_rounds"] &lt;= 2.5
+E       assert 5.4 &lt;= 2.5
+
+evals\tests\generation\test_grounding_and_pipeline.py:80: AssertionError</failure></testcase><testcase classname="evals.tests.generation.test_grounding_and_pipeline" name="test_repeat_card_is_served_from_cache" time="0.003"><failure message="assert 269.6 &lt; 50">plain = {'delay_s': 0.05, 'fenced_json': False, 'cards': 11, 'job_success_rate': 1.0, ...}
+
+    def test_repeat_card_is_served_from_cache(plain):
+&gt;       assert plain["repeat_latency_ms_mean"] &lt; 50
+E       assert 269.6 &lt; 50
+
+evals\tests\generation\test_grounding_and_pipeline.py:84: AssertionError</failure></testcase><testcase classname="evals.tests.generation.test_grounding_and_pipeline" name="test_markdown_fenced_llm_output_still_completes" time="0.868"><failure message="assert 0.0 == 1.0">fenced = {'delay_s': 0.0, 'fenced_json': True, 'cards': 11, 'job_success_rate': 0.0, ...}
+
+    def test_markdown_fenced_llm_output_still_completes(fenced):
+&gt;       assert fenced["job_success_rate"] == 1.0
+E       assert 0.0 == 1.0
+
+evals\tests\generation\test_grounding_and_pipeline.py:88: AssertionError</failure></testcase><testcase classname="evals.tests.generation.test_grounding_and_pipeline" name="test_llm_outage_fails_the_job_cleanly" time="0.058" /><testcase classname="evals.tests.integration.test_knowledge_api" name="test_health_reports_seeded_taxonomy" time="0.016" /><testcase classname="evals.tests.integration.test_knowledge_api" name="test_pending_prediction_gets_no_knowledge" time="0.022" /><testcase classname="evals.tests.integration.test_knowledge_api" name="test_verification_schedules_a_job_that_completes" time="0.120"><failure message="AssertionError: {'job_id': '37fd56cc118a4797a975d4674f6d52a5', 'prediction_id': '37fd56cc118a4797a975d4674f6d52a5', 'species_id': 'species_nila', 'status': 'failed', ...}&#10;assert 'failed' == 'completed'&#10;  &#10;  - completed&#10;  + failed">app_factory = &lt;function app_factory.&lt;locals&gt;.build at 0x000001D88C34D260&gt;
+
+    def test_verification_schedules_a_job_that_completes(app_factory):
+        app, deps = app_factory("nila")
+        with TestClient(app) as client:
+            prediction_id = _identify(client)
+            verify = client.post("/api/v1/fish/verify", json={
+                "prediction_id": prediction_id, "verified_species_id": "species_nila"})
+            assert verify.json()["verification_status"] == "confirmed"
+            job = client.get(f"/api/v1/jobs/{prediction_id}").json()
+&gt;           assert job["status"] == "completed", job
+E           AssertionError: {'job_id': '37fd56cc118a4797a975d4674f6d52a5', 'prediction_id': '37fd56cc118a4797a975d4674f6d52a5', 'species_id': 'species_nila', 'status': 'failed', ...}
+E           assert 'failed' == 'completed'
+E             
+E             - completed
+E             + failed
+
+evals\tests\integration\test_knowledge_api.py:38: AssertionError</failure></testcase><testcase classname="evals.tests.integration.test_knowledge_api" name="test_correction_retrieves_for_the_corrected_species" time="0.092"><failure message="KeyError: 'species_id'">app_factory = &lt;function app_factory.&lt;locals&gt;.build at 0x000001D88C34FA60&gt;
+
+    def test_correction_retrieves_for_the_corrected_species(app_factory):
+        app, _ = app_factory("nila")
+        with TestClient(app) as client:
+            prediction_id = _identify(client)
+            client.post("/api/v1/fish/verify", json={
+                "prediction_id": prediction_id, "verified_species_id": "species_mujair"})
+            body = client.get(f"/api/v1/predictions/{prediction_id}/knowledge").json()
+&gt;           assert body["species_id"] == "species_mujair"
+                   ^^^^^^^^^^^^^^^^^^
+E           KeyError: 'species_id'
+
+evals\tests\integration\test_knowledge_api.py:48: KeyError</failure></testcase><testcase classname="evals.tests.integration.test_knowledge_api" name="test_embedder_is_warmed_at_startup" time="2.014"><failure message="assert False&#10; +  where False = wait(2.0)&#10; +    where wait = &lt;threading.Event at 0x1d88c3a0b30: unset&gt;.wait">app_factory = &lt;function app_factory.&lt;locals&gt;.build at 0x000001D88C362F20&gt;
+
+    def test_embedder_is_warmed_at_startup(app_factory):
+        app, deps = app_factory()
+        warmed = threading.Event()
+        deps.embedder = type("Spy", (), {
+            "model_name": deps.embedder.model_name,
+            "warmup": lambda self: warmed.set(),
+        })()
+        with TestClient(app):
+&gt;           assert warmed.wait(2.0)
+E           assert False
+E            +  where False = wait(2.0)
+E            +    where wait = &lt;threading.Event at 0x1d88c3a0b30: unset&gt;.wait
+
+evals\tests\integration\test_knowledge_api.py:60: AssertionError</failure></testcase><testcase classname="evals.tests.retrieval.test_retrieval_quality" name="test_gold_set_covers_every_cell_in_both_languages" time="0.004" /><testcase classname="evals.tests.retrieval.test_retrieval_quality" name="test_scoped_retrieval_never_leaks_other_species" time="7.065" /><testcase classname="evals.tests.retrieval.test_retrieval_quality" name="test_scoped_recall_at_6" time="0.004" /><testcase classname="evals.tests.retrieval.test_retrieval_quality" name="test_card_query_covers_every_available_category" time="0.004" /><testcase classname="evals.tests.retrieval.test_retrieval_quality" name="test_embedding_separates_species_without_the_filter" time="0.004" /><testcase classname="evals.tests.retrieval.test_retrieval_quality" name="test_warm_query_latency" time="0.004" /><testcase classname="evals.tests.retrieval.test_retrieval_quality" name="test_unverified_rows_are_never_returned" time="0.046" /><testcase classname="evals.tests.unit.test_chunking" name="test_short_record_is_kept_whole" time="0.004" /><testcase classname="evals.tests.unit.test_chunking" name="test_long_record_splits_within_limit_on_sentences" time="0.003" /><testcase classname="evals.tests.unit.test_chunking" name="test_oversized_sentence_is_windowed_with_overlap" time="0.003" /><testcase classname="evals.tests.unit.test_chunking" name="test_default_chunk_limit_fits_the_e5_window" time="0.003"><failure message="assert (600 + 4) &lt;= 512">def test_default_chunk_limit_fits_the_e5_window():
+        """E5 truncates at 512 tokens; the 'passage: ' prefix and CLS/SEP need room."""
+        limit = inspect.signature(chunking.chunk_candidate).parameters["max_tokens"].default
+&gt;       assert limit + 4 &lt;= 512
+E       assert (600 + 4) &lt;= 512
+
+evals\tests\unit\test_chunking.py:44: AssertionError</failure></testcase><testcase classname="evals.tests.unit.test_generation_guards" name="test_empty_evidence_never_builds_the_llm_client" time="0.004" /><testcase classname="evals.tests.unit.test_generation_guards" name="test_relational_identity_overrides_generated_text" time="0.003" /><testcase classname="evals.tests.unit.test_generation_guards" name="test_citation_to_unretrieved_source_is_rejected" time="0.003" /><testcase classname="evals.tests.unit.test_generation_guards" name="test_uncited_card_with_evidence_is_rejected" time="0.002" /><testcase classname="evals.tests.unit.test_generation_guards" name="test_tuna_taxonomy_guardrail_pins_genus" time="0.002" /><testcase classname="evals.tests.unit.test_orchestrator_nodes" name="test_expert_parses_markdown_fenced_json" time="0.003"><failure message="AssertionError: assert (None == 'Rasa ringan')&#10; +  where None = &lt;built-in method get of dict object at 0x000001D898309CC0&gt;('taste')&#10; +    where &lt;built-in method get of dict object at 0x000001D898309CC0&gt; = {'taste': None, 'texture': None, 'error': 'expert generation failed', 'sources': []}.get">def test_expert_parses_markdown_fenced_json():
+        llm = _LLM("```json\n" + json.dumps(ANSWER) + "\n```")
+        out = orchestrator._expert_node("taste", {"refined_evidence": [CHUNK]}, llm)
+&gt;       assert out.get("taste") == "Rasa ringan" and "error" not in out
+E       AssertionError: assert (None == 'Rasa ringan')
+E        +  where None = &lt;built-in method get of dict object at 0x000001D898309CC0&gt;('taste')
+E        +    where &lt;built-in method get of dict object at 0x000001D898309CC0&gt; = {'taste': None, 'texture': None, 'error': 'expert generation failed', 'sources': []}.get
+
+evals\tests\unit\test_orchestrator_nodes.py:36: AssertionError</failure></testcase><testcase classname="evals.tests.unit.test_orchestrator_nodes" name="test_expert_sees_the_whole_chunk" time="0.003"><failure message="assert 'fillets without small bones' in 'Tulis taste dan texture dari bukti taste_texture. Jika tidak ada, null. JSON {&quot;taste&quot;: str|null, &quot;texture&quot;: str|null,...illets have a mild flavour. Nile tilapia fillets have a mild flavour. Nile tilapia fillets have a mild flavour. Nile t'">def test_expert_sees_the_whole_chunk():
+        llm = _LLM(json.dumps(ANSWER))
+        orchestrator._expert_node("taste", {"refined_evidence": [CHUNK]}, llm)
+&gt;       assert TAIL in llm.prompts[0]
+E       assert 'fillets without small bones' in 'Tulis taste dan texture dari bukti taste_texture. Jika tidak ada, null. JSON {"taste": str|null, "texture": str|null,...illets have a mild flavour. Nile tilapia fillets have a mild flavour. Nile tilapia fillets have a mild flavour. Nile t'
+
+evals\tests\unit\test_orchestrator_nodes.py:42: AssertionError</failure></testcase><testcase classname="evals.tests.unit.test_orchestrator_nodes" name="test_expert_without_llm_claims_nothing" time="0.002" /><testcase classname="evals.tests.unit.test_orchestrator_nodes" name="test_expert_citation_outside_its_evidence_is_dropped" time="0.002" /><testcase classname="evals.tests.unit.test_orchestrator_nodes" name="test_critic_llm_outage_never_upgrades" time="0.002" /><testcase classname="evals.tests.unit.test_orchestrator_nodes" name="test_writer_with_no_evidence_returns_empty_card" time="0.002" /><testcase classname="evals.tests.unit.test_orchestrator_nodes" name="test_writer_keeps_only_supported_claims" time="0.002" /><testcase classname="evals.tests.unit.test_retrieval_selection" name="test_one_per_category_first_then_nearest_fill" time="0.002" /><testcase classname="evals.tests.unit.test_retrieval_selection" name="test_selection_respects_max_chunks" time="0.002" /><testcase classname="evals.tests.unit.test_retrieval_selection" name="test_zero_and_negative_max_chunks" time="0.002" /><testcase classname="evals.tests.unit.test_retrieval_selection" name="test_rejects_foreign_embedding_model" time="0.002" /><testcase classname="evals.tests.unit.test_retrieval_selection" name="test_malformed_query_vectors_rejected[vector0]" time="0.003" /><testcase classname="evals.tests.unit.test_retrieval_selection" name="test_malformed_query_vectors_rejected[vector1]" time="0.004" /><testcase classname="evals.tests.unit.test_retrieval_selection" name="test_malformed_query_vectors_rejected[vector2]" time="0.005" /></testsuite></testsuites>
