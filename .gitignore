@@ -36,3 +36,7 @@ __pycache__/
 
 # create-next-app boilerplate; the root README is the real setup guide.
 /apps/frontend/README.md
+
+# Generated test/eval artifacts (python -m scripts.quality). Regenerate, never edit.
+/reports/
+.coverage
