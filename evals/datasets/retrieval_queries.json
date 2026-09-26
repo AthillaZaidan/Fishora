@@ -1,0 +1,29 @@
+{
+  "description": "Gold retrieval queries. Each template is expanded for every species that has at least one chunk in the category; the relevant set is every chunk of that (species, category) cell. Indonesian templates mirror how the card pipeline and users phrase requests; English ones check the reverse language direction.",
+  "templates": {
+    "identity": [
+      {"lang": "id", "text": "Apa nama ilmiah dan famili ikan {common_name}?"},
+      {"lang": "en", "text": "What species and family is {common_name}?"}
+    ],
+    "physical_characteristics": [
+      {"lang": "id", "text": "Bagaimana ciri fisik, ukuran dan warna tubuh ikan {common_name}?"},
+      {"lang": "en", "text": "What does {common_name} look like and how large does it grow?"}
+    ],
+    "taste_texture": [
+      {"lang": "id", "text": "Bagaimana rasa dan tekstur daging ikan {common_name}?"},
+      {"lang": "en", "text": "How does {common_name} taste and what is its texture?"}
+    ],
+    "processing_methods": [
+      {"lang": "id", "text": "Bagaimana cara pengolahan ikan {common_name} menjadi produk?"},
+      {"lang": "en", "text": "How is {common_name} processed or preserved?"}
+    ],
+    "commercial_uses": [
+      {"lang": "id", "text": "Apa nilai komersial dan pemanfaatan pasar ikan {common_name}?"},
+      {"lang": "en", "text": "What is the commercial importance of {common_name}?"}
+    ],
+    "substitutes": [
+      {"lang": "id", "text": "Ikan apa yang bisa menjadi pengganti {common_name}?"},
+      {"lang": "en", "text": "Which fish can substitute for {common_name}?"}
+    ]
+  }
+}
