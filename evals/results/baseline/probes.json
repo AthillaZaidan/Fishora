@@ -1,0 +1,235 @@
+{
+  "label": "baseline",
+  "generated_at": "2026-09-26T03:42:46+00:00",
+  "git": {
+    "commit": "da6f8e9",
+    "dirty": true
+  },
+  "silent_excepts": {
+    "count": 13,
+    "handlers": [
+      {
+        "file": "apps/main_api/api/fish.py",
+        "line": 127,
+        "body": "pass"
+      },
+      {
+        "file": "apps/main_api/api/fish.py",
+        "line": 125,
+        "body": "pass"
+      },
+      {
+        "file": "apps/main_api/api/fish.py",
+        "line": 182,
+        "body": "job = None"
+      },
+      {
+        "file": "apps/main_api/api/fish.py",
+        "line": 111,
+        "body": "pass"
+      },
+      {
+        "file": "apps/main_api/api/fish.py",
+        "line": 194,
+        "body": "return JSONResponse(status_code=502, content={'detail': 'kno"
+      },
+      {
+        "file": "apps/main_api/services/orchestrator.py",
+        "line": 37,
+        "body": "StateGraph = None"
+      },
+      {
+        "file": "apps/main_api/services/orchestrator.py",
+        "line": 201,
+        "body": "data = {**_EMPTY_EXPERT_CLAIMS[category], 'error': 'expert g"
+      },
+      {
+        "file": "apps/main_api/services/orchestrator.py",
+        "line": 299,
+        "body": "return statuses"
+      },
+      {
+        "file": "apps/main_api/services/orchestrator.py",
+        "line": 357,
+        "body": "return claims"
+      },
+      {
+        "file": "apps/main_api/services/orchestrator.py",
+        "line": 488,
+        "body": "try:\n    job_repo.update(job_id, status='failed', error='kno"
+      },
+      {
+        "file": "apps/main_api/services/orchestrator.py",
+        "line": 115,
+        "body": "pass"
+      },
+      {
+        "file": "apps/main_api/services/orchestrator.py",
+        "line": 491,
+        "body": "pass"
+      },
+      {
+        "file": "apps/main_api/services/lots.py",
+        "line": 89,
+        "body": "snapshot = None"
+      }
+    ]
+  },
+  "opencode_headers": {
+    "sends_session_header": false,
+    "sets_user_agent": false
+  },
+  "publication_path": {
+    "publish_uses_sync_knowledge_service": true,
+    "sync_path_has_claim_critic": false,
+    "matching_reads_snapshot_fields": [
+      "commercial_uses",
+      "physical_characteristics",
+      "processing_methods",
+      "taste",
+      "texture"
+    ]
+  },
+  "taxonomy_vs_corpus": {
+    "available": true,
+    "source": "artifacts/Dataset/fishora_dataset/metadata/taxonomy.csv",
+    "mismatches": [
+      {
+        "species": "gelama_bunga",
+        "seeded": "Pennahia anea",
+        "corpus": [
+          "Nibea albiflora"
+        ],
+        "agrees": false
+      },
+      {
+        "species": "gulamah",
+        "seeded": "Johnius belangerii",
+        "corpus": [
+          "Johnius trachycephalus"
+        ],
+        "agrees": false
+      },
+      {
+        "species": "kembung",
+        "seeded": "Rastrelliger kanagurta",
+        "corpus": [
+          "Rastrelliger faughni"
+        ],
+        "agrees": false
+      },
+      {
+        "species": "kuniran",
+        "seeded": "Upeneus sulphureus",
+        "corpus": [
+          "Upeneus moluccensis"
+        ],
+        "agrees": false
+      }
+    ],
+    "rows": [
+      {
+        "species": "bandeng",
+        "seeded": "Chanos chanos",
+        "corpus": [
+          "Chanos chanos"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "gelama_bunga",
+        "seeded": "Pennahia anea",
+        "corpus": [
+          "Nibea albiflora"
+        ],
+        "agrees": false
+      },
+      {
+        "species": "gembolo",
+        "seeded": null,
+        "corpus": [],
+        "agrees": true
+      },
+      {
+        "species": "gulamah",
+        "seeded": "Johnius belangerii",
+        "corpus": [
+          "Johnius trachycephalus"
+        ],
+        "agrees": false
+      },
+      {
+        "species": "kembung",
+        "seeded": "Rastrelliger kanagurta",
+        "corpus": [
+          "Rastrelliger faughni"
+        ],
+        "agrees": false
+      },
+      {
+        "species": "kuniran",
+        "seeded": "Upeneus sulphureus",
+        "corpus": [
+          "Upeneus moluccensis"
+        ],
+        "agrees": false
+      },
+      {
+        "species": "mujair",
+        "seeded": "Oreochromis mossambicus",
+        "corpus": [
+          "Mozambique tilapia",
+          "Oreochromis mossambicus"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "nila",
+        "seeded": "Oreochromis niloticus",
+        "corpus": [
+          "Nile tilapia",
+          "Oreochromis niloticus"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "senangin",
+        "seeded": "Eleutheronema tetradactylum",
+        "corpus": [
+          "Eleutheronema tetradactylum",
+          "Pacific marine"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "tenggiri",
+        "seeded": "Scomberomorus commerson",
+        "corpus": [
+          "Pacific king",
+          "Sarda orientalis",
+          "Scomberomorus commerson",
+          "Scomberomorus guttatus",
+          "Scomberomorus koreanus",
+          "Scomberomorus lineolatus",
+          "Spanish mackerel"
+        ],
+        "agrees": true
+      },
+      {
+        "species": "tuna",
+        "seeded": "Thunnus spp.",
+        "corpus": [
+          "Scombrids catalogue",
+          "Thunnus chapter",
+          "Thunnus species",
+          "World catalogue"
+        ],
+        "agrees": true
+      }
+    ]
+  },
+  "sync_path_blank_key": {
+    "status_code": 500,
+    "body": "Internal Server Error"
+  }
+}
