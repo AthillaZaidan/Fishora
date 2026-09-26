@@ -27,6 +27,8 @@ dependencies = [
 
 [project.optional-dependencies]
 cv = ["torch", "torchvision", "timm"]
+# The species-ID evaluation suite (evaluation/cv): reports, figures, and fish masks (rembg).
+cv-eval = ["matplotlib", "pandas", "scikit-learn", "scipy", "rembg"]
 dev = ["pytest", "pytest-cov"]
 
 [tool.setuptools.packages.find]

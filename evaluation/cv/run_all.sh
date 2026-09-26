@@ -8,7 +8,7 @@
 # Prerequisites (see evaluation/cv/README.md): evaluation/cv/data/ populated, masks generated,
 # linear-probe exports unpacked under LP_DIR.
 set -euo pipefail
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/../.."  # repository root (the script lives in evaluation/cv/)
 
 PY="${PY:-.venv/bin/python}"
 LP_DIR="${LP_DIR:-evaluation/cv/kaggle_outputs/linear_probe/fishora_linear_probe}"

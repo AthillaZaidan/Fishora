@@ -435,9 +435,10 @@ Then open `http://localhost:3111`.
 
 ## Run Tests
 
-> **The test suites are not tracked in git.** `tests/`, every `*.test.ts(x)`, `apps/frontend/e2e/`,
+> **Most test suites are not tracked in git.** `tests/`, every `*.test.ts(x)`, `apps/frontend/e2e/`,
 > `playwright.config.ts` and `vitest.config.ts` are gitignored, so a fresh clone has none of them and
 > the commands below find nothing to run. They work on a checkout that already has them on disk.
+> The RAG evaluation suite in `evals/tests` is tracked; see [Evaluate](#evaluate).
 
 Same `$PY` and `FISHORA_DATABASE_URL` as above.
 
@@ -483,6 +484,93 @@ The skips are honest: the PRD walkthrough runs on one project rather than three 
 real rows, and the identification specs skip when the CV service is unreachable. `mvp.spec.ts` is
 the eleven-step PRD 27 walkthrough and does exercise the live backend end to end.
 
+## Evaluate
+
+Two evaluation suites feed one dashboard. Both run offline and need no database.
+
+| Suite | Measures | Needs |
+| --- | --- | --- |
+| `evals/` | Knowledge-card RAG: retrieval, claim grounding, the card pipeline, real-LLM cost | The E5 weights in the local cache. `OPENCODE_GO_API_KEY` only for the cost runs |
+| `evaluation/cv/` | Species identification: six backbones on clean, corrupted, background, field and out-of-distribution photos, plus CPU latency | Nothing to view the committed results. Test photos and model exports to regenerate them |
+
+### RAG suite and dashboard
+
+One command runs the test suite with coverage, the retrieval, grounding and pipeline evaluations,
+the code probes, the CV import, the weakness registry and the dashboard:
+
+```bash
+HF_HUB_OFFLINE=1 "$PY" -m scripts.quality --label baseline
+```
+
+It writes `reports/<label>/` (JSON artifacts, JUnit XML, coverage) and `reports/dashboard.html`.
+`reports/` is generated and gitignored; the recorded baseline, including a copy of the dashboard,
+lives in `evals/results/baseline/`.
+
+Expect **35 passed, 15 failed** on the baseline. The failures are deliberate: each one is a weakness
+the fixes must close, and the dashboard lists them with their computed evidence. The test layers
+can also run alone:
+
+```bash
+HF_HUB_OFFLINE=1 "$PY" -m pytest evals/tests -m unit -q        # no model load, about 2 s
+HF_HUB_OFFLINE=1 "$PY" -m pytest evals/tests -q                # all layers, about 40 s
+```
+
+`evals/README.md` describes each layer and what the measurements can and cannot show.
+
+### Real-LLM cost and model comparison
+
+These call OpenCode Go and spend from its per-model allowance ($3 per 5 hours for `gpt-5.6-luna`).
+A full cost run costs about $0.07; the comparison runs 11 cards on each of six models.
+
+```bash
+"$PY" -m evals.cost_eval --label baseline --repeat 2
+"$PY" -m evals.model_compare --label baseline
+"$PY" -m evals.dashboard
+```
+
+The eval client sends the `x-opencode-session` header the gateway requires. The application client
+does not yet send it, so card generation in the app still fails against OpenCode Go.
+
+### Species identification
+
+The results for six linear-probe backbones are committed in `evaluation/cv/results/`, so the
+dashboard shows them without running anything. To regenerate them:
+
+1. Install the suite's extra dependencies: `"$PY" -m pip install -e '.[cv,cv-eval]'`
+   (`rembg` in that extra is only needed for step 4).
+2. Fetch the external test photos: `"$PY" -m evaluation.cv.prep.fetch_external_data`. Every image
+   is recorded in `evaluation/cv/data/attribution.csv`.
+3. Screen them with `"$PY" -m evaluation.cv.prep.contact_sheet`. The screening is locked in
+   `evaluation/cv/protocol/screening.lock`; do not edit it once results exist.
+4. Generate fish masks for the background slices: `"$PY" -m evaluation.cv.prep.make_masks`.
+5. Train or download the linear-probe exports with `evaluation/cv/kaggle/fishora_linear_probe.ipynb`
+   (`evaluation/cv/kaggle/pack_kit.py` builds the Kaggle upload), and unpack them under `LP_DIR`.
+6. Run every model, the CPU latency bench and the comparison:
+
+```bash
+PY="$PY" bash evaluation/cv/run_all.sh                    # everything
+SKIP_EXISTING=1 PY="$PY" bash evaluation/cv/run_all.sh    # keep runs that already have predictions.csv
+```
+
+`evaluation/cv/data/` and `evaluation/cv/kaggle_outputs/` (about 9 GB with weights) are gitignored.
+One model can also be run on its own:
+
+```bash
+"$PY" -m evaluation.cv.cv_suite --run lp_vit_l --export <export_dir>
+"$PY" -m evaluation.cv.report lp_vit_l
+```
+
+### Compare a change against the baseline
+
+After changing the RAG pipeline or the classifier, run the same suite under a new label:
+
+```bash
+HF_HUB_OFFLINE=1 "$PY" -m scripts.quality --label current
+```
+
+The dashboard then shows each target metric as baseline, target and current, and
+`reports/comparison.json` lists every test that was fixed or regressed.
+
 ## Troubleshooting
 
 | Symptom | Cause and fix |
@@ -510,9 +598,12 @@ apps/
   common/         Shared image validation
 ai/training/      PRD.md, the product requirements document
 alembic/          Schema migrations
-scripts/          run_local.sh, taxonomy and demo seeding, corpus pipeline
+scripts/          run_local.sh, taxonomy and demo seeding, corpus pipeline, quality.py
+evals/            RAG evaluation, its test suite (evals/tests), baseline and dashboard generator
+evaluation/cv/    Species-identification evaluation suite and committed results
 artifacts/        Knowledge corpus and model export (gitignored)
+reports/          Generated evaluation output and dashboard (gitignored)
 
-Not tracked, present only in a working checkout: the test suites (tests/, *.test.tsx, e2e/),
+Not tracked, present only in a working checkout: the other test suites (tests/, *.test.tsx, e2e/),
 DESIGN.md, and the handoff and planning notes.
 ```
