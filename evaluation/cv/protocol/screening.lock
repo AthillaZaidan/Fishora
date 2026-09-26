@@ -1,0 +1,4 @@
+screening.csv sha256=9a072b7a739c81800afb1861b0284b0caa463610d45e653297873842b6d8ed28
+locked_at=2026-09-26T09:50:58Z
+locked_by=team (accepted claude_first_pass as final)
+note=locked before any model was run on data/eval; do not edit after results exist
