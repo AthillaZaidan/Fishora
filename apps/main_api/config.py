@@ -41,8 +41,8 @@ class MainSettings(BaseSettings):
     opencode_go_model: str = Field(default="gpt-6-luna", validation_alias=AliasChoices("FISHORA_OPENCODE_GO_MODEL", "opencode_go_model"))
     opencode_go_timeout_seconds: float = Field(default=60.0, validation_alias=AliasChoices("FISHORA_OPENCODE_GO_TIMEOUT_SECONDS", "opencode_go_timeout_seconds"))
     # Responses-API reasoning effort for every card LLM call (none|low|medium|high|xhigh|max);
-    # "medium" was the knee of the effort sweep (reports/iteration-2/effort_sweep.json).
-    opencode_go_reasoning_effort: str | None = Field(default="medium", validation_alias=AliasChoices("FISHORA_OPENCODE_GO_REASONING_EFFORT", "opencode_go_reasoning_effort"))
+    # "low" had the best fact coverage per dollar in the 11-species sweep (evals/results/iteration-3).
+    opencode_go_reasoning_effort: str | None = Field(default="low", validation_alias=AliasChoices("FISHORA_OPENCODE_GO_REASONING_EFFORT", "opencode_go_reasoning_effort"))
     # A plain string: pydantic-settings would JSON-parse a list[str] field.
     cors_allow_origins: str = Field(
         default=DEFAULT_CORS_ALLOW_ORIGINS,
