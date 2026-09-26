@@ -70,7 +70,7 @@ def _declare(client, species_id="species_nila") -> str:
     return response.json()["prediction_id"]
 
 
-def test_manual_catch_card_is_graded_by_the_critic(app_factory):
+def test_manual_catch_card_is_graded_by_the_critic(app_factory, e5):
     """W19: a catch with no background job gets its card from the same pipeline
     as the job, so every claim the scripted writer borrowed from another species is dropped."""
     from evals.corpus import load_corpus
@@ -80,6 +80,12 @@ def test_manual_catch_card_is_graded_by_the_critic(app_factory):
 
     clear_card_cache()  # a cached card would skip the writer this test watches
     app, deps = app_factory("kembung")
+    # Corpus v1, where kembung still has no taste/texture evidence: the scripted
+    # writer only borrows a claim for a category the species lacks, and the full
+    # corpus now covers every category for every species.
+    from evals.corpus import build_store, corpus_v1_ids
+
+    deps.knowledge_repo = build_store(e5, only=corpus_v1_ids())
     own_sources = {c.source["id"] for c in load_corpus() if c.species_label == "kembung"}
     with TestClient(app) as client:
         sign_in(client)
