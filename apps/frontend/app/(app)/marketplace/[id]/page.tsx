@@ -56,11 +56,13 @@ export default async function LotPage({
   }
 
   let canReview = false
+  let viewer: 'buyer' | 'operator' | 'guest' = 'guest'
   // Explainability is per buyer, so it exists only for a signed-in one. An
   // operator or a visitor gets nothing here rather than an empty panel.
   let reasons: MatchReason[] = []
   try {
     const me = await getMeAsServer()
+    viewer = me.role === 'buyer' ? 'buyer' : 'operator'
     canReview = me.role === 'buyer' && lot.allocated_buyer_id === me.id
     if (me.role === 'buyer') {
       const { items } = await getRecommendationsAsServer(me.id)
@@ -78,6 +80,7 @@ export default async function LotPage({
       reviews={reviews}
       bids={bids}
       canReview={canReview}
+      viewer={viewer}
     />
   )
 }

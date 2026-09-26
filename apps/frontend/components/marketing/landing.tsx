@@ -29,6 +29,8 @@ const DEMO_LOT: Lot = {
   allocated_buyer_id: null,
   current_highest_per_kg: '70000.00',
   serviceability_radius_km: 100,
+  batch_index: 1,
+  batch_size: 1,
 }
 
 const DEMO_REASONS = [
@@ -122,7 +124,7 @@ export function LandingPage() {
             <p className="reveal text-eyebrow text-ink-faint">WHY IT MATCHED</p>
             <h2 className="reveal text-h1 mt-2">Need, then supply, then the reason.</h2>
             <div className="reveal-stagger mt-10 grid gap-6 lg:grid-cols-2 lg:items-start">
-              <LotCard lot={DEMO_LOT} matchPercent={0.94} />
+              <LotCard lot={DEMO_LOT} matched />
               <MatchReasons reasons={DEMO_REASONS} />
             </div>
           </div>

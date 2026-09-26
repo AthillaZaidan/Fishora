@@ -33,7 +33,19 @@ const DEMO_ACCOUNTS = [
   },
 ] as const
 
-export function LoginForm({ initialSession = null }: { initialSession?: Session | null }) {
+/** Only a same-site path: `next` comes from the URL, so it must not send anyone off-site. */
+function safeNext(next: string | undefined): string | null {
+  return next && next.startsWith('/') && !next.startsWith('//') ? next : null
+}
+
+export function LoginForm({
+  initialSession = null,
+  next,
+}: {
+  initialSession?: Session | null
+  /** Where to go after signing in, e.g. back to the lot a guest wanted to bid on. */
+  next?: string
+}) {
   const router = useRouter()
   const [username, setUsername] = useState<string>(DEMO_ACCOUNTS[0].username)
   const [busy, setBusy] = useState(false)
@@ -47,6 +59,11 @@ export function LoginForm({ initialSession = null }: { initialSession?: Session 
     setError('')
     try {
       setSession(await login(chosen.username, chosen.password))
+      const target = safeNext(next)
+      if (target) {
+        router.replace(target)
+        return
+      }
       // The shell reads the session on the server, so it only picks up the new
       // role once the tree is refetched.
       router.refresh()

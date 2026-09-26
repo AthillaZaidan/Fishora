@@ -1,0 +1,22 @@
+node_modules/
+.next/
+.env*
+tsconfig.tsbuildinfo
+Dockerfile
+.dockerignore
+
+# Tests and local notes, untracked (see the root .gitignore).
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+e2e/
+test/
+test-results/
+playwright-report/
+playwright.config.ts
+vitest.config.ts
+vitest.setup.ts
+AGENTS.md
+CLAUDE.md
+HANDOFF.md

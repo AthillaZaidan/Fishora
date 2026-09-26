@@ -99,11 +99,44 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** List Lots */
+        /**
+         * List Lots
+         * @description HANDOFF Slice C filters.
+         *
+         *     `species_id`, `intended_use` and `characteristic` repeat, and repeats are
+         *     OR: `?intended_use=digoreng&intended_use=fillet` returns lots suited to
+         *     either. The lists AND with each other and with the range filters. OR
+         *     mirrors the matching engine, which scores each criterion on set
+         *     intersection, so the buyer profile preview and the saved recommendation
+         *     count cannot disagree.
+         */
         get: operations["list_lots_api_v1_lots_get"];
         put?: never;
-        /** Publish Lot */
+        /**
+         * Publish Lot
+         * @description Publish a verified catch as `lot_count` lots, each its own auction.
+         */
         post: operations["publish_lot_api_v1_lots_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/lots/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Search Lots Endpoint
+         * @description Open lots matching `q` by name or knowledge-card characteristics, plus similar fish.
+         */
+        get: operations["search_lots_endpoint_api_v1_lots_search_get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -337,6 +370,74 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/species": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Species */
+        get: operations["list_species_api_v1_species_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/species/{species_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Species */
+        get: operations["get_species_api_v1_species__species_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/quality": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Quality Dashboard */
+        get: operations["quality_dashboard_quality_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/quality/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Quality Summary */
+        get: operations["quality_summary_api_v1_quality_summary_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -387,6 +488,8 @@ export interface components {
         DiscoverResponse: {
             /** Public Slug */
             public_slug: string;
+            /** Lot Id */
+            lot_id: string;
             /** Species Id */
             species_id: string;
             card: components["schemas"]["KnowledgeCard"];
@@ -525,6 +628,16 @@ export interface components {
             allocated_buyer_id?: string | null;
             /** Seller Fisher Group */
             seller_fisher_group?: string | null;
+            /**
+             * Batch Index
+             * @default 1
+             */
+            batch_index: number;
+            /**
+             * Batch Size
+             * @default 1
+             */
+            batch_size: number;
             /** Current Highest Per Kg */
             current_highest_per_kg?: string | null;
             /**
@@ -611,6 +724,11 @@ export interface components {
             operator_id?: string | null;
             /** Quantity Kg */
             quantity_kg: number | string;
+            /**
+             * Lot Count
+             * @default 1
+             */
+            lot_count: number;
             /** Starting Price Per Kg */
             starting_price_per_kg: number | string;
             /**
@@ -620,8 +738,11 @@ export interface components {
             size_category: "S" | "M" | "L";
             /** Landing Point Id */
             landing_point_id: string;
-            /** Auction Hours */
-            auction_hours?: number | null;
+            /**
+             * Auction Minutes
+             * @description One of 30, 60, 120, 180
+             */
+            auction_minutes?: number | null;
             /** Seller Fisher Group */
             seller_fisher_group?: string | null;
         };
@@ -679,6 +800,15 @@ export interface components {
             /** Created At */
             created_at?: string | null;
         };
+        /** SearchResponse */
+        SearchResponse: {
+            /** Matches */
+            matches: components["schemas"]["LotResponse"][];
+            /** Similar */
+            similar: components["schemas"]["LotResponse"][];
+            /** Similar To */
+            similar_to: string[];
+        };
         /** SessionResponse */
         SessionResponse: {
             /** Id */
@@ -723,6 +853,27 @@ export interface components {
             normalized_label: string;
             /** Confidence */
             confidence: number;
+        };
+        /**
+         * SpeciesResponse
+         * @description The taxonomy as the backend holds it.
+         *
+         *     `notes` is deliberately absent: it carries reviewer commentary about why a
+         *     name is uncertain, which is for the corpus reviewers rather than callers.
+         */
+        SpeciesResponse: {
+            /** Id */
+            id: string;
+            /** Normalized Label */
+            normalized_label: string;
+            /** Common Name Id */
+            common_name_id: string;
+            /** Scientific Name */
+            scientific_name: string | null;
+            /** Taxonomic Rank */
+            taxonomic_rank: string;
+            /** Taxonomy Status */
+            taxonomy_status: string;
         };
         /** ValidationError */
         ValidationError: {
@@ -920,7 +1071,9 @@ export interface operations {
     list_lots_api_v1_lots_get: {
         parameters: {
             query?: {
-                species_id?: string | null;
+                species_id?: string[] | null;
+                intended_use?: string[] | null;
+                characteristic?: string[] | null;
                 min_price?: number | string | null;
                 max_price?: number | string | null;
                 min_quantity?: number | string | null;
@@ -976,7 +1129,40 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["LotResponse"];
+                    "application/json": components["schemas"]["LotResponse"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    search_lots_endpoint_api_v1_lots_search_get: {
+        parameters: {
+            query?: {
+                q?: string;
+                min_price?: number | string | null;
+                max_price?: number | string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SearchResponse"];
                 };
             };
             /** @description Validation Error */
@@ -1412,6 +1598,97 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_species_api_v1_species_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SpeciesResponse"][];
+                };
+            };
+        };
+    };
+    get_species_api_v1_species__species_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                species_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SpeciesResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    quality_dashboard_quality_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/html": string;
+                };
+            };
+        };
+    };
+    quality_summary_api_v1_quality_summary_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
         };

@@ -1,12 +1,11 @@
 'use client'
 
 import Link from 'next/link'
-import { useCallback, useMemo, useState, useSyncExternalStore } from 'react'
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Fish, Funnel, Sliders } from '@phosphor-icons/react/dist/ssr'
+import { Fish, Funnel, MagnifyingGlass, Sparkle } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components/common/button'
 import { EmptyState } from '@/components/common/empty-state'
-import { MatchedEmpty } from '@/components/buyer/matched-empty'
 import { LotCard } from '@/components/lot/lot-card'
 import { FilterRail } from '@/components/marketplace/filter-rail'
 import { FilterSheet } from '@/components/marketplace/filter-sheet'
@@ -18,7 +17,6 @@ import {
   serializeFilters,
   type MarketplaceFilters,
 } from '@/lib/marketplace-filters'
-import { SPECIES } from '@/lib/species'
 import type { components } from '@/lib/api/schema'
 
 type Lot = components['schemas']['LotResponse']
@@ -31,31 +29,6 @@ const POLL_MS = 15_000
 interface PollSnapshot {
   lots: Lot[]
   fresh: number
-}
-
-function ViewTab({
-  href,
-  current,
-  children,
-}: {
-  href: string
-  current: boolean
-  children: React.ReactNode
-}) {
-  return (
-    <Link
-      href={href}
-      aria-current={current ? 'page' : undefined}
-      className={[
-        // A rule under the current label rather than a filled pill, so the page
-        // background carries through the way the shell's own tabs do.
-        'text-body-sm flex min-h-11 min-w-0 items-center justify-center truncate border-b-2 px-3',
-        current ? 'border-ink text-ink' : 'border-transparent text-ink-muted hover:text-ink',
-      ].join(' ')}
-    >
-      {children}
-    </Link>
-  )
 }
 
 // An external store, not state in an effect: the interval, the tab visibility
@@ -147,20 +120,22 @@ function createLotPoll(load: (query: string) => Promise<Lot[]>) {
 
 const noSnapshot = () => null
 
+const SEARCH_DEBOUNCE_MS = 300
+
 export function MarketplaceView({
   lots,
+  similar = [],
+  similarTo = [],
+  matchedIds = [],
   inventoryEmpty,
-  matched = false,
-  matchScores = {},
-  profileMissing = false,
 }: {
   lots: Lot[]
+  /** Other open lots the searched fish's knowledge card names as similar. */
+  similar?: Lot[]
+  similarTo?: string[]
+  /** Lots that fit the signed-in buyer's preferences. */
+  matchedIds?: string[]
   inventoryEmpty: boolean
-  /** True when the caller resolved recommendations rather than the open grid. */
-  matched?: boolean
-  /** Real per-lot scores from the matching engine, keyed by lot id. */
-  matchScores?: Record<string, number>
-  profileMissing?: boolean
 }) {
   const router = useRouter()
   const pathname = usePathname()
@@ -168,8 +143,26 @@ export function MarketplaceView({
   const search = searchParams.toString()
   const filters = useMemo(() => parseFilters(search), [search])
   const [sheetOpen, setSheetOpen] = useState(false)
+  const [typed, setTyped] = useState(filters.query)
   const count = activeFilterCount(filters)
-  const showMatched = matched || filters.matched
+  const searching = filters.query.trim() !== ''
+  const matched = useMemo(() => new Set(matchedIds), [matchedIds])
+
+  const apply = useCallback(
+    (next: MarketplaceFilters) => {
+      const query = serializeFilters(next)
+      router.replace(query ? `${pathname}?${query}` : pathname)
+    },
+    [router, pathname]
+  )
+
+  // Results follow the typing, a beat behind it, so every keystroke does not
+  // become a request.
+  useEffect(() => {
+    if (typed.trim() === filters.query.trim()) return
+    const timer = setTimeout(() => apply({ ...filters, query: typed }), SEARCH_DEBOUNCE_MS)
+    return () => clearTimeout(timer)
+  }, [typed, filters, apply])
 
   const poll = useMemo(() => createLotPoll(listLots), [])
   const pollQuery = useMemo(() => lotApiQuery(filters), [filters])
@@ -177,37 +170,32 @@ export function MarketplaceView({
   const seed = useMemo(() => lots.map((lot) => lot.id).join(','), [lots])
   const subscribe = useCallback(
     (onChange: () => void) =>
-      // The matched grid is ordered by the recommendation engine, so open
-      // marketplace lots must never overwrite it.
-      showMatched ? () => {} : poll.start(pollQuery, seed ? seed.split(',') : [], onChange),
-    [poll, showMatched, pollQuery, seed]
+      // Search results come with their similar-fish list from the server; the
+      // open-market poll would replace them with unsearched lots.
+      searching ? () => {} : poll.start(pollQuery, seed ? seed.split(',') : [], onChange),
+    [poll, searching, pollQuery, seed]
   )
   const live = useSyncExternalStore(subscribe, poll.read, noSnapshot)
   const current = live?.lots ?? lots
   const fresh = live?.fresh ?? 0
 
-  // Switching views keeps the filters the buyer already set.
-  const viewHref = (wantsMatched: boolean) => {
-    const query = serializeFilters({ ...filters, matched: wantsMatched })
-    return query ? `${pathname}?${query}` : pathname
-  }
-
-  const apply = (next: MarketplaceFilters) => {
-    const query = serializeFilters(next)
-    router.replace(query ? `${pathname}?${query}` : pathname)
-  }
-
   const visible = useMemo(() => {
     return current.filter((lot) => {
-      const label = lot.species_id.replace('species_', '')
-      if (filters.species.length && !filters.species.includes(label as never)) return false
       if (filters.minPrice && Number(lot.starting_price_per_kg) < Number(filters.minPrice)) return false
       if (filters.maxPrice && Number(lot.starting_price_per_kg) > Number(filters.maxPrice)) return false
-      if (filters.minQuantity && Number(lot.quantity_kg) < Number(filters.minQuantity)) return false
-      if (filters.maxQuantity && Number(lot.quantity_kg) > Number(filters.maxQuantity)) return false
       return true
     })
   }, [current, filters])
+
+  const grid = (items: Lot[]) => (
+    <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      {items.map((lot, index) => (
+        <Link key={lot.id} href={`/marketplace/${lot.id}`}>
+          <LotCard lot={lot} matched={matched.has(lot.id)} priority={index === 0} />
+        </Link>
+      ))}
+    </div>
+  )
 
   return (
     <div className="pb-24 lg:pb-8">
@@ -215,35 +203,31 @@ export function MarketplaceView({
           pushed the cards down while the filter rail beside them started at
           the top of the page. */}
       <header>
-        <h1 className="text-h1 text-ink">
-          {showMatched ? 'Matched for me' : 'All lots'}
-        </h1>
+        <h1 className="text-h1 text-ink">All lots</h1>
         <p className="text-body-sm mt-1 max-w-[52ch] text-ink-muted">
-          {showMatched
-            ? 'Diurutkan menurut kecocokan dengan preferensi Anda.'
-            : 'Semua lot lelang yang masih aktif.'}
+          Semua lot lelang yang masih aktif.
         </p>
       </header>
 
       <div className="mt-4 flex gap-8 lg:mt-6">
         <FilterRail filters={filters} onChange={apply} />
         <div className="min-w-0 flex-1">
-          {/* No fill of its own: the toolbar sits on the page background as part
-              of the heading block, carrying only the baseline the current tab is
-              drawn against. It wraps rather than scrolls, so a narrow screen
-              never cuts a control in half. */}
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 border-b border-line pb-2">
-            {/* Both views are named and the current one is marked. The single
-                link before this showed the view you were already on while
-                navigating to the other one. */}
-            <nav aria-label="Tampilan lot" className="-mb-2 flex min-w-0 gap-1">
-              <ViewTab href={viewHref(false)} current={!showMatched}>
-                All lots
-              </ViewTab>
-              <ViewTab href={viewHref(true)} current={showMatched}>
-                Matched for me
-              </ViewTab>
-            </nav>
+          <div className="flex flex-wrap items-center gap-2 border-b border-line pb-3">
+            <label className="relative min-w-0 flex-1">
+              <span className="sr-only">Cari ikan</span>
+              <MagnifyingGlass
+                size={18}
+                className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-ink-muted"
+                aria-hidden
+              />
+              <input
+                type="search"
+                value={typed}
+                onChange={(event) => setTyped(event.target.value)}
+                placeholder="Cari nama ikan, rasa, tekstur, atau olahan"
+                className="text-body min-h-11 w-full rounded-full border border-line-input bg-transparent pr-4 pl-10 text-ink"
+              />
+            </label>
             {fresh > 0 && (
               <button
                 type="button"
@@ -253,7 +237,7 @@ export function MarketplaceView({
                 {fresh} lot baru
               </button>
             )}
-            <div className="ml-auto flex shrink-0 items-center gap-2 lg:hidden">
+            <div className="shrink-0 lg:hidden">
               <Button
                 type="button"
                 variant="secondary"
@@ -261,63 +245,49 @@ export function MarketplaceView({
                 icon={<Funnel size={16} />}
                 onClick={() => setSheetOpen(true)}
               >
-                Filters{count ? ` ${count}` : ''}
+                Harga{count ? ` ${count}` : ''}
               </Button>
-              <button type="button" aria-label="Urutkan" className="grid size-11 shrink-0 place-items-center">
-                <Sliders size={20} />
-              </button>
             </div>
           </div>
 
-          {count > 0 && (
-            <div
-              tabIndex={0}
-              role="group"
-              aria-label="Filter aktif"
-              className="flex gap-2 overflow-x-auto py-3 whitespace-nowrap"
-            >
-              {filters.species.map((label) => (
-                <button
-                  key={label}
-                  type="button"
-                  className="text-body-sm min-h-11 shrink-0 rounded-full border border-line px-3"
-                  onClick={() => apply({ ...filters, species: filters.species.filter((item) => item !== label) })}
-                >
-                  {SPECIES[label].commonName}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {showMatched && profileMissing ? (
-            <MatchedEmpty hasProfile={false} />
-          ) : inventoryEmpty && current.length === 0 ? (
+          {inventoryEmpty && current.length === 0 ? (
             <EmptyState icon={Fish} message="Belum ada lot aktif." action={<Button type="button">Muat ulang</Button>} />
           ) : visible.length === 0 ? (
             <EmptyState
-              icon={Funnel}
-              message="Tidak ada lot yang cocok dengan filter ini."
+              icon={searching ? MagnifyingGlass : Funnel}
+              message={searching ? `Tidak ada lot untuk "${filters.query}".` : 'Tidak ada lot di rentang harga ini.'}
               action={
-                <Button type="button" variant="secondary" onClick={() => apply({ ...filters, species: [], minPrice: '', maxPrice: '', minQuantity: '', maxQuantity: '' })}>
-                  Hapus filter
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => {
+                    setTyped('')
+                    apply({ query: '', minPrice: '', maxPrice: '' })
+                  }}
+                >
+                  Hapus pencarian dan filter
                 </Button>
               }
             />
           ) : (
-            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              {visible.map((lot, index) => (
-                <Link key={lot.id} href={`/marketplace/${lot.id}`}>
-                  <LotCard
-                    lot={lot}
-                    matchPercent={showMatched ? matchScores[lot.id] : undefined}
-                    priority={index === 0}
-                  />
-                </Link>
-              ))}
-            </div>
+            grid(visible)
+          )}
+
+          {similar.length > 0 && (
+            <section className="mt-10" aria-labelledby="similar-heading">
+              <h2 id="similar-heading" className="text-h3 flex items-center gap-2 text-ink">
+                <Sparkle size={18} weight="fill" className="text-accent" aria-hidden />
+                Rekomendasi ikan serupa
+              </h2>
+              <p className="text-body-sm mt-1 max-w-[60ch] text-ink-muted">
+                Selain {similarTo.join(', ')}, ikan ini juga sedang dijual. Kemiripannya diambil dari kartu
+                pengetahuan {similarTo.length > 1 ? 'ikan-ikan tersebut' : 'ikan tersebut'}.
+              </p>
+              {grid(similar)}
+            </section>
           )}
         </div>
-        </div>
+      </div>
       <FilterSheet
         open={sheetOpen}
         onClose={() => setSheetOpen(false)}

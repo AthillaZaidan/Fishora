@@ -1,10 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Printer } from '@phosphor-icons/react/dist/ssr'
 import { Sheet } from '@/components/common/sheet'
 import { QrCard } from '@/components/qr/qr-card'
+import { getDiscover } from '@/lib/api/commerce'
 import { discoverUrl } from '@/lib/qr'
+import type { KnowledgeCard } from '@/lib/api/fish'
 import type { components } from '@/lib/api/schema'
 
 type Lot = components['schemas']['LotResponse']
@@ -13,13 +15,34 @@ export function QrSheet({
   open,
   onClose,
   lot,
+  card = null,
 }: {
   open: boolean
   onClose: () => void
   lot: Lot
+  /** The lot's knowledge card when the caller already has it; fetched otherwise. */
+  card?: KnowledgeCard | null
 }) {
   const url = discoverUrl(lot.public_slug)
   const [copied, setCopied] = useState(false)
+  const [loaded, setLoaded] = useState<{ slug: string; card: KnowledgeCard } | null>(null)
+
+  useEffect(() => {
+    if (card || !open) return
+    let cancelled = false
+    getDiscover(lot.public_slug)
+      .then((data) => {
+        if (!cancelled) setLoaded({ slug: lot.public_slug, card: data.card })
+      })
+      .catch(() => {
+        // A lot without a card still prints: taste and texture read "-".
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [card, open, lot.public_slug])
+
+  const shown = card ?? (loaded?.slug === lot.public_slug ? loaded.card : null)
 
   return (
     <Sheet
@@ -30,7 +53,7 @@ export function QrSheet({
       actions={
         <button
           type="button"
-          // Hands off to the device: the operator picks the printer, the paper
+          // Hands off to the device: the restaurant picks the printer, the paper
           // and the copies, and a kiosk or a phone share sheet works the same.
           onClick={() => window.print()}
           aria-label="Cetak kartu"
@@ -61,7 +84,7 @@ export function QrSheet({
         </div>
       }
     >
-      <QrCard lot={lot} />
+      <QrCard lot={lot} card={shown} />
     </Sheet>
   )
 }

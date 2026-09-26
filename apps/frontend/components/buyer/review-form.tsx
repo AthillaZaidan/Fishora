@@ -1,6 +1,7 @@
 'use client'
 
 import { useId, useState } from 'react'
+import { Star } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components/common/button'
 import { Field } from '@/components/common/field'
 import { ApiError } from '@/lib/api/errors'
@@ -16,7 +17,7 @@ const BY_STATUS: Record<number, string> = {
   401: 'Masuk sebagai pembeli dulu untuk menulis ulasan.',
   403: 'Ulasan hanya bisa ditulis oleh pembeli yang mendapat alokasi lot ini.',
   409: 'Lot ini belum dialokasikan. Ulasan bisa ditulis setelah alokasi selesai.',
-  422: 'Nilai kesesuaian olahan harus antara 1 dan 5.',
+  422: 'Rating harus antara 1 dan 5 bintang.',
 }
 
 export function ReviewForm({
@@ -94,15 +95,15 @@ export function ReviewForm({
       />
 
       <fieldset>
-        <legend className="text-label text-ink">Kesesuaian olahan</legend>
-        {/* Five discrete options. DESIGN.md 8.5 bans a filled track here. */}
-        <div className="mt-2 flex flex-wrap gap-2">
+        {/* Stored in the existing processing_suitability field (1 to 5); the
+            form now asks for it as an overall star rating. */}
+        <legend className="text-label text-ink">Rating</legend>
+        <div className="mt-2 flex flex-wrap gap-1">
           {RATINGS.map((value) => (
             <label
               key={value}
-              className={`text-num-sm flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full border px-4 tabular-nums ${
-                suitability === value ? 'border-ink bg-surface text-ink' : 'border-line text-ink-muted'
-              }`}
+              aria-label={`${value} bintang`}
+              className="flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full has-[:focus-visible]:outline-2"
             >
               <input
                 type="radio"
@@ -115,11 +116,16 @@ export function ReviewForm({
                   setSaved(false)
                 }}
               />
-              {value}
+              <Star
+                size={28}
+                weight={value <= suitability ? 'fill' : 'regular'}
+                className={value <= suitability ? 'text-accent' : 'text-ink-faint'}
+                aria-hidden
+              />
             </label>
           ))}
         </div>
-        <p className="text-body-sm mt-2 text-ink-muted">1 kurang sesuai, 5 sangat sesuai.</p>
+        <p className="text-body-sm mt-2 text-ink-muted">1 bintang kurang puas, 5 bintang sangat puas.</p>
       </fieldset>
 
       <label className="flex min-h-11 items-center gap-3 text-body-sm text-ink">

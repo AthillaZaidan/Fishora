@@ -19,11 +19,12 @@ from apps.main_api.errors import (
 )
 from apps.main_api.services.matching import fold_words, lot_characteristics, lot_uses
 
-DEFAULT_AUCTION_HOURS = 4
-# A lot that never closes cannot be allocated, and one that closes instantly
-# cannot be bid on, so the window is bounded rather than free-form.
-MIN_AUCTION_HOURS = 1
-MAX_AUCTION_HOURS = 72
+# The durations the operator can pick. Market testing asked for short windows:
+# a landed catch is sold the same morning, not over days.
+AUCTION_MINUTE_OPTIONS = (30, 60, 120, 180)
+DEFAULT_AUCTION_MINUTES = 60
+# How many lots one catch can be split into.
+MAX_LOT_COUNT = 50
 _POSITIVE_SIZES = {"S", "M", "L"}
 
 
@@ -33,14 +34,14 @@ class LotService:
         prediction_repo,
         lot_repo,
         *,
-        auction_hours: int = DEFAULT_AUCTION_HOURS,
+        auction_minutes: int = DEFAULT_AUCTION_MINUTES,
         landing_point_repo=None,
         knowledge_service=None,
         job_repo=None,
     ):
         self._prediction_repo = prediction_repo
         self._lot_repo = lot_repo
-        self._auction_hours = auction_hours
+        self._auction_minutes = auction_minutes
         self._landing_point_repo = landing_point_repo
         self._knowledge_service = knowledge_service
         self._job_repo = job_repo
@@ -69,15 +70,22 @@ class LotService:
         starting_price_per_kg: Decimal,
         size_category: str,
         landing_point_id: str,
-        auction_hours: int | None = None,
+        lot_count: int = 1,
+        auction_minutes: int | None = None,
         seller_fisher_group: str | None = None,
         now: datetime | None = None,
-    ) -> LotRecord:
-        hours = self._auction_hours if auction_hours is None else int(auction_hours)
-        if not MIN_AUCTION_HOURS <= hours <= MAX_AUCTION_HOURS:
-            raise ValueError(
-                f"auction_hours must be between {MIN_AUCTION_HOURS} and {MAX_AUCTION_HOURS}"
-            )
+    ) -> list[LotRecord]:
+        """Publish a verified catch as `lot_count` lots of `quantity_kg` each.
+
+        Every lot is its own auction with its own winner, so several buyers can
+        each take part of one catch. All lots share the catch's species, price,
+        window and knowledge card.
+        """
+        minutes = self._auction_minutes if auction_minutes is None else int(auction_minutes)
+        if minutes not in AUCTION_MINUTE_OPTIONS:
+            raise InvalidLot(f"auction_minutes must be one of {AUCTION_MINUTE_OPTIONS}")
+        if not 1 <= lot_count <= MAX_LOT_COUNT:
+            raise InvalidLot(f"lot_count must be between 1 and {MAX_LOT_COUNT}")
         record = self._prediction_repo.get(prediction_id)
         if record is None:
             raise PredictionNotFound(prediction_id)
@@ -91,7 +99,6 @@ class LotService:
             raise LotAlreadyPublished(prediction_id)
 
         starts = now or datetime.now(timezone.utc)
-        lot_id = uuid4().hex
         label = record.verified_species_id.removeprefix("species_")
         snapshot = self._graded_card(prediction_id, record.verified_species_id)
         if snapshot is None and self._knowledge_service is not None:
@@ -105,23 +112,30 @@ class LotService:
                 ).card.model_dump(mode="json")
             except Exception:
                 snapshot = None
-        lot = LotRecord(
-            id=lot_id,
-            prediction_id=record.id,
-            operator_id=operator_id,
-            species_id=record.verified_species_id,
-            landing_point_id=landing_point_id,
-            quantity_kg=quantity_kg,
-            size_category=size_category,
-            starting_price_per_kg=starting_price_per_kg,
-            status="active",
-            auction_starts_at=starts,
-            auction_ends_at=starts + timedelta(hours=hours),
-            public_slug=f"{label}-{lot_id[:8]}",
-            knowledge_snapshot=snapshot,
-            seller_fisher_group=seller_fisher_group,
-        )
-        return self._lot_repo.create(lot)
+        lots = []
+        for index in range(1, lot_count + 1):
+            lot_id = uuid4().hex
+            lots.append(
+                LotRecord(
+                    id=lot_id,
+                    prediction_id=record.id,
+                    operator_id=operator_id,
+                    species_id=record.verified_species_id,
+                    landing_point_id=landing_point_id,
+                    quantity_kg=quantity_kg,
+                    size_category=size_category,
+                    starting_price_per_kg=starting_price_per_kg,
+                    status="active",
+                    auction_starts_at=starts,
+                    auction_ends_at=starts + timedelta(minutes=minutes),
+                    public_slug=f"{label}-{lot_id[:8]}",
+                    knowledge_snapshot=snapshot,
+                    seller_fisher_group=seller_fisher_group,
+                    batch_index=index,
+                    batch_size=lot_count,
+                )
+            )
+        return self._lot_repo.create_many(lots)
 
     def get(self, lot_id: str) -> LotRecord:
         lot = self._lot_repo.get(lot_id)

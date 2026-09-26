@@ -1,0 +1,13 @@
+# Allow-list: the Python image needs only these. Everything else (.venv, .env,
+# artifacts/, ai/, data/, reports/, the frontend) stays out of the build context.
+*
+!pyproject.toml
+!alembic.ini
+!alembic/
+!apps/
+!scripts/
+!evals/
+!docker/
+apps/frontend/
+**/__pycache__/
+**/*.py[cod]

@@ -5,10 +5,10 @@ import { Button } from '@/components/common/button'
 import { Sheet } from '@/components/common/sheet'
 import { QrSheet } from '@/components/qr/qr-sheet'
 import { BidHistory } from '@/components/lot/bid-history'
+import { LotCard } from '@/components/lot/lot-card'
 import { Skeleton } from '@/components/common/skeleton'
 import { allocateLot, closeLot, listBids, type Bid } from '@/lib/api/commerce'
 import { rupiahPerKg } from '@/lib/format'
-import { resolveSpecies } from '@/lib/species'
 import type { components } from '@/lib/api/schema'
 
 type Lot = components['schemas']['LotResponse']
@@ -45,40 +45,44 @@ export function OperatorLots({ lots }: { lots: Lot[] }) {
   return (
     <>
       <h1 className="text-h1 text-ink">Lot saya</h1>
-      <ul className="mt-6 flex flex-col gap-4">
-        {items.map((lot) => (
-          <li key={lot.id} className="rounded-2xl border border-line p-4">
-            <p className="text-h3 text-ink">
-              {resolveSpecies(lot.species_id.replace('species_', '')).commonName}
-            </p>
-            <p className="text-body-sm text-ink-muted">
-              {STATUS_LABEL[lot.status] ?? lot.status} · {lot.quantity_kg} kg ·{' '}
-              {rupiahPerKg(Number(lot.starting_price_per_kg))}
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {lot.status === 'active' && (
-                <Button type="button" onClick={() => setPending({ lot, kind: 'close' })}>
-                  Tutup lelang
+      {items.length === 0 ? (
+        <p className="text-body-sm mt-4 text-ink-muted">Belum ada lot. Terbitkan tangkapan dari menu Identify.</p>
+      ) : (
+        // The same card grid buyers browse, so the operator sees each lot the
+        // way it is listed, with its controls underneath.
+        <ul className="mt-6 grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
+          {items.map((lot, index) => (
+            <li key={lot.id} className="flex flex-col gap-3">
+              <LotCard lot={lot} priority={index === 0} />
+              <p className="text-body-sm px-1 text-ink-muted">
+                Status: <span className="text-ink">{STATUS_LABEL[lot.status] ?? lot.status}</span> · Harga awal{' '}
+                {rupiahPerKg(Number(lot.starting_price_per_kg))}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {lot.status === 'active' && (
+                  <Button type="button" size="sm" onClick={() => setPending({ lot, kind: 'close' })}>
+                    Tutup lelang
+                  </Button>
+                )}
+                {lot.status === 'closed' && (
+                  <Button type="button" size="sm" onClick={() => setPending({ lot, kind: 'allocate' })}>
+                    Allocate to winning bidder
+                  </Button>
+                )}
+                <Button type="button" size="sm" variant="secondary" onClick={() => openBids(lot)}>
+                  Lihat penawaran
                 </Button>
-              )}
-              {lot.status === 'closed' && (
-                <Button type="button" onClick={() => setPending({ lot, kind: 'allocate' })}>
-                  Allocate to winning bidder
+                {/* Available at every status, not only once allocated. The QR
+                    points at the public page for the lot, which an operator has
+                    reason to show a buyer while the auction is still running. */}
+                <Button type="button" size="sm" variant="secondary" onClick={() => setQr(lot)}>
+                  Buat QR
                 </Button>
-              )}
-              <Button type="button" variant="secondary" onClick={() => openBids(lot)}>
-                Lihat penawaran
-              </Button>
-              {/* Available at every status, not only once allocated. The QR
-                  points at the public page for the lot, which an operator has
-                  reason to show a buyer while the auction is still running. */}
-              <Button type="button" variant="secondary" onClick={() => setQr(lot)}>
-                Buat QR
-              </Button>
-            </div>
-          </li>
-        ))}
-      </ul>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
       <Sheet
         open={Boolean(pending)}
         onClose={() => setPending(null)}

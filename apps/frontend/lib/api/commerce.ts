@@ -17,8 +17,15 @@ export type PreferenceRequest = components['schemas']['PreferenceRequest']
 export type Review = components['schemas']['ReviewResponse']
 export type ReviewPayload = components['schemas']['ReviewRequest']
 
+export type SearchResult = components['schemas']['SearchResponse']
+
 export function listLots(query = '') {
   return apiFetch<Lot[]>(`/api/v1/lots${query ? `?${query}` : ''}`)
+}
+
+/** Open lots by name or card characteristics, plus the similar fish the match's card names. */
+export function searchLots(query: string) {
+  return apiFetch<SearchResult>(`/api/v1/lots/search?${query}`)
 }
 
 export function getLot(id: string) {
@@ -95,16 +102,17 @@ export function getMe() {
   return apiFetch<{ id: string; role: string; name: string; username: string }>('/api/v1/auth/me')
 }
 
+/** One catch as `lot_count` lots of `quantity_kg` each; every lot is its own auction. */
 export function publishLot(payload: {
   prediction_id: string
   quantity_kg: string
+  lot_count: number
   starting_price_per_kg: string
   size_category: 'S' | 'M' | 'L'
   landing_point_id: string
-  auction_hours?: number
-  seller_fisher_group?: string
+  auction_minutes?: number
 }) {
-  return apiFetch<Lot>('/api/v1/lots', {
+  return apiFetch<Lot[]>('/api/v1/lots', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(payload),

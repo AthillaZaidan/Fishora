@@ -1,14 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
+import { QrCode } from '@phosphor-icons/react/dist/ssr'
 import { KnowledgeCardView } from '@/components/fish/knowledge-card'
-import { MarketSignals } from '@/components/fish/market-signals'
+import { ReviewsRatings } from '@/components/fish/reviews-ratings'
 import { SpeciesArt } from '@/components/fish/species-art'
 import { SpeciesHeader } from '@/components/fish/species-header'
 import { Button } from '@/components/common/button'
 import { Field } from '@/components/common/field'
 import { Sheet } from '@/components/common/sheet'
 import { ReviewForm } from '@/components/buyer/review-form'
+import { QrSheet } from '@/components/qr/qr-sheet'
 import { MatchReasons } from '@/components/lot/match-reasons'
 import { BidHistory } from '@/components/lot/bid-history'
 import { Countdown } from '@/components/lot/countdown'
@@ -29,6 +32,7 @@ export function LotDetail({
   reviews,
   bids = [],
   canReview = false,
+  viewer = 'guest',
   photoUrl,
 }: {
   lot: Lot
@@ -37,8 +41,10 @@ export function LotDetail({
   reviews: Review[]
   /** Newest last or first: BidHistory orders them. */
   bids?: Bid[]
-  /** Only the buyer holding the allocation may write one. */
+  /** Only the buyer holding the allocation may write one, or print its QR card. */
   canReview?: boolean
+  /** Who is looking: only a buyer can bid; a guest is asked to sign in first. */
+  viewer?: 'buyer' | 'operator' | 'guest'
   /** A real photograph when one exists. Falls back to the species composition. */
   photoUrl?: string
 }) {
@@ -47,6 +53,7 @@ export function LotDetail({
   const [highest, setHighest] = useState(Number(lot.current_highest_per_kg ?? lot.starting_price_per_kg))
   const [amount, setAmount] = useState(String(highest + 1000))
   const [sheetOpen, setSheetOpen] = useState(false)
+  const [qrOpen, setQrOpen] = useState(false)
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
   const closed = lot.status !== 'active'
@@ -101,9 +108,33 @@ export function LotDetail({
           <dt className="text-label text-ink-muted">Harga awal</dt>
           <dd className="text-num-sm tabular-nums text-ink">{rupiahPerKg(Number(lot.starting_price_per_kg))}</dd>
         </div>
+        {lot.batch_size > 1 && (
+          <div>
+            <dt className="text-label text-ink-muted">Lot</dt>
+            <dd className="text-num-sm tabular-nums text-ink">
+              {lot.batch_index} dari {lot.batch_size}
+            </dd>
+          </div>
+        )}
       </dl>
+      {canReview && (
+        // Winning the lot is what grants the card: the restaurant prints it for
+        // its diners, and the code opens this fish in Fishora.
+        <section className="flex flex-col gap-3 rounded-2xl border border-line px-5 py-5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-h3 text-ink">Fishora QR untuk pelanggan Anda</h2>
+            <p className="text-body-sm mt-1 max-w-[52ch] text-ink-muted">
+              Anda memenangkan lot ini. Cetak kartu ikan dengan kode QR untuk dipajang di restoran; pelanggan
+              yang memindainya bisa menjelajahi ikan ini di Fishora.
+            </p>
+          </div>
+          <Button type="button" icon={<QrCode size={18} />} onClick={() => setQrOpen(true)}>
+            Buka Fishora QR
+          </Button>
+        </section>
+      )}
       <KnowledgeCardView card={card} label={label} />
-      <MarketSignals reviews={[...posted, ...reviews]} />
+      <ReviewsRatings reviews={[...posted, ...reviews]} />
       <section className="flex flex-col gap-3">
         <h2 className="text-h3 text-ink">Riwayat penawaran</h2>
         <BidHistory bids={[...placed, ...bids]} />
@@ -122,9 +153,16 @@ export function LotDetail({
               <p className="text-num-lg tabular-nums text-ink">{rupiahPerKg(highest)}</p>
               <Countdown endsAt={lot.auction_ends_at} />
             </div>
-            <Button type="button" onClick={() => setSheetOpen(true)}>
-              Ajukan penawaran
-            </Button>
+            {viewer === 'buyer' ? (
+              <Button type="button" onClick={() => setSheetOpen(true)}>
+                Ajukan penawaran
+              </Button>
+            ) : viewer === 'guest' ? (
+              // Anyone can read a lot; bidding needs a buyer account.
+              <Link href={`/account?next=${encodeURIComponent(`/marketplace/${lot.id}`)}`}>
+                <Button type="button">Masuk untuk menawar</Button>
+              </Link>
+            ) : null}
           </>
         )}
       </div>
@@ -147,6 +185,7 @@ export function LotDetail({
           error={error || undefined}
         />
       </Sheet>
+      {qrOpen && <QrSheet open onClose={() => setQrOpen(false)} lot={lot} card={card.common_name ? card : null} />}
     </div>
   )
 }

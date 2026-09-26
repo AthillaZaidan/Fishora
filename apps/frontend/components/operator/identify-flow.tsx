@@ -28,19 +28,22 @@ const DRAFT_KEY = 'fishora.operator.draft'
 type PublishLotPayload = {
   prediction_id: string
   quantity_kg: string
+  lot_count: number
   starting_price_per_kg: string
   size_category: 'S' | 'M' | 'L'
   landing_point_id: string
-  auction_hours?: number
-  seller_fisher_group?: string
+  auction_minutes?: number
 }
 
+// Mirrors AUCTION_MINUTE_OPTIONS in apps/main_api/services/lots.py.
 const DURATIONS = [
-  { id: '2h', label: '2 jam', hours: 2 },
-  { id: '4h', label: '4 jam', hours: 4 },
-  { id: '8h', label: '8 jam', hours: 8 },
-  { id: '24h', label: '24 jam', hours: 24 },
+  { id: '30m', label: '30 menit', minutes: 30 },
+  { id: '1h', label: '1 jam', minutes: 60 },
+  { id: '2h', label: '2 jam', minutes: 120 },
+  { id: '3h', label: '3 jam', minutes: 180 },
 ] as const
+// Mirrors MAX_LOT_COUNT in the same file.
+const MAX_LOT_COUNT = 50
 const SIZES = ['S', 'M', 'L'] as const
 
 // Action-bar buttons share the row: each one may shrink below its label width
@@ -114,11 +117,11 @@ export function IdentifyFlow({
   const [knowledgePending, setKnowledgePending] = useState(false)
   const [label, setLabel] = useState<string>('tenggiri')
   const [quantityKg, setQuantityKg] = useState('')
+  const [lotCount, setLotCount] = useState('1')
   const [size, setSize] = useState<Size>('M')
   const [pricePerKg, setPricePerKg] = useState('')
   const [landingPoint, setLandingPoint] = useState<string>(LANDING_POINTS[0])
-  const [fisherGroup, setFisherGroup] = useState('')
-  const [duration, setDuration] = useState<(typeof DURATIONS)[number]['id']>('4h')
+  const [duration, setDuration] = useState<(typeof DURATIONS)[number]['id']>('1h')
   const [publishError, setPublishError] = useState('')
 
   useEffect(() => {
@@ -126,16 +129,16 @@ export function IdentifyFlow({
       DRAFT_KEY,
       JSON.stringify({
         quantityKg,
+        lotCount,
         size,
         pricePerKg,
         landingPoint,
-        fisherGroup,
         duration,
         imageName: image?.name ?? null,
         step,
       })
     )
-  }, [quantityKg, size, pricePerKg, landingPoint, fisherGroup, duration, image, step])
+  }, [quantityKg, lotCount, size, pricePerKg, landingPoint, duration, image, step])
 
   useEffect(() => {
     return () => {
@@ -324,11 +327,11 @@ export function IdentifyFlow({
       await publishLot({
         prediction_id: prediction.prediction_id,
         quantity_kg: quantityKg,
+        lot_count: Number(lotCount),
         starting_price_per_kg: pricePerKg,
         size_category: size,
         landing_point_id: LANDING_POINT_IDS[landingPoint as LandingPointName],
-        seller_fisher_group: fisherGroup.trim() || undefined,
-        auction_hours: DURATIONS.find((option) => option.id === duration)?.hours ?? 4,
+        auction_minutes: DURATIONS.find((option) => option.id === duration)?.minutes ?? 60,
       })
       router.push('/operator/lots')
     } catch (cause) {
@@ -399,12 +402,12 @@ export function IdentifyFlow({
             <LotForm
               label={label}
               quantityKg={quantityKg}
+              lotCount={lotCount}
+              onLotCount={setLotCount}
               size={size}
               pricePerKg={pricePerKg}
               landingPoint={landingPoint}
               duration={duration}
-            fisherGroup={fisherGroup}
-            onFisherGroup={setFisherGroup}
               onQuantity={setQuantityKg}
               onSize={setSize}
               onPrice={setPricePerKg}
@@ -615,12 +618,12 @@ function CaptureStep({
 function LotForm({
   label,
   quantityKg,
+  lotCount,
+  onLotCount,
   size,
   pricePerKg,
   landingPoint,
   duration,
-  fisherGroup,
-  onFisherGroup,
   onQuantity,
   onSize,
   onPrice,
@@ -629,12 +632,12 @@ function LotForm({
 }: {
   label: string
   quantityKg: string
+  lotCount: string
+  onLotCount: (value: string) => void
   size: Size
   pricePerKg: string
   landingPoint: string
   duration: string
-  fisherGroup: string
-  onFisherGroup: (value: string) => void
   onQuantity: (value: string) => void
   onSize: (value: Size) => void
   onPrice: (value: string) => void
@@ -642,20 +645,36 @@ function LotForm({
   onDuration: (value: (typeof DURATIONS)[number]['id']) => void
 }) {
   const resolved = SPECIES[label as SpeciesLabel]
+  const total = Number(quantityKg) * Number(lotCount)
   return (
     <form className="mt-6 flex flex-col gap-5" onSubmit={(event) => event.preventDefault()}>
       <div className="rounded-[var(--radius-input)] bg-bg-sunken px-3 py-3">
         <p className="text-h3 text-ink">{resolved?.commonName ?? label}</p>
         <p className="text-body-sm text-ink-muted">{landingPoint}</p>
       </div>
-      <Field
-        label="Kuantitas (kg)"
-        inputMode="decimal"
-        value={quantityKg}
-        onChange={(event) => onQuantity(event.target.value)}
-        suffix="kg"
-        helper="Volume total lot ini."
-      />
+      <div className="grid grid-cols-2 gap-3">
+        <Field
+          label="1 lot berapa kg"
+          inputMode="decimal"
+          value={quantityKg}
+          onChange={(event) => onQuantity(event.target.value)}
+          suffix="kg"
+          helper="Berat setiap lot."
+        />
+        <Field
+          label="Tersedia berapa lot"
+          inputMode="numeric"
+          value={lotCount}
+          onChange={(event) => onLotCount(event.target.value.replace(/\D/g, ''))}
+          suffix="lot"
+          helper={`1 sampai ${MAX_LOT_COUNT}. Tiap lot dilelang terpisah.`}
+        />
+      </div>
+      {total > 0 && Number(lotCount) > 1 && (
+        <p className="text-body-sm -mt-2 text-ink-muted tabular-nums">
+          Total {lotCount} lot × {quantityKg} kg = {total.toLocaleString('id-ID')} kg
+        </p>
+      )}
       <fieldset>
         <legend className="text-label mb-2 text-ink">Kategori ukuran</legend>
         <div className="grid grid-cols-3 gap-2">
@@ -676,14 +695,6 @@ function LotForm({
           ))}
         </div>
       </fieldset>
-      <Field
-        label="Kelompok nelayan (opsional)"
-        value={fisherGroup}
-        onChange={(event) => onFisherGroup(event.target.value)}
-        maxLength={160}
-        placeholder="KUB Mina Sejahtera"
-        helper="Penjual atau kelompok nelayan yang mendaratkan tangkapan ini."
-      />
       <Field
         label="Harga awal per kg"
         inputMode="numeric"

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Fish, SquaresFour, Star, User, Sliders } from '@phosphor-icons/react/dist/ssr'
+import { Fish, SquaresFour, User, Sliders } from '@phosphor-icons/react/dist/ssr'
 import { Logo } from '@/components/common/logo'
 import { ThemeToggle } from '@/components/common/theme-toggle'
 import { Z } from '@/lib/z'
@@ -22,7 +22,6 @@ const OPERATOR_TABS = [
 
 const BUYER_TABS = [
   { href: '/marketplace', label: 'Marketplace', icon: SquaresFour },
-  { href: '/marketplace?matched=1', label: 'Matched', icon: Star },
   { href: '/preferences', label: 'Preferences', icon: Sliders },
   { href: '/account', label: 'Account', icon: User },
 ]

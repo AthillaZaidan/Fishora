@@ -9,10 +9,11 @@ from apps.main_api.contracts import BidRecord, LotRecord
 from apps.main_api.errors import Forbidden
 from apps.main_api.services.geo import DEFAULT_SERVICEABILITY_RADIUS_KM
 from apps.main_api.services.lots import (
-    MAX_AUCTION_HOURS,
-    MIN_AUCTION_HOURS,
+    AUCTION_MINUTE_OPTIONS,
+    MAX_LOT_COUNT,
     LotService,
 )
+from apps.main_api.services.search import search_lots
 from apps.main_api.services.session import require_role
 
 router = APIRouter(prefix="/api/v1/lots")
@@ -21,11 +22,15 @@ router = APIRouter(prefix="/api/v1/lots")
 class PublishLotRequest(BaseModel):
     prediction_id: str
     operator_id: str | None = None
+    # Per lot: the catch is published as `lot_count` lots of this many kg.
     quantity_kg: Decimal = Field(gt=0)
+    lot_count: int = Field(default=1, ge=1, le=MAX_LOT_COUNT)
     starting_price_per_kg: Decimal = Field(gt=0)
     size_category: Literal["S", "M", "L"]
     landing_point_id: str
-    auction_hours: int | None = Field(default=None, ge=MIN_AUCTION_HOURS, le=MAX_AUCTION_HOURS)
+    auction_minutes: int | None = Field(
+        default=None, description=f"One of {', '.join(map(str, AUCTION_MINUTE_OPTIONS))}"
+    )
     seller_fisher_group: str | None = Field(default=None, max_length=160)
 
 
@@ -44,6 +49,8 @@ class LotResponse(BaseModel):
     public_slug: str
     allocated_buyer_id: str | None = None
     seller_fisher_group: str | None = None
+    batch_index: int = 1
+    batch_size: int = 1
     current_highest_per_kg: Decimal | None = None
     serviceability_radius_km: float = DEFAULT_SERVICEABILITY_RADIUS_KM
 
@@ -105,6 +112,8 @@ def _lot_response(service: LotService, lot: LotRecord) -> LotResponse:
         public_slug=lot.public_slug,
         allocated_buyer_id=lot.allocated_buyer_id,
         seller_fisher_group=lot.seller_fisher_group,
+        batch_index=lot.batch_index,
+        batch_size=lot.batch_size,
         current_highest_per_kg=service.current_highest(lot.id),
         serviceability_radius_km=DEFAULT_SERVICEABILITY_RADIUS_KM,
     )
@@ -120,23 +129,25 @@ def _bid_response(bid: BidRecord) -> BidResponse:
     )
 
 
-@router.post("", response_model=LotResponse)
+@router.post("", response_model=list[LotResponse])
 def publish_lot(payload: PublishLotRequest, request: Request):
+    """Publish a verified catch as `lot_count` lots, each its own auction."""
     user = require_role(request, "operator")
     if payload.operator_id and payload.operator_id != user.id:
         raise Forbidden("operator token cannot publish as another operator")
     service = _service(request)
-    lot = service.publish(
+    lots = service.publish(
         prediction_id=payload.prediction_id,
         operator_id=user.id,
         quantity_kg=payload.quantity_kg,
+        lot_count=payload.lot_count,
         starting_price_per_kg=payload.starting_price_per_kg,
         size_category=payload.size_category,
         landing_point_id=payload.landing_point_id,
-        auction_hours=payload.auction_hours,
+        auction_minutes=payload.auction_minutes,
         seller_fisher_group=payload.seller_fisher_group,
     )
-    return _lot_response(service, lot)
+    return [_lot_response(service, lot) for lot in lots]
 
 
 @router.get("", response_model=list[LotResponse])
@@ -181,6 +192,31 @@ def list_lots(
         serviceability_radius_km=serviceability_radius_km,
     )
     return [_lot_response(service, lot) for lot in lots]
+
+
+class SearchResponse(BaseModel):
+    matches: list[LotResponse]
+    # Other open lots the matched fish's knowledge card names as similar.
+    similar: list[LotResponse]
+    similar_to: list[str]
+
+
+@router.get("/search", response_model=SearchResponse)
+def search_lots_endpoint(
+    request: Request,
+    q: str = Query(default="", max_length=120),
+    min_price: Decimal | None = None,
+    max_price: Decimal | None = None,
+):
+    """Open lots matching `q` by name or knowledge-card characteristics, plus similar fish."""
+    service = _service(request)
+    lots = service.list_lots(status="active", min_price=min_price, max_price=max_price)
+    result = search_lots(lots, q)
+    return SearchResponse(
+        matches=[_lot_response(service, lot) for lot in result.matches],
+        similar=[_lot_response(service, lot) for lot in result.similar],
+        similar_to=result.similar_to,
+    )
 
 
 @router.get("/{lot_id}", response_model=LotResponse)

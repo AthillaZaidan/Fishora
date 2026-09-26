@@ -8,7 +8,8 @@ Bahasa Indonesia.
 The local runtime starts PostgreSQL in Docker and runs the CV service, the API and the web frontend
 on the host. Only the database is containerised, so the CV service can reach a GPU directly when one
 is available; it also runs on CPU at roughly a second per image, which is enough to demonstrate the
-whole flow.
+whole flow. To run every service in containers instead, see
+[Or run everything in Docker](#or-run-everything-in-docker).
 
 **Running this for the first time? Start with [Quick start](#quick-start).**
 
@@ -181,7 +182,7 @@ Commerce, buyers, and session:
 
 | Method | Path | Purpose |
 | --- | --- | --- |
-| POST | `/api/v1/lots` | Publish a lot from a verified prediction. Optional `auction_hours` |
+| POST | `/api/v1/lots` | Publish a verified catch as `lot_count` lots of `quantity_kg` each. Optional `auction_minutes` |
 | GET | `/api/v1/lots` | Public list with filters. `mine=1` scopes it to the signed-in operator |
 | GET | `/api/v1/lots/{id}` | One lot |
 | POST | `/api/v1/lots/{id}/bids` | Place a bid (buyer session) |
@@ -206,8 +207,10 @@ verified prediction directly, so a CV outage cannot strand a catch. It records
 A knowledge card is only issued for a verified prediction. Requesting one for a pending prediction
 returns `409` by design: an AI guess must not become a public commercial record.
 
-`auction_hours` on `POST /api/v1/lots` is optional and bounded by `MIN_AUCTION_HOURS` /
-`MAX_AUCTION_HOURS` (1 to 72) in `apps/main_api/services/lots.py`. Omitting it keeps the 4h default.
+`POST /api/v1/lots` splits one catch into `lot_count` lots (1 to `MAX_LOT_COUNT`, 50) of
+`quantity_kg` each; every lot is its own auction with its own winner, and the response is the list.
+`auction_minutes` is optional and must be one of `AUCTION_MINUTE_OPTIONS` (30, 60, 120, 180) in
+`apps/main_api/services/lots.py`. Omitting it keeps the 60-minute default.
 
 ## Prerequisites
 
@@ -368,6 +371,32 @@ Stop with `Ctrl+C`. All three processes are terminated; PostgreSQL stays up in D
 docker compose down
 ```
 
+### Or run everything in Docker
+
+Needs only Docker and a `.env` (copy `.env.example`); no Python, Node or pnpm on the host:
+
+```bash
+docker compose up --build
+```
+
+Open the frontend on `FISHORA_FRONTEND_PORT` from `.env` (3111 if unset; keep
+`FISHORA_CORS_ALLOW_ORIGINS` in step with it). Compose reads the same `.env` as
+`run_local.sh`, both for the services and for the published ports, and only swaps the host
+addresses (`localhost:55432`, `localhost:8001`) for the service names.
+
+| Service | What it does |
+|---|---|
+| `db` | PostgreSQL + pgvector, same volume and port (55432) as the host workflow |
+| `init` | Migrations, taxonomy (the synthetic fixture if `artifacts/` has none), demo lots into an empty database, then exits |
+| `api` | Main API on `FISHORA_MAIN_API_PORT`, E5 weights baked into the image, `data/` and `reports/` mounted |
+| `frontend` | `next build` + `next start` on `FISHORA_FRONTEND_PORT`. `NEXT_PUBLIC_API_BASE_URL` is a build argument, so rebuild after changing it |
+| `cv` | Opt-in: `COMPOSE_PROFILES=cv` in `.env`. Needs the export under `ai/` and an NVIDIA GPU visible to Docker |
+
+Without the `cv` profile, identification returns 503 and the operator names the species by hand, as
+in the host workflow. Demo lots are seeded only when the database has no lots; set
+`FISHORA_SEED_DEMO_LOTS=0` to skip them. Stop with `docker compose down`; add `-v` to also drop the
+database volume.
+
 ### Running a subset
 
 ```bash
@@ -506,9 +535,10 @@ It writes `reports/<label>/` (JSON artifacts, JUnit XML, coverage) and `reports/
 `reports/` is generated and gitignored; the recorded baseline, including a copy of the dashboard,
 lives in `evals/results/baseline/`.
 
-Expect **35 passed, 15 failed** on the baseline. The failures are deliberate: each one is a weakness
-the fixes must close, and the dashboard lists them with their computed evidence. The test layers
-can also run alone:
+The baseline code (tag `checkpoint-1-baseline`) gives **35 passed, 15 failed**. The failures were
+deliberate: each one is a weakness a fix had to close, and the dashboard lists them with their
+computed evidence. The recorded iteration-1 run passes **all 71**
+(`evals/results/iteration-1/tests.json`). The test layers can also run alone:
 
 ```bash
 HF_HUB_OFFLINE=1 "$PY" -m pytest evals/tests -m unit -q        # no model load, about 2 s
@@ -528,8 +558,9 @@ A full cost run costs about $0.07; the comparison runs 11 cards on each of six m
 "$PY" -m evals.dashboard
 ```
 
-The eval client sends the `x-opencode-session` header the gateway requires. The application client
-does not yet send it, so card generation in the app still fails against OpenCode Go.
+Both the application client and the cost run send the `x-opencode-session` header the gateway
+requires. The cost run drives the application client itself, so a missing header shows up as failed
+cards.
 
 ### Species identification
 
@@ -570,6 +601,22 @@ HF_HUB_OFFLINE=1 "$PY" -m scripts.quality --label current
 
 The dashboard then shows each target metric as baseline, target and current, and
 `reports/comparison.json` lists every test that was fixed or regressed.
+
+### Iteration documentation
+
+Each iteration is recorded as findings, then fixes, then a re-test, in `evals/results/<iteration>/`.
+The documents are generated by `"$PY" -m evals.iteration --name <iteration>` from the run
+artifacts, so their numbers are never typed by hand.
+
+| Document | What it holds |
+| --- | --- |
+| [`evals/results/iteration-1/CYCLES.md`](evals/results/iteration-1/CYCLES.md) | **Start here.** The three main RAG cycles, each with the finding, the product and evaluation fixes, and the re-test |
+| [`evals/results/iteration-1/REPORT.md`](evals/results/iteration-1/REPORT.md) | Every fix (F1 to F18 product, E1 to E7 evaluation) with its source finding, files, tests and metrics; the experiments; what is still open |
+| `evals/results/iteration-1/dashboard.html` | The dashboard, baseline against iteration 1 |
+| `evals/results/iteration-1/iteration.json` | The same record for tools |
+
+Every fix names the finding it came from: W* from the baseline registry in `evals/findings.py`, R* from
+the review critique. A change without a source finding does not go in.
 
 ## Troubleshooting
 
