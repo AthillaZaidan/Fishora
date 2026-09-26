@@ -1,0 +1,379 @@
+{
+  "run": "xf_convnext_t_A",
+  "model_name": "convnext_tiny.dinov3_lvd1689m",
+  "slices": {
+    "clean": {
+      "n": 849,
+      "accuracy": 0.9976442873969376,
+      "macro_f1": 0.9968439706249813,
+      "mean_conf": 0.9914654935217903,
+      "wrong_confident": 0.001177856301531213,
+      "ece": 0.006425024734982437,
+      "accuracy_ci": [
+        0.9941107184923439,
+        1.0
+      ],
+      "macro_f1_ci": [
+        0.9916657536906263,
+        1.0
+      ]
+    },
+    "bg_removed": {
+      "n": 848,
+      "accuracy": 0.9292452830188679,
+      "macro_f1": 0.9349172053309445,
+      "mean_conf": 0.9211106780660379,
+      "wrong_confident": 0.01179245283018868,
+      "ece": 0.0191484988207546,
+      "accuracy_ci": [
+        0.9115566037735849,
+        0.9469339622641509
+      ],
+      "macro_f1_ci": [
+        0.9170190651431981,
+        0.9503011328711513
+      ]
+    },
+    "bg_swap": {
+      "n": 848,
+      "accuracy": 0.8325471698113207,
+      "macro_f1": 0.8550309646226364,
+      "mean_conf": 0.8821253455188679,
+      "wrong_confident": 0.036556603773584904,
+      "ece": 0.06056733844339625,
+      "accuracy_ci": [
+        0.8077830188679245,
+        0.8561320754716981
+      ],
+      "macro_f1_ci": [
+        0.8314120610817693,
+        0.8766588614704373
+      ]
+    },
+    "field": {
+      "n": 129,
+      "accuracy": 0.6201550387596899,
+      "macro_f1": 0.488775502572294,
+      "mean_conf": 0.8210878914728682,
+      "wrong_confident": 0.10077519379844961,
+      "ece": 0.2010711317829457,
+      "accuracy_ci": [
+        0.5426356589147286,
+        0.7054263565891473
+      ],
+      "macro_f1_ci": [
+        0.4131446111135859,
+        0.6103784278123451
+      ]
+    }
+  },
+  "per_class": {
+    "clean": {
+      "bandeng": {
+        "n": 75,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "gelama_bunga": {
+        "n": 38,
+        "recall": 1.0,
+        "f1": 0.987012987012987,
+        "top_confusion": {}
+      },
+      "gembolo": {
+        "n": 148,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "gulamah": {
+        "n": 37,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "kembung": {
+        "n": 82,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "kuniran": {
+        "n": 87,
+        "recall": 0.9885057471264368,
+        "f1": 0.9942196531791907,
+        "top_confusion": {
+          "gelama_bunga": 1
+        }
+      },
+      "mujair": {
+        "n": 50,
+        "recall": 0.98,
+        "f1": 0.98989898989899,
+        "top_confusion": {
+          "nila": 1
+        }
+      },
+      "nila": {
+        "n": 85,
+        "recall": 1.0,
+        "f1": 0.9941520467836257,
+        "top_confusion": {}
+      },
+      "senangin": {
+        "n": 36,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "tenggiri": {
+        "n": 105,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      },
+      "tuna": {
+        "n": 106,
+        "recall": 1.0,
+        "f1": 1.0,
+        "top_confusion": {}
+      }
+    },
+    "field": {
+      "bandeng": {
+        "n": 17,
+        "recall": 0.7058823529411765,
+        "f1": 0.6153846153846154,
+        "top_confusion": {
+          "senangin": 2,
+          "gelama_bunga": 2
+        }
+      },
+      "gelama_bunga": {
+        "n": 12,
+        "recall": 0.5833333333333334,
+        "f1": 0.56,
+        "top_confusion": {
+          "gulamah": 2,
+          "senangin": 1
+        }
+      },
+      "kembung": {
+        "n": 11,
+        "recall": 0.8181818181818182,
+        "f1": 0.6428571428571429,
+        "top_confusion": {
+          "nila": 1,
+          "tuna": 1
+        }
+      },
+      "kuniran": {
+        "n": 8,
+        "recall": 0.25,
+        "f1": 0.4,
+        "top_confusion": {
+          "kembung": 3,
+          "bandeng": 2
+        }
+      },
+      "mujair": {
+        "n": 9,
+        "recall": 0.4444444444444444,
+        "f1": 0.47058823529411764,
+        "top_confusion": {
+          "nila": 5
+        }
+      },
+      "nila": {
+        "n": 15,
+        "recall": 0.8,
+        "f1": 0.7058823529411765,
+        "top_confusion": {
+          "mujair": 2,
+          "senangin": 1
+        }
+      },
+      "senangin": {
+        "n": 24,
+        "recall": 0.625,
+        "f1": 0.6818181818181818,
+        "top_confusion": {
+          "bandeng": 4,
+          "gelama_bunga": 3
+        }
+      },
+      "tenggiri": {
+        "n": 18,
+        "recall": 0.3888888888888889,
+        "f1": 0.5,
+        "top_confusion": {
+          "bandeng": 4,
+          "tuna": 2
+        }
+      },
+      "tuna": {
+        "n": 15,
+        "recall": 0.8,
+        "f1": 0.8,
+        "top_confusion": {
+          "tenggiri": 2,
+          "kembung": 1
+        }
+      }
+    }
+  },
+  "corruption_curves": {
+    "dark": {},
+    "bright": {},
+    "blur": {},
+    "jpeg": {},
+    "lowres": {},
+    "rotate": {},
+    "occlusion": {}
+  },
+  "background": {
+    "fish_erased": {
+      "n": 848,
+      "shortcut_rate": 0.17452830188679244,
+      "chance": 0.09090909090909091,
+      "mean_conf": 0.6923779257075472,
+      "confident_share": 0.2429245283018868,
+      "by_family": {
+        "FISH_GRES": {
+          "n": 489,
+          "shortcut_rate": 0.21267893660531698,
+          "mean_conf": 0.7616978650306748
+        },
+        "ROBOFLOW": {
+          "n": 359,
+          "shortcut_rate": 0.12256267409470752,
+          "mean_conf": 0.5979560584958217
+        }
+      },
+      "by_class": {
+        "bandeng": 0.918918918918919,
+        "gelama_bunga": 0.23684210526315788,
+        "gembolo": 0.18243243243243243,
+        "gulamah": 0.05405405405405406,
+        "kembung": 0.13414634146341464,
+        "kuniran": 0.011494252873563218,
+        "mujair": 0.24,
+        "nila": 0.011764705882352941,
+        "senangin": 0.0,
+        "tenggiri": 0.0761904761904762,
+        "tuna": 0.08490566037735849
+      }
+    },
+    "bg_swap": {
+      "n": 848,
+      "accuracy": 0.8325471698113207,
+      "flip_rate": 0.14504716981132076,
+      "by_source_family": {
+        "FISH_GRES": {
+          "n": 489,
+          "accuracy": 0.9591002044989775,
+          "flip_rate": 0.00408997955010225,
+          "top_predictions": {
+            "nila": 94,
+            "kuniran": 89,
+            "kembung": 82
+          }
+        },
+        "ROBOFLOW": {
+          "n": 359,
+          "accuracy": 0.6601671309192201,
+          "flip_rate": 0.3370473537604457,
+          "top_predictions": {
+            "tuna": 101,
+            "gembolo": 84,
+            "kembung": 75
+          }
+        }
+      },
+      "by_class": {
+        "bandeng": 0.972972972972973,
+        "gelama_bunga": 0.9473684210526315,
+        "gembolo": 0.5675675675675675,
+        "gulamah": 0.8648648648648649,
+        "kembung": 0.9878048780487805,
+        "kuniran": 1.0,
+        "mujair": 0.8,
+        "nila": 1.0,
+        "senangin": 1.0,
+        "tenggiri": 0.5047619047619047,
+        "tuna": 0.9433962264150944
+      }
+    }
+  },
+  "ood": {
+    "ood_unknown_fish": {
+      "n": 89,
+      "mean_conf": 0.8023847303370786,
+      "confident_share": 0.449438202247191,
+      "accepted_at_production_threshold": 1.0,
+      "auroc": 0.9105948852278212,
+      "fpr_at_95_tpr": 0.6179775280898876,
+      "threshold_at_95_tpr": 0.7692440000000009,
+      "top_predictions": {
+        "mujair": 17,
+        "tuna": 15,
+        "kembung": 14
+      },
+      "by_group": {
+        "bawal": 0.8708113333333333,
+        "cakalang": 0.8373465333333332,
+        "gurame": 0.8917498181818181,
+        "kakap": 0.6883371428571429,
+        "kerapu": 0.7814306153846154,
+        "lele": 0.7980882499999999,
+        "patin": 0.7538923846153847
+      }
+    },
+    "ood_nonfish": {
+      "n": 83,
+      "mean_conf": 0.681050638554217,
+      "confident_share": 0.24096385542168675,
+      "accepted_at_production_threshold": 1.0,
+      "auroc": 0.9303656343164066,
+      "fpr_at_95_tpr": 0.3614457831325301,
+      "threshold_at_95_tpr": 0.7692440000000009,
+      "top_predictions": {
+        "mujair": 22,
+        "bandeng": 19,
+        "gembolo": 8
+      },
+      "by_group": {
+        "crab": 0.7448519,
+        "human_hand": 0.794028,
+        "market_floor": 0.6911548,
+        "plastic_bucket": 0.6984456,
+        "shrimp": 0.6134279,
+        "squid": 0.7967374,
+        "tarpaulin": 0.6013455999999999,
+        "wooden_table": 0.6117763,
+        "woven_basket": 0.6567724
+      }
+    },
+    "ood_synthetic": {
+      "n": 22,
+      "mean_conf": 0.6318665454545453,
+      "confident_share": 0.045454545454545456,
+      "accepted_at_production_threshold": 1.0,
+      "auroc": 0.9657928983082359,
+      "fpr_at_95_tpr": 0.13636363636363635,
+      "threshold_at_95_tpr": 0.7692440000000009,
+      "top_predictions": {
+        "gembolo": 8,
+        "kuniran": 7,
+        "mujair": 4
+      },
+      "by_group": {
+        "gradient": 0.65482675,
+        "noise": 0.7067939999999999,
+        "solid": 0.5013496666666667
+      }
+    }
+  },
+  "production_threshold": 0.0
+}
