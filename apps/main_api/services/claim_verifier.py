@@ -114,6 +114,16 @@ def _taxa(text: str, known: frozenset[str]) -> set[str]:
     return {m.group().lower() for m in _TAXON.finditer(text)} | {b for b in known if b in lowered}
 
 
+def _named_in(taxon: str, text: str) -> bool:
+    """A binomial abbreviated in the evidence ("S. commerson"), or a family
+    named by its adjective ("scombrid" for Scombridae), still counts."""
+    lowered = text.lower()
+    if " " in taxon:
+        genus, species = taxon.split(" ", 1)
+        return re.search(rf"\b{re.escape(genus[0])}\.\s*{re.escape(species)}\b", lowered) is not None
+    return taxon.endswith("idae") and re.search(rf"\b{re.escape(taxon[:-2])}s?\b", lowered) is not None
+
+
 def _verified(chunk: RetrievedChunk | None) -> bool:
     return (chunk is not None and chunk.chunk_verification_status == "verified"
             and chunk.source_verification_status == "verified")
@@ -132,7 +142,7 @@ def _deterministic(claim: Claim, by_chunk: dict[str, RetrievedChunk], known: fro
         claim.label, claim.stage = "unsupported", "deterministic"
         claim.reason = f"angka tidak ada di bukti: {', '.join(sorted(missing_numbers))}"
         return
-    missing_taxa = _taxa(claim.text, known) - _taxa(text, known)
+    missing_taxa = {t for t in _taxa(claim.text, known) - _taxa(text, known) if not _named_in(t, text)}
     if missing_taxa:
         claim.label, claim.stage = "unsupported", "deterministic"
         claim.reason = f"nama takson tidak ada di bukti: {', '.join(sorted(missing_taxa))}"

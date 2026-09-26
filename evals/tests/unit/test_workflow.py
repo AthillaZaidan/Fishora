@@ -92,3 +92,15 @@ def test_writer_prompt_requires_indonesian_and_keeping_scope():
 def test_prose_fields_are_split_into_sentences():
     assert claim_verifier.split_field("physical_characteristics", "Tubuh pipih. Panjang 60 cm.") == ["Tubuh pipih.", "Panjang 60 cm."]
     assert claim_verifier.split_field("commercial_uses", ["Segar", " ", "Beku"]) == ["Segar", "Beku"]
+
+
+def test_abbreviated_binomial_and_family_adjective_in_evidence_count_as_named():
+    chunk = replace(TASTE, chunk_id="chunk_tenggiri_processing_001", category="processing_methods",
+                    content="S. commerson is a large pelagic scombrid, commonly made into fish balls.")
+    claims = [claim_verifier.Claim(0, "processing_methods", "Scomberomorus commerson (Scombridae) diolah menjadi bakso ikan.",
+                                   [chunk.chunk_id])]
+    res = claim_verifier.verify(claims, [chunk], _Script(_verdicts("supported")), known_binomials=("Scomberomorus commerson",))
+    assert res.claims[0].label == "supported"
+    other = [claim_verifier.Claim(0, "processing_methods", "Scomberomorus guttatus diolah menjadi bakso ikan.", [chunk.chunk_id])]
+    res = claim_verifier.verify(other, [chunk], _Script(), known_binomials=("Scomberomorus guttatus",))
+    assert res.claims[0].label == "unsupported" and res.claims[0].stage == "deterministic"
