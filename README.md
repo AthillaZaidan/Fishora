@@ -13,6 +13,20 @@ whole flow. To run every service in containers instead, see
 
 **Running this for the first time? Start with [Quick start](#quick-start).**
 
+**Evaluation.** The full evaluation of both AI components (test suites and their rationale, baseline
+failures, before/after results, what did not work and what is still open) is in
+[`evaluation/Evaluation-Artifact.pdf`](evaluation/Evaluation-Artifact.pdf). Headline results:
+
+| Component | Metric | Before | Now |
+| --- | --- | --- | --- |
+| Species identification | Field-photo accuracy (258 real photos) | 67.1% (ViT-B) / 81.8% (ViT-L MVP) | **86.0%** (gated ViT-B, cross-fitted) |
+| Species identification | Wrong and ≥ 90% confident on field photos | 21.3% | **1.6%** |
+| Species identification | Non-fish images accepted | 100% | **0%** |
+| Species identification | CPU latency p50 | 896 ms (ViT-L MVP) | **256 ms** |
+| Knowledge cards | Claims supported by their evidence | 53% | **100%** (79/79) |
+| Knowledge cards | Evidence facts stated on the card | 44.2% | **84–87%** |
+| Knowledge cards | Cost per 1,000 cards | $0.90 | **$0.70** |
+
 ## Quick start
 
 Everything below is copy-paste from the repository root. It assumes Python 3.11+, Node 20.9+ with
@@ -103,10 +117,15 @@ cd ..
 ```
 
 The unpacked export must match the expected location
-`ai/results/fishora_dinov3_large_frozen/export/` and contain `model_state_dict.pt`,
-`inference_config.json` and `inference.py`. If the archive omits the
-`results/fishora_dinov3_large_frozen/` part of the path, move the `export/` folder to
-`ai/results/fishora_dinov3_large_frozen/` after extracting.
+`ai/results/fishora_vit_b_gated/export/` (the default `FISHORA_CV_EXPORT_DIR`) and contain
+`model_state_dict.pt`, `fish_head.pt`, `knn_bank.npy`, `inference_config.json` and `inference.py`.
+If the archive omits the `results/fishora_vit_b_gated/` part of the path, move the `export/` folder
+to `ai/results/fishora_vit_b_gated/` after extracting.
+
+The model is a frozen DINOv3 ViT-B/16 with a calibrated linear head (temperature 0.282) and two
+rejection gates: a not-fish gate (`fish_head.pt`) and an unknown-species gate (nearest-neighbour
+distance to the 4,190 embeddings in `knn_bank.npy`). It runs at about 256 ms per image on a
+4-thread CPU and uses about 1.35 GB of RAM.
 
 Then install the extra packages and start the CV service:
 
@@ -115,10 +134,10 @@ Then install the extra packages and start the CV service:
 FISHORA_CV_DEVICE=cpu "$PY" -m uvicorn apps.cv_service.main:app --host 0.0.0.0 --port 8001
 ```
 
-With it running, `/operator` identifies a photograph instead of asking for the species. Note that the
-shipped export has `abstain_threshold: 0.0`, so the API reports
-`low_confidence_human_verification_required` for every prediction however high the score, and the
-operator always confirms explicitly. That is the intended human-in-the-loop gate, not a fault.
+With it running, `/operator` identifies a photograph instead of asking for the species. A photo that
+is not a fish returns `rejected_not_fish`, and a fish outside the 11 supported species returns
+`rejected_unknown_species`; in both cases the operator picks the species by hand. Every accepted
+prediction is still confirmed or corrected by the operator before a knowledge card is generated.
 
 ### Optional: knowledge cards
 
@@ -132,6 +151,10 @@ Generated cards need three things, in this order:
 ```bash
 "$PY" -c "from huggingface_hub import snapshot_download; snapshot_download('intfloat/multilingual-e5-base')"
 ```
+
+Cards are written by the writer-critic workflow on `gpt-6-luna` at `low` reasoning effort
+(`FISHORA_OPENCODE_GO_REASONING_EFFORT`, default `low`): one writer call drafts one claim per fact,
+and a claim verifier keeps only claims its cited evidence supports.
 
 Miss any of those and the endpoint answers `502 knowledge retrieval is temporarily unavailable`.
 Even with all three, cards come back empty with the limitation `No information available yet` until an
@@ -190,7 +213,7 @@ carry, so a card field can stay empty even though its cell has a chunk (for exam
 | --- | --- | --- | --- |
 | Frontend (Next.js 16) | 3111 | Host, Node | Operator flow, marketplace, public QR profile |
 | Main API (FastAPI) | 8000 | Host, Python | Identification, verification, knowledge cards |
-| CV service (FastAPI) | 8001 | Host, Python + CUDA | DINOv3 species classification |
+| CV service (FastAPI) | 8001 | Host, Python (CPU or CUDA) | Gated DINOv3 ViT-B species classification |
 | PostgreSQL + pgvector | 55432 | Docker | Species, knowledge chunks and embeddings, predictions |
 
 `scripts/run_local.sh` still defaults `FISHORA_FRONTEND_PORT` to 3000, but 3111 is the port used in
@@ -587,8 +610,8 @@ lives in `evals/results/baseline/`.
 The baseline code (tag `checkpoint-1-baseline`) gives **35 passed, 15 failed**. The failures were
 deliberate: each one is a weakness a fix had to close, and the dashboard lists them with their
 computed evidence. The recorded iteration-1 run passes **all 71**
-(`evals/results/iteration-1/tests.json`) and the iteration-2 run **all 84**
-(`evals/results/iteration-2/tests.json`). The test layers can also run alone:
+(`evals/results/iteration-1/tests.json`), the iteration-2 run **all 84**
+(`evals/results/iteration-2/tests.json`), and the current suite passes **all 213**. The test layers can also run alone:
 
 ```bash
 HF_HUB_OFFLINE=1 "$PY" -m pytest evals/tests -m unit -q        # no model load, about 2 s
@@ -646,6 +669,16 @@ PY="$PY" bash evaluation/cv/run_all.sh                    # everything
 SKIP_EXISTING=1 PY="$PY" bash evaluation/cv/run_all.sh    # keep runs that already have predictions.csv
 ```
 
+The two CV iterations after the baseline are also committed:
+
+| Runs | What changed | Notebook / script |
+| --- | --- | --- |
+| `xf_*` (+ `_A`, `_B` folds) | Field photos added to the linear head, scored with photographer-level cross-fitting (`evaluation/cv/protocol/field_folds.lock`); merged by `evaluation.cv.merge_xfit` | `kaggle/fishora_field_probe.ipynb`, `kaggle/fishora_final_vit_b.ipynb` |
+| `gated_vit_b*` | Temperature scaling plus the not-fish and unknown-species gates on ViT-B; `gated_vit_b_final` is the shipped model | `kaggle/fishora_gated_vit_b.ipynb`, `kaggle/build_gated_vit_b.py` |
+
+`evaluation/cv/results/compare/12_runs.csv` compares every run, and the paper figures are generated by
+`evaluation/cv/artifact/figures.py`, `architecture.py` and `system_diagram.py`.
+
 `evaluation/cv/data/` and `evaluation/cv/kaggle_outputs/` (about 9 GB with weights) are gitignored.
 One model can also be run on its own:
 
@@ -665,6 +698,23 @@ The first grades the 221 locked gold claims (`evals/protocol/claims_gold.csv`, A
 annotation reviewed by the team) with every candidate critic and judge. The second generates cards
 for {four-expert graph, writer-critic} x {gpt-5.6-luna, gpt-6-luna} and scores their claims with the
 judge. Results are recorded in `evals/results/iteration-2/`.
+
+### Iteration 3: fact coverage and reasoning effort
+
+Supported claims per card can be inflated by splitting one sentence into several claims, so the
+headline card metric is now **fact coverage**: the share of 243 locked atomic evidence facts
+(`evals/protocol/facts_gold.csv`, AI-assisted annotation reviewed by the team) that a card states
+with a supported claim.
+
+```bash
+HF_HUB_OFFLINE=1 "$PY" -m evals.iteration3 --label iteration-3 --judge glm-5.3-flash
+HF_HUB_OFFLINE=1 "$PY" -m evals.coverage_rescore --report reports/iteration-2/matrix.json --judge glm-5.3-flash
+```
+
+The first generates cards on the current corpus and scores faithfulness and coverage; the second adds
+coverage to cards generated earlier. The 11-species reasoning-effort sweep is recorded in
+`evals/results/iteration-3/effort_sweep_11_coverage.json`: `low` covers 84.0% of facts at $0.70 per
+1,000 cards, against 77.0% at $0.96 for the model default, so `low` is the shipped setting.
 
 ### Compare a change against the baseline
 
