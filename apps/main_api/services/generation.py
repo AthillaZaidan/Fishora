@@ -116,6 +116,8 @@ def make_opencode_go_llm(settings, timeout: float | None = None, session_id: str
         api_key=api_key,
         timeout=timeout if timeout is not None else settings.opencode_go_timeout_seconds,
         use_responses_api=True,
+        **({"reasoning": {"effort": settings.opencode_go_reasoning_effort}}
+           if getattr(settings, "opencode_go_reasoning_effort", None) else {}),
         default_headers={
             "x-opencode-session": session_id or f"fishora-{uuid.uuid4().hex}",
             "User-Agent": USER_AGENT,

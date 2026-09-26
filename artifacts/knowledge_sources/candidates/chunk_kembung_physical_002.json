@@ -1,0 +1,22 @@
+{
+  "claim_id": "claim_kembung_physical_002",
+  "chunk": {
+    "id": "chunk_kembung_physical_002",
+    "species_label": "kembung",
+    "source_id": "fao_scombrids_1983",
+    "category": "physical_characteristics",
+    "content": "Island mackerel (Rastrelliger faughni) has a moderately deep body with the head longer than the body depth, very long gillrakers visible when the mouth is open, narrow dark longitudinal bands on the upper body (golden in fresh specimens), a black spot near the lower margin of the pectoral fin, and yellowish dorsal fins with black tips.",
+    "source_quote": "Body moderately deep, its depth at margin of gill cover 4.3 to 5.2 times in fork length; head longer than body depth. ... gillrakers very long, visible when mouth is opened ... Colour: narrow dark longitudinal bands on upper part of body (golden in fresh specimens) and a black spot on body near lower margin of pectoral fin; dorsal fins yellowish with black tips, caudal and pectoral fins yellowish; other fins dusky.",
+    "stage": "knowledge_editor",
+    "verification_status": "candidate"
+  },
+  "source": {
+    "id": "fao_scombrids_1983",
+    "title": "FAO Species Catalogue Vol. 2. Scombrids of the World (Collette & Nauen, 1983), FAO Fisheries Synopsis No. 125",
+    "source_type": "species_catalogue",
+    "url": "https://www.vliz.be/imisdocs/publications/307984.pdf",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "reviewed_at": null,
+    "verification_status": "candidate"
+  }
+}

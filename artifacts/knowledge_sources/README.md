@@ -85,8 +85,17 @@ escapes are rejected before any read or write; `candidate_dir` and
 
 ## Corpus
 
-- 11 labels, **33 candidate chunks**, **20 sources** (FishBase, FAO, and
-  peer-reviewed journal articles; all URLs revalidated 2026-08-23).
+- 11 labels, **66 candidate chunks**, **33 sources** (FishBase, FAO fact
+  sheets and species catalogues, NOAA, peer-reviewed journal articles, and
+  the Sydney Fish Market species guide for taste, cuts and market
+  alternatives), covering 51 of the 66 species x category cells.
+- Corpus v2 (2026-09-26) added 17 chunks for the gaps in
+  `coverage-report.json`: substitutes for kembung, nila, mujair, senangin,
+  tenggiri and tuna; taste for tenggiri, tuna, bandeng and nila; more
+  processing and commercial evidence. Market-guide chunks are scoped to the
+  one species the page describes (e.g. S. commerson within tenggiri).
+  `evals/protocol/corpus_v1_chunks.txt` pins the earlier 49 chunks for
+  reproducing the iteration-1/2 results.
 - Categories: `identity`, `physical_characteristics`, `taste_texture`,
   `processing_methods`, `commercial_uses`, `substitutes` (exactly these six).
 - Every claim's `source_quote` is an exact supporting excerpt from the cited
